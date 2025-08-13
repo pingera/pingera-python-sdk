@@ -43,8 +43,8 @@ export PINGERA_API_KEY="your_api_token"
 ### Basic Usage
 
 ```python
-from pingera_generated import ApiClient, Configuration
-from pingera_generated.api import ChecksApi, StatusPagesComponentsApi
+from pingera import ApiClient, Configuration
+from pingera.api import ChecksApi, StatusPagesComponentsApi
 
 # Configure the client
 configuration = Configuration()
@@ -71,7 +71,7 @@ with ApiClient(configuration) as api_client:
 The SDK provides access to all Pingera API endpoints through these API classes:
 
 ```python
-from pingera_generated.api import (
+from pingera.api import (
     StatusPagesComponentsApi,    # Manage status page components
     StatusPagesIncidentsApi,     # Manage incidents and maintenance
     ChecksApi,                   # Manage monitoring checks
@@ -87,7 +87,7 @@ from pingera_generated.api import (
 All API requests and responses use typed Pydantic models:
 
 ```python
-from pingera_generated.models import (
+from pingera.models import (
     Component,
     IncidentCreate,
     IncidentUpdateCreate,
@@ -132,7 +132,7 @@ Check the `examples/` directory for comprehensive usage examples:
 ### Manual Configuration
 
 ```python
-from pingera_generated import Configuration
+from pingera import Configuration
 
 configuration = Configuration()
 configuration.host = "https://api.pingera.ru"
@@ -149,7 +149,7 @@ configuration.timeout = 30
 The SDK uses proper exception handling:
 
 ```python
-from pingera_generated.exceptions import ApiException
+from pingera.exceptions import ApiException
 
 try:
     checks = checks_api.v1_checks_get()

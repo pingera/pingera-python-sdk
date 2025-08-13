@@ -11,9 +11,9 @@ This example demonstrates:
 import os
 from datetime import datetime
 
-from pingera_generated import ApiClient, Configuration
-from pingera_generated.api import StatusPagesComponentsApi, StatusPagesIncidentsApi, ChecksApi
-from pingera_generated.exceptions import ApiException
+from pingera import ApiClient, Configuration
+from pingera.api import StatusPagesComponentsApi, StatusPagesIncidentsApi, ChecksApi
+from pingera.exceptions import ApiException
 
 
 def setup_client():

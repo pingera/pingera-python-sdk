@@ -14,10 +14,10 @@ import time
 import json
 from datetime import datetime
 
-from pingera_generated import ApiClient, Configuration
-from pingera_generated.api import OnDemandChecksApi
-from pingera_generated.models import ExecuteCustomCheckRequest
-from pingera_generated.exceptions import ApiException
+from pingera import ApiClient, Configuration
+from pingera.api import OnDemandChecksApi
+from pingera.models import ExecuteCustomCheckRequest
+from pingera.exceptions import ApiException
 
 
 def setup_client():

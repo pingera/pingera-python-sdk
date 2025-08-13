@@ -34,7 +34,7 @@ def main():
         "-i", spec_file,
         "-g", "python",
         "-o", output_dir,
-        "--package-name", "pingera_generated",
+        "--package-name", "pingera",
         "--additional-properties", "packageVersion=1.0.0,projectName=pingera-generated-client"
     ]
     
