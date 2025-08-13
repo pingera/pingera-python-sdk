@@ -1,0 +1,19 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "A comprehensive Python SDK for the [Pingera monitoring platform API](https://api.pingera.ru). This SDK provides a Pythonic interface for managing status page components, incidents, organizations, and monitoring resources through the Pingera API.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.22.0"
+  }
+}

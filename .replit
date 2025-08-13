@@ -1,0 +1,91 @@
+modules = ["python-3.11", "nodejs-20"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["libxcrypt", "nodejs", "openjdk"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Install Dependencies"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "test_sdk"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "test_comprehensive_sdk"
+
+[[workflows.workflow]]
+name = "Install Dependencies"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -e . && pip install httpx>=0.24.0 pydantic>=2.0.0 typing-extensions>=4.0.0 pytest>=7.0.0"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "test_sdk"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -e . && python examples/basic_usage.py"
+
+[[workflows.workflow]]
+name = "Install and Test Generated Client"
+author = 39311518
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -e client/"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python examples/basic_usage.py"
+
+[[workflows.workflow]]
+name = "Run All Examples"
+author = 39311518
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -e client/"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python examples/basic_usage.py"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python examples/generated_client_usage.py"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"Note: component_management.py and incident_management.py require PINGERA_PAGE_ID environment variable\""
+
+[[workflows.workflow]]
+name = "test_comprehensive_sdk"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd /home/runner/workspace && PYTHONPATH=/home/runner/workspace python examples/comprehensive_sdk_usage.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
