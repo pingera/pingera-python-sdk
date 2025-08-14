@@ -48,6 +48,7 @@ client = PingeraClient(auth=BearerTokenAuth("token"), base_url="https://api.ping
 - `client.checks_unified_results` - ChecksUnifiedResultsApi instance
 - `client.heartbeats` - HeartbeatsApi instance
 - `client.on_demand_checks` - OnDemandChecksApi instance
+- `client.status_pages` - StatusPagesApi instance
 - `client.components` - StatusPagesComponentsApi instance
 - `client.incidents` - StatusPagesIncidentsApi instance
 
@@ -71,17 +72,55 @@ auth = APIKeyAuth("your_api_key")
 - `PINGERA_API_KEY` - API key for authentication
 - `PINGERA_PAGE_ID` - Default page ID for status page operations
 
+## Status Pages API Methods
+
+### StatusPagesApi (`client.status_pages`)
+
+Methods for managing status pages themselves:
+
+```python
+# List all status pages
+pages = client.status_pages.v1_pages_get(
+    page=1,           # Optional: page number
+    page_size=20      # Optional: items per page
+)
+
+# Get specific status page
+page = client.status_pages.v1_pages_page_id_get(page_id="page_123")
+
+# Create new status page
+from pingera_generated.models import StatusPageCreate
+new_page = StatusPageCreate(
+    name="My Status Page",
+    description="Status page for our services",
+    subdomain="status",
+    theme="light"
+)
+
+created_page = client.status_pages.v1_pages_post(new_page)
+
+# Update status page
+updated_page = client.status_pages.v1_pages_page_id_put(
+    page_id="page_123",
+    page_data=updated_data
+)
+
+# Delete status page
+client.status_pages.v1_pages_page_id_delete(page_id="page_123")
+```
+
 ## Available API Modules
 
-The SDK provides access to 7 main API modules, each corresponding to a specific area of the Pingera platform:
+The SDK provides access to 8 main API modules, each corresponding to a specific area of the Pingera platform:
 
 1. **AlertsApi** (`client.alerts`) - Manage alerts and notifications
 2. **ChecksApi** (`client.checks`) - Manage monitoring checks
 3. **ChecksUnifiedResultsApi** (`client.checks_unified_results`) - Query unified check results
 4. **HeartbeatsApi** (`client.heartbeats`) - Manage heartbeat monitoring
 5. **OnDemandChecksApi** (`client.on_demand_checks`) - Execute checks on demand
-6. **StatusPagesComponentsApi** (`client.components`) - Manage status page components
-7. **StatusPagesIncidentsApi** (`client.incidents`) - Manage incidents and maintenance
+6. **StatusPagesApi** (`client.status_pages`) - Manage status pages
+7. **StatusPagesComponentsApi** (`client.components`) - Manage status page components
+8. **StatusPagesIncidentsApi** (`client.incidents`) - Manage incidents and maintenance
 
 ## Alerts API Methods
 

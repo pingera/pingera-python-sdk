@@ -24,6 +24,7 @@ from pingera.api import (
     ChecksUnifiedResultsApi,
     HeartbeatsApi,
     OnDemandChecksApi,
+    StatusPagesApi,
     StatusPagesComponentsApi,
     StatusPagesIncidentsApi
 )
@@ -124,6 +125,31 @@ def demonstrate_components_api(api_client):
         print(f"✗ Components API error: {e}")
 
 
+def demonstrate_status_pages_api(api_client):
+    """Demonstrate Status Pages API functionality."""
+    print("\n--- Status Pages API ---")
+    try:
+        status_pages_api = StatusPagesApi(api_client)
+        print("✓ Status Pages API initialized")
+        print("Available methods:")
+        print("- v1_pages_get() - List all status pages")
+        print("- v1_pages_post(page_data) - Create new status page")
+        print("- v1_pages_page_id_get(page_id) - Get specific status page")
+        print("- v1_pages_page_id_put(page_id, page_data) - Update status page")
+        print("- v1_pages_page_id_delete(page_id) - Delete status page")
+        
+        # Try to list pages if authentication is available
+        if os.getenv("PINGERA_API_KEY") or os.getenv("PINGERA_BEARER_TOKEN"):
+            try:
+                pages = status_pages_api.v1_pages_get()
+                print(f"✓ Successfully retrieved status pages data")
+            except ApiException as e:
+                print(f"  Note: Authentication required for live data: [{e.status}]")
+                
+    except Exception as e:
+        print(f"✗ Status Pages API error: {e}")
+
+
 def demonstrate_incidents_api(api_client):
     """Demonstrate Status Pages Incidents API functionality."""
     print("\n--- Status Pages Incidents API ---")
@@ -193,6 +219,7 @@ def main():
             demonstrate_heartbeats_api(api_client)
             demonstrate_on_demand_checks_api(api_client)
             demonstrate_unified_results_api(api_client)
+            demonstrate_status_pages_api(api_client)
             demonstrate_components_api(api_client)
             demonstrate_incidents_api(api_client)
             

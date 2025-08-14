@@ -9,6 +9,7 @@ A comprehensive Python SDK for the [Pingera monitoring platform API](https://api
 - **Type Safety**: Full type hints and Pydantic model validation
 - **Easy Authentication**: Support for Bearer tokens and API keys
 - **Comprehensive**: All Pingera API endpoints supported:
+  - Status Pages Management
   - Status Pages (Components & Incidents)
   - Monitoring Checks
   - Heartbeats
@@ -57,6 +58,11 @@ with ApiClient(configuration) as api_client:
     checks_api = ChecksApi(api_client)
     components_api = StatusPagesComponentsApi(api_client)
     
+    # List status pages
+    status_pages_api = StatusPagesApi(api_client)
+    pages = status_pages_api.v1_pages_get()
+    print(f"Found {len(pages.data)} status pages")
+    
     # List monitoring checks
     checks = checks_api.v1_checks_get(page=1, page_size=10)
     print(f"Found {len(checks.checks)} checks")
@@ -72,6 +78,7 @@ The SDK provides access to all Pingera API endpoints through these API classes:
 
 ```python
 from pingera.api import (
+    StatusPagesApi,              # Manage status pages
     StatusPagesComponentsApi,    # Manage status page components
     StatusPagesIncidentsApi,     # Manage incidents and maintenance
     ChecksApi,                   # Manage monitoring checks
@@ -115,9 +122,10 @@ new_incident = IncidentCreate(
 Check the `examples/` directory for comprehensive usage examples:
 
 - [`basic_usage.py`](examples/basic_usage.py) - Basic client setup and operations
+- [`status_pages_management.py`](examples/status_pages_management.py) - Status pages CRUD operations
 - [`component_management.py`](examples/component_management.py) - Component CRUD operations
 - [`incident_management.py`](examples/incident_management.py) - Incident and maintenance management
-- [`generated_client_usage.py`](examples/generated_client_usage.py) - Comprehensive API demonstration
+- [`comprehensive_sdk_usage.py`](examples/comprehensive_sdk_usage.py) - Comprehensive API demonstration
 - [`on_demand_synthetic_check.py`](examples/on_demand_synthetic_check.py) - Execute synthetic check with playwright script and get the result
 
 ## Configuration
