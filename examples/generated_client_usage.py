@@ -13,8 +13,8 @@ This example demonstrates:
 import os
 from datetime import datetime
 
-from pingera_generated import ApiClient, Configuration
-from pingera_generated.api import (
+from pingera import ApiClient, Configuration
+from pingera.api import (
     StatusPagesComponentsApi,
     StatusPagesIncidentsApi,
     ChecksApi,
@@ -23,13 +23,13 @@ from pingera_generated.api import (
     OnDemandChecksApi,
     ChecksUnifiedResultsApi
 )
-from pingera_generated.models import (
+from pingera.models import (
     ComponentUptimeBulkRequest,
     IncidentCreate,
     IncidentUpdateCreate,
     ExecuteCustomCheckRequest
 )
-from pingera_generated.exceptions import ApiException
+from pingera.exceptions import ApiException
 
 
 class PingeraClient:

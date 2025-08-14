@@ -12,10 +12,10 @@ This example demonstrates:
 import os
 from datetime import datetime, timedelta
 
-from pingera_generated import ApiClient, Configuration
-from pingera_generated.api import StatusPagesIncidentsApi
-from pingera_generated.models import IncidentCreate, IncidentUpdateCreate, IncidentUpdateEdit
-from pingera_generated.exceptions import ApiException
+from pingera import ApiClient, Configuration
+from pingera.api import StatusPagesIncidentsApi
+from pingera.models import IncidentCreate, IncidentUpdateCreate, IncidentUpdateEdit
+from pingera.exceptions import ApiException
 
 
 def setup_client():
