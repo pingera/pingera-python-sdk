@@ -184,7 +184,8 @@ def main():
             print(f"\n=== API Configuration ===")
             print(f"- Host: {api_client.configuration.host}")
             print(f"- Authentication: {'Bearer Token' if api_client.configuration.access_token else 'API Key'}")
-            print(f"- User Agent: {api_client.configuration.user_agent}")
+            user_agent = getattr(api_client.configuration, 'user_agent', 'N/A')
+            print(f"- User Agent: {user_agent}")
             
             # Demonstrate each API
             demonstrate_alerts_api(api_client)
