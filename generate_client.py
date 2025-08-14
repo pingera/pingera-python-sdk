@@ -35,7 +35,7 @@ def main():
         "-g", "python",
         "-o", output_dir,
         "--package-name", "pingera",
-        "--additional-properties", "packageVersion=1.0.1,projectName=pingera-generated-client"
+        "--additional-properties", "packageVersion=1.0.2,projectName=pingera-generated-client"
     ]
     
     try:
