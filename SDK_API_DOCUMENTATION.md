@@ -89,7 +89,7 @@ pages = client.status_pages.v1_pages_get(
 page = client.status_pages.v1_pages_page_id_get(page_id="page_123")
 
 # Create new status page
-from pingera_generated.models import StatusPageCreate
+from pingera.models import StatusPageCreate
 new_page = StatusPageCreate(
     name="My Status Page",
     description="Status page for our services",
@@ -140,7 +140,7 @@ alerts = client.alerts.v1_alerts_get(
 alert = client.alerts.v1_alerts_alert_id_get(alert_id="alert_123")
 
 # Create new alert
-from pingera_generated.models import Alert
+from pingera.models import Alert
 new_alert = client.alerts.v1_alerts_post(alert_data)
 
 # Update alert
@@ -290,7 +290,7 @@ Methods for executing checks on demand:
 
 ```python
 # Execute custom check
-from pingera_generated.models import ExecuteCustomCheckRequest
+from pingera.models import ExecuteCustomCheckRequest
 
 check_request = ExecuteCustomCheckRequest(
     url="https://example.com",
@@ -341,7 +341,7 @@ component = client.components.v1_pages_page_id_components_component_id_get(
 )
 
 # Create new component
-from pingera_generated.models import Component
+from pingera.models import Component
 new_component = Component(
     name="API Server",
     description="Main API endpoint", 
@@ -382,7 +382,7 @@ uptime = client.components.v1_pages_page_id_components_component_id_uptime_get(
 )
 
 # Bulk update component uptime
-from pingera_generated.models import ComponentUptimeBulkRequest
+from pingera.models import ComponentUptimeBulkRequest
 bulk_request = ComponentUptimeBulkRequest(...)
 client.components.v1_pages_page_id_components_uptime_bulk_post(
     page_id="page_123",
@@ -412,7 +412,7 @@ incident = client.incidents.v1_pages_page_id_incidents_incident_id_get(
 )
 
 # Create new incident
-from pingera_generated.models import IncidentCreate
+from pingera.models import IncidentCreate
 new_incident = IncidentCreate(
     name="Database Issues",
     body="We are investigating database connectivity issues",
@@ -439,7 +439,7 @@ client.incidents.v1_pages_page_id_incidents_incident_id_delete(
 )
 
 # Add incident update
-from pingera_generated.models import IncidentUpdateCreate
+from pingera.models import IncidentUpdateCreate
 incident_update = IncidentUpdateCreate(
     body="We have identified the issue and are working on a fix",
     status="identified"
@@ -487,7 +487,7 @@ client.incidents.v1_pages_page_id_incidents_incident_id_updates_update_id_delete
 The SDK uses Pydantic models for all API requests and responses. Key models include:
 
 ```python
-from pingera_generated.models import (
+from pingera.models import (
     Alert,                           # Alert configuration
     AlertChannel,                    # Alert notification channels
     AlertRule,                       # Alert rules and conditions
@@ -531,7 +531,7 @@ from pingera.exceptions import (
     PingeraNetworkError             # Network-related errors
 )
 
-from pingera_generated.exceptions import ApiException  # Generated client exceptions
+from pingera.exceptions import ApiException  # Generated client exceptions
 ```
 
 ### Error Handling Example
@@ -576,7 +576,7 @@ Common filters across endpoints:
 
 ```python
 from pingera import PingeraClient
-from pingera_generated.models import Component, IncidentCreate
+from pingera.models import Component, IncidentCreate
 
 # Initialize client
 client = PingeraClient.from_env()
@@ -612,7 +612,7 @@ checks = client.checks.v1_checks_get(page_size=50)
 print(f"Found {len(checks.checks)} checks")
 
 # Execute an on-demand check
-from pingera_generated.models import ExecuteCustomCheckRequest
+from pingera.models import ExecuteCustomCheckRequest
 check_request = ExecuteCustomCheckRequest(
     url="https://api.example.com/health",
     type="web",
