@@ -14,7 +14,7 @@ from datetime import datetime
 
 from pingera import ApiClient, Configuration
 from pingera.api import StatusPagesComponentsApi
-from pingera.models import Component, ComponentUptimeBulkRequest, Component1
+from pingera.models import Component, Component1
 from pingera.exceptions import ApiException
 
 
@@ -191,30 +191,21 @@ def main():
             except ApiException as e:
                 print(f"✗ Failed to create/manage component: [{e.status}] {e.reason}")
 
-            # Demonstrate bulk uptime calculation (if components exist)
-            print("\n3. Bulk uptime calculation...")
-            try:
-                if components:
-                    # Get IDs of first few components
-                    component_ids = [
-                        getattr(comp, 'id') for comp in components[:3]
-                        if hasattr(comp, 'id')
-                    ]
-
-                    if component_ids:
-                        bulk_request = ComponentUptimeBulkRequest(component_ids=component_ids)
-                        uptime_response = components_api.v1_pages_page_id_components_uptime_bulk_post(
-                            PAGE_ID, bulk_request
-                        )
-                        print(f"✓ Bulk uptime calculation completed")
-                        print(f"   Response: {type(uptime_response)}")
-                    else:
-                        print("! No component IDs available for bulk calculation")
-                else:
-                    print("! No components available for bulk uptime calculation")
-
-            except ApiException as e:
-                print(f"✗ Failed bulk uptime calculation: [{e.status}] {e.reason}")
+            # Show component details
+            print("\n3. Component details...")
+            if components:
+                print(f"✓ Successfully retrieved {len(components)} components")
+                print("   Sample component fields:")
+                if len(components) > 0:
+                    first_comp = components[0]
+                    print(f"   - ID: {getattr(first_comp, 'id', 'N/A')}")
+                    print(f"   - Name: {getattr(first_comp, 'name', 'N/A')}")
+                    print(f"   - Status: {getattr(first_comp, 'status', 'N/A')}")
+                    print(f"   - Description: {getattr(first_comp, 'description', 'N/A')}")
+                    print(f"   - Created: {getattr(first_comp, 'created_at', 'N/A')}")
+                    print(f"   - Start Date: {getattr(first_comp, 'start_date', 'N/A')}")
+            else:
+                print("! No components available for details")
 
             print("\n=== Component management example completed! ===")
 
