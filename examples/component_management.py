@@ -65,15 +65,52 @@ def main():
             # List existing components
             print("1. Listing existing components...")
             try:
+                # Get the actual raw response using the with_raw_response method
+                import pingera
+                
+                # Let's make a direct API call to see the raw HTTP response
+                print("🔧 Debug: Making direct API call...")
+                
+                # Access the underlying HTTP client to see raw response
+                with api_client as client:
+                    # Get the configuration to see what URL will be called
+                    config = client.configuration
+                    url = f"{config.host}/v1/pages/{PAGE_ID}/components"
+                    headers = {
+                        'User-Agent': 'OpenAPI-Generator/1.0.0/python',
+                        'Accept': 'application/json'
+                    }
+                    
+                    # Add authentication header
+                    if config.api_key and 'apiKeyAuth' in config.api_key:
+                        headers['Authorization'] = f"Bearer {config.api_key['apiKeyAuth']}"
+                    elif config.access_token:
+                        headers['Authorization'] = f"Bearer {config.access_token}"
+                    
+                    print(f"🔧 Debug: URL: {url}")
+                    print(f"🔧 Debug: Headers: {headers}")
+                    
+                    # Make raw HTTP request to see what we get
+                    import httpx
+                    raw_response = httpx.get(url, headers=headers, timeout=30)
+                    print(f"🔧 Debug: Raw HTTP Status: {raw_response.status_code}")
+                    print(f"🔧 Debug: Raw HTTP Headers: {dict(raw_response.headers)}")
+                    print(f"🔧 Debug: Raw HTTP Content: {raw_response.text[:500]}...")
+                    
+                # Now try the SDK call
                 components_response = components_api.v1_pages_page_id_components_get(PAGE_ID)
                 
                 # Debug the response structure
-                print(f"🔧 Debug: Response type: {type(components_response)}")
-                print(f"🔧 Debug: Response attributes: {dir(components_response)}")
+                print(f"🔧 Debug: SDK Response type: {type(components_response)}")
+                if components_response is not None:
+                    print(f"🔧 Debug: SDK Response attributes: {dir(components_response)}")
                 
                 # Try different ways to access the data
                 components = None
-                if hasattr(components_response, 'data'):
+                if components_response is None:
+                    print("🔧 Debug: SDK returned None - this indicates a deserialization issue")
+                    components = []
+                elif hasattr(components_response, 'data'):
                     components = components_response.data
                     print(f"🔧 Debug: Found 'data' attribute with {len(components) if components else 0} items")
                 elif hasattr(components_response, 'components'):
