@@ -83,7 +83,7 @@ def main():
                     
                     # Add authentication header
                     if config.api_key and 'apiKeyAuth' in config.api_key:
-                        headers['Authorization'] = f"Bearer {config.api_key['apiKeyAuth']}"
+                        headers['Authorization'] = config.api_key['apiKeyAuth']
                     elif config.access_token:
                         headers['Authorization'] = f"Bearer {config.access_token}"
                     
