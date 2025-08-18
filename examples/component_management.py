@@ -14,7 +14,7 @@ from datetime import datetime
 
 from pingera import ApiClient, Configuration
 from pingera.api import StatusPagesComponentsApi
-from pingera.models import Component1, ComponentUptimeBulkRequest
+from pingera.models import Component, ComponentUptimeBulkRequest
 from pingera.exceptions import ApiException
 
 
@@ -87,7 +87,7 @@ def main():
             # Create a new component (example)
             print("\n2. Creating a new component...")
             try:
-                new_component = Component1(
+                new_component = Component(
                     name=f"Test Component {datetime.now().strftime('%H:%M:%S')}",
                     description="Created by Python SDK example",
                     status="operational"
@@ -108,7 +108,7 @@ def main():
 
                     # Update the component status
                     print("   Updating component status...")
-                    updated_component = Component1(
+                    updated_component = Component(
                         name=comp_name,
                         description="Updated by Python SDK",
                         status="under_maintenance"

@@ -22,7 +22,7 @@ except ImportError as e:
 
 try:
     from pingera.models import Component1
-    print("✓ Successfully imported Component1")
+    print("✓ Successfully imported Component1 (backup)")
     if COMPONENT_MODEL is None:
         COMPONENT_MODEL = Component1
 except ImportError as e:
@@ -30,7 +30,7 @@ except ImportError as e:
 
 try:
     from pingera.models import ComponentCreate
-    print("✓ Successfully imported ComponentCreate")
+    print("✓ Successfully imported ComponentCreate (backup)")
     if COMPONENT_MODEL is None:
         COMPONENT_MODEL = ComponentCreate
 except ImportError as e:
