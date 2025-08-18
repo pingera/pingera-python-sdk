@@ -90,7 +90,8 @@ def main():
                 new_component = Component(
                     name=f"Test Component {datetime.now().strftime('%H:%M:%S')}",
                     description="Created by Python SDK example",
-                    status="operational"
+                    status="operational",
+                    start_date=datetime.now().strftime('%Y-%m-%d')
                 )
 
                 print(f"   Creating component: {new_component}")
@@ -111,7 +112,8 @@ def main():
                     updated_component = Component(
                         name=comp_name,
                         description="Updated by Python SDK",
-                        status="under_maintenance"
+                        status="under_maintenance",
+                        start_date=datetime.now().strftime('%Y-%m-%d')
                     )
 
                     updated = components_api.v1_pages_page_id_components_component_id_put(
