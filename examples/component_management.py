@@ -66,7 +66,31 @@ def main():
             print("1. Listing existing components...")
             try:
                 components_response = components_api.v1_pages_page_id_components_get(PAGE_ID)
-                components = getattr(components_response, 'data', [])
+                
+                # Debug the response structure
+                print(f"🔧 Debug: Response type: {type(components_response)}")
+                print(f"🔧 Debug: Response attributes: {dir(components_response)}")
+                
+                # Try different ways to access the data
+                components = None
+                if hasattr(components_response, 'data'):
+                    components = components_response.data
+                    print(f"🔧 Debug: Found 'data' attribute with {len(components) if components else 0} items")
+                elif hasattr(components_response, 'components'):
+                    components = components_response.components
+                    print(f"🔧 Debug: Found 'components' attribute with {len(components) if components else 0} items")
+                elif isinstance(components_response, list):
+                    components = components_response
+                    print(f"🔧 Debug: Response is a list with {len(components)} items")
+                else:
+                    # Check if the response itself is the components list
+                    try:
+                        # Try to iterate to see if it's iterable
+                        components = list(components_response) if components_response else []
+                        print(f"🔧 Debug: Converted response to list with {len(components)} items")
+                    except:
+                        print(f"🔧 Debug: Could not convert response to list")
+                        components = []
 
                 if components:
                     print(f"✓ Found {len(components)} components:")
