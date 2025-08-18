@@ -86,7 +86,13 @@ def main():
                     status="operational"
                 )
 
+                print(f"   Creating component: {new_component}")
+                print(f"   Component type: {type(new_component)}")
+                
+                # Debug the API call
                 created = components_api.v1_pages_page_id_components_post(PAGE_ID, new_component)
+                print(f"   Raw response: {created}")
+                print(f"   Response type: {type(created)}")
                 comp_id = getattr(created, 'id', None)
                 comp_name = getattr(created, 'name', 'unknown')
 
