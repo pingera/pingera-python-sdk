@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pingera-sdk"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
     {name = "Pingera Team", email = "privet@pingera.ru"},
 ]
