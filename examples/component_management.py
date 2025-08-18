@@ -14,7 +14,7 @@ from datetime import datetime
 
 from pingera import ApiClient, Configuration
 from pingera.api import StatusPagesComponentsApi
-from pingera.models import Component, ComponentUptimeBulkRequest
+from pingera.models import Component, ComponentUptimeBulkRequest, Component1
 from pingera.exceptions import ApiException
 
 
@@ -67,10 +67,10 @@ def main():
             try:
                 # Get the actual raw response using the with_raw_response method
                 import pingera
-                
+
                 # Let's make a direct API call to see the raw HTTP response
                 print("🔧 Debug: Making direct API call...")
-                
+
                 # Access the underlying HTTP client to see raw response
                 with api_client as client:
                     # Get the configuration to see what URL will be called
@@ -80,31 +80,31 @@ def main():
                         'User-Agent': 'OpenAPI-Generator/1.0.0/python',
                         'Accept': 'application/json'
                     }
-                    
+
                     # Add authentication header
                     if config.api_key and 'apiKeyAuth' in config.api_key:
                         headers['Authorization'] = config.api_key['apiKeyAuth']
                     elif config.access_token:
                         headers['Authorization'] = f"Bearer {config.access_token}"
-                    
+
                     print(f"🔧 Debug: URL: {url}")
                     print(f"🔧 Debug: Headers: {headers}")
-                    
+
                     # Make raw HTTP request to see what we get
                     import httpx
                     raw_response = httpx.get(url, headers=headers, timeout=30)
                     print(f"🔧 Debug: Raw HTTP Status: {raw_response.status_code}")
                     print(f"🔧 Debug: Raw HTTP Headers: {dict(raw_response.headers)}")
                     print(f"🔧 Debug: Raw HTTP Content: {raw_response.text[:500]}...")
-                    
+
                 # Now try the SDK call
                 components_response = components_api.v1_pages_page_id_components_get(PAGE_ID)
-                
+
                 # Debug the response structure
                 print(f"🔧 Debug: SDK Response type: {type(components_response)}")
                 if components_response is not None:
                     print(f"🔧 Debug: SDK Response attributes: {dir(components_response)}")
-                
+
                 # Try different ways to access the data
                 components = None
                 if components_response is None:
@@ -157,7 +157,7 @@ def main():
 
                 print(f"   Creating component: {new_component}")
                 print(f"   Component type: {type(new_component)}")
-                
+
                 # Debug the API call
                 created = components_api.v1_pages_page_id_components_post(PAGE_ID, new_component)
                 print(f"   Raw response: {created}")
@@ -170,15 +170,14 @@ def main():
 
                     # Update the component status
                     print("   Updating component status...")
-                    updated_component = Component(
+                    comp_update = Component1(
                         name=comp_name,
-                        description="Updated by Python SDK",
-                        status="under_maintenance",
-                        start_date=datetime.now().strftime('%Y-%m-%d')
+                        description="Updated by Python SDK example",
+                        status="degraded_performance"
                     )
 
                     updated = components_api.v1_pages_page_id_components_component_id_put(
-                        PAGE_ID, comp_id, updated_component
+                        PAGE_ID, comp_id, comp_update
                     )
                     print(f"✓ Updated status to: {getattr(updated, 'status', 'unknown')}")
 
