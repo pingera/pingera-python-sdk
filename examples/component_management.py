@@ -26,10 +26,17 @@ def setup_client():
     bearer_token = os.getenv("PINGERA_BEARER_TOKEN")
     api_key = os.getenv("PINGERA_API_KEY")
 
+    print(f"🔧 Debug: API Host: {configuration.host}")
+    print(f"🔧 Debug: Bearer token present: {bool(bearer_token)}")
+    print(f"🔧 Debug: API key present: {bool(api_key)}")
+
     if bearer_token:
         configuration.access_token = bearer_token
+        print("🔧 Debug: Using Bearer token authentication")
     elif api_key:
-        configuration.api_key['Authorization'] = f"Bearer {api_key}"
+        configuration.api_key['apiKeyAuth'] = api_key
+        print("🔧 Debug: Using API key authentication")
+        print(f"🔧 Debug: API key starts with: {api_key[:10]}..." if len(api_key) > 10 else f"🔧 Debug: API key: {api_key}")
     else:
         raise ValueError("Authentication required: Set PINGERA_BEARER_TOKEN or PINGERA_API_KEY")
 
