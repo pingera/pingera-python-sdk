@@ -141,36 +141,52 @@ def main():
             print("   ⚠️  Incident updates may require manual API calls")
             print("   ⚠️  Scheduled maintenance may require specific model fields")
             
-            # Try a simple scheduled maintenance example
+            # Show valid incident status values
+            print("\n   Valid incident status values:")
+            print("   - 'investigating' - Issue is being investigated")
+            print("   - 'identified' - Root cause has been identified") 
+            print("   - 'monitoring' - Fix has been applied, monitoring results")
+            print("   - 'resolved' - Issue has been fully resolved")
+            print("\n   Note: 'scheduled' is not a valid status for regular incidents")
+            print("   Scheduled maintenance may require different endpoints or models")
+            
+            # Try incident status progression example
             try:
-                print("\n   Attempting scheduled maintenance creation...")
-                future_time = datetime.now() + timedelta(hours=1)
+                print("\n   Demonstrating incident status progression...")
                 
-                maintenance = IncidentCreate(
-                    name="Test Scheduled Maintenance",
-                    body="This is a test scheduled maintenance.",
-                    status="scheduled",
+                # Create an incident in investigating status
+                progression_incident = IncidentCreate(
+                    name="API Response Time Issue",
+                    body="Users are experiencing slow API response times.",
+                    status="investigating",
                     impact="minor",
                     components={}
                 )
 
-                scheduled = incidents_api.v1_pages_page_id_incidents_post(PAGE_ID, maintenance)
-                maintenance_id = getattr(scheduled, 'id', None)
+                created = incidents_api.v1_pages_page_id_incidents_post(PAGE_ID, progression_incident)
+                incident_id = getattr(created, 'id', None)
 
-                if maintenance_id:
-                    print(f"   ✓ Scheduled maintenance created (ID: {maintenance_id})")
+                if incident_id:
+                    print(f"   ✓ Created incident for status progression (ID: {incident_id})")
                     
-                    # Clean up the scheduled maintenance
-                    print("   Cleaning up scheduled maintenance...")
-                    incidents_api.v1_pages_page_id_incidents_incident_id_delete(PAGE_ID, maintenance_id)
-                    print("   ✓ Scheduled maintenance deleted")
+                    # Note about status updates
+                    print("   ℹ️  To update incident status, you would typically:")
+                    print("   1. Get current incident data")
+                    print("   2. Modify the status field")
+                    print("   3. Use PUT endpoint to update (if available)")
+                    print("   4. Or create incident updates with new status information")
+                    
+                    # Clean up
+                    print("   Cleaning up progression test incident...")
+                    incidents_api.v1_pages_page_id_incidents_incident_id_delete(PAGE_ID, incident_id)
+                    print("   ✓ Test incident deleted")
                 else:
-                    print("   ✗ Failed to create scheduled maintenance")
+                    print("   ✗ Failed to create progression test incident")
 
             except ApiException as e:
-                print(f"   ✗ Failed scheduled maintenance example: [{e.status}] {e.reason}")
-                if e.status == 422:
-                    print("   → This may indicate missing required fields in the model")
+                print(f"   ✗ Failed incident progression example: [{e.status}] {e.reason}")
+            except Exception as e:
+                print(f"   ✗ Unexpected error in progression example: {e}")
 
             print("\n=== Incident management example completed! ===")
 
