@@ -215,7 +215,11 @@ client.checks.v1_checks_check_id_pause_post(check_id="check_123")
 client.checks.v1_checks_check_id_resume_post(check_id="check_123")
 
 # Get check jobs
-jobs = client.checks.v1_checks_jobs_get()
+jobs = client.checks.v1_checks_jobs_get(
+    page=1,           # Optional: page number
+    per_page=20,      # Optional: items per page
+    status="completed" # Optional: filter by status
+)
 
 # Get specific job
 job = client.checks.v1_checks_jobs_job_id_get(job_id="job_123")
@@ -319,10 +323,11 @@ existing_check_response = client.on_demand_checks.v1_checks_check_id_execute_pos
 # Get job status
 job_status = client.on_demand_checks.v1_checks_jobs_job_id_get(job_id=job_id)
 
-# List on-demand checks
-on_demand_checks = client.on_demand_checks.v1_on_demand_checks_get(
+# List on-demand check jobs
+jobs = client.on_demand_checks.v1_checks_jobs_get(
     page=1,
-    page_size=20
+    per_page=20,
+    status="completed"  # Optional: filter by status
 )
 ```
 
