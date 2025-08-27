@@ -201,6 +201,12 @@ results = client.checks.v1_checks_check_id_results_get(
     page_size=50                       # Optional: items per page
 )
 
+# Get specific check result by ID
+specific_result = client.checks.v1_checks_check_id_results_check_result_id_get(
+    check_id="check_123",
+    check_result_id="result_456"
+)
+
 # Get check statistics
 stats = client.checks.v1_checks_check_id_stats_get(check_id="check_123")
 
