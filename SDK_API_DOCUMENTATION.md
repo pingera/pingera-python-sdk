@@ -234,13 +234,19 @@ Methods for querying unified check results across multiple sources:
 ```python
 # Get all check results (unified across all checks)
 results = client.checks_unified_results.v1_checks_all_results_get(
-    from_date="2023-01-01T00:00:00Z",     # Optional: start date
-    to_date="2023-12-31T23:59:59Z",       # Optional: end date
-    status="success",                      # Optional: filter by status
-    page=1,                               # Optional: page number
-    page_size=100,                         # Optional: items per page
-    check_id="check_123"                   # Optional: check_id 
+    start_date="2023-01-01T00:00:00Z",    # Optional: start date (ISO format)
+    end_date="2023-12-31T23:59:59Z",      # Optional: end date (ISO format)
+    status="ok",                          # Optional: filter by status (ok, failed, degraded, timeout, pending)
+    check_type="web",                     # Optional: filter by check type (web, api, tcp, ssl, synthetic, multistep)
+    check_id="chk123abc456",              # Optional: filter by specific check ID
+    result_type="regular",                # Optional: filter by result type (regular, on_demand)
+    region="us-west-1",                   # Optional: filter by region
+    page=1,                               # Optional: page number (default: 1)
+    page_size=100                         # Optional: items per page (1-100, default: 20)
 )
+
+# Note: Date range is limited to 6 months in the past
+# All parameters are optional and can be combined for advanced filtering
 ```
 
 ## Heartbeats API Methods
