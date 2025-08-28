@@ -223,6 +223,13 @@ jobs = client.checks.v1_checks_jobs_get(
 
 # Get specific job
 job = client.checks.v1_checks_jobs_job_id_get(job_id="job_123")
+
+# Get available regions
+regions = client.checks.v1_checks_get_regions_get()
+
+# Get regions filtered by check type
+web_regions = client.checks.v1_checks_get_regions_get(check_type="web")
+synthetic_regions = client.checks.v1_checks_get_regions_get(check_type="synthetic")
 ```
 
 ## Checks Unified Results API Methods
