@@ -238,11 +238,9 @@ results = client.checks_unified_results.v1_checks_all_results_get(
     to_date="2023-12-31T23:59:59Z",       # Optional: end date
     status="success",                      # Optional: filter by status
     page=1,                               # Optional: page number
-    page_size=100                         # Optional: items per page
+    page_size=100,                         # Optional: items per page
+    check_id="check_123"                   # Optional: check_id 
 )
-
-# Note: This endpoint returns results from all checks in your account
-# To filter by specific checks, use the individual ChecksApi endpoints instead
 ```
 
 ## Heartbeats API Methods
