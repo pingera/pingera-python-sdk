@@ -232,9 +232,8 @@ job = client.checks.v1_checks_jobs_job_id_get(job_id="job_123")
 Methods for querying unified check results across multiple sources:
 
 ```python
-# Get unified results
-results = client.checks_unified_results.v1_checks_unified_results_get(
-    check_ids=["check_1", "check_2"],     # Optional: specific check IDs
+# Get all check results (unified across all checks)
+results = client.checks_unified_results.v1_checks_all_results_get(
     from_date="2023-01-01T00:00:00Z",     # Optional: start date
     to_date="2023-12-31T23:59:59Z",       # Optional: end date
     status="success",                      # Optional: filter by status
@@ -242,12 +241,8 @@ results = client.checks_unified_results.v1_checks_unified_results_get(
     page_size=100                         # Optional: items per page
 )
 
-# Get aggregated statistics
-aggregated_stats = client.checks_unified_results.v1_checks_unified_results_stats_get(
-    check_ids=["check_1", "check_2"],
-    from_date="2023-01-01T00:00:00Z",
-    to_date="2023-12-31T23:59:59Z"
-)
+# Note: This endpoint returns results from all checks in your account
+# To filter by specific checks, use the individual ChecksApi endpoints instead
 ```
 
 ## Heartbeats API Methods
