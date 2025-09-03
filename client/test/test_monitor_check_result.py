@@ -36,20 +36,20 @@ class TestMonitorCheckResult(unittest.TestCase):
         model = MonitorCheckResult()
         if include_optional:
             return MonitorCheckResult(
-                error_message = 'Connection timeout after 10 seconds',
-                check_server_id = 'srv123abc456',
-                status = 'ok',
-                check_id = 'chk123def456',
-                check_metadata = {"status_code":200,"content_length":1024},
-                check_server = pingera.models.check_server.CheckServer(
-                    ip_address = '192.168.1.100', 
-                    country = 'United States', 
-                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
-                    id = 'srv123abc456', 
-                    region = 'us-west-1', ),
-                id = 'res789xyz012',
                 created_at = '2024-01-15T14:30Z',
-                response_time = 250
+                check_metadata = {"status_code":200,"content_length":1024},
+                response_time = 250,
+                check_server_id = 'srv123abc456',
+                check_id = 'chk123def456',
+                check_server = pingera.models.check_server.CheckServer(
+                    country = 'United States', 
+                    ip_address = '192.168.1.100', 
+                    region = 'us-west-1', 
+                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
+                    id = 'srv123abc456', ),
+                id = 'res789xyz012',
+                status = 'ok',
+                error_message = 'Connection timeout after 10 seconds'
             )
         else:
             return MonitorCheckResult(

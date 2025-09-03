@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error_message** | **str** | Error message if the notification failed to send. Null if successful. | [optional] [readonly] 
-**channel_id** | **str** | The identifier of the alert channel used for this notification. | [optional] [readonly] 
-**status** | **str** | The delivery status of the notification. | [optional] [readonly] 
-**alert_id** | **str** | The identifier of the alert this notification belongs to. | [optional] [readonly] 
-**id** | **str** | The unique identifier for the alert notification. | [optional] [readonly] 
-**sent_at** | **datetime** | The timestamp when the notification was successfully sent in ISO format. Null if not sent. | [optional] [readonly] 
-**retry_count** | **int** | The number of retry attempts for this notification. | [optional] [readonly] 
 **channel_name** | **object** | The name of the alert channel used for this notification. | [optional] [readonly] 
-**notification_type** | **str** | The type of notification sent. | [optional] [readonly] 
 **created_at** | **datetime** | The timestamp when the notification was created in ISO format. | [optional] [readonly] 
+**alert_id** | **str** | The identifier of the alert this notification belongs to. | [optional] [readonly] 
+**sent_at** | **datetime** | The timestamp when the notification was successfully sent in ISO format. Null if not sent. | [optional] [readonly] 
 **channel_type** | **str** | The type of the alert channel used for this notification. | [optional] [readonly] 
+**channel_id** | **str** | The identifier of the alert channel used for this notification. | [optional] [readonly] 
+**id** | **str** | The unique identifier for the alert notification. | [optional] [readonly] 
+**notification_type** | **str** | The type of notification sent. | [optional] [readonly] 
+**status** | **str** | The delivery status of the notification. | [optional] [readonly] 
+**retry_count** | **int** | The number of retry attempts for this notification. | [optional] [readonly] 
+**error_message** | **str** | Error message if the notification failed to send. Null if successful. | [optional] [readonly] 
 
 ## Example
 

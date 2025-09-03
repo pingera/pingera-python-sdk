@@ -28,18 +28,18 @@ class IncidentPostmortem(BaseModel):
     """
     IncidentPostmortem
     """ # noqa: E501
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was last updated.")
-    body_draft_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the draft postmortem body was last updated.")
-    notify_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to notify subscribers when the postmortem is published.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident postmortem.")
     body: Optional[StrictStr] = Field(default=None, description="The published content of the postmortem in Markdown format.")
-    published_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was published and made publicly available.")
-    preview_key: Optional[StrictStr] = Field(default=None, description="A unique key that allows public access to preview the postmortem before it's published.")
-    incident_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the incident this postmortem belongs to.")
-    body_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the published postmortem body was last updated.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was created.")
+    notify_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to notify subscribers when the postmortem is published.")
+    incident_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the incident this postmortem belongs to.")
+    preview_key: Optional[StrictStr] = Field(default=None, description="A unique key that allows public access to preview the postmortem before it's published.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was last updated.")
+    published_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was published and made publicly available.")
     body_draft: Optional[StrictStr] = Field(default=None, description="The draft content of the postmortem that hasn't been published yet.")
-    __properties: ClassVar[List[str]] = ["updated_at", "body_draft_updated_at", "notify_subscribers", "id", "body", "published_at", "preview_key", "incident_id", "body_updated_at", "created_at", "body_draft"]
+    body_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the published postmortem body was last updated.")
+    body_draft_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the draft postmortem body was last updated.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident postmortem.")
+    __properties: ClassVar[List[str]] = ["body", "created_at", "notify_subscribers", "incident_id", "preview_key", "updated_at", "published_at", "body_draft", "body_updated_at", "body_draft_updated_at", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,10 +77,10 @@ class IncidentPostmortem(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "created_at",
+            "incident_id",
             "updated_at",
             "id",
-            "incident_id",
-            "created_at",
         ])
 
         _dict = self.model_dump(
@@ -100,17 +100,17 @@ class IncidentPostmortem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "updated_at": obj.get("updated_at"),
-            "body_draft_updated_at": obj.get("body_draft_updated_at"),
-            "notify_subscribers": obj.get("notify_subscribers"),
-            "id": obj.get("id"),
             "body": obj.get("body"),
-            "published_at": obj.get("published_at"),
-            "preview_key": obj.get("preview_key"),
-            "incident_id": obj.get("incident_id"),
-            "body_updated_at": obj.get("body_updated_at"),
             "created_at": obj.get("created_at"),
-            "body_draft": obj.get("body_draft")
+            "notify_subscribers": obj.get("notify_subscribers"),
+            "incident_id": obj.get("incident_id"),
+            "preview_key": obj.get("preview_key"),
+            "updated_at": obj.get("updated_at"),
+            "published_at": obj.get("published_at"),
+            "body_draft": obj.get("body_draft"),
+            "body_updated_at": obj.get("body_updated_at"),
+            "body_draft_updated_at": obj.get("body_draft_updated_at"),
+            "id": obj.get("id")
         })
         return _obj
 

@@ -36,31 +36,31 @@ class TestHeartbeatCheckDetail(unittest.TestCase):
         model = HeartbeatCheckDetail()
         if include_optional:
             return HeartbeatCheckDetail(
-                grace_seconds = 600,
-                next_expected_ping = '2024-01-16T14:30Z',
-                last_ping_at = '2024-01-15T14:30Z',
-                status = 'up',
-                updated_at = '2024-01-15T14:00Z',
+                created_at = '2024-01-15T10:00Z',
+                period_seconds = 86400,
                 recent_pings = [
                     pingera.models.heartbeat_ping.HeartbeatPing(
-                        user_agent = 'curl/7.68.0', 
+                        source_ip = '192.168.1.100', 
+                        ping_data = {"status":"ok","message":"Backup completed successfully"}, 
+                        received_at = '2024-01-15T14:30Z', 
                         check_id = 'abc123def456', 
                         id = 'ping789xyz012', 
-                        ping_data = {"status":"ok","message":"Backup completed successfully"}, 
-                        source_ip = '192.168.1.100', 
-                        received_at = '2024-01-15T14:30Z', )
+                        user_agent = 'curl/7.68.0', )
                     ],
-                id = 'abc123def456',
                 name = 'Nightly Backup Cron Job',
-                period_seconds = 86400,
+                updated_at = '2024-01-15T14:00Z',
+                last_ping_at = '2024-01-15T14:30Z',
                 ping_url = 'https://api.pingera.ru/v1/heartbeats/abc123def456/ping',
-                created_at = '2024-01-15T10:00Z',
-                active = True
+                active = True,
+                id = 'abc123def456',
+                next_expected_ping = '2024-01-16T14:30Z',
+                grace_seconds = 600,
+                status = 'up'
             )
         else:
             return HeartbeatCheckDetail(
-                name = 'Nightly Backup Cron Job',
                 period_seconds = 86400,
+                name = 'Nightly Backup Cron Job',
         )
         """
 

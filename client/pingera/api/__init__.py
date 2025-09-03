@@ -2,6 +2,7 @@
 
 # import apis into api package
 from pingera.api.alerts_api import AlertsApi
+from pingera.api.check_groups_api import CheckGroupsApi
 from pingera.api.checks_api import ChecksApi
 from pingera.api.checks_unified_results_api import ChecksUnifiedResultsApi
 from pingera.api.heartbeats_api import HeartbeatsApi

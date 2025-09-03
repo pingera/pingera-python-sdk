@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** | Pagination information for the job results. | [optional] 
 **jobs** | [**List[CheckJob]**](CheckJob.md) | List of check jobs for the organization. | [optional] 
+**pagination** | **Dict[str, object]** | Pagination information for the job results. | [optional] 
 
 ## Example
 

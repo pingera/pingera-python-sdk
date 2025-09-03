@@ -28,10 +28,10 @@ class MonitorCheckStatusHistory(BaseModel):
     """
     MonitorCheckStatusHistory
     """ # noqa: E501
-    started_at: Optional[datetime] = Field(default=None, description="When this status period started in ISO format.")
-    status: Optional[StrictStr] = Field(default=None, description="The status during this period.")
     ended_at: Optional[datetime] = Field(default=None, description="When this status period ended in ISO format. Null if still active.")
-    __properties: ClassVar[List[str]] = ["started_at", "status", "ended_at"]
+    status: Optional[StrictStr] = Field(default=None, description="The status during this period.")
+    started_at: Optional[datetime] = Field(default=None, description="When this status period started in ISO format.")
+    __properties: ClassVar[List[str]] = ["ended_at", "status", "started_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -99,9 +99,9 @@ class MonitorCheckStatusHistory(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "started_at": obj.get("started_at"),
+            "ended_at": obj.get("ended_at"),
             "status": obj.get("status"),
-            "ended_at": obj.get("ended_at")
+            "started_at": obj.get("started_at")
         })
         return _obj
 

@@ -639,11 +639,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_get**
-> MonitorCheckList v1_checks_get(page=page, page_size=page_size)
+> MonitorCheckList v1_checks_get(page=page, page_size=page_size, group_id=group_id, status=status, name=name, type=type)
 
 Get all monitor checks
 
-Get all monitor checks for current organization with pagination
+Get all monitor checks for current organization with pagination and filtering
 
 ### Example
 
@@ -684,10 +684,14 @@ with pingera.ApiClient(configuration) as api_client:
     api_instance = pingera.ChecksApi(api_client)
     page = 1 # int | Page number for pagination (default: 1). (optional) (default to 1)
     page_size = 20 # int | Number of items per page (default: 20, max: 100). (optional) (default to 20)
+    group_id = 'group_id_example' # str | Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group. (optional)
+    status = 'status_example' # str | Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\"). (optional)
+    name = 'name_example' # str | Filter checks by name using case-insensitive partial matching. (optional)
+    type = 'type_example' # str | Filter checks by type. (optional)
 
     try:
         # Get all monitor checks
-        api_response = api_instance.v1_checks_get(page=page, page_size=page_size)
+        api_response = api_instance.v1_checks_get(page=page, page_size=page_size, group_id=group_id, status=status, name=name, type=type)
         print("The response of ChecksApi->v1_checks_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -703,6 +707,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int**| Page number for pagination (default: 1). | [optional] [default to 1]
  **page_size** | **int**| Number of items per page (default: 20, max: 100). | [optional] [default to 20]
+ **group_id** | **str**| Filter checks by group ID. Use \&quot;ungrouped\&quot; to get checks not assigned to any group. | [optional] 
+ **status** | **str**| Filter checks by status. Can specify multiple statuses separated by commas (e.g., \&quot;ok,failed\&quot;). | [optional] 
+ **name** | **str**| Filter checks by name using case-insensitive partial matching. | [optional] 
+ **type** | **str**| Filter checks by type. | [optional] 
 
 ### Return type
 

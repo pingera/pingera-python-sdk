@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** | The timestamp when the update was created in ISO format. | [optional] 
 **body** | **str** | The content/message of the incident update. | [optional] 
+**created_at** | **datetime** | The timestamp when the update was created in ISO format. | [optional] 
 
 ## Example
 

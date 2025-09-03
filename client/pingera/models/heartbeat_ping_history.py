@@ -28,9 +28,9 @@ class HeartbeatPingHistory(BaseModel):
     """
     HeartbeatPingHistory
     """ # noqa: E501
-    pings: Optional[List[HeartbeatPing]] = None
     pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the ping history.")
-    __properties: ClassVar[List[str]] = ["pings", "pagination"]
+    pings: Optional[List[HeartbeatPing]] = None
+    __properties: ClassVar[List[str]] = ["pagination", "pings"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,8 +66,8 @@ class HeartbeatPingHistory(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "pings",
             "pagination",
+            "pings",
         ])
 
         _dict = self.model_dump(
@@ -94,8 +94,8 @@ class HeartbeatPingHistory(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pings": [HeartbeatPing.from_dict(_item) for _item in obj["pings"]] if obj.get("pings") is not None else None,
-            "pagination": obj.get("pagination")
+            "pagination": obj.get("pagination"),
+            "pings": [HeartbeatPing.from_dict(_item) for _item in obj["pings"]] if obj.get("pings") is not None else None
         })
         return _obj
 

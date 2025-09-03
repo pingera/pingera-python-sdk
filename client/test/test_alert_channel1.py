@@ -36,14 +36,14 @@ class TestAlertChannel1(unittest.TestCase):
         model = AlertChannel1()
         if include_optional:
             return AlertChannel1(
-                enabled = True,
-                updated_at = '2024-01-15T14:00Z',
-                id = 'chn_abc123def456',
+                created_at = '2024-01-15T10:00Z',
                 type = 'email',
-                last_used_at = '2024-01-15T15:30Z',
                 name = 'Production Email Alerts',
-                configuration = {"recipients":["admin@example.com","ops@example.com"]},
-                created_at = '2024-01-15T10:00Z'
+                updated_at = '2024-01-15T14:00Z',
+                enabled = True,
+                last_used_at = '2024-01-15T15:30Z',
+                id = 'chn_abc123def456',
+                configuration = {"recipients":["admin@example.com","ops@example.com"]}
             )
         else:
             return AlertChannel1(

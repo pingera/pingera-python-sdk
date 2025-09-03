@@ -28,15 +28,15 @@ class IncidentUpdate(BaseModel):
     """
     IncidentUpdate
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The status of the incident update.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was last updated.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.")
-    components: Optional[Any] = Field(default=None, description="Components affected by this incident update.")
     body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.")
-    incident_id: Optional[StrictStr] = Field(default=None, description="The ID of the incident this update belongs to.")
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was created.")
-    __properties: ClassVar[List[str]] = ["status", "updated_at", "id", "components", "body", "incident_id", "deliver_notifications", "created_at"]
+    incident_id: Optional[StrictStr] = Field(default=None, description="The ID of the incident this update belongs to.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was last updated.")
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
+    components: Optional[Any] = Field(default=None, description="Components affected by this incident update.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.")
+    status: Optional[StrictStr] = Field(default=None, description="The status of the incident update.")
+    __properties: ClassVar[List[str]] = ["body", "created_at", "incident_id", "updated_at", "deliver_notifications", "components", "id", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -85,11 +85,11 @@ class IncidentUpdate(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "updated_at",
-            "id",
-            "components",
-            "incident_id",
             "created_at",
+            "incident_id",
+            "updated_at",
+            "components",
+            "id",
         ])
 
         _dict = self.model_dump(
@@ -114,14 +114,14 @@ class IncidentUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
-            "updated_at": obj.get("updated_at"),
-            "id": obj.get("id"),
-            "components": obj.get("components"),
             "body": obj.get("body"),
+            "created_at": obj.get("created_at"),
             "incident_id": obj.get("incident_id"),
+            "updated_at": obj.get("updated_at"),
             "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
-            "created_at": obj.get("created_at")
+            "components": obj.get("components"),
+            "id": obj.get("id"),
+            "status": obj.get("status")
         })
         return _obj
 

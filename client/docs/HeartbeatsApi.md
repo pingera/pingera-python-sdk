@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**v1_heartbeats_check_id_patch**](HeartbeatsApi.md#v1_heartbeats_check_id_patch) | **PATCH** /v1/heartbeats/{check_id} | Update an existing heartbeat check
 [**v1_heartbeats_check_id_ping_get**](HeartbeatsApi.md#v1_heartbeats_check_id_ping_get) | **GET** /v1/heartbeats/{check_id}/ping | Receive heartbeat ping (GET)
 [**v1_heartbeats_check_id_ping_post**](HeartbeatsApi.md#v1_heartbeats_check_id_ping_post) | **POST** /v1/heartbeats/{check_id}/ping | Receive heartbeat ping (POST)
+[**v1_heartbeats_check_id_pings_count_get**](HeartbeatsApi.md#v1_heartbeats_check_id_pings_count_get) | **GET** /v1/heartbeats/{check_id}/pings-count | Get ping count history
 [**v1_heartbeats_check_id_pings_get**](HeartbeatsApi.md#v1_heartbeats_check_id_pings_get) | **GET** /v1/heartbeats/{check_id}/pings | Get ping history
 [**v1_heartbeats_check_id_put**](HeartbeatsApi.md#v1_heartbeats_check_id_put) | **PUT** /v1/heartbeats/{check_id} | Update an existing heartbeat check
 [**v1_heartbeats_get**](HeartbeatsApi.md#v1_heartbeats_get) | **GET** /v1/heartbeats | Get all heartbeat checks
@@ -661,6 +662,96 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_heartbeats_check_id_pings_count_get**
+> HeartbeatPingCountResponse v1_heartbeats_check_id_pings_count_get(check_id, start_date=start_date, end_date=end_date)
+
+Get ping count history
+
+Get ping count history for heartbeat check with hourly buckets. Returns ping counts grouped by hour for the specified time period.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.heartbeat_ping_count_response import HeartbeatPingCountResponse
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.HeartbeatsApi(api_client)
+    check_id = 'check_id_example' # str | The ID of the heartbeat check.
+    start_date = '2013-10-20T19:20:30+01:00' # datetime | Filter pings from this date (ISO format). Defaults to 24 hours ago. (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | Filter pings until this date (ISO format). Defaults to current time. (optional)
+
+    try:
+        # Get ping count history
+        api_response = api_instance.v1_heartbeats_check_id_pings_count_get(check_id, start_date=start_date, end_date=end_date)
+        print("The response of HeartbeatsApi->v1_heartbeats_check_id_pings_count_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling HeartbeatsApi->v1_heartbeats_check_id_pings_count_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **check_id** | **str**| The ID of the heartbeat check. | 
+ **start_date** | **datetime**| Filter pings from this date (ISO format). Defaults to 24 hours ago. | [optional] 
+ **end_date** | **datetime**| Filter pings until this date (ISO format). Defaults to current time. | [optional] 
+
+### Return type
+
+[**HeartbeatPingCountResponse**](HeartbeatPingCountResponse.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details

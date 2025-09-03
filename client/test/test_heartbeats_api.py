@@ -83,6 +83,13 @@ class TestHeartbeatsApi(unittest.TestCase):
         """
         pass
 
+    def test_v1_heartbeats_check_id_pings_count_get(self) -> None:
+        """Test case for v1_heartbeats_check_id_pings_count_get
+
+        Get ping count history
+        """
+        pass
+
     def test_v1_heartbeats_check_id_pings_get(self) -> None:
         """Test case for v1_heartbeats_check_id_pings_get
 

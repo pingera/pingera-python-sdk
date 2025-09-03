@@ -15,11 +15,12 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 # Define package exports
 __all__ = [
     "AlertsApi",
+    "CheckGroupsApi",
     "ChecksApi",
     "ChecksUnifiedResultsApi",
     "HeartbeatsApi",
@@ -44,6 +45,10 @@ __all__ = [
     "AlertRule",
     "AlertRule1",
     "AlertStats",
+    "CheckGroup",
+    "CheckGroup1",
+    "CheckGroup2",
+    "CheckGroupList",
     "CheckJob",
     "CheckServer",
     "Component",
@@ -52,12 +57,16 @@ __all__ = [
     "Error",
     "ExecuteCustomCheckRequest",
     "ExecuteExistingCheckResponse",
+    "Generated",
+    "Generated1",
     "HeartbeatCheck",
     "HeartbeatCheck1",
     "HeartbeatCheckChannelAssignment",
     "HeartbeatCheckDetail",
     "HeartbeatCheckList",
     "HeartbeatPing",
+    "HeartbeatPingCountHistory",
+    "HeartbeatPingCountResponse",
     "HeartbeatPingHistory",
     "HeartbeatPingResponse",
     "Incident",
@@ -90,6 +99,7 @@ __all__ = [
 
 # import apis into sdk package
 from pingera.api.alerts_api import AlertsApi as AlertsApi
+from pingera.api.check_groups_api import CheckGroupsApi as CheckGroupsApi
 from pingera.api.checks_api import ChecksApi as ChecksApi
 from pingera.api.checks_unified_results_api import ChecksUnifiedResultsApi as ChecksUnifiedResultsApi
 from pingera.api.heartbeats_api import HeartbeatsApi as HeartbeatsApi
@@ -118,6 +128,10 @@ from pingera.models.alert_notification import AlertNotification as AlertNotifica
 from pingera.models.alert_rule import AlertRule as AlertRule
 from pingera.models.alert_rule1 import AlertRule1 as AlertRule1
 from pingera.models.alert_stats import AlertStats as AlertStats
+from pingera.models.check_group import CheckGroup as CheckGroup
+from pingera.models.check_group1 import CheckGroup1 as CheckGroup1
+from pingera.models.check_group2 import CheckGroup2 as CheckGroup2
+from pingera.models.check_group_list import CheckGroupList as CheckGroupList
 from pingera.models.check_job import CheckJob as CheckJob
 from pingera.models.check_server import CheckServer as CheckServer
 from pingera.models.component import Component as Component
@@ -126,12 +140,16 @@ from pingera.models.component_uptime_bulk_request import ComponentUptimeBulkRequ
 from pingera.models.error import Error as Error
 from pingera.models.execute_custom_check_request import ExecuteCustomCheckRequest as ExecuteCustomCheckRequest
 from pingera.models.execute_existing_check_response import ExecuteExistingCheckResponse as ExecuteExistingCheckResponse
+from pingera.models.generated import Generated as Generated
+from pingera.models.generated1 import Generated1 as Generated1
 from pingera.models.heartbeat_check import HeartbeatCheck as HeartbeatCheck
 from pingera.models.heartbeat_check1 import HeartbeatCheck1 as HeartbeatCheck1
 from pingera.models.heartbeat_check_channel_assignment import HeartbeatCheckChannelAssignment as HeartbeatCheckChannelAssignment
 from pingera.models.heartbeat_check_detail import HeartbeatCheckDetail as HeartbeatCheckDetail
 from pingera.models.heartbeat_check_list import HeartbeatCheckList as HeartbeatCheckList
 from pingera.models.heartbeat_ping import HeartbeatPing as HeartbeatPing
+from pingera.models.heartbeat_ping_count_history import HeartbeatPingCountHistory as HeartbeatPingCountHistory
+from pingera.models.heartbeat_ping_count_response import HeartbeatPingCountResponse as HeartbeatPingCountResponse
 from pingera.models.heartbeat_ping_history import HeartbeatPingHistory as HeartbeatPingHistory
 from pingera.models.heartbeat_ping_response import HeartbeatPingResponse as HeartbeatPingResponse
 from pingera.models.incident import Incident as Incident

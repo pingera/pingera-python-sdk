@@ -2119,6 +2119,10 @@ class ChecksApi:
         self,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (default: 1).")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page (default: 20, max: 100).")] = None,
+        group_id: Annotated[Optional[StrictStr], Field(description="Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter checks by name using case-insensitive partial matching.")] = None,
+        type: Annotated[Optional[StrictStr], Field(description="Filter checks by type.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2134,12 +2138,20 @@ class ChecksApi:
     ) -> MonitorCheckList:
         """Get all monitor checks
 
-        Get all monitor checks for current organization with pagination
+        Get all monitor checks for current organization with pagination and filtering
 
         :param page: Page number for pagination (default: 1).
         :type page: int
         :param page_size: Number of items per page (default: 20, max: 100).
         :type page_size: int
+        :param group_id: Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group.
+        :type group_id: str
+        :param status: Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").
+        :type status: str
+        :param name: Filter checks by name using case-insensitive partial matching.
+        :type name: str
+        :param type: Filter checks by type.
+        :type type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2165,6 +2177,10 @@ class ChecksApi:
         _param = self._v1_checks_get_serialize(
             page=page,
             page_size=page_size,
+            group_id=group_id,
+            status=status,
+            name=name,
+            type=type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2190,6 +2206,10 @@ class ChecksApi:
         self,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (default: 1).")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page (default: 20, max: 100).")] = None,
+        group_id: Annotated[Optional[StrictStr], Field(description="Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter checks by name using case-insensitive partial matching.")] = None,
+        type: Annotated[Optional[StrictStr], Field(description="Filter checks by type.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2205,12 +2225,20 @@ class ChecksApi:
     ) -> ApiResponse[MonitorCheckList]:
         """Get all monitor checks
 
-        Get all monitor checks for current organization with pagination
+        Get all monitor checks for current organization with pagination and filtering
 
         :param page: Page number for pagination (default: 1).
         :type page: int
         :param page_size: Number of items per page (default: 20, max: 100).
         :type page_size: int
+        :param group_id: Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group.
+        :type group_id: str
+        :param status: Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").
+        :type status: str
+        :param name: Filter checks by name using case-insensitive partial matching.
+        :type name: str
+        :param type: Filter checks by type.
+        :type type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2236,6 +2264,10 @@ class ChecksApi:
         _param = self._v1_checks_get_serialize(
             page=page,
             page_size=page_size,
+            group_id=group_id,
+            status=status,
+            name=name,
+            type=type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2261,6 +2293,10 @@ class ChecksApi:
         self,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (default: 1).")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of items per page (default: 20, max: 100).")] = None,
+        group_id: Annotated[Optional[StrictStr], Field(description="Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").")] = None,
+        name: Annotated[Optional[StrictStr], Field(description="Filter checks by name using case-insensitive partial matching.")] = None,
+        type: Annotated[Optional[StrictStr], Field(description="Filter checks by type.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2276,12 +2312,20 @@ class ChecksApi:
     ) -> RESTResponseType:
         """Get all monitor checks
 
-        Get all monitor checks for current organization with pagination
+        Get all monitor checks for current organization with pagination and filtering
 
         :param page: Page number for pagination (default: 1).
         :type page: int
         :param page_size: Number of items per page (default: 20, max: 100).
         :type page_size: int
+        :param group_id: Filter checks by group ID. Use \"ungrouped\" to get checks not assigned to any group.
+        :type group_id: str
+        :param status: Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").
+        :type status: str
+        :param name: Filter checks by name using case-insensitive partial matching.
+        :type name: str
+        :param type: Filter checks by type.
+        :type type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2307,6 +2351,10 @@ class ChecksApi:
         _param = self._v1_checks_get_serialize(
             page=page,
             page_size=page_size,
+            group_id=group_id,
+            status=status,
+            name=name,
+            type=type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2327,6 +2375,10 @@ class ChecksApi:
         self,
         page,
         page_size,
+        group_id,
+        status,
+        name,
+        type,
         _request_auth,
         _content_type,
         _headers,
@@ -2356,6 +2408,22 @@ class ChecksApi:
         if page_size is not None:
             
             _query_params.append(('page_size', page_size))
+            
+        if group_id is not None:
+            
+            _query_params.append(('group_id', group_id))
+            
+        if status is not None:
+            
+            _query_params.append(('status', status))
+            
+        if name is not None:
+            
+            _query_params.append(('name', name))
+            
+        if type is not None:
+            
+            _query_params.append(('type', type))
             
         # process the header parameters
         # process the form parameters

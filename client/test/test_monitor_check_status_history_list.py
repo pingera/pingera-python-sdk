@@ -39,9 +39,9 @@ class TestMonitorCheckStatusHistoryList(unittest.TestCase):
                 pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 status_history = [
                     pingera.models.monitor_check_status_history.MonitorCheckStatusHistory(
-                        started_at = '2024-01-15T14:30Z', 
+                        ended_at = '2024-01-15T15:30Z', 
                         status = 'ok', 
-                        ended_at = '2024-01-15T15:30Z', )
+                        started_at = '2024-01-15T14:30Z', )
                     ]
             )
         else:

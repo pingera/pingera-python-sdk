@@ -36,20 +36,31 @@ class TestMonitorCheck(unittest.TestCase):
         model = MonitorCheck()
         if include_optional:
             return MonitorCheck(
-                status = 'ok',
-                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
-                updated_at = '2024-01-15T14:00Z',
-                port = 443,
-                id = 'chk123def456',
-                type = 'web',
-                timeout = 10,
-                name = 'Production API Health Check',
-                host = 'example.com',
-                interval = 300,
+                group_id = 'grp123abc456',
                 last_checked_at = '2024-01-15T14:30Z',
+                host = 'example.com',
+                port = 443,
                 created_at = '2024-01-15T10:00Z',
                 url = 'https://api.example.com/health',
-                active = True
+                timeout = 10,
+                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
+                position = 0,
+                interval = 300,
+                type = 'web',
+                name = 'Production API Health Check',
+                updated_at = '2024-01-15T14:00Z',
+                active = True,
+                id = 'chk123def456',
+                group = pingera.models.check_group.CheckGroup(
+                    created_at = '2024-01-15T10:00Z', 
+                    position = 0, 
+                    name = 'Production Services', 
+                    updated_at = '2024-01-15T14:00Z', 
+                    active = True, 
+                    id = 'grp123abc456', 
+                    color = '#4F46E5', 
+                    description = 'Critical production services monitoring', ),
+                status = 'ok'
             )
         else:
             return MonitorCheck(

@@ -36,16 +36,16 @@ class TestPastIncidentUpdate(unittest.TestCase):
         model = PastIncidentUpdate()
         if include_optional:
             return PastIncidentUpdate(
+                body = 'We are investigating database connectivity issues',
                 created_at = '2024-01-15T10:30Z',
-                components = {"comp_123":"major_outage","comp_456":"operational"},
                 status = 'investigating',
-                body = 'We are investigating database connectivity issues'
+                components = {"comp_123":"major_outage","comp_456":"operational"}
             )
         else:
             return PastIncidentUpdate(
+                body = 'We are investigating database connectivity issues',
                 created_at = '2024-01-15T10:30Z',
                 status = 'investigating',
-                body = 'We are investigating database connectivity issues',
         )
         """
 

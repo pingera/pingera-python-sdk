@@ -36,8 +36,8 @@ class TestIncidentUpdateEdit(unittest.TestCase):
         model = IncidentUpdateEdit()
         if include_optional:
             return IncidentUpdateEdit(
-                created_at = '2024-01-15T11:30Z',
-                body = 'We have identified the root cause and are implementing a fix.'
+                body = 'We have identified the root cause and are implementing a fix.',
+                created_at = '2024-01-15T11:30Z'
             )
         else:
             return IncidentUpdateEdit(

@@ -36,16 +36,16 @@ class TestHeartbeatPingHistory(unittest.TestCase):
         model = HeartbeatPingHistory()
         if include_optional:
             return HeartbeatPingHistory(
+                pagination = {"page":1,"pages":5,"per_page":20,"total":100},
                 pings = [
                     pingera.models.heartbeat_ping.HeartbeatPing(
-                        user_agent = 'curl/7.68.0', 
+                        source_ip = '192.168.1.100', 
+                        ping_data = {"status":"ok","message":"Backup completed successfully"}, 
+                        received_at = '2024-01-15T14:30Z', 
                         check_id = 'abc123def456', 
                         id = 'ping789xyz012', 
-                        ping_data = {"status":"ok","message":"Backup completed successfully"}, 
-                        source_ip = '192.168.1.100', 
-                        received_at = '2024-01-15T14:30Z', )
-                    ],
-                pagination = {"page":1,"pages":5,"per_page":20,"total":100}
+                        user_agent = 'curl/7.68.0', )
+                    ]
             )
         else:
             return HeartbeatPingHistory(

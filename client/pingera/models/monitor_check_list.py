@@ -28,9 +28,9 @@ class MonitorCheckList(BaseModel):
     """
     MonitorCheckList
     """ # noqa: E501
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the check results.")
     checks: Optional[List[MonitorCheck]] = Field(default=None, description="List of monitor checks for the organization.")
-    __properties: ClassVar[List[str]] = ["pagination", "checks"]
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the check results.")
+    __properties: ClassVar[List[str]] = ["checks", "pagination"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class MonitorCheckList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": obj.get("pagination"),
-            "checks": [MonitorCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None
+            "checks": [MonitorCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
+            "pagination": obj.get("pagination")
         })
         return _obj
 

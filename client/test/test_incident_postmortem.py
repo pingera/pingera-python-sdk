@@ -36,19 +36,19 @@ class TestIncidentPostmortem(unittest.TestCase):
         model = IncidentPostmortem()
         if include_optional:
             return IncidentPostmortem(
-                updated_at = '2024-01-16T12:00Z',
-                body_draft_updated_at = '2024-01-16T09:30Z',
-                notify_subscribers = True,
-                id = 'pm_abc123def456',
                 body = '## Summary
 On January 15th, we experienced a 2-hour outage affecting our API services...',
-                published_at = '2024-01-16T12:00Z',
-                preview_key = 'preview_abc123',
-                incident_id = 'inc_xyz789',
-                body_updated_at = '2024-01-16T10:00Z',
                 created_at = '2024-01-15T16:00Z',
+                notify_subscribers = True,
+                incident_id = 'inc_xyz789',
+                preview_key = 'preview_abc123',
+                updated_at = '2024-01-16T12:00Z',
+                published_at = '2024-01-16T12:00Z',
                 body_draft = '## Summary (DRAFT)
-We experienced an outage... [work in progress]'
+We experienced an outage... [work in progress]',
+                body_updated_at = '2024-01-16T10:00Z',
+                body_draft_updated_at = '2024-01-16T09:30Z',
+                id = 'pm_abc123def456'
             )
         else:
             return IncidentPostmortem(

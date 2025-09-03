@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pings** | [**List[HeartbeatPing]**](HeartbeatPing.md) |  | [optional] [readonly] 
 **pagination** | **Dict[str, object]** | Pagination metadata for the ping history. | [optional] [readonly] 
+**pings** | [**List[HeartbeatPing]**](HeartbeatPing.md) |  | [optional] [readonly] 
 
 ## Example
 

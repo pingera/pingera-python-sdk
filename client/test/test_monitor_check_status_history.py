@@ -36,9 +36,9 @@ class TestMonitorCheckStatusHistory(unittest.TestCase):
         model = MonitorCheckStatusHistory()
         if include_optional:
             return MonitorCheckStatusHistory(
-                started_at = '2024-01-15T14:30Z',
+                ended_at = '2024-01-15T15:30Z',
                 status = 'ok',
-                ended_at = '2024-01-15T15:30Z'
+                started_at = '2024-01-15T14:30Z'
             )
         else:
             return MonitorCheckStatusHistory(

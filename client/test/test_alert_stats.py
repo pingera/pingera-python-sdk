@@ -36,11 +36,11 @@ class TestAlertStats(unittest.TestCase):
         model = AlertStats()
         if include_optional:
             return AlertStats(
-                severity_breakdown = {"low":2,"medium":8,"high":10,"critical":3},
                 recent_alerts = 23,
                 active_alerts = 5,
-                total_channels = 4,
-                total_rules = 12
+                severity_breakdown = {"low":2,"medium":8,"high":10,"critical":3},
+                total_rules = 12,
+                total_channels = 4
             )
         else:
             return AlertStats(

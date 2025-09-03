@@ -27,12 +27,12 @@ class CheckServer(BaseModel):
     """
     CheckServer
     """ # noqa: E501
-    ip_address: Optional[StrictStr] = Field(default=None, description="The IP address of the check server.")
     country: Optional[StrictStr] = Field(default=None, description="The country where the server is located.")
+    ip_address: Optional[StrictStr] = Field(default=None, description="The IP address of the check server.")
+    region: Optional[StrictStr] = Field(default=None, description="The geographical region where the server is located.")
     server_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata about the server configuration.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check server.")
-    region: Optional[StrictStr] = Field(default=None, description="The geographical region where the server is located.")
-    __properties: ClassVar[List[str]] = ["ip_address", "country", "server_metadata", "id", "region"]
+    __properties: ClassVar[List[str]] = ["country", "ip_address", "region", "server_metadata", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,11 +87,11 @@ class CheckServer(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ip_address": obj.get("ip_address"),
             "country": obj.get("country"),
+            "ip_address": obj.get("ip_address"),
+            "region": obj.get("region"),
             "server_metadata": obj.get("server_metadata"),
-            "id": obj.get("id"),
-            "region": obj.get("region")
+            "id": obj.get("id")
         })
         return _obj
 

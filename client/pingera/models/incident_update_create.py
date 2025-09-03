@@ -27,10 +27,10 @@ class IncidentUpdateCreate(BaseModel):
     """
     IncidentUpdateCreate
     """ # noqa: E501
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
-    status: StrictStr = Field(description="The incident status for this update.")
     body: StrictStr = Field(description="The content/message of the incident update.")
-    __properties: ClassVar[List[str]] = ["deliver_notifications", "status", "body"]
+    status: StrictStr = Field(description="The incident status for this update.")
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
+    __properties: ClassVar[List[str]] = ["body", "status", "deliver_notifications"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -90,9 +90,9 @@ class IncidentUpdateCreate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
+            "body": obj.get("body"),
             "status": obj.get("status"),
-            "body": obj.get("body")
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True
         })
         return _obj
 

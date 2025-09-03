@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_agent** | **str** | The User-Agent header from the ping request. | [optional] [readonly] 
+**source_ip** | **str** | The IP address from which the ping was sent. | [optional] [readonly] 
+**ping_data** | **Dict[str, object]** | Additional JSON data sent with the ping request. | [optional] [readonly] 
+**received_at** | **datetime** | The timestamp when the ping was received in ISO format. | [optional] [readonly] 
 **check_id** | **str** | The identifier of the heartbeat check this ping belongs to. | [optional] [readonly] 
 **id** | **str** | The unique identifier for the heartbeat ping. | [optional] [readonly] 
-**ping_data** | **Dict[str, object]** | Additional JSON data sent with the ping request. | [optional] [readonly] 
-**source_ip** | **str** | The IP address from which the ping was sent. | [optional] [readonly] 
-**received_at** | **datetime** | The timestamp when the ping was received in ISO format. | [optional] [readonly] 
+**user_agent** | **str** | The User-Agent header from the ping request. | [optional] [readonly] 
 
 ## Example
 

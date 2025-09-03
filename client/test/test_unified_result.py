@@ -36,26 +36,26 @@ class TestUnifiedResult(unittest.TestCase):
         model = UnifiedResult()
         if include_optional:
             return UnifiedResult(
-                error_message = '',
-                check_server_id = '',
-                status = '',
-                check_id = '',
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                result_type = 'regular',
                 check_metadata = {
                     'key' : null
                     },
-                check_server = pingera.models.check_server.CheckServer(
-                    ip_address = '192.168.1.100', 
-                    country = 'United States', 
-                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
-                    id = 'srv123abc456', 
-                    region = 'us-west-1', ),
-                id = '',
-                result_type = 'regular',
+                check_name = '',
+                response_time = 56,
+                check_server_id = '',
+                check_id = '',
                 region = '',
                 check_type = '',
-                check_name = '',
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                response_time = 56
+                check_server = pingera.models.check_server.CheckServer(
+                    country = 'United States', 
+                    ip_address = '192.168.1.100', 
+                    region = 'us-west-1', 
+                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
+                    id = 'srv123abc456', ),
+                id = '',
+                status = '',
+                error_message = ''
             )
         else:
             return UnifiedResult(

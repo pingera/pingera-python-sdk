@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** | Pagination metadata for the list of checks. | [optional] [readonly] 
 **checks** | [**List[HeartbeatCheck]**](HeartbeatCheck.md) |  | [optional] [readonly] 
+**pagination** | **Dict[str, object]** | Pagination metadata for the list of checks. | [optional] [readonly] 
 
 ## Example
 

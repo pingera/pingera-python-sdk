@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** | When this update was posted (ISO format). | 
-**components** | **Dict[str, str]** | Component statuses at time of update | [optional] 
-**status** | **str** | The incident status at the time of this update. | 
 **body** | **str** | The content of the incident update. | 
+**created_at** | **datetime** | When this update was posted (ISO format). | 
+**status** | **str** | The incident status at the time of this update. | 
+**components** | **Dict[str, str]** | Component statuses at time of update | [optional] 
 
 ## Example
 

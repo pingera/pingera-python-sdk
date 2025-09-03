@@ -23,6 +23,10 @@ from pingera.models.alert_notification import AlertNotification
 from pingera.models.alert_rule import AlertRule
 from pingera.models.alert_rule1 import AlertRule1
 from pingera.models.alert_stats import AlertStats
+from pingera.models.check_group import CheckGroup
+from pingera.models.check_group1 import CheckGroup1
+from pingera.models.check_group2 import CheckGroup2
+from pingera.models.check_group_list import CheckGroupList
 from pingera.models.check_job import CheckJob
 from pingera.models.check_server import CheckServer
 from pingera.models.component import Component
@@ -31,12 +35,16 @@ from pingera.models.component_uptime_bulk_request import ComponentUptimeBulkRequ
 from pingera.models.error import Error
 from pingera.models.execute_custom_check_request import ExecuteCustomCheckRequest
 from pingera.models.execute_existing_check_response import ExecuteExistingCheckResponse
+from pingera.models.generated import Generated
+from pingera.models.generated1 import Generated1
 from pingera.models.heartbeat_check import HeartbeatCheck
 from pingera.models.heartbeat_check1 import HeartbeatCheck1
 from pingera.models.heartbeat_check_channel_assignment import HeartbeatCheckChannelAssignment
 from pingera.models.heartbeat_check_detail import HeartbeatCheckDetail
 from pingera.models.heartbeat_check_list import HeartbeatCheckList
 from pingera.models.heartbeat_ping import HeartbeatPing
+from pingera.models.heartbeat_ping_count_history import HeartbeatPingCountHistory
+from pingera.models.heartbeat_ping_count_response import HeartbeatPingCountResponse
 from pingera.models.heartbeat_ping_history import HeartbeatPingHistory
 from pingera.models.heartbeat_ping_response import HeartbeatPingResponse
 from pingera.models.incident import Incident

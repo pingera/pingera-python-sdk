@@ -28,9 +28,9 @@ class HeartbeatCheckList(BaseModel):
     """
     HeartbeatCheckList
     """ # noqa: E501
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the list of checks.")
     checks: Optional[List[HeartbeatCheck]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "checks"]
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the list of checks.")
+    __properties: ClassVar[List[str]] = ["checks", "pagination"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,8 +66,8 @@ class HeartbeatCheckList(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "pagination",
             "checks",
+            "pagination",
         ])
 
         _dict = self.model_dump(
@@ -94,8 +94,8 @@ class HeartbeatCheckList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": obj.get("pagination"),
-            "checks": [HeartbeatCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None
+            "checks": [HeartbeatCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
+            "pagination": obj.get("pagination")
         })
         return _obj
 
