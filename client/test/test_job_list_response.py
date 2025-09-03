@@ -36,20 +36,20 @@ class TestJobListResponse(unittest.TestCase):
         model = JobListResponse()
         if include_optional:
             return JobListResponse(
+                pagination = {"page":1,"per_page":20,"total":100,"pages":5,"has_next":true,"has_prev":false},
                 jobs = [
                     pingera.models.check_job.CheckJob(
                         created_at = '2024-01-15T14:25Z', 
-                        started_at = '2024-01-15T14:26Z', 
-                        check_id = 'chk123def456', 
-                        result = {"status":"ok","response_time":250,"check_server":{"region":"us-west-1"}}, 
-                        check_parameters = {"url":"https://api.example.com","timeout":10}, 
-                        id = 'job456ghi789', 
-                        job_type = web_check, 
                         status = 'completed', 
+                        job_type = web_check, 
+                        error_message = 'Unable to connect to target server', 
                         completed_at = '2024-01-15T14:30Z', 
-                        error_message = 'Unable to connect to target server', )
-                    ],
-                pagination = {"page":1,"per_page":20,"total":100,"pages":5,"has_next":true,"has_prev":false}
+                        started_at = '2024-01-15T14:26Z', 
+                        result = {"status":"ok","response_time":250,"check_server":{"region":"us-west-1"}}, 
+                        check_id = 'chk123def456', 
+                        id = 'job456ghi789', 
+                        check_parameters = {"url":"https://api.example.com","timeout":10}, )
+                    ]
             )
         else:
             return JobListResponse(

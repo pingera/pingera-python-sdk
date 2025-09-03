@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**message** | **str** |  | [optional] 
 **group_id** | **str** |  | [optional] 
 **check_id** | **str** |  | [optional] 
-**message** | **str** |  | [optional] 
 
 ## Example
 

@@ -27,10 +27,10 @@ class Generated1(BaseModel):
     """
     Generated1
     """ # noqa: E501
+    message: Optional[StrictStr] = None
     group_id: Optional[StrictStr] = None
     check_id: Optional[StrictStr] = None
-    message: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["group_id", "check_id", "message"]
+    __properties: ClassVar[List[str]] = ["message", "group_id", "check_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,9 +88,9 @@ class Generated1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "message": obj.get("message"),
             "group_id": obj.get("group_id"),
-            "check_id": obj.get("check_id"),
-            "message": obj.get("message")
+            "check_id": obj.get("check_id")
         })
         return _obj
 

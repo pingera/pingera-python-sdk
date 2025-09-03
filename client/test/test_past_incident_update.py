@@ -38,8 +38,8 @@ class TestPastIncidentUpdate(unittest.TestCase):
             return PastIncidentUpdate(
                 body = 'We are investigating database connectivity issues',
                 created_at = '2024-01-15T10:30Z',
-                status = 'investigating',
-                components = {"comp_123":"major_outage","comp_456":"operational"}
+                components = {"comp_123":"major_outage","comp_456":"operational"},
+                status = 'investigating'
             )
         else:
             return PastIncidentUpdate(

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**alerts** | [**List[Alert]**](Alert.md) |  | [optional] [readonly] 
 **pagination** | **Dict[str, object]** | Pagination metadata for the list of alerts. | [optional] [readonly] 
+**alerts** | [**List[Alert]**](Alert.md) |  | [optional] [readonly] 
 
 ## Example
 

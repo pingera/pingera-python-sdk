@@ -38,18 +38,18 @@ class TestAlertChannel(unittest.TestCase):
             return AlertChannel(
                 created_at = '2024-01-15T10:00Z',
                 type = 'email',
-                name = 'Production Email Alerts',
                 updated_at = '2024-01-15T14:00Z',
-                enabled = True,
                 last_used_at = '2024-01-15T15:30Z',
+                enabled = True,
                 id = 'chn_abc123def456',
-                configuration = {"recipients":["admin@example.com","ops@example.com"]}
+                configuration = {"recipients":["admin@example.com","ops@example.com"]},
+                name = 'Production Email Alerts'
             )
         else:
             return AlertChannel(
                 type = 'email',
-                name = 'Production Email Alerts',
                 configuration = {"recipients":["admin@example.com","ops@example.com"]},
+                name = 'Production Email Alerts',
         )
         """
 

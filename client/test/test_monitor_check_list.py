@@ -36,27 +36,27 @@ class TestMonitorCheckList(unittest.TestCase):
         model = MonitorCheckList()
         if include_optional:
             return MonitorCheckList(
+                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 checks = [
                     pingera.models.monitor_check.MonitorCheck(
-                        group_id = 'grp123abc456', 
-                        last_checked_at = '2024-01-15T14:30Z', 
-                        host = 'example.com', 
-                        port = 443, 
                         created_at = '2024-01-15T10:00Z', 
+                        type = 'web', 
+                        last_checked_at = '2024-01-15T14:30Z', 
+                        position = 0, 
+                        port = 443, 
+                        status = 'ok', 
+                        group_id = 'grp123abc456', 
+                        updated_at = '2024-01-15T14:00Z', 
+                        parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]}, 
                         url = 'https://api.example.com/health', 
                         timeout = 10, 
-                        parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]}, 
-                        position = 0, 
-                        interval = 300, 
-                        type = 'web', 
-                        name = 'Production API Health Check', 
-                        updated_at = '2024-01-15T14:00Z', 
-                        active = True, 
-                        id = 'chk123def456', 
+                        host = 'example.com', 
                         group = null, 
-                        status = 'ok', )
-                    ],
-                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100}
+                        id = 'chk123def456', 
+                        active = True, 
+                        interval = 300, 
+                        name = 'Production API Health Check', )
+                    ]
             )
         else:
             return MonitorCheckList(

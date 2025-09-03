@@ -36,12 +36,12 @@ class TestExecuteCustomCheckRequest(unittest.TestCase):
         model = ExecuteCustomCheckRequest()
         if include_optional:
             return ExecuteCustomCheckRequest(
-                host = 'example.com',
+                type = 'web',
                 port = 443,
+                parameters = {"regions":["US, East coast","EU, West"],"expected_status_code":200,"expected_content":"OK","pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});"},
                 url = 'https://api.example.com/health',
                 timeout = 10,
-                parameters = {"regions":["US, East coast","EU, West"],"expected_status_code":200,"expected_content":"OK","pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});"},
-                type = 'web',
+                host = 'example.com',
                 name = 'Custom API Health Check'
             )
         else:

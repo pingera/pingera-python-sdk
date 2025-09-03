@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**message** | **str** | Human-readable message about the operation result. | 
 **job_id** | **str** | The unique identifier for the queued check job. | 
 **status** | **str** | The current status of the check job. | 
-**message** | **str** | Human-readable message about the operation result. | 
 
 ## Example
 

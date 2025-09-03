@@ -28,13 +28,20 @@ class IncidentCreate(BaseModel):
     """
     IncidentCreate
     """ # noqa: E501
-    body: Optional[StrictStr] = Field(default=None, description="The initial update body content for the incident.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name/title of the incident. Must be between 1 and 200 characters.")
-    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident creation.")
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when creating this incident.")
-    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
     status: StrictStr = Field(description="The current status of the incident.")
-    __properties: ClassVar[List[str]] = ["body", "name", "components", "deliver_notifications", "impact", "status"]
+    body: Optional[StrictStr] = Field(default=None, description="The initial update body content for the incident.")
+    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when creating this incident.")
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident creation.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name/title of the incident. Must be between 1 and 200 characters.")
+    __properties: ClassVar[List[str]] = ["status", "body", "impact", "deliver_notifications", "components", "name"]
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['investigating', 'identified', 'monitoring', 'resolved']):
+            raise ValueError("must be one of enum values ('investigating', 'identified', 'monitoring', 'resolved')")
+        return value
 
     @field_validator('impact')
     def impact_validate_enum(cls, value):
@@ -44,13 +51,6 @@ class IncidentCreate(BaseModel):
 
         if value not in set(['minor', 'major', 'critical']):
             raise ValueError("must be one of enum values ('minor', 'major', 'critical')")
-        return value
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['investigating', 'identified', 'monitoring', 'resolved']):
-            raise ValueError("must be one of enum values ('investigating', 'identified', 'monitoring', 'resolved')")
         return value
 
     model_config = ConfigDict(
@@ -104,12 +104,12 @@ class IncidentCreate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "status": obj.get("status"),
             "body": obj.get("body"),
-            "name": obj.get("name"),
-            "components": obj.get("components"),
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
             "impact": obj.get("impact"),
-            "status": obj.get("status")
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
+            "components": obj.get("components"),
+            "name": obj.get("name")
         })
         return _obj
 

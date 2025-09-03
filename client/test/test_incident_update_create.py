@@ -37,8 +37,8 @@ class TestIncidentUpdateCreate(unittest.TestCase):
         if include_optional:
             return IncidentUpdateCreate(
                 body = 'We have identified the root cause and are implementing a fix.',
-                status = 'identified',
-                deliver_notifications = True
+                deliver_notifications = True,
+                status = 'identified'
             )
         else:
             return IncidentUpdateCreate(

@@ -29,16 +29,16 @@ class CheckJob(BaseModel):
     CheckJob
     """ # noqa: E501
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
-    started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
-    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
-    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
-    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
     status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
-    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
+    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
     error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
-    __properties: ClassVar[List[str]] = ["created_at", "started_at", "check_id", "result", "check_parameters", "id", "job_type", "status", "completed_at", "error_message"]
+    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
+    started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
+    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
+    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
+    __properties: ClassVar[List[str]] = ["created_at", "status", "job_type", "error_message", "completed_at", "started_at", "result", "check_id", "id", "check_parameters"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -93,15 +93,15 @@ class CheckJob(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "created_at",
-            "started_at",
-            "check_id",
-            "result",
-            "check_parameters",
-            "id",
-            "job_type",
             "status",
-            "completed_at",
+            "job_type",
             "error_message",
+            "completed_at",
+            "started_at",
+            "result",
+            "check_id",
+            "id",
+            "check_parameters",
         ])
 
         _dict = self.model_dump(
@@ -109,15 +109,15 @@ class CheckJob(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if result (nullable) is None
-        # and model_fields_set contains the field
-        if self.result is None and "result" in self.model_fields_set:
-            _dict['result'] = None
-
         # set to None if job_type (nullable) is None
         # and model_fields_set contains the field
         if self.job_type is None and "job_type" in self.model_fields_set:
             _dict['job_type'] = None
+
+        # set to None if result (nullable) is None
+        # and model_fields_set contains the field
+        if self.result is None and "result" in self.model_fields_set:
+            _dict['result'] = None
 
         return _dict
 
@@ -132,15 +132,15 @@ class CheckJob(BaseModel):
 
         _obj = cls.model_validate({
             "created_at": obj.get("created_at"),
-            "started_at": obj.get("started_at"),
-            "check_id": obj.get("check_id"),
-            "result": obj.get("result"),
-            "check_parameters": obj.get("check_parameters"),
-            "id": obj.get("id"),
-            "job_type": obj.get("job_type"),
             "status": obj.get("status"),
+            "job_type": obj.get("job_type"),
+            "error_message": obj.get("error_message"),
             "completed_at": obj.get("completed_at"),
-            "error_message": obj.get("error_message")
+            "started_at": obj.get("started_at"),
+            "result": obj.get("result"),
+            "check_id": obj.get("check_id"),
+            "id": obj.get("id"),
+            "check_parameters": obj.get("check_parameters")
         })
         return _obj
 

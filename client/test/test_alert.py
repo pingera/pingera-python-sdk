@@ -36,23 +36,23 @@ class TestAlert(unittest.TestCase):
         model = Alert()
         if include_optional:
             return Alert(
-                title = 'Production API Health Check Failed',
-                severity = 'high',
-                rule_id = 'rule_def456ghi789',
-                check_name = Production API Health Check,
-                acknowledged_at = '2024-01-15T15:35Z',
-                resolved_at = '2024-01-15T16:30Z',
-                check_id = 'check_ghi789jkl012',
-                description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.',
+                is_active = true,
+                acknowledged_by_id = 'user_jkl012mno345',
+                status = 'firing',
                 last_notification_at = '2024-01-15T15:45Z',
                 duration = 3600,
+                title = 'Production API Health Check Failed',
+                resolved_at = '2024-01-15T16:30Z',
+                check_name = Production API Health Check,
+                rule_id = 'rule_def456ghi789',
+                description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.',
                 fired_at = '2024-01-15T15:30Z',
-                rule_name = Production API Down Alert,
-                acknowledged_by_id = 'user_jkl012mno345',
-                notification_count = 3,
+                check_id = 'check_ghi789jkl012',
                 id = 'alert_abc123def456',
-                is_active = true,
-                status = 'firing',
+                rule_name = Production API Down Alert,
+                severity = 'high',
+                notification_count = 3,
+                acknowledged_at = '2024-01-15T15:35Z',
                 alert_metadata = {"consecutive_failures":3,"last_check_result":"timeout","response_time":5000}
             )
         else:

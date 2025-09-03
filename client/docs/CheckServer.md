@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**country** | **str** | The country where the server is located. | [optional] 
-**ip_address** | **str** | The IP address of the check server. | [optional] 
-**region** | **str** | The geographical region where the server is located. | [optional] 
 **server_metadata** | **Dict[str, object]** | Additional metadata about the server configuration. | [optional] 
+**region** | **str** | The geographical region where the server is located. | [optional] 
+**country** | **str** | The country where the server is located. | [optional] 
 **id** | **str** | The unique identifier for the check server. | [optional] [readonly] 
+**ip_address** | **str** | The IP address of the check server. | [optional] 
 
 ## Example
 

@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **next_expected_ping** | **datetime** | The timestamp when the next ping is expected in ISO format. | [optional] [readonly] 
+**message** | **str** | A message describing the ping result. | [optional] [readonly] 
 **check_id** | **str** | The identifier of the heartbeat check that received the ping. | [optional] [readonly] 
 **status** | **str** | The status of the ping request. | [optional] [readonly] 
-**message** | **str** | A message describing the ping result. | [optional] [readonly] 
 
 ## Example
 

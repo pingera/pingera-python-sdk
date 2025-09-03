@@ -29,20 +29,20 @@ class Component1(BaseModel):
     """
     Component1
     """ # noqa: E501
-    group_id: Optional[StrictStr] = Field(default=None, description="ID of the group this component belongs to (if any)")
-    showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was created")
+    page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to")
+    only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational")
     start_date: Optional[datetime] = Field(default=None, description="Date when monitoring for this component started")
     position: Optional[StrictInt] = Field(default=None, description="Display order position of the component on the status page")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Display name of the component")
     status: Optional[StrictStr] = Field(default=None, description="Current operational status of the component")
-    page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to")
+    group_id: Optional[StrictStr] = Field(default=None, description="ID of the group this component belongs to (if any)")
+    showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was last updated")
-    only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the component")
     group: Optional[StrictBool] = Field(default=False, description="Whether this component is a group container for other components")
     description: Optional[StrictStr] = Field(default=None, description="Detailed description of the component")
-    __properties: ClassVar[List[str]] = ["group_id", "showcase", "created_at", "start_date", "position", "name", "status", "page_id", "updated_at", "only_show_if_degraded", "id", "group", "description"]
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the component")
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Display name of the component")
+    __properties: ClassVar[List[str]] = ["created_at", "page_id", "only_show_if_degraded", "start_date", "position", "status", "group_id", "showcase", "updated_at", "group", "description", "id", "name"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -101,15 +101,15 @@ class Component1(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.group_id is None and "group_id" in self.model_fields_set:
-            _dict['group_id'] = None
-
         # set to None if position (nullable) is None
         # and model_fields_set contains the field
         if self.position is None and "position" in self.model_fields_set:
             _dict['position'] = None
+
+        # set to None if group_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.group_id is None and "group_id" in self.model_fields_set:
+            _dict['group_id'] = None
 
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
@@ -128,19 +128,19 @@ class Component1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "group_id": obj.get("group_id"),
-            "showcase": obj.get("showcase"),
             "created_at": obj.get("created_at"),
+            "page_id": obj.get("page_id"),
+            "only_show_if_degraded": obj.get("only_show_if_degraded"),
             "start_date": obj.get("start_date"),
             "position": obj.get("position"),
-            "name": obj.get("name"),
             "status": obj.get("status"),
-            "page_id": obj.get("page_id"),
+            "group_id": obj.get("group_id"),
+            "showcase": obj.get("showcase"),
             "updated_at": obj.get("updated_at"),
-            "only_show_if_degraded": obj.get("only_show_if_degraded"),
-            "id": obj.get("id"),
             "group": obj.get("group") if obj.get("group") is not None else False,
-            "description": obj.get("description")
+            "description": obj.get("description"),
+            "id": obj.get("id"),
+            "name": obj.get("name")
         })
         return _obj
 

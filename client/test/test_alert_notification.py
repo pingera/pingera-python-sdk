@@ -36,17 +36,17 @@ class TestAlertNotification(unittest.TestCase):
         model = AlertNotification()
         if include_optional:
             return AlertNotification(
-                channel_name = Production Email Alerts,
                 created_at = '2024-01-15T15:30Z',
+                retry_count = 2,
+                status = 'sent',
                 alert_id = 'alert_def456ghi789',
+                error_message = 'SMTP connection timeout',
+                channel_id = 'chn_ghi789jkl012',
+                notification_type = 'alert_fired',
                 sent_at = '2024-01-15T15:32Z',
                 channel_type = 'email',
-                channel_id = 'chn_ghi789jkl012',
                 id = 'notif_abc123def456',
-                notification_type = 'alert_fired',
-                status = 'sent',
-                retry_count = 2,
-                error_message = 'SMTP connection timeout'
+                channel_name = Production Email Alerts
             )
         else:
             return AlertNotification(

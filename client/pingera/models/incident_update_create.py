@@ -28,9 +28,9 @@ class IncidentUpdateCreate(BaseModel):
     IncidentUpdateCreate
     """ # noqa: E501
     body: StrictStr = Field(description="The content/message of the incident update.")
-    status: StrictStr = Field(description="The incident status for this update.")
     deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
-    __properties: ClassVar[List[str]] = ["body", "status", "deliver_notifications"]
+    status: StrictStr = Field(description="The incident status for this update.")
+    __properties: ClassVar[List[str]] = ["body", "deliver_notifications", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -91,8 +91,8 @@ class IncidentUpdateCreate(BaseModel):
 
         _obj = cls.model_validate({
             "body": obj.get("body"),
-            "status": obj.get("status"),
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
+            "status": obj.get("status")
         })
         return _obj
 

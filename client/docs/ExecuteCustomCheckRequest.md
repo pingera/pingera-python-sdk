@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
+**type** | **str** | The type of monitoring check to perform. | 
 **port** | **int** | The port number to monitor (required for TCP and SSL checks). Range: 1-65535. | [optional] 
+**parameters** | **Dict[str, object]** | Additional parameters specific to the check type. For &#39;synthetic&#39; and &#39;multistep&#39; checks, must include &#39;pw_script&#39; with a valid Playwright script. | [optional] 
 **url** | **str** | The URL to monitor (required for web/api checks). Supports international domain names. | [optional] 
 **timeout** | **int** | The timeout for each check in seconds. Range: 1-30 seconds. | [optional] 
-**parameters** | **Dict[str, object]** | Additional parameters specific to the check type. For &#39;synthetic&#39; and &#39;multistep&#39; checks, must include &#39;pw_script&#39; with a valid Playwright script. | [optional] 
-**type** | **str** | The type of monitoring check to perform. | 
+**host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
 **name** | **str** | A user-friendly name for the custom check. Max 100 characters. | 
 
 ## Example

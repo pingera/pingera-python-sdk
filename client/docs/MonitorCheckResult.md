@@ -6,14 +6,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created_at** | **datetime** | The timestamp when the check result was created in ISO format. | [optional] [readonly] 
-**check_metadata** | **Dict[str, object]** | Additional metadata collected during the check execution. | [optional] 
 **response_time** | **int** | The response time of the check in milliseconds. | [optional] 
-**check_server_id** | **str** | The identifier of the server that executed this check. | [optional] 
-**check_id** | **str** | The identifier of the monitor check this result belongs to. | 
-**check_server** | [**CheckServer**](CheckServer.md) | Details about the server that executed this check. | [optional] [readonly] 
-**id** | **str** | The unique identifier for the check result. | [optional] [readonly] 
 **status** | **str** | The result status of the check execution. | [optional] 
+**check_server_id** | **str** | The identifier of the server that executed this check. | [optional] 
 **error_message** | **str** | Error message if the check failed. | [optional] 
+**check_server** | [**CheckServer**](CheckServer.md) | Details about the server that executed this check. | [optional] [readonly] 
+**check_metadata** | **Dict[str, object]** | Additional metadata collected during the check execution. | [optional] 
+**check_id** | **str** | The identifier of the monitor check this result belongs to. | 
+**id** | **str** | The unique identifier for the check result. | [optional] [readonly] 
 
 ## Example
 

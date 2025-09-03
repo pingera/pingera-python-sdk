@@ -36,15 +36,15 @@ class TestExecuteExistingCheckResponse(unittest.TestCase):
         model = ExecuteExistingCheckResponse()
         if include_optional:
             return ExecuteExistingCheckResponse(
+                message = 'Check execution queued successfully',
                 job_id = 'job456ghi789',
-                status = 'queued',
-                message = 'Check execution queued successfully'
+                status = 'queued'
             )
         else:
             return ExecuteExistingCheckResponse(
+                message = 'Check execution queued successfully',
                 job_id = 'job456ghi789',
                 status = 'queued',
-                message = 'Check execution queued successfully',
         )
         """
 

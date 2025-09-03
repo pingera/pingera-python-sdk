@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**regions** | [**List[Region]**](Region.md) | List of available regions for serverless check execution. | [optional] 
 **total_regions** | **int** | Total number of available regions. | [optional] 
+**regions** | [**List[Region]**](Region.md) | List of available regions for serverless check execution. | [optional] 
 
 ## Example
 

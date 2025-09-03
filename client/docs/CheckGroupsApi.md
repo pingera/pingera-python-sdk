@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_check_groups_group_id_checks_get**
-> Error v1_check_groups_group_id_checks_get(group_id, page=page, page_size=page_size)
+> MonitorCheckList v1_check_groups_group_id_checks_get(group_id, page=page, page_size=page_size)
 
 Get checks in a group
 
@@ -115,7 +115,7 @@ Get all checks that belong to a specific group
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.monitor_check_list import MonitorCheckList
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+[**MonitorCheckList**](MonitorCheckList.md)
 
 ### Authorization
 
@@ -186,6 +186,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | OK |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

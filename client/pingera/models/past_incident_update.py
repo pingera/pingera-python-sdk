@@ -30,9 +30,9 @@ class PastIncidentUpdate(BaseModel):
     """ # noqa: E501
     body: StrictStr = Field(description="The content of the incident update.")
     created_at: datetime = Field(description="When this update was posted (ISO format).")
-    status: StrictStr = Field(description="The incident status at the time of this update.")
     components: Optional[Dict[str, StrictStr]] = Field(default=None, description="Component statuses at time of update")
-    __properties: ClassVar[List[str]] = ["body", "created_at", "status", "components"]
+    status: StrictStr = Field(description="The incident status at the time of this update.")
+    __properties: ClassVar[List[str]] = ["body", "created_at", "components", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -94,8 +94,8 @@ class PastIncidentUpdate(BaseModel):
         _obj = cls.model_validate({
             "body": obj.get("body"),
             "created_at": obj.get("created_at"),
-            "status": obj.get("status"),
-            "components": obj.get("components")
+            "components": obj.get("components"),
+            "status": obj.get("status")
         })
         return _obj
 

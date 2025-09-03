@@ -29,59 +29,69 @@ class Page(BaseModel):
     """
     Page
     """ # noqa: E501
-    allow_rss_atom_feeds: Optional[StrictBool] = Field(default=None, description="Whether to provide RSS/Atom feeds")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was created")
-    css_graph_color: Optional[StrictStr] = Field(default=None, description="Color used for graphs and charts in HEX format")
-    support_url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to your support or contact page")
-    country: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Country where your organization is located")
-    allow_page_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to page updates")
-    css_button_text_color: Optional[StrictStr] = Field(default=None, description="Button text color in HEX format")
-    state: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="State/region where your organization is located")
-    css_button_hover_color: Optional[StrictStr] = Field(default=None, description="Button color on hover in HEX format")
-    time_zone: Optional[StrictStr] = Field(default=None, description="Timezone for displaying dates and times on the status page")
-    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization this page belongs to")
-    css_greens: Optional[StrictStr] = Field(default=None, description="Green color used for operational status in HEX format")
     ip_restrictions: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="IP address restrictions for viewing the page")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Display name of the status page")
+    css_button_hover_color: Optional[StrictStr] = Field(default=None, description="Button color on hover in HEX format")
     allow_email_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow email subscriptions")
-    css_oranges: Optional[StrictStr] = Field(default=None, description="Orange color used for partial outage status in HEX format")
-    template_id: Optional[Annotated[str, Field(strict=True, max_length=12)]] = Field(default=None, description="ID of the template used for this page")
-    css_border_color: Optional[StrictStr] = Field(default=None, description="Border color for page elements in HEX format")
-    hero_cover: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the hero cover image")
-    allow_webhook_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow webhook subscriptions")
-    hidden_from_search: Optional[StrictBool] = Field(default=None, description="Whether to hide this page from search engines")
+    notifications_email_footer: Optional[StrictStr] = Field(default=None, description="Footer text included in notification emails")
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was last updated")
     notifications_from_email: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Email address used as sender for notifications")
-    template: Optional[Any] = Field(default=None, description="Name of the template used for this page")
+    subdomain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Subdomain for accessing the status page (e.g., 'mycompany' for mycompany.pingera.ru)")
+    country: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Country where your organization is located")
+    template_id: Optional[Annotated[str, Field(strict=True, max_length=12)]] = Field(default=None, description="ID of the template used for this page")
+    css_oranges: Optional[StrictStr] = Field(default=None, description="Orange color used for partial outage status in HEX format")
+    css_yellows: Optional[StrictStr] = Field(default=None, description="Yellow color used for degraded status in HEX format")
+    css_button_border_color: Optional[StrictStr] = Field(default=None, description="Button border color in HEX format")
+    hidden_from_search: Optional[StrictBool] = Field(default=None, description="Whether to hide this page from search engines")
+    city: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="City where your organization is located")
     transactional_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the logo used in transactional emails")
-    css_blues: Optional[StrictStr] = Field(default=None, description="Blue color used for maintenance status in HEX format")
-    company_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the company logo")
-    url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Company URL - users will be redirected there when clicking on the logo")
-    language: Optional[StrictStr] = Field(default=None, description="Language for the status page interface")
     email_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the logo used in email notifications")
     viewers_must_be_team_members: Optional[StrictBool] = Field(default=None, description="Whether only team members can view this page. In other words if page is public or not.")
-    css_button_color: Optional[StrictStr] = Field(default=None, description="Button background color in HEX format")
-    css_body_background_color: Optional[StrictStr] = Field(default=None, description="Background color for the page body in HEX format")
-    css_font_color: Optional[StrictStr] = Field(default=None, description="Primary font color in HEX format")
-    subdomain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Subdomain for accessing the status page (e.g., 'mycompany' for mycompany.pingera.ru)")
-    domain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Custom domain for the status page")
-    activity_score: Optional[StrictInt] = Field(default=None, description="Internal activity score for the page")
-    css_yellows: Optional[StrictStr] = Field(default=None, description="Yellow color used for degraded status in HEX format")
-    css_reds: Optional[StrictStr] = Field(default=None, description="Red color used for major outage status in HEX format")
-    css_link_color: Optional[StrictStr] = Field(default=None, description="Color for links in HEX format")
-    css_no_data: Optional[StrictStr] = Field(default=None, description="Color used when no data is available in HEX format")
-    css_spinner_color: Optional[StrictStr] = Field(default=None, description="Loading spinner color in HEX format")
-    css_light_font_color: Optional[StrictStr] = Field(default=None, description="Light font color for secondary text in HEX format")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was last updated")
-    allow_sms_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow SMS subscriptions")
-    css_button_border_color: Optional[StrictStr] = Field(default=None, description="Button border color in HEX format")
-    notifications_email_footer: Optional[StrictStr] = Field(default=None, description="Footer text included in notification emails")
-    page_description: Optional[StrictStr] = Field(default=None, description="Brief description of what this status page monitors")
-    city: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="City where your organization is located")
     headline: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Headline text displayed on the status page")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the status page")
+    css_link_color: Optional[StrictStr] = Field(default=None, description="Color for links in HEX format")
+    domain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Custom domain for the status page")
+    page_description: Optional[StrictStr] = Field(default=None, description="Brief description of what this status page monitors")
+    css_body_background_color: Optional[StrictStr] = Field(default=None, description="Background color for the page body in HEX format")
+    allow_sms_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow SMS subscriptions")
+    css_button_color: Optional[StrictStr] = Field(default=None, description="Button background color in HEX format")
+    allow_rss_atom_feeds: Optional[StrictBool] = Field(default=None, description="Whether to provide RSS/Atom feeds")
+    support_url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to your support or contact page")
+    allow_webhook_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow webhook subscriptions")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Display name of the status page")
     allow_incident_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to incident updates")
+    css_light_font_color: Optional[StrictStr] = Field(default=None, description="Light font color for secondary text in HEX format")
+    activity_score: Optional[StrictInt] = Field(default=None, description="Internal activity score for the page")
+    css_graph_color: Optional[StrictStr] = Field(default=None, description="Color used for graphs and charts in HEX format")
+    css_button_text_color: Optional[StrictStr] = Field(default=None, description="Button text color in HEX format")
+    css_no_data: Optional[StrictStr] = Field(default=None, description="Color used when no data is available in HEX format")
+    url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Company URL - users will be redirected there when clicking on the logo")
+    template: Optional[Any] = Field(default=None, description="Name of the template used for this page")
+    css_greens: Optional[StrictStr] = Field(default=None, description="Green color used for operational status in HEX format")
+    state: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="State/region where your organization is located")
+    allow_page_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to page updates")
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was created")
+    css_blues: Optional[StrictStr] = Field(default=None, description="Blue color used for maintenance status in HEX format")
+    css_font_color: Optional[StrictStr] = Field(default=None, description="Primary font color in HEX format")
+    css_border_color: Optional[StrictStr] = Field(default=None, description="Border color for page elements in HEX format")
+    hero_cover: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the hero cover image")
+    css_reds: Optional[StrictStr] = Field(default=None, description="Red color used for major outage status in HEX format")
     favicon_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the favicon image")
-    __properties: ClassVar[List[str]] = ["allow_rss_atom_feeds", "created_at", "css_graph_color", "support_url", "country", "allow_page_subscribers", "css_button_text_color", "state", "css_button_hover_color", "time_zone", "organization_id", "css_greens", "ip_restrictions", "name", "allow_email_subscribers", "css_oranges", "template_id", "css_border_color", "hero_cover", "allow_webhook_subscribers", "hidden_from_search", "notifications_from_email", "template", "transactional_logo", "css_blues", "company_logo", "url", "language", "email_logo", "viewers_must_be_team_members", "css_button_color", "css_body_background_color", "css_font_color", "subdomain", "domain", "activity_score", "css_yellows", "css_reds", "css_link_color", "css_no_data", "css_spinner_color", "css_light_font_color", "updated_at", "allow_sms_subscribers", "css_button_border_color", "notifications_email_footer", "page_description", "city", "headline", "id", "allow_incident_subscribers", "favicon_logo"]
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the status page")
+    time_zone: Optional[StrictStr] = Field(default=None, description="Timezone for displaying dates and times on the status page")
+    company_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the company logo")
+    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization this page belongs to")
+    language: Optional[StrictStr] = Field(default=None, description="Language for the status page interface")
+    css_spinner_color: Optional[StrictStr] = Field(default=None, description="Loading spinner color in HEX format")
+    __properties: ClassVar[List[str]] = ["ip_restrictions", "css_button_hover_color", "allow_email_subscribers", "notifications_email_footer", "updated_at", "notifications_from_email", "subdomain", "country", "template_id", "css_oranges", "css_yellows", "css_button_border_color", "hidden_from_search", "city", "transactional_logo", "email_logo", "viewers_must_be_team_members", "headline", "css_link_color", "domain", "page_description", "css_body_background_color", "allow_sms_subscribers", "css_button_color", "allow_rss_atom_feeds", "support_url", "allow_webhook_subscribers", "name", "allow_incident_subscribers", "css_light_font_color", "activity_score", "css_graph_color", "css_button_text_color", "css_no_data", "url", "template", "css_greens", "state", "allow_page_subscribers", "created_at", "css_blues", "css_font_color", "css_border_color", "hero_cover", "css_reds", "favicon_logo", "id", "time_zone", "company_logo", "organization_id", "language", "css_spinner_color"]
+
+    @field_validator('subdomain')
+    def subdomain_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/")
+        return value
 
     @field_validator('time_zone')
     def time_zone_validate_enum(cls, value):
@@ -101,16 +111,6 @@ class Page(BaseModel):
 
         if value not in set(['ru', 'en']):
             raise ValueError("must be one of enum values ('ru', 'en')")
-        return value
-
-    @field_validator('subdomain')
-    def subdomain_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$", value):
-            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/")
         return value
 
     model_config = ConfigDict(
@@ -150,11 +150,11 @@ class Page(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
-            "organization_id",
-            "template",
             "updated_at",
+            "template",
+            "created_at",
             "id",
+            "organization_id",
         ])
 
         _dict = self.model_dump(
@@ -162,125 +162,70 @@ class Page(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if allow_rss_atom_feeds (nullable) is None
+        # set to None if ip_restrictions (nullable) is None
         # and model_fields_set contains the field
-        if self.allow_rss_atom_feeds is None and "allow_rss_atom_feeds" in self.model_fields_set:
-            _dict['allow_rss_atom_feeds'] = None
-
-        # set to None if css_graph_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_graph_color is None and "css_graph_color" in self.model_fields_set:
-            _dict['css_graph_color'] = None
-
-        # set to None if support_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.support_url is None and "support_url" in self.model_fields_set:
-            _dict['support_url'] = None
-
-        # set to None if country (nullable) is None
-        # and model_fields_set contains the field
-        if self.country is None and "country" in self.model_fields_set:
-            _dict['country'] = None
-
-        # set to None if allow_page_subscribers (nullable) is None
-        # and model_fields_set contains the field
-        if self.allow_page_subscribers is None and "allow_page_subscribers" in self.model_fields_set:
-            _dict['allow_page_subscribers'] = None
-
-        # set to None if css_button_text_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_button_text_color is None and "css_button_text_color" in self.model_fields_set:
-            _dict['css_button_text_color'] = None
-
-        # set to None if state (nullable) is None
-        # and model_fields_set contains the field
-        if self.state is None and "state" in self.model_fields_set:
-            _dict['state'] = None
+        if self.ip_restrictions is None and "ip_restrictions" in self.model_fields_set:
+            _dict['ip_restrictions'] = None
 
         # set to None if css_button_hover_color (nullable) is None
         # and model_fields_set contains the field
         if self.css_button_hover_color is None and "css_button_hover_color" in self.model_fields_set:
             _dict['css_button_hover_color'] = None
 
-        # set to None if time_zone (nullable) is None
-        # and model_fields_set contains the field
-        if self.time_zone is None and "time_zone" in self.model_fields_set:
-            _dict['time_zone'] = None
-
-        # set to None if css_greens (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_greens is None and "css_greens" in self.model_fields_set:
-            _dict['css_greens'] = None
-
-        # set to None if ip_restrictions (nullable) is None
-        # and model_fields_set contains the field
-        if self.ip_restrictions is None and "ip_restrictions" in self.model_fields_set:
-            _dict['ip_restrictions'] = None
-
         # set to None if allow_email_subscribers (nullable) is None
         # and model_fields_set contains the field
         if self.allow_email_subscribers is None and "allow_email_subscribers" in self.model_fields_set:
             _dict['allow_email_subscribers'] = None
 
-        # set to None if css_oranges (nullable) is None
+        # set to None if notifications_email_footer (nullable) is None
         # and model_fields_set contains the field
-        if self.css_oranges is None and "css_oranges" in self.model_fields_set:
-            _dict['css_oranges'] = None
-
-        # set to None if template_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.template_id is None and "template_id" in self.model_fields_set:
-            _dict['template_id'] = None
-
-        # set to None if css_border_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_border_color is None and "css_border_color" in self.model_fields_set:
-            _dict['css_border_color'] = None
-
-        # set to None if hero_cover (nullable) is None
-        # and model_fields_set contains the field
-        if self.hero_cover is None and "hero_cover" in self.model_fields_set:
-            _dict['hero_cover'] = None
-
-        # set to None if allow_webhook_subscribers (nullable) is None
-        # and model_fields_set contains the field
-        if self.allow_webhook_subscribers is None and "allow_webhook_subscribers" in self.model_fields_set:
-            _dict['allow_webhook_subscribers'] = None
-
-        # set to None if hidden_from_search (nullable) is None
-        # and model_fields_set contains the field
-        if self.hidden_from_search is None and "hidden_from_search" in self.model_fields_set:
-            _dict['hidden_from_search'] = None
+        if self.notifications_email_footer is None and "notifications_email_footer" in self.model_fields_set:
+            _dict['notifications_email_footer'] = None
 
         # set to None if notifications_from_email (nullable) is None
         # and model_fields_set contains the field
         if self.notifications_from_email is None and "notifications_from_email" in self.model_fields_set:
             _dict['notifications_from_email'] = None
 
-        # set to None if template (nullable) is None
+        # set to None if country (nullable) is None
         # and model_fields_set contains the field
-        if self.template is None and "template" in self.model_fields_set:
-            _dict['template'] = None
+        if self.country is None and "country" in self.model_fields_set:
+            _dict['country'] = None
+
+        # set to None if template_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.template_id is None and "template_id" in self.model_fields_set:
+            _dict['template_id'] = None
+
+        # set to None if css_oranges (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_oranges is None and "css_oranges" in self.model_fields_set:
+            _dict['css_oranges'] = None
+
+        # set to None if css_yellows (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_yellows is None and "css_yellows" in self.model_fields_set:
+            _dict['css_yellows'] = None
+
+        # set to None if css_button_border_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_button_border_color is None and "css_button_border_color" in self.model_fields_set:
+            _dict['css_button_border_color'] = None
+
+        # set to None if hidden_from_search (nullable) is None
+        # and model_fields_set contains the field
+        if self.hidden_from_search is None and "hidden_from_search" in self.model_fields_set:
+            _dict['hidden_from_search'] = None
+
+        # set to None if city (nullable) is None
+        # and model_fields_set contains the field
+        if self.city is None and "city" in self.model_fields_set:
+            _dict['city'] = None
 
         # set to None if transactional_logo (nullable) is None
         # and model_fields_set contains the field
         if self.transactional_logo is None and "transactional_logo" in self.model_fields_set:
             _dict['transactional_logo'] = None
-
-        # set to None if css_blues (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_blues is None and "css_blues" in self.model_fields_set:
-            _dict['css_blues'] = None
-
-        # set to None if company_logo (nullable) is None
-        # and model_fields_set contains the field
-        if self.company_logo is None and "company_logo" in self.model_fields_set:
-            _dict['company_logo'] = None
-
-        # set to None if url (nullable) is None
-        # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['url'] = None
 
         # set to None if email_logo (nullable) is None
         # and model_fields_set contains the field
@@ -292,100 +237,155 @@ class Page(BaseModel):
         if self.viewers_must_be_team_members is None and "viewers_must_be_team_members" in self.model_fields_set:
             _dict['viewers_must_be_team_members'] = None
 
-        # set to None if css_button_color (nullable) is None
+        # set to None if headline (nullable) is None
         # and model_fields_set contains the field
-        if self.css_button_color is None and "css_button_color" in self.model_fields_set:
-            _dict['css_button_color'] = None
-
-        # set to None if css_body_background_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_body_background_color is None and "css_body_background_color" in self.model_fields_set:
-            _dict['css_body_background_color'] = None
-
-        # set to None if css_font_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_font_color is None and "css_font_color" in self.model_fields_set:
-            _dict['css_font_color'] = None
-
-        # set to None if domain (nullable) is None
-        # and model_fields_set contains the field
-        if self.domain is None and "domain" in self.model_fields_set:
-            _dict['domain'] = None
-
-        # set to None if activity_score (nullable) is None
-        # and model_fields_set contains the field
-        if self.activity_score is None and "activity_score" in self.model_fields_set:
-            _dict['activity_score'] = None
-
-        # set to None if css_yellows (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_yellows is None and "css_yellows" in self.model_fields_set:
-            _dict['css_yellows'] = None
-
-        # set to None if css_reds (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_reds is None and "css_reds" in self.model_fields_set:
-            _dict['css_reds'] = None
+        if self.headline is None and "headline" in self.model_fields_set:
+            _dict['headline'] = None
 
         # set to None if css_link_color (nullable) is None
         # and model_fields_set contains the field
         if self.css_link_color is None and "css_link_color" in self.model_fields_set:
             _dict['css_link_color'] = None
 
-        # set to None if css_no_data (nullable) is None
+        # set to None if domain (nullable) is None
         # and model_fields_set contains the field
-        if self.css_no_data is None and "css_no_data" in self.model_fields_set:
-            _dict['css_no_data'] = None
-
-        # set to None if css_spinner_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_spinner_color is None and "css_spinner_color" in self.model_fields_set:
-            _dict['css_spinner_color'] = None
-
-        # set to None if css_light_font_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_light_font_color is None and "css_light_font_color" in self.model_fields_set:
-            _dict['css_light_font_color'] = None
-
-        # set to None if allow_sms_subscribers (nullable) is None
-        # and model_fields_set contains the field
-        if self.allow_sms_subscribers is None and "allow_sms_subscribers" in self.model_fields_set:
-            _dict['allow_sms_subscribers'] = None
-
-        # set to None if css_button_border_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_button_border_color is None and "css_button_border_color" in self.model_fields_set:
-            _dict['css_button_border_color'] = None
-
-        # set to None if notifications_email_footer (nullable) is None
-        # and model_fields_set contains the field
-        if self.notifications_email_footer is None and "notifications_email_footer" in self.model_fields_set:
-            _dict['notifications_email_footer'] = None
+        if self.domain is None and "domain" in self.model_fields_set:
+            _dict['domain'] = None
 
         # set to None if page_description (nullable) is None
         # and model_fields_set contains the field
         if self.page_description is None and "page_description" in self.model_fields_set:
             _dict['page_description'] = None
 
-        # set to None if city (nullable) is None
+        # set to None if css_body_background_color (nullable) is None
         # and model_fields_set contains the field
-        if self.city is None and "city" in self.model_fields_set:
-            _dict['city'] = None
+        if self.css_body_background_color is None and "css_body_background_color" in self.model_fields_set:
+            _dict['css_body_background_color'] = None
 
-        # set to None if headline (nullable) is None
+        # set to None if allow_sms_subscribers (nullable) is None
         # and model_fields_set contains the field
-        if self.headline is None and "headline" in self.model_fields_set:
-            _dict['headline'] = None
+        if self.allow_sms_subscribers is None and "allow_sms_subscribers" in self.model_fields_set:
+            _dict['allow_sms_subscribers'] = None
+
+        # set to None if css_button_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_button_color is None and "css_button_color" in self.model_fields_set:
+            _dict['css_button_color'] = None
+
+        # set to None if allow_rss_atom_feeds (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_rss_atom_feeds is None and "allow_rss_atom_feeds" in self.model_fields_set:
+            _dict['allow_rss_atom_feeds'] = None
+
+        # set to None if support_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.support_url is None and "support_url" in self.model_fields_set:
+            _dict['support_url'] = None
+
+        # set to None if allow_webhook_subscribers (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_webhook_subscribers is None and "allow_webhook_subscribers" in self.model_fields_set:
+            _dict['allow_webhook_subscribers'] = None
 
         # set to None if allow_incident_subscribers (nullable) is None
         # and model_fields_set contains the field
         if self.allow_incident_subscribers is None and "allow_incident_subscribers" in self.model_fields_set:
             _dict['allow_incident_subscribers'] = None
 
+        # set to None if css_light_font_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_light_font_color is None and "css_light_font_color" in self.model_fields_set:
+            _dict['css_light_font_color'] = None
+
+        # set to None if activity_score (nullable) is None
+        # and model_fields_set contains the field
+        if self.activity_score is None and "activity_score" in self.model_fields_set:
+            _dict['activity_score'] = None
+
+        # set to None if css_graph_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_graph_color is None and "css_graph_color" in self.model_fields_set:
+            _dict['css_graph_color'] = None
+
+        # set to None if css_button_text_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_button_text_color is None and "css_button_text_color" in self.model_fields_set:
+            _dict['css_button_text_color'] = None
+
+        # set to None if css_no_data (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_no_data is None and "css_no_data" in self.model_fields_set:
+            _dict['css_no_data'] = None
+
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['url'] = None
+
+        # set to None if template (nullable) is None
+        # and model_fields_set contains the field
+        if self.template is None and "template" in self.model_fields_set:
+            _dict['template'] = None
+
+        # set to None if css_greens (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_greens is None and "css_greens" in self.model_fields_set:
+            _dict['css_greens'] = None
+
+        # set to None if state (nullable) is None
+        # and model_fields_set contains the field
+        if self.state is None and "state" in self.model_fields_set:
+            _dict['state'] = None
+
+        # set to None if allow_page_subscribers (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_page_subscribers is None and "allow_page_subscribers" in self.model_fields_set:
+            _dict['allow_page_subscribers'] = None
+
+        # set to None if css_blues (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_blues is None and "css_blues" in self.model_fields_set:
+            _dict['css_blues'] = None
+
+        # set to None if css_font_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_font_color is None and "css_font_color" in self.model_fields_set:
+            _dict['css_font_color'] = None
+
+        # set to None if css_border_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_border_color is None and "css_border_color" in self.model_fields_set:
+            _dict['css_border_color'] = None
+
+        # set to None if hero_cover (nullable) is None
+        # and model_fields_set contains the field
+        if self.hero_cover is None and "hero_cover" in self.model_fields_set:
+            _dict['hero_cover'] = None
+
+        # set to None if css_reds (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_reds is None and "css_reds" in self.model_fields_set:
+            _dict['css_reds'] = None
+
         # set to None if favicon_logo (nullable) is None
         # and model_fields_set contains the field
         if self.favicon_logo is None and "favicon_logo" in self.model_fields_set:
             _dict['favicon_logo'] = None
+
+        # set to None if time_zone (nullable) is None
+        # and model_fields_set contains the field
+        if self.time_zone is None and "time_zone" in self.model_fields_set:
+            _dict['time_zone'] = None
+
+        # set to None if company_logo (nullable) is None
+        # and model_fields_set contains the field
+        if self.company_logo is None and "company_logo" in self.model_fields_set:
+            _dict['company_logo'] = None
+
+        # set to None if css_spinner_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_spinner_color is None and "css_spinner_color" in self.model_fields_set:
+            _dict['css_spinner_color'] = None
 
         return _dict
 
@@ -399,58 +399,58 @@ class Page(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "allow_rss_atom_feeds": obj.get("allow_rss_atom_feeds"),
-            "created_at": obj.get("created_at"),
-            "css_graph_color": obj.get("css_graph_color"),
-            "support_url": obj.get("support_url"),
-            "country": obj.get("country"),
-            "allow_page_subscribers": obj.get("allow_page_subscribers"),
-            "css_button_text_color": obj.get("css_button_text_color"),
-            "state": obj.get("state"),
-            "css_button_hover_color": obj.get("css_button_hover_color"),
-            "time_zone": obj.get("time_zone"),
-            "organization_id": obj.get("organization_id"),
-            "css_greens": obj.get("css_greens"),
             "ip_restrictions": obj.get("ip_restrictions"),
-            "name": obj.get("name"),
+            "css_button_hover_color": obj.get("css_button_hover_color"),
             "allow_email_subscribers": obj.get("allow_email_subscribers"),
-            "css_oranges": obj.get("css_oranges"),
-            "template_id": obj.get("template_id"),
-            "css_border_color": obj.get("css_border_color"),
-            "hero_cover": obj.get("hero_cover"),
-            "allow_webhook_subscribers": obj.get("allow_webhook_subscribers"),
-            "hidden_from_search": obj.get("hidden_from_search"),
+            "notifications_email_footer": obj.get("notifications_email_footer"),
+            "updated_at": obj.get("updated_at"),
             "notifications_from_email": obj.get("notifications_from_email"),
-            "template": obj.get("template"),
+            "subdomain": obj.get("subdomain"),
+            "country": obj.get("country"),
+            "template_id": obj.get("template_id"),
+            "css_oranges": obj.get("css_oranges"),
+            "css_yellows": obj.get("css_yellows"),
+            "css_button_border_color": obj.get("css_button_border_color"),
+            "hidden_from_search": obj.get("hidden_from_search"),
+            "city": obj.get("city"),
             "transactional_logo": obj.get("transactional_logo"),
-            "css_blues": obj.get("css_blues"),
-            "company_logo": obj.get("company_logo"),
-            "url": obj.get("url"),
-            "language": obj.get("language"),
             "email_logo": obj.get("email_logo"),
             "viewers_must_be_team_members": obj.get("viewers_must_be_team_members"),
-            "css_button_color": obj.get("css_button_color"),
-            "css_body_background_color": obj.get("css_body_background_color"),
-            "css_font_color": obj.get("css_font_color"),
-            "subdomain": obj.get("subdomain"),
-            "domain": obj.get("domain"),
-            "activity_score": obj.get("activity_score"),
-            "css_yellows": obj.get("css_yellows"),
-            "css_reds": obj.get("css_reds"),
-            "css_link_color": obj.get("css_link_color"),
-            "css_no_data": obj.get("css_no_data"),
-            "css_spinner_color": obj.get("css_spinner_color"),
-            "css_light_font_color": obj.get("css_light_font_color"),
-            "updated_at": obj.get("updated_at"),
-            "allow_sms_subscribers": obj.get("allow_sms_subscribers"),
-            "css_button_border_color": obj.get("css_button_border_color"),
-            "notifications_email_footer": obj.get("notifications_email_footer"),
-            "page_description": obj.get("page_description"),
-            "city": obj.get("city"),
             "headline": obj.get("headline"),
-            "id": obj.get("id"),
+            "css_link_color": obj.get("css_link_color"),
+            "domain": obj.get("domain"),
+            "page_description": obj.get("page_description"),
+            "css_body_background_color": obj.get("css_body_background_color"),
+            "allow_sms_subscribers": obj.get("allow_sms_subscribers"),
+            "css_button_color": obj.get("css_button_color"),
+            "allow_rss_atom_feeds": obj.get("allow_rss_atom_feeds"),
+            "support_url": obj.get("support_url"),
+            "allow_webhook_subscribers": obj.get("allow_webhook_subscribers"),
+            "name": obj.get("name"),
             "allow_incident_subscribers": obj.get("allow_incident_subscribers"),
-            "favicon_logo": obj.get("favicon_logo")
+            "css_light_font_color": obj.get("css_light_font_color"),
+            "activity_score": obj.get("activity_score"),
+            "css_graph_color": obj.get("css_graph_color"),
+            "css_button_text_color": obj.get("css_button_text_color"),
+            "css_no_data": obj.get("css_no_data"),
+            "url": obj.get("url"),
+            "template": obj.get("template"),
+            "css_greens": obj.get("css_greens"),
+            "state": obj.get("state"),
+            "allow_page_subscribers": obj.get("allow_page_subscribers"),
+            "created_at": obj.get("created_at"),
+            "css_blues": obj.get("css_blues"),
+            "css_font_color": obj.get("css_font_color"),
+            "css_border_color": obj.get("css_border_color"),
+            "hero_cover": obj.get("hero_cover"),
+            "css_reds": obj.get("css_reds"),
+            "favicon_logo": obj.get("favicon_logo"),
+            "id": obj.get("id"),
+            "time_zone": obj.get("time_zone"),
+            "company_logo": obj.get("company_logo"),
+            "organization_id": obj.get("organization_id"),
+            "language": obj.get("language"),
+            "css_spinner_color": obj.get("css_spinner_color")
         })
         return _obj
 

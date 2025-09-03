@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**recent_alerts** | **int** | Number of alerts fired in the last 30 days. | [optional] [readonly] 
-**active_alerts** | **int** | Number of currently active alerts (firing or acknowledged). | [optional] [readonly] 
+**total_channels** | **int** | Total number of enabled alert channels. | [optional] [readonly] 
 **severity_breakdown** | **Dict[str, object]** | Count of alerts by severity level in the last 30 days. | [optional] [readonly] 
 **total_rules** | **int** | Total number of enabled alert rules. | [optional] [readonly] 
-**total_channels** | **int** | Total number of enabled alert channels. | [optional] [readonly] 
+**active_alerts** | **int** | Number of currently active alerts (firing or acknowledged). | [optional] [readonly] 
+**recent_alerts** | **int** | Number of alerts fired in the last 30 days. | [optional] [readonly] 
 
 ## Example
 

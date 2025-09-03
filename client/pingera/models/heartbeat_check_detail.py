@@ -30,19 +30,19 @@ class HeartbeatCheckDetail(BaseModel):
     """
     HeartbeatCheckDetail
     """ # noqa: E501
+    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was created in ISO format.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the heartbeat check.")
+    ping_url: Optional[StrictStr] = Field(default=None, description="The unique URL to which the monitored service should send GET or POST requests. Auto-generated.")
     period_seconds: Annotated[int, Field(strict=True, ge=60)] = Field(description="The expected interval between pings, in seconds. Minimum is 60.")
-    recent_pings: Optional[List[HeartbeatPing]] = Field(default=None, description="A list of the 10 most recent pings for this check.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the heartbeat check. Max 100 symbols.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was last updated in ISO format.")
     last_ping_at: Optional[datetime] = Field(default=None, description="The timestamp of the last received ping in ISO format.")
-    ping_url: Optional[StrictStr] = Field(default=None, description="The unique URL to which the monitored service should send GET or POST requests. Auto-generated.")
-    active: Optional[StrictBool] = Field(default=True, description="Whether the heartbeat check is active or paused. Defaults to true.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat check. 12 chars, alpha-numeric.")
-    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
     grace_seconds: Optional[Annotated[int, Field(strict=True, ge=60)]] = Field(default=3600, description="A grace period in seconds to wait before marking the check as 'down'. Defaults to 3600.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the heartbeat check.")
-    __properties: ClassVar[List[str]] = ["created_at", "period_seconds", "recent_pings", "name", "updated_at", "last_ping_at", "ping_url", "active", "id", "next_expected_ping", "grace_seconds", "status"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat check. 12 chars, alpha-numeric.")
+    recent_pings: Optional[List[HeartbeatPing]] = Field(default=None, description="A list of the 10 most recent pings for this check.")
+    active: Optional[StrictBool] = Field(default=True, description="Whether the heartbeat check is active or paused. Defaults to true.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the heartbeat check. Max 100 symbols.")
+    __properties: ClassVar[List[str]] = ["next_expected_ping", "created_at", "status", "ping_url", "period_seconds", "updated_at", "last_ping_at", "grace_seconds", "id", "recent_pings", "active", "name"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -94,14 +94,14 @@ class HeartbeatCheckDetail(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "next_expected_ping",
             "created_at",
-            "recent_pings",
+            "status",
+            "ping_url",
             "updated_at",
             "last_ping_at",
-            "ping_url",
             "id",
-            "next_expected_ping",
-            "status",
+            "recent_pings",
         ])
 
         _dict = self.model_dump(
@@ -128,18 +128,18 @@ class HeartbeatCheckDetail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "next_expected_ping": obj.get("next_expected_ping"),
             "created_at": obj.get("created_at"),
+            "status": obj.get("status"),
+            "ping_url": obj.get("ping_url"),
             "period_seconds": obj.get("period_seconds"),
-            "recent_pings": [HeartbeatPing.from_dict(_item) for _item in obj["recent_pings"]] if obj.get("recent_pings") is not None else None,
-            "name": obj.get("name"),
             "updated_at": obj.get("updated_at"),
             "last_ping_at": obj.get("last_ping_at"),
-            "ping_url": obj.get("ping_url"),
-            "active": obj.get("active") if obj.get("active") is not None else True,
-            "id": obj.get("id"),
-            "next_expected_ping": obj.get("next_expected_ping"),
             "grace_seconds": obj.get("grace_seconds") if obj.get("grace_seconds") is not None else 3600,
-            "status": obj.get("status")
+            "id": obj.get("id"),
+            "recent_pings": [HeartbeatPing.from_dict(_item) for _item in obj["recent_pings"]] if obj.get("recent_pings") is not None else None,
+            "active": obj.get("active") if obj.get("active") is not None else True,
+            "name": obj.get("name")
         })
         return _obj
 

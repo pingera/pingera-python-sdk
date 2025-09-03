@@ -28,9 +28,9 @@ class UnifiedResultList(BaseModel):
     """
     UnifiedResultList
     """ # noqa: E501
-    results: Optional[List[UnifiedResult]] = None
     pagination: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["results", "pagination"]
+    results: Optional[List[UnifiedResult]] = None
+    __properties: ClassVar[List[str]] = ["pagination", "results"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class UnifiedResultList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "results": [UnifiedResult.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None,
-            "pagination": obj.get("pagination")
+            "pagination": obj.get("pagination"),
+            "results": [UnifiedResult.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
         })
         return _obj
 

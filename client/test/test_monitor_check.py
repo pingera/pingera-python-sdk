@@ -36,31 +36,31 @@ class TestMonitorCheck(unittest.TestCase):
         model = MonitorCheck()
         if include_optional:
             return MonitorCheck(
-                group_id = 'grp123abc456',
-                last_checked_at = '2024-01-15T14:30Z',
-                host = 'example.com',
-                port = 443,
                 created_at = '2024-01-15T10:00Z',
+                type = 'web',
+                last_checked_at = '2024-01-15T14:30Z',
+                position = 0,
+                port = 443,
+                status = 'ok',
+                group_id = 'grp123abc456',
+                updated_at = '2024-01-15T14:00Z',
+                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
                 url = 'https://api.example.com/health',
                 timeout = 10,
-                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
-                position = 0,
-                interval = 300,
-                type = 'web',
-                name = 'Production API Health Check',
-                updated_at = '2024-01-15T14:00Z',
-                active = True,
-                id = 'chk123def456',
+                host = 'example.com',
                 group = pingera.models.check_group.CheckGroup(
                     created_at = '2024-01-15T10:00Z', 
-                    position = 0, 
-                    name = 'Production Services', 
-                    updated_at = '2024-01-15T14:00Z', 
-                    active = True, 
-                    id = 'grp123abc456', 
                     color = '#4F46E5', 
-                    description = 'Critical production services monitoring', ),
-                status = 'ok'
+                    position = 0, 
+                    updated_at = '2024-01-15T14:00Z', 
+                    description = 'Critical production services monitoring', 
+                    id = 'grp123abc456', 
+                    active = True, 
+                    name = 'Production Services', ),
+                id = 'chk123def456',
+                active = True,
+                interval = 300,
+                name = 'Production API Health Check'
             )
         else:
             return MonitorCheck(

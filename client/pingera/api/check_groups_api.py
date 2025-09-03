@@ -23,9 +23,9 @@ from typing_extensions import Annotated
 from pingera.models.check_group1 import CheckGroup1
 from pingera.models.check_group2 import CheckGroup2
 from pingera.models.check_group_list import CheckGroupList
-from pingera.models.error import Error
 from pingera.models.generated import Generated
 from pingera.models.generated1 import Generated1
+from pingera.models.monitor_check_list import MonitorCheckList
 
 from pingera.api_client import ApiClient, RequestSerialized
 from pingera.api_response import ApiResponse
@@ -344,7 +344,7 @@ class CheckGroupsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Error:
+    ) -> MonitorCheckList:
         """Get checks in a group
 
         Get all checks that belong to a specific group
@@ -388,6 +388,7 @@ class CheckGroupsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "MonitorCheckList",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -418,7 +419,7 @@ class CheckGroupsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Error]:
+    ) -> ApiResponse[MonitorCheckList]:
         """Get checks in a group
 
         Get all checks that belong to a specific group
@@ -462,6 +463,7 @@ class CheckGroupsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "MonitorCheckList",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -536,6 +538,7 @@ class CheckGroupsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "MonitorCheckList",
         }
         response_data = self.api_client.call_api(
             *_param,

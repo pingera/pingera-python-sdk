@@ -36,9 +36,9 @@ class TestRegion(unittest.TestCase):
         model = Region()
         if include_optional:
             return Region(
-                id = 'EU, West',
+                display_name = 'Europe, West, Belgium',
                 available_check_types = ["api","web","tcp","ssl","synthetic","multistep"],
-                display_name = 'Europe, West, Belgium'
+                id = 'EU, West'
             )
         else:
             return Region(

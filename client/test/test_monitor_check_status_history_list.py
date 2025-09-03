@@ -40,8 +40,8 @@ class TestMonitorCheckStatusHistoryList(unittest.TestCase):
                 status_history = [
                     pingera.models.monitor_check_status_history.MonitorCheckStatusHistory(
                         ended_at = '2024-01-15T15:30Z', 
-                        status = 'ok', 
-                        started_at = '2024-01-15T14:30Z', )
+                        started_at = '2024-01-15T14:30Z', 
+                        status = 'ok', )
                     ]
             )
         else:

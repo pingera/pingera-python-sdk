@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The unique identifier for the region. | [optional] 
-**available_check_types** | **List[str]** | List of check types available in this region. | [optional] 
 **display_name** | **str** | The human-readable display name for the region. | [optional] 
+**available_check_types** | **List[str]** | List of check types available in this region. | [optional] 
+**id** | **str** | The unique identifier for the region. | [optional] 
 
 ## Example
 

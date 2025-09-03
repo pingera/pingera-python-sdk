@@ -31,13 +31,13 @@ class AlertChannel1(BaseModel):
     """ # noqa: E501
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.")
     type: Optional[StrictStr] = Field(default=None, description="The type of alert channel.")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the alert channel. Max 100 characters.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.")
-    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
     last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used.")
+    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.")
     configuration: Optional[Dict[str, Any]] = Field(default=None, description="Channel-specific configuration. Structure varies by channel type.")
-    __properties: ClassVar[List[str]] = ["created_at", "type", "name", "updated_at", "enabled", "last_used_at", "id", "configuration"]
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the alert channel. Max 100 characters.")
+    __properties: ClassVar[List[str]] = ["created_at", "type", "updated_at", "last_used_at", "enabled", "id", "configuration", "name"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -115,12 +115,12 @@ class AlertChannel1(BaseModel):
         _obj = cls.model_validate({
             "created_at": obj.get("created_at"),
             "type": obj.get("type"),
-            "name": obj.get("name"),
             "updated_at": obj.get("updated_at"),
-            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
             "last_used_at": obj.get("last_used_at"),
+            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
             "id": obj.get("id"),
-            "configuration": obj.get("configuration")
+            "configuration": obj.get("configuration"),
+            "name": obj.get("name")
         })
         return _obj
 

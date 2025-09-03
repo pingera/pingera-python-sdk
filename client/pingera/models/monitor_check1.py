@@ -30,24 +30,24 @@ class MonitorCheck1(BaseModel):
     """
     MonitorCheck1
     """ # noqa: E501
-    group_id: Optional[StrictStr] = Field(default=None, description="The ID of the group this check belongs to (optional).")
-    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
-    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
-    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.")
+    type: Optional[StrictStr] = Field(default=None, description="The type of monitoring check to perform.")
+    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
+    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
+    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
+    group_id: Optional[StrictStr] = Field(default=None, description="The ID of the group this check belongs to (optional).")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
+    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. For 'synthetic' and 'multistep' checks, must include 'pw_script' with a valid Playwright script.")
     url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
     timeout: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds.")
-    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. For 'synthetic' and 'multistep' checks, must include 'pw_script' with a valid Playwright script.")
-    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
-    interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours.")
-    type: Optional[StrictStr] = Field(default=None, description="The type of monitoring check to perform.")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the monitor check. Max 100 characters.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.")
+    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
     group: Optional[CheckGroup] = Field(default=None, description="The group this check belongs to (if any).")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
-    __properties: ClassVar[List[str]] = ["group_id", "last_checked_at", "host", "port", "created_at", "url", "timeout", "parameters", "position", "interval", "type", "name", "updated_at", "active", "id", "group", "status"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.")
+    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
+    interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours.")
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the monitor check. Max 100 characters.")
+    __properties: ClassVar[List[str]] = ["created_at", "type", "last_checked_at", "position", "port", "status", "group_id", "updated_at", "parameters", "url", "timeout", "host", "group", "id", "active", "interval", "name"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -107,12 +107,12 @@ class MonitorCheck1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "last_checked_at",
             "created_at",
-            "updated_at",
-            "id",
-            "group",
+            "last_checked_at",
             "status",
+            "updated_at",
+            "group",
+            "id",
         ])
 
         _dict = self.model_dump(
@@ -140,23 +140,23 @@ class MonitorCheck1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "group_id": obj.get("group_id"),
-            "last_checked_at": obj.get("last_checked_at"),
-            "host": obj.get("host"),
-            "port": obj.get("port"),
             "created_at": obj.get("created_at"),
+            "type": obj.get("type"),
+            "last_checked_at": obj.get("last_checked_at"),
+            "position": obj.get("position"),
+            "port": obj.get("port"),
+            "status": obj.get("status"),
+            "group_id": obj.get("group_id"),
+            "updated_at": obj.get("updated_at"),
+            "parameters": obj.get("parameters"),
             "url": obj.get("url"),
             "timeout": obj.get("timeout"),
-            "parameters": obj.get("parameters"),
-            "position": obj.get("position"),
-            "interval": obj.get("interval"),
-            "type": obj.get("type"),
-            "name": obj.get("name"),
-            "updated_at": obj.get("updated_at"),
-            "active": obj.get("active"),
-            "id": obj.get("id"),
+            "host": obj.get("host"),
             "group": CheckGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
-            "status": obj.get("status")
+            "id": obj.get("id"),
+            "active": obj.get("active"),
+            "interval": obj.get("interval"),
+            "name": obj.get("name")
         })
         return _obj
 

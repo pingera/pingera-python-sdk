@@ -28,9 +28,9 @@ class RegionsList(BaseModel):
     """
     RegionsList
     """ # noqa: E501
-    regions: Optional[List[Region]] = Field(default=None, description="List of available regions for serverless check execution.")
     total_regions: Optional[StrictInt] = Field(default=None, description="Total number of available regions.")
-    __properties: ClassVar[List[str]] = ["regions", "total_regions"]
+    regions: Optional[List[Region]] = Field(default=None, description="List of available regions for serverless check execution.")
+    __properties: ClassVar[List[str]] = ["total_regions", "regions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class RegionsList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "regions": [Region.from_dict(_item) for _item in obj["regions"]] if obj.get("regions") is not None else None,
-            "total_regions": obj.get("total_regions")
+            "total_regions": obj.get("total_regions"),
+            "regions": [Region.from_dict(_item) for _item in obj["regions"]] if obj.get("regions") is not None else None
         })
         return _obj
 
