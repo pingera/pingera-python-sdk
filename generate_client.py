@@ -35,7 +35,7 @@ def main():
         "-g", "python",
         "-o", output_dir,
         "--package-name", "pingera",
-        "--additional-properties", "packageVersion=1.0.6,projectName=pingera-generated-client"
+        "--additional-properties", "packageVersion=1.0.5,projectName=pingera-generated-client"
     ]
     
     try:
@@ -43,25 +43,19 @@ def main():
         result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         print("✓ Client generated successfully!")
         
-        # Fix the license issue and add pip-system-certs dependency in the generated pyproject.toml
+        # Fix the license issue in the generated pyproject.toml
         pyproject_path = Path(output_dir) / "pyproject.toml"
         if pyproject_path.exists():
-            print("Fixing license field and adding pip-system-certs dependency in pyproject.toml...")
+            print("Fixing license field in pyproject.toml...")
             with open(pyproject_path, 'r') as f:
                 content = f.read()
             
             # Replace the invalid license format
             content = content.replace('license = "NoLicense"', 'license = {text = "MIT"}')
             
-            # Add pip-system-certs to dependencies
-            content = content.replace(
-                '"typing-extensions (>=4.7.1)"\n]',
-                '"typing-extensions (>=4.7.1)",\n  "pip-system-certs"\n]'
-            )
-            
             with open(pyproject_path, 'w') as f:
                 f.write(content)
-            print("✓ License field fixed and pip-system-certs dependency added")
+            print("✓ License field fixed")
         
         # Install the generated client
         print("Installing generated client...")

@@ -1,6 +1,6 @@
 [project]
 name = "pingera"
-version = "1.0.6"
+version = "1.0.5"
 description = "Pingera API"
 authors = [
   {name = "OpenAPI Generator Community",email = "privet@pingera.ru"},
@@ -14,8 +14,7 @@ dependencies = [
   "urllib3 (>=2.1.0,<3.0.0)",
   "python-dateutil (>=2.8.2)",
   "pydantic (>=2)",
-  "typing-extensions (>=4.7.1)",
-  "pip-system-certs"
+  "typing-extensions (>=4.7.1)"
 ]
 
 [project.urls]
