@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**impact** | **str** | The impact level of the incident. | [optional] 
 **status** | **str** | The current status of the incident. | 
 **body** | **str** | The initial update body content for the incident. | [optional] 
-**impact** | **str** | The impact level of the incident. | [optional] 
 **deliver_notifications** | **bool** | Whether to send notifications when creating this incident. | [optional] [default to True]
 **components** | **Dict[str, str]** | A dictionary mapping component IDs to their status during incident creation. | [optional] 
 **name** | **str** | The name/title of the incident. Must be between 1 and 200 characters. | 

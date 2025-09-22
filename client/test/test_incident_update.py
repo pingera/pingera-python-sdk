@@ -36,14 +36,14 @@ class TestIncidentUpdate(unittest.TestCase):
         model = IncidentUpdate()
         if include_optional:
             return IncidentUpdate(
-                created_at = '2024-01-15T10:30Z',
                 status = 'investigating',
-                body = 'We have identified the root cause and are implementing a fix.',
+                created_at = '2024-01-15T10:30Z',
                 updated_at = '2024-01-15T10:30Z',
+                body = 'We have identified the root cause and are implementing a fix.',
                 deliver_notifications = True,
-                id = 'upd_123456789',
+                incident_id = 'inc_123456789',
                 components = [{"id":"comp_123","name":"API","status":"operational"}],
-                incident_id = 'inc_123456789'
+                id = 'upd_123456789'
             )
         else:
             return IncidentUpdate(

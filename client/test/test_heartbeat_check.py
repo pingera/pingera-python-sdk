@@ -36,17 +36,17 @@ class TestHeartbeatCheck(unittest.TestCase):
         model = HeartbeatCheck()
         if include_optional:
             return HeartbeatCheck(
+                last_ping_at = '2024-01-15T14:30Z',
+                ping_url = 'https://api.pingera.ru/v1/heartbeats/abc123def456/ping',
+                grace_seconds = 600,
+                status = 'up',
                 next_expected_ping = '2024-01-16T14:30Z',
                 created_at = '2024-01-15T10:00Z',
-                status = 'up',
-                ping_url = 'https://api.pingera.ru/v1/heartbeats/abc123def456/ping',
-                period_seconds = 86400,
                 updated_at = '2024-01-15T14:00Z',
-                last_ping_at = '2024-01-15T14:30Z',
-                grace_seconds = 600,
-                id = 'abc123def456',
+                period_seconds = 86400,
+                name = 'Nightly Backup Cron Job',
                 active = True,
-                name = 'Nightly Backup Cron Job'
+                id = 'abc123def456'
             )
         else:
             return HeartbeatCheck(

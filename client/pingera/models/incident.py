@@ -29,35 +29,35 @@ class Incident(BaseModel):
     """
     Incident
     """ # noqa: E501
-    page_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the status page this incident belongs to.")
-    postmortem_published_at: Optional[Any] = Field(default=None, description="The timestamp when the postmortem was published.")
-    auto_transition_to_maintenance_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components to maintenance state during scheduled maintenance.")
-    body: Optional[StrictStr] = Field(default=None, description="The main description/body content of the incident.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident was last updated in ISO format.")
-    postmortem_body: Optional[Any] = Field(default=None, description="The content of the incident postmortem, if published.")
+    reminder_intervals: Optional[StrictStr] = Field(default=None, description="The intervals at which to send reminder notifications for scheduled maintenance.")
+    status: StrictStr = Field(description="The current status of the incident.")
     scheduled_until: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to end.")
-    scheduled_for: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to start.")
-    monitoring_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident status was changed to monitoring.")
+    auto_transition_to_operational_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components back to operational state after scheduled maintenance.")
+    scheduled_auto_completed: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as completed.")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata associated with the incident.")
+    postmortem_published_at: Optional[Any] = Field(default=None, description="The timestamp when the postmortem was published.")
     scheduled_remind_prior: Optional[StrictBool] = Field(default=None, description="Whether to send reminder notifications before scheduled maintenance begins.")
-    postmortem_body_last_updated_at: Optional[Any] = Field(default=None, description="The timestamp when the postmortem body was last updated.")
     scheduled_reminded_at: Optional[datetime] = Field(default=None, description="The timestamp when reminder notifications were sent for scheduled maintenance.")
+    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
+    scheduled_for: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to start.")
+    body: Optional[StrictStr] = Field(default=None, description="The main description/body content of the incident.")
+    postmortem_body_last_updated_at: Optional[Any] = Field(default=None, description="The timestamp when the postmortem body was last updated.")
+    resolved_at: Optional[Any] = Field(default=None, description="The timestamp when the incident was resolved, derived from the latest update with 'resolved' status.")
+    incident_updates: Optional[Any] = Field(default=None, description="List of all updates posted for this incident, sorted by creation time (newest first).")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident was created in ISO format.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident was last updated in ISO format.")
+    auto_transition_deliver_notifications_at_end: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the end of scheduled maintenance.")
+    monitoring_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident status was changed to monitoring.")
+    auto_transition_to_maintenance_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components to maintenance state during scheduled maintenance.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident.")
+    page_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the status page this incident belongs to.")
+    postmortem_body: Optional[Any] = Field(default=None, description="The content of the incident postmortem, if published.")
+    deliver_notifications: Optional[StrictBool] = Field(default=None, description="Whether to send notifications when creating or updating this incident.")
+    components: Optional[Any] = Field(default=None, description="List of components affected by this incident with their current status.")
     scheduled_auto_in_progress: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as in progress.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name/title of the incident. Must be between 1 and 200 characters.")
-    auto_transition_to_operational_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components back to operational state after scheduled maintenance.")
-    status: StrictStr = Field(description="The current status of the incident.")
-    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
-    deliver_notifications: Optional[StrictBool] = Field(default=None, description="Whether to send notifications when creating or updating this incident.")
     auto_transition_deliver_notifications_at_start: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the start of scheduled maintenance.")
-    components: Optional[Any] = Field(default=None, description="List of components affected by this incident with their current status.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident was created in ISO format.")
-    reminder_intervals: Optional[StrictStr] = Field(default=None, description="The intervals at which to send reminder notifications for scheduled maintenance.")
-    incident_updates: Optional[Any] = Field(default=None, description="List of all updates posted for this incident, sorted by creation time (newest first).")
-    auto_transition_deliver_notifications_at_end: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the end of scheduled maintenance.")
-    resolved_at: Optional[Any] = Field(default=None, description="The timestamp when the incident was resolved, derived from the latest update with 'resolved' status.")
-    scheduled_auto_completed: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as completed.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident.")
-    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata associated with the incident.")
-    __properties: ClassVar[List[str]] = ["page_id", "postmortem_published_at", "auto_transition_to_maintenance_state", "body", "updated_at", "postmortem_body", "scheduled_until", "scheduled_for", "monitoring_at", "scheduled_remind_prior", "postmortem_body_last_updated_at", "scheduled_reminded_at", "scheduled_auto_in_progress", "name", "auto_transition_to_operational_state", "status", "impact", "deliver_notifications", "auto_transition_deliver_notifications_at_start", "components", "created_at", "reminder_intervals", "incident_updates", "auto_transition_deliver_notifications_at_end", "resolved_at", "scheduled_auto_completed", "id", "metadata"]
+    __properties: ClassVar[List[str]] = ["reminder_intervals", "status", "scheduled_until", "auto_transition_to_operational_state", "scheduled_auto_completed", "metadata", "postmortem_published_at", "scheduled_remind_prior", "scheduled_reminded_at", "impact", "scheduled_for", "body", "postmortem_body_last_updated_at", "resolved_at", "incident_updates", "created_at", "updated_at", "auto_transition_deliver_notifications_at_end", "monitoring_at", "auto_transition_to_maintenance_state", "id", "page_id", "postmortem_body", "deliver_notifications", "components", "scheduled_auto_in_progress", "name", "auto_transition_deliver_notifications_at_start"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -117,15 +117,15 @@ class Incident(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "page_id",
             "postmortem_published_at",
-            "updated_at",
-            "postmortem_body",
             "postmortem_body_last_updated_at",
-            "created_at",
-            "incident_updates",
             "resolved_at",
+            "incident_updates",
+            "created_at",
+            "updated_at",
             "id",
+            "page_id",
+            "postmortem_body",
         ])
 
         _dict = self.model_dump(
@@ -138,30 +138,30 @@ class Incident(BaseModel):
         if self.postmortem_published_at is None and "postmortem_published_at" in self.model_fields_set:
             _dict['postmortem_published_at'] = None
 
-        # set to None if postmortem_body (nullable) is None
-        # and model_fields_set contains the field
-        if self.postmortem_body is None and "postmortem_body" in self.model_fields_set:
-            _dict['postmortem_body'] = None
-
         # set to None if postmortem_body_last_updated_at (nullable) is None
         # and model_fields_set contains the field
         if self.postmortem_body_last_updated_at is None and "postmortem_body_last_updated_at" in self.model_fields_set:
             _dict['postmortem_body_last_updated_at'] = None
 
-        # set to None if components (nullable) is None
+        # set to None if resolved_at (nullable) is None
         # and model_fields_set contains the field
-        if self.components is None and "components" in self.model_fields_set:
-            _dict['components'] = None
+        if self.resolved_at is None and "resolved_at" in self.model_fields_set:
+            _dict['resolved_at'] = None
 
         # set to None if incident_updates (nullable) is None
         # and model_fields_set contains the field
         if self.incident_updates is None and "incident_updates" in self.model_fields_set:
             _dict['incident_updates'] = None
 
-        # set to None if resolved_at (nullable) is None
+        # set to None if postmortem_body (nullable) is None
         # and model_fields_set contains the field
-        if self.resolved_at is None and "resolved_at" in self.model_fields_set:
-            _dict['resolved_at'] = None
+        if self.postmortem_body is None and "postmortem_body" in self.model_fields_set:
+            _dict['postmortem_body'] = None
+
+        # set to None if components (nullable) is None
+        # and model_fields_set contains the field
+        if self.components is None and "components" in self.model_fields_set:
+            _dict['components'] = None
 
         return _dict
 
@@ -175,34 +175,34 @@ class Incident(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page_id": obj.get("page_id"),
-            "postmortem_published_at": obj.get("postmortem_published_at"),
-            "auto_transition_to_maintenance_state": obj.get("auto_transition_to_maintenance_state"),
-            "body": obj.get("body"),
-            "updated_at": obj.get("updated_at"),
-            "postmortem_body": obj.get("postmortem_body"),
+            "reminder_intervals": obj.get("reminder_intervals"),
+            "status": obj.get("status"),
             "scheduled_until": obj.get("scheduled_until"),
-            "scheduled_for": obj.get("scheduled_for"),
-            "monitoring_at": obj.get("monitoring_at"),
+            "auto_transition_to_operational_state": obj.get("auto_transition_to_operational_state"),
+            "scheduled_auto_completed": obj.get("scheduled_auto_completed"),
+            "metadata": obj.get("metadata"),
+            "postmortem_published_at": obj.get("postmortem_published_at"),
             "scheduled_remind_prior": obj.get("scheduled_remind_prior"),
-            "postmortem_body_last_updated_at": obj.get("postmortem_body_last_updated_at"),
             "scheduled_reminded_at": obj.get("scheduled_reminded_at"),
+            "impact": obj.get("impact"),
+            "scheduled_for": obj.get("scheduled_for"),
+            "body": obj.get("body"),
+            "postmortem_body_last_updated_at": obj.get("postmortem_body_last_updated_at"),
+            "resolved_at": obj.get("resolved_at"),
+            "incident_updates": obj.get("incident_updates"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at"),
+            "auto_transition_deliver_notifications_at_end": obj.get("auto_transition_deliver_notifications_at_end"),
+            "monitoring_at": obj.get("monitoring_at"),
+            "auto_transition_to_maintenance_state": obj.get("auto_transition_to_maintenance_state"),
+            "id": obj.get("id"),
+            "page_id": obj.get("page_id"),
+            "postmortem_body": obj.get("postmortem_body"),
+            "deliver_notifications": obj.get("deliver_notifications"),
+            "components": obj.get("components"),
             "scheduled_auto_in_progress": obj.get("scheduled_auto_in_progress"),
             "name": obj.get("name"),
-            "auto_transition_to_operational_state": obj.get("auto_transition_to_operational_state"),
-            "status": obj.get("status"),
-            "impact": obj.get("impact"),
-            "deliver_notifications": obj.get("deliver_notifications"),
-            "auto_transition_deliver_notifications_at_start": obj.get("auto_transition_deliver_notifications_at_start"),
-            "components": obj.get("components"),
-            "created_at": obj.get("created_at"),
-            "reminder_intervals": obj.get("reminder_intervals"),
-            "incident_updates": obj.get("incident_updates"),
-            "auto_transition_deliver_notifications_at_end": obj.get("auto_transition_deliver_notifications_at_end"),
-            "resolved_at": obj.get("resolved_at"),
-            "scheduled_auto_completed": obj.get("scheduled_auto_completed"),
-            "id": obj.get("id"),
-            "metadata": obj.get("metadata")
+            "auto_transition_deliver_notifications_at_start": obj.get("auto_transition_deliver_notifications_at_start")
         })
         return _obj
 

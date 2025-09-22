@@ -28,17 +28,17 @@ class CheckJob(BaseModel):
     """
     CheckJob
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
     status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
-    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
-    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
-    started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
-    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
+    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
+    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
     check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
-    __properties: ClassVar[List[str]] = ["created_at", "status", "job_type", "error_message", "completed_at", "started_at", "result", "check_id", "id", "check_parameters"]
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
+    started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
+    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
+    __properties: ClassVar[List[str]] = ["status", "check_id", "job_type", "result", "check_parameters", "error_message", "created_at", "started_at", "completed_at", "id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -92,16 +92,16 @@ class CheckJob(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
             "status",
-            "job_type",
-            "error_message",
-            "completed_at",
-            "started_at",
-            "result",
             "check_id",
-            "id",
+            "job_type",
+            "result",
             "check_parameters",
+            "error_message",
+            "created_at",
+            "started_at",
+            "completed_at",
+            "id",
         ])
 
         _dict = self.model_dump(
@@ -131,16 +131,16 @@ class CheckJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
             "status": obj.get("status"),
-            "job_type": obj.get("job_type"),
-            "error_message": obj.get("error_message"),
-            "completed_at": obj.get("completed_at"),
-            "started_at": obj.get("started_at"),
-            "result": obj.get("result"),
             "check_id": obj.get("check_id"),
-            "id": obj.get("id"),
-            "check_parameters": obj.get("check_parameters")
+            "job_type": obj.get("job_type"),
+            "result": obj.get("result"),
+            "check_parameters": obj.get("check_parameters"),
+            "error_message": obj.get("error_message"),
+            "created_at": obj.get("created_at"),
+            "started_at": obj.get("started_at"),
+            "completed_at": obj.get("completed_at"),
+            "id": obj.get("id")
         })
         return _obj
 

@@ -29,18 +29,18 @@ class HeartbeatCheck(BaseModel):
     """
     HeartbeatCheck
     """ # noqa: E501
+    last_ping_at: Optional[datetime] = Field(default=None, description="The timestamp of the last received ping in ISO format.")
+    ping_url: Optional[StrictStr] = Field(default=None, description="The unique URL to which the monitored service should send GET or POST requests. Auto-generated.")
+    grace_seconds: Optional[Annotated[int, Field(strict=True, ge=60)]] = Field(default=3600, description="A grace period in seconds to wait before marking the check as 'down'. Defaults to 3600.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the heartbeat check.")
     next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was created in ISO format.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the heartbeat check.")
-    ping_url: Optional[StrictStr] = Field(default=None, description="The unique URL to which the monitored service should send GET or POST requests. Auto-generated.")
-    period_seconds: Annotated[int, Field(strict=True, ge=60)] = Field(description="The expected interval between pings, in seconds. Minimum is 60.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was last updated in ISO format.")
-    last_ping_at: Optional[datetime] = Field(default=None, description="The timestamp of the last received ping in ISO format.")
-    grace_seconds: Optional[Annotated[int, Field(strict=True, ge=60)]] = Field(default=3600, description="A grace period in seconds to wait before marking the check as 'down'. Defaults to 3600.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat check. 12 chars, alpha-numeric.")
-    active: Optional[StrictBool] = Field(default=True, description="Whether the heartbeat check is active or paused. Defaults to true.")
+    period_seconds: Annotated[int, Field(strict=True, ge=60)] = Field(description="The expected interval between pings, in seconds. Minimum is 60.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the heartbeat check. Max 100 symbols.")
-    __properties: ClassVar[List[str]] = ["next_expected_ping", "created_at", "status", "ping_url", "period_seconds", "updated_at", "last_ping_at", "grace_seconds", "id", "active", "name"]
+    active: Optional[StrictBool] = Field(default=True, description="Whether the heartbeat check is active or paused. Defaults to true.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat check. 12 chars, alpha-numeric.")
+    __properties: ClassVar[List[str]] = ["last_ping_at", "ping_url", "grace_seconds", "status", "next_expected_ping", "created_at", "updated_at", "period_seconds", "name", "active", "id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -91,12 +91,12 @@ class HeartbeatCheck(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "last_ping_at",
+            "ping_url",
+            "status",
             "next_expected_ping",
             "created_at",
-            "status",
-            "ping_url",
             "updated_at",
-            "last_ping_at",
             "id",
         ])
 
@@ -117,17 +117,17 @@ class HeartbeatCheck(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "last_ping_at": obj.get("last_ping_at"),
+            "ping_url": obj.get("ping_url"),
+            "grace_seconds": obj.get("grace_seconds") if obj.get("grace_seconds") is not None else 3600,
+            "status": obj.get("status"),
             "next_expected_ping": obj.get("next_expected_ping"),
             "created_at": obj.get("created_at"),
-            "status": obj.get("status"),
-            "ping_url": obj.get("ping_url"),
-            "period_seconds": obj.get("period_seconds"),
             "updated_at": obj.get("updated_at"),
-            "last_ping_at": obj.get("last_ping_at"),
-            "grace_seconds": obj.get("grace_seconds") if obj.get("grace_seconds") is not None else 3600,
-            "id": obj.get("id"),
+            "period_seconds": obj.get("period_seconds"),
+            "name": obj.get("name"),
             "active": obj.get("active") if obj.get("active") is not None else True,
-            "name": obj.get("name")
+            "id": obj.get("id")
         })
         return _obj
 

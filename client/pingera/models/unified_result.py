@@ -29,20 +29,20 @@ class UnifiedResult(BaseModel):
     """
     UnifiedResult
     """ # noqa: E501
-    created_at: Optional[datetime] = None
-    response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
-    check_type: Optional[StrictStr] = Field(default=None, description="The type of check performed (e.g., web, api, ssl).")
-    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    result_type: Optional[StrictStr] = Field(default=None, description="Type of the result.")
     check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
-    region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
-    check_server_id: Optional[StrictStr] = None
-    check_server: Optional[CheckServer] = None
-    check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata from the check.")
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check, if applicable.")
+    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
+    region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
+    created_at: Optional[datetime] = None
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
+    check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata from the check.")
+    check_server_id: Optional[StrictStr] = None
+    result_type: Optional[StrictStr] = Field(default=None, description="Type of the result.")
+    check_type: Optional[StrictStr] = Field(default=None, description="The type of check performed (e.g., web, api, ssl).")
+    check_server: Optional[CheckServer] = None
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
-    __properties: ClassVar[List[str]] = ["created_at", "response_time", "check_type", "status", "result_type", "check_name", "region", "error_message", "check_server_id", "check_server", "check_metadata", "check_id", "id"]
+    response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
+    __properties: ClassVar[List[str]] = ["check_name", "check_id", "status", "region", "created_at", "error_message", "check_metadata", "check_server_id", "result_type", "check_type", "check_server", "id", "response_time"]
 
     @field_validator('result_type')
     def result_type_validate_enum(cls, value):
@@ -93,11 +93,11 @@ class UnifiedResult(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
-            "check_type",
-            "result_type",
             "check_name",
             "region",
+            "created_at",
+            "result_type",
+            "check_type",
             "check_server",
             "id",
         ])
@@ -127,19 +127,19 @@ class UnifiedResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
-            "response_time": obj.get("response_time"),
-            "check_type": obj.get("check_type"),
-            "status": obj.get("status"),
-            "result_type": obj.get("result_type"),
             "check_name": obj.get("check_name"),
-            "region": obj.get("region"),
-            "error_message": obj.get("error_message"),
-            "check_server_id": obj.get("check_server_id"),
-            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
-            "check_metadata": obj.get("check_metadata"),
             "check_id": obj.get("check_id"),
-            "id": obj.get("id")
+            "status": obj.get("status"),
+            "region": obj.get("region"),
+            "created_at": obj.get("created_at"),
+            "error_message": obj.get("error_message"),
+            "check_metadata": obj.get("check_metadata"),
+            "check_server_id": obj.get("check_server_id"),
+            "result_type": obj.get("result_type"),
+            "check_type": obj.get("check_type"),
+            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
+            "id": obj.get("id"),
+            "response_time": obj.get("response_time")
         })
         return _obj
 

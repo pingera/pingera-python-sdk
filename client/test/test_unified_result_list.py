@@ -36,27 +36,27 @@ class TestUnifiedResultList(unittest.TestCase):
         model = UnifiedResultList()
         if include_optional:
             return UnifiedResultList(
-                pagination = {
-                    'key' : null
-                    },
                 results = [
                     pingera.models.unified_result.UnifiedResult(
-                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        response_time = 56, 
-                        check_type = '', 
-                        status = '', 
-                        result_type = 'regular', 
                         check_name = '', 
+                        check_id = '', 
+                        status = '', 
                         region = '', 
+                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         error_message = '', 
-                        check_server_id = '', 
-                        check_server = null, 
                         check_metadata = {
                             'key' : null
                             }, 
-                        check_id = '', 
-                        id = '', )
-                    ]
+                        check_server_id = '', 
+                        result_type = 'regular', 
+                        check_type = '', 
+                        check_server = null, 
+                        id = '', 
+                        response_time = 56, )
+                    ],
+                pagination = {
+                    'key' : null
+                    }
             )
         else:
             return UnifiedResultList(

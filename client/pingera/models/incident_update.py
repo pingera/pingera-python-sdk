@@ -28,15 +28,15 @@ class IncidentUpdate(BaseModel):
     """
     IncidentUpdate
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was created.")
     status: Optional[StrictStr] = Field(default=None, description="The status of the incident update.")
-    body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was created.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was last updated.")
+    body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.")
     deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.")
-    components: Optional[Any] = Field(default=None, description="Components affected by this incident update.")
     incident_id: Optional[StrictStr] = Field(default=None, description="The ID of the incident this update belongs to.")
-    __properties: ClassVar[List[str]] = ["created_at", "status", "body", "updated_at", "deliver_notifications", "id", "components", "incident_id"]
+    components: Optional[Any] = Field(default=None, description="Components affected by this incident update.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.")
+    __properties: ClassVar[List[str]] = ["status", "created_at", "updated_at", "body", "deliver_notifications", "incident_id", "components", "id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -87,9 +87,9 @@ class IncidentUpdate(BaseModel):
         excluded_fields: Set[str] = set([
             "created_at",
             "updated_at",
-            "id",
-            "components",
             "incident_id",
+            "components",
+            "id",
         ])
 
         _dict = self.model_dump(
@@ -114,14 +114,14 @@ class IncidentUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
             "status": obj.get("status"),
-            "body": obj.get("body"),
+            "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
+            "body": obj.get("body"),
             "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
-            "id": obj.get("id"),
+            "incident_id": obj.get("incident_id"),
             "components": obj.get("components"),
-            "incident_id": obj.get("incident_id")
+            "id": obj.get("id")
         })
         return _obj
 

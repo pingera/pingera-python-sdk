@@ -28,9 +28,9 @@ class AlertList(BaseModel):
     """
     AlertList
     """ # noqa: E501
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the list of alerts.")
     alerts: Optional[List[Alert]] = None
-    __properties: ClassVar[List[str]] = ["pagination", "alerts"]
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the list of alerts.")
+    __properties: ClassVar[List[str]] = ["alerts", "pagination"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,8 +66,8 @@ class AlertList(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "pagination",
             "alerts",
+            "pagination",
         ])
 
         _dict = self.model_dump(
@@ -94,8 +94,8 @@ class AlertList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": obj.get("pagination"),
-            "alerts": [Alert.from_dict(_item) for _item in obj["alerts"]] if obj.get("alerts") is not None else None
+            "alerts": [Alert.from_dict(_item) for _item in obj["alerts"]] if obj.get("alerts") is not None else None,
+            "pagination": obj.get("pagination")
         })
         return _obj
 

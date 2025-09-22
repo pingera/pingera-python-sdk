@@ -27,12 +27,12 @@ class AlertStats(BaseModel):
     """
     AlertStats
     """ # noqa: E501
+    recent_alerts: Optional[StrictInt] = Field(default=None, description="Number of alerts fired in the last 30 days.")
     total_channels: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert channels.")
-    severity_breakdown: Optional[Dict[str, Any]] = Field(default=None, description="Count of alerts by severity level in the last 30 days.")
     total_rules: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert rules.")
     active_alerts: Optional[StrictInt] = Field(default=None, description="Number of currently active alerts (firing or acknowledged).")
-    recent_alerts: Optional[StrictInt] = Field(default=None, description="Number of alerts fired in the last 30 days.")
-    __properties: ClassVar[List[str]] = ["total_channels", "severity_breakdown", "total_rules", "active_alerts", "recent_alerts"]
+    severity_breakdown: Optional[Dict[str, Any]] = Field(default=None, description="Count of alerts by severity level in the last 30 days.")
+    __properties: ClassVar[List[str]] = ["recent_alerts", "total_channels", "total_rules", "active_alerts", "severity_breakdown"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,11 +71,11 @@ class AlertStats(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "recent_alerts",
             "total_channels",
-            "severity_breakdown",
             "total_rules",
             "active_alerts",
-            "recent_alerts",
+            "severity_breakdown",
         ])
 
         _dict = self.model_dump(
@@ -95,11 +95,11 @@ class AlertStats(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "recent_alerts": obj.get("recent_alerts"),
             "total_channels": obj.get("total_channels"),
-            "severity_breakdown": obj.get("severity_breakdown"),
             "total_rules": obj.get("total_rules"),
             "active_alerts": obj.get("active_alerts"),
-            "recent_alerts": obj.get("recent_alerts")
+            "severity_breakdown": obj.get("severity_breakdown")
         })
         return _obj
 

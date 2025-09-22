@@ -28,9 +28,9 @@ class IncidentUpdateEdit(BaseModel):
     """
     IncidentUpdateEdit
     """ # noqa: E501
-    body: Optional[StrictStr] = Field(default=None, description="The content/message of the incident update.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the update was created in ISO format.")
-    __properties: ClassVar[List[str]] = ["body", "created_at"]
+    body: Optional[StrictStr] = Field(default=None, description="The content/message of the incident update.")
+    __properties: ClassVar[List[str]] = ["created_at", "body"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,8 +83,8 @@ class IncidentUpdateEdit(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "body": obj.get("body"),
-            "created_at": obj.get("created_at")
+            "created_at": obj.get("created_at"),
+            "body": obj.get("body")
         })
         return _obj
 

@@ -36,19 +36,19 @@ class TestMonitorCheckResultList(unittest.TestCase):
         model = MonitorCheckResultList()
         if include_optional:
             return MonitorCheckResultList(
-                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 results = [
                     pingera.models.monitor_check_result.MonitorCheckResult(
-                        created_at = '2024-01-15T14:30Z', 
-                        response_time = 250, 
                         status = 'ok', 
-                        check_server_id = 'srv123abc456', 
-                        error_message = 'Connection timeout after 10 seconds', 
-                        check_server = null, 
-                        check_metadata = {"status_code":200,"content_length":1024}, 
                         check_id = 'chk123def456', 
-                        id = 'res789xyz012', )
-                    ]
+                        created_at = '2024-01-15T14:30Z', 
+                        error_message = 'Connection timeout after 10 seconds', 
+                        check_metadata = {"status_code":200,"content_length":1024}, 
+                        check_server_id = 'srv123abc456', 
+                        check_server = null, 
+                        id = 'res789xyz012', 
+                        response_time = 250, )
+                    ],
+                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100}
             )
         else:
             return MonitorCheckResultList(

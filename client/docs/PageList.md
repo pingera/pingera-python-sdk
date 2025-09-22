@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | [**Pagination**](Pagination.md) | Pagination information | [optional] 
 **pages** | [**List[Page]**](Page.md) | List of status pages | [optional] 
+**pagination** | [**Pagination**](Pagination.md) | Pagination information | [optional] 
 
 ## Example
 

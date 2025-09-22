@@ -36,36 +36,44 @@ class TestMonitorCheck(unittest.TestCase):
         model = MonitorCheck()
         if include_optional:
             return MonitorCheck(
-                created_at = '2024-01-15T10:00Z',
-                type = 'web',
-                last_checked_at = '2024-01-15T14:30Z',
                 position = 0,
-                port = 443,
-                status = 'ok',
-                group_id = 'grp123abc456',
-                updated_at = '2024-01-15T14:00Z',
-                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
-                url = 'https://api.example.com/health',
-                timeout = 10,
                 host = 'example.com',
+                status = 'ok',
+                interval = 300,
+                active = True,
+                port = 443,
                 group = pingera.models.check_group.CheckGroup(
-                    created_at = '2024-01-15T10:00Z', 
                     color = '#4F46E5', 
-                    position = 0, 
+                    created_at = '2024-01-15T10:00Z', 
                     updated_at = '2024-01-15T14:00Z', 
                     description = 'Critical production services monitoring', 
-                    id = 'grp123abc456', 
+                    name = 'Production Services', 
                     active = True, 
-                    name = 'Production Services', ),
+                    id = 'grp123abc456', 
+                    position = 0, ),
+                created_at = '2024-01-15T10:00Z',
+                group_id = 'grp123abc456',
+                url = 'https://api.example.com/health',
+                updated_at = '2024-01-15T14:00Z',
+                last_checked_at = '2024-01-15T14:30Z',
+                name = 'Production API Health Check',
+                timeout = 10,
+                secrets = [
+                    pingera.models.check_secret.CheckSecret(
+                        created_at = '2024-01-15T10:00Z', 
+                        secret = null, 
+                        secret_id = 'sec123abc456', 
+                        id = 'cs123abc456', 
+                        env_variable = 'DATABASE_PASSWORD', )
+                    ],
                 id = 'chk123def456',
-                active = True,
-                interval = 300,
-                name = 'Production API Health Check'
+                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
+                type = 'web'
             )
         else:
             return MonitorCheck(
-                type = 'web',
                 name = 'Production API Health Check',
+                type = 'web',
         )
         """
 

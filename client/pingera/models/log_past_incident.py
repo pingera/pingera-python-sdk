@@ -29,11 +29,11 @@ class LogPastIncident(BaseModel):
     """
     LogPastIncident
     """ # noqa: E501
+    incident_updates: Annotated[List[PastIncidentUpdate], Field(min_length=1)] = Field(description="Array of incident updates in chronological order")
     impact: StrictStr = Field(description="The impact level of the incident")
     deliver_notifications: Optional[StrictBool] = Field(default=False, description="Whether to send notifications")
-    incident_updates: Annotated[List[PastIncidentUpdate], Field(min_length=1)] = Field(description="Array of incident updates in chronological order")
     name: StrictStr = Field(description="The name of the incident")
-    __properties: ClassVar[List[str]] = ["impact", "deliver_notifications", "incident_updates", "name"]
+    __properties: ClassVar[List[str]] = ["incident_updates", "impact", "deliver_notifications", "name"]
 
     @field_validator('impact')
     def impact_validate_enum(cls, value):
@@ -100,9 +100,9 @@ class LogPastIncident(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "incident_updates": [PastIncidentUpdate.from_dict(_item) for _item in obj["incident_updates"]] if obj.get("incident_updates") is not None else None,
             "impact": obj.get("impact"),
             "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else False,
-            "incident_updates": [PastIncidentUpdate.from_dict(_item) for _item in obj["incident_updates"]] if obj.get("incident_updates") is not None else None,
             "name": obj.get("name")
         })
         return _obj

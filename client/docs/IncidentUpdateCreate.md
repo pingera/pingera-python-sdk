@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**body** | **str** | The content/message of the incident update. | 
 **deliver_notifications** | **bool** | Whether to send notifications for this update. | [optional] [default to True]
 **status** | **str** | The incident status for this update. | 
+**body** | **str** | The content/message of the incident update. | 
 
 ## Example
 

@@ -29,15 +29,15 @@ class CheckGroup(BaseModel):
     """
     CheckGroup
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was created in ISO format.")
     color: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex color code for the group (e.g., #4F46E5).")
-    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering groups (0 = first).")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was created in ISO format.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was last updated in ISO format.")
     description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description for the check group. Max 500 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check group.")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the check group is active.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the check group. Max 100 characters.")
-    __properties: ClassVar[List[str]] = ["created_at", "color", "position", "updated_at", "description", "id", "active", "name"]
+    active: Optional[StrictBool] = Field(default=None, description="Whether the check group is active.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check group.")
+    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering groups (0 = first).")
+    __properties: ClassVar[List[str]] = ["color", "created_at", "updated_at", "description", "name", "active", "id", "position"]
 
     @field_validator('color')
     def color_validate_regular_expression(cls, value):
@@ -106,14 +106,14 @@ class CheckGroup(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
             "color": obj.get("color"),
-            "position": obj.get("position"),
+            "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "description": obj.get("description"),
-            "id": obj.get("id"),
+            "name": obj.get("name"),
             "active": obj.get("active"),
-            "name": obj.get("name")
+            "id": obj.get("id"),
+            "position": obj.get("position")
         })
         return _obj
 

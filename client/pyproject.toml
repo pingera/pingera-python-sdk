@@ -1,6 +1,6 @@
 [project]
 name = "pingera"
-version = "1.0.5"
+version = "1.0.6"
 description = "Pingera API"
 authors = [
   {name = "OpenAPI Generator Community",email = "privet@pingera.ru"},

@@ -29,15 +29,15 @@ class AlertChannel1(BaseModel):
     """
     AlertChannel1
     """ # noqa: E501
+    configuration: Optional[Dict[str, Any]] = Field(default=None, description="Channel-specific configuration. Structure varies by channel type.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.")
-    type: Optional[StrictStr] = Field(default=None, description="The type of alert channel.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.")
     last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used.")
-    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.")
-    configuration: Optional[Dict[str, Any]] = Field(default=None, description="Channel-specific configuration. Structure varies by channel type.")
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the alert channel. Max 100 characters.")
-    __properties: ClassVar[List[str]] = ["created_at", "type", "updated_at", "last_used_at", "enabled", "id", "configuration", "name"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.")
+    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
+    type: Optional[StrictStr] = Field(default=None, description="The type of alert channel.")
+    __properties: ClassVar[List[str]] = ["configuration", "created_at", "updated_at", "last_used_at", "name", "id", "enabled", "type"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -113,14 +113,14 @@ class AlertChannel1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "configuration": obj.get("configuration"),
             "created_at": obj.get("created_at"),
-            "type": obj.get("type"),
             "updated_at": obj.get("updated_at"),
             "last_used_at": obj.get("last_used_at"),
-            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
+            "name": obj.get("name"),
             "id": obj.get("id"),
-            "configuration": obj.get("configuration"),
-            "name": obj.get("name")
+            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
+            "type": obj.get("type")
         })
         return _obj
 

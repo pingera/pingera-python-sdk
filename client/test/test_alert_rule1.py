@@ -36,30 +36,30 @@ class TestAlertRule1(unittest.TestCase):
         model = AlertRule1()
         if include_optional:
             return AlertRule1(
-                created_at = '2024-01-15T10:00Z',
-                channel_ids = ["chn_abc123","chn_def456"],
+                condition = 'check_failed',
+                check_name = Production API Health Check,
+                severity = 'high',
+                check_id = 'check_def456ghi789',
                 channels = [
                     pingera.models.alert_channel.AlertChannel(
+                        configuration = {"recipients":["admin@example.com","ops@example.com"]}, 
                         created_at = '2024-01-15T10:00Z', 
-                        type = 'email', 
                         updated_at = '2024-01-15T14:00Z', 
                         last_used_at = '2024-01-15T15:30Z', 
-                        enabled = True, 
+                        name = 'Production Email Alerts', 
                         id = 'chn_abc123def456', 
-                        configuration = {"recipients":["admin@example.com","ops@example.com"]}, 
-                        name = 'Production Email Alerts', )
+                        enabled = True, 
+                        type = 'email', )
                     ],
+                channel_ids = ["chn_abc123","chn_def456"],
+                created_at = '2024-01-15T10:00Z',
+                auto_resolve = True,
                 updated_at = '2024-01-15T14:00Z',
-                check_name = Production API Health Check,
-                enabled = True,
-                condition_parameters = {"count":3},
-                condition = 'check_failed',
-                check_id = 'check_def456ghi789',
-                id = 'rule_abc123def456',
-                severity = 'high',
                 cooldown_period = 600,
                 name = 'Production API Down Alert',
-                auto_resolve = True
+                id = 'rule_abc123def456',
+                condition_parameters = {"count":3},
+                enabled = True
             )
         else:
             return AlertRule1(

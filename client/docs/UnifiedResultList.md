@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** |  | [optional] 
 **results** | [**List[UnifiedResult]**](UnifiedResult.md) |  | [optional] 
+**pagination** | **Dict[str, object]** |  | [optional] 
 
 ## Example
 
