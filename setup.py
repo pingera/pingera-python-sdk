@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-# Add the current directory to Python path to import pingera
-sys.path.insert(0, os.path.dirname(__file__))
+# Add the client directory to Python path to import pingera
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'client'))
 from pingera import __version__
 
 with open("README.md", "r", encoding="utf-8") as fh:
