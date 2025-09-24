@@ -36,30 +36,30 @@ class TestAlertRule1(unittest.TestCase):
         model = AlertRule1()
         if include_optional:
             return AlertRule1(
+                condition_parameters = {"count":3},
+                auto_resolve = True,
                 condition = 'check_failed',
-                check_name = Production API Health Check,
                 severity = 'high',
+                enabled = True,
+                cooldown_period = 600,
+                name = 'Production API Down Alert',
+                channel_ids = ["chn_abc123","chn_def456"],
+                created_at = '2024-01-15T10:00Z',
                 check_id = 'check_def456ghi789',
+                updated_at = '2024-01-15T14:00Z',
+                check_name = Production API Health Check,
                 channels = [
                     pingera.models.alert_channel.AlertChannel(
                         configuration = {"recipients":["admin@example.com","ops@example.com"]}, 
+                        last_used_at = '2024-01-15T15:30Z', 
+                        enabled = True, 
+                        name = 'Production Email Alerts', 
                         created_at = '2024-01-15T10:00Z', 
                         updated_at = '2024-01-15T14:00Z', 
-                        last_used_at = '2024-01-15T15:30Z', 
-                        name = 'Production Email Alerts', 
-                        id = 'chn_abc123def456', 
-                        enabled = True, 
-                        type = 'email', )
+                        type = 'email', 
+                        id = 'chn_abc123def456', )
                     ],
-                channel_ids = ["chn_abc123","chn_def456"],
-                created_at = '2024-01-15T10:00Z',
-                auto_resolve = True,
-                updated_at = '2024-01-15T14:00Z',
-                cooldown_period = 600,
-                name = 'Production API Down Alert',
-                id = 'rule_abc123def456',
-                condition_parameters = {"count":3},
-                enabled = True
+                id = 'rule_abc123def456'
             )
         else:
             return AlertRule1(

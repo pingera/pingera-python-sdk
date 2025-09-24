@@ -36,10 +36,10 @@ class TestHeartbeatPingResponse(unittest.TestCase):
         model = HeartbeatPingResponse()
         if include_optional:
             return HeartbeatPingResponse(
+                message = 'Ping received successfully',
                 check_id = 'abc123def456',
                 status = 'ok',
-                next_expected_ping = '2024-01-16T14:30Z',
-                message = 'Ping received successfully'
+                next_expected_ping = '2024-01-16T14:30Z'
             )
         else:
             return HeartbeatPingResponse(

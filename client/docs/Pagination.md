@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**page** | **int** | Current page number | [optional] 
+**total_pages** | **int** | Total number of pages | [optional] 
+**total_items** | **int** | Total number of items | [optional] 
+**page_size** | **int** | Number of items per page | [optional] 
 **has_next** | **bool** | Whether there is a next page | [optional] 
 **has_prev** | **bool** | Whether there is a previous page | [optional] 
-**total_pages** | **int** | Total number of pages | [optional] 
-**page** | **int** | Current page number | [optional] 
-**page_size** | **int** | Number of items per page | [optional] 
-**total_items** | **int** | Total number of items | [optional] 
 
 ## Example
 

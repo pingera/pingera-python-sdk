@@ -28,9 +28,9 @@ class MonitorCheckStatusHistoryList(BaseModel):
     """
     MonitorCheckStatusHistoryList
     """ # noqa: E501
-    status_history: Optional[List[MonitorCheckStatusHistory]] = Field(default=None, description="List of status history records for the check.")
     pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the status history.")
-    __properties: ClassVar[List[str]] = ["status_history", "pagination"]
+    status_history: Optional[List[MonitorCheckStatusHistory]] = Field(default=None, description="List of status history records for the check.")
+    __properties: ClassVar[List[str]] = ["pagination", "status_history"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class MonitorCheckStatusHistoryList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status_history": [MonitorCheckStatusHistory.from_dict(_item) for _item in obj["status_history"]] if obj.get("status_history") is not None else None,
-            "pagination": obj.get("pagination")
+            "pagination": obj.get("pagination"),
+            "status_history": [MonitorCheckStatusHistory.from_dict(_item) for _item in obj["status_history"]] if obj.get("status_history") is not None else None
         })
         return _obj
 

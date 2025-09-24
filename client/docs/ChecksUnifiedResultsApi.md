@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **v1_checks_all_results_get**
-> UnifiedResultList v1_checks_all_results_get(status=status, check_id=check_id, start_date=start_date, region=region, check_type=check_type, result_type=result_type, end_date=end_date, page=page, page_size=page_size)
+> UnifiedResultList v1_checks_all_results_get(page=page, status=status, page_size=page_size, end_date=end_date, check_type=check_type, check_id=check_id, result_type=result_type, region=region, start_date=start_date)
 
 Get all check results (regular and on-demand)
 
@@ -53,19 +53,19 @@ configuration = pingera.Configuration(
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksUnifiedResultsApi(api_client)
-    status = 'ok' # str | Filter by check result status. (optional)
-    check_id = 'chk123abc456' # str | Filter by specific check ID. (optional)
-    start_date = '2024-01-15T00:00Z' # datetime | Start date for filtering results (ISO format). Limited to 6 months in the past. (optional)
-    region = 'us-west-1' # str | Filter by region where check was executed. (optional)
-    check_type = 'web' # str | Filter by check type. (optional)
-    result_type = 'regular' # str | Filter by result type. (optional)
-    end_date = '2024-01-15T23:59:59Z' # datetime | End date for filtering results (ISO format). (optional)
     page = 1 # int | Page number for pagination (starting from 1). (optional) (default to 1)
+    status = 'ok' # str | Filter by check result status. (optional)
     page_size = 20 # int | Number of results per page (maximum 100). (optional) (default to 20)
+    end_date = '2024-01-15T23:59:59Z' # datetime | End date for filtering results (ISO format). (optional)
+    check_type = 'web' # str | Filter by check type. (optional)
+    check_id = 'chk123abc456' # str | Filter by specific check ID. (optional)
+    result_type = 'regular' # str | Filter by result type. (optional)
+    region = 'us-west-1' # str | Filter by region where check was executed. (optional)
+    start_date = '2024-01-15T00:00Z' # datetime | Start date for filtering results (ISO format). Limited to 6 months in the past. (optional)
 
     try:
         # Get all check results (regular and on-demand)
-        api_response = api_instance.v1_checks_all_results_get(status=status, check_id=check_id, start_date=start_date, region=region, check_type=check_type, result_type=result_type, end_date=end_date, page=page, page_size=page_size)
+        api_response = api_instance.v1_checks_all_results_get(page=page, status=status, page_size=page_size, end_date=end_date, check_type=check_type, check_id=check_id, result_type=result_type, region=region, start_date=start_date)
         print("The response of ChecksUnifiedResultsApi->v1_checks_all_results_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -79,15 +79,15 @@ with pingera.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **str**| Filter by check result status. | [optional] 
- **check_id** | **str**| Filter by specific check ID. | [optional] 
- **start_date** | **datetime**| Start date for filtering results (ISO format). Limited to 6 months in the past. | [optional] 
- **region** | **str**| Filter by region where check was executed. | [optional] 
- **check_type** | **str**| Filter by check type. | [optional] 
- **result_type** | **str**| Filter by result type. | [optional] 
- **end_date** | **datetime**| End date for filtering results (ISO format). | [optional] 
  **page** | **int**| Page number for pagination (starting from 1). | [optional] [default to 1]
+ **status** | **str**| Filter by check result status. | [optional] 
  **page_size** | **int**| Number of results per page (maximum 100). | [optional] [default to 20]
+ **end_date** | **datetime**| End date for filtering results (ISO format). | [optional] 
+ **check_type** | **str**| Filter by check type. | [optional] 
+ **check_id** | **str**| Filter by specific check ID. | [optional] 
+ **result_type** | **str**| Filter by result type. | [optional] 
+ **region** | **str**| Filter by region where check was executed. | [optional] 
+ **start_date** | **datetime**| Start date for filtering results (ISO format). Limited to 6 months in the past. | [optional] 
 
 ### Return type
 
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_check_id_response_times_get**
-> Dict[str, object] v1_checks_check_id_response_times_get(check_id, start_date=start_date, region=region, status=status, end_date=end_date)
+> Dict[str, object] v1_checks_check_id_response_times_get(check_id, end_date=end_date, region=region, status=status, start_date=start_date)
 
 Get aggregated response time metrics for a specific check
 
@@ -159,14 +159,14 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksUnifiedResultsApi(api_client)
     check_id = 'check_id_example' # str | 
-    start_date = '2024-01-15T00:00Z' # datetime | Start date for metrics (ISO format). Limited to 6 months in the past. (optional)
+    end_date = '2024-01-15T23:59:59Z' # datetime | End date for metrics (ISO format). (optional)
     region = 'us-west-1' # str | Filter by specific region. (optional)
     status = 'ok' # str | Filter by check status. (optional)
-    end_date = '2024-01-15T23:59:59Z' # datetime | End date for metrics (ISO format). (optional)
+    start_date = '2024-01-15T00:00Z' # datetime | Start date for metrics (ISO format). Limited to 6 months in the past. (optional)
 
     try:
         # Get aggregated response time metrics for a specific check
-        api_response = api_instance.v1_checks_check_id_response_times_get(check_id, start_date=start_date, region=region, status=status, end_date=end_date)
+        api_response = api_instance.v1_checks_check_id_response_times_get(check_id, end_date=end_date, region=region, status=status, start_date=start_date)
         print("The response of ChecksUnifiedResultsApi->v1_checks_check_id_response_times_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -181,10 +181,10 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **check_id** | **str**|  | 
- **start_date** | **datetime**| Start date for metrics (ISO format). Limited to 6 months in the past. | [optional] 
+ **end_date** | **datetime**| End date for metrics (ISO format). | [optional] 
  **region** | **str**| Filter by specific region. | [optional] 
  **status** | **str**| Filter by check status. | [optional] 
- **end_date** | **datetime**| End date for metrics (ISO format). | [optional] 
+ **start_date** | **datetime**| Start date for metrics (ISO format). Limited to 6 months in the past. | [optional] 
 
 ### Return type
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_status_history_get**
-> Dict[str, object] v1_checks_status_history_get(status=status, check_id=check_id, start_date=start_date, region=region, end_date=end_date)
+> Dict[str, object] v1_checks_status_history_get(status=status, end_date=end_date, check_id=check_id, region=region, start_date=start_date)
 
 Get time-bucketed status history metrics
 
@@ -257,14 +257,14 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksUnifiedResultsApi(api_client)
     status = 'ok' # str | Filter by check status. (optional)
-    check_id = 'chk123abc456' # str | Filter by specific check ID. If not provided, returns metrics for all checks. (optional)
-    start_date = '2024-01-15T00:00Z' # datetime | Start date for status history (ISO format). Limited to 6 months in the past. (optional)
-    region = 'us-west-1' # str | Filter by specific region. (optional)
     end_date = '2024-01-15T23:59:59Z' # datetime | End date for status history (ISO format). (optional)
+    check_id = 'chk123abc456' # str | Filter by specific check ID. If not provided, returns metrics for all checks. (optional)
+    region = 'us-west-1' # str | Filter by specific region. (optional)
+    start_date = '2024-01-15T00:00Z' # datetime | Start date for status history (ISO format). Limited to 6 months in the past. (optional)
 
     try:
         # Get time-bucketed status history metrics
-        api_response = api_instance.v1_checks_status_history_get(status=status, check_id=check_id, start_date=start_date, region=region, end_date=end_date)
+        api_response = api_instance.v1_checks_status_history_get(status=status, end_date=end_date, check_id=check_id, region=region, start_date=start_date)
         print("The response of ChecksUnifiedResultsApi->v1_checks_status_history_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -279,10 +279,10 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **str**| Filter by check status. | [optional] 
- **check_id** | **str**| Filter by specific check ID. If not provided, returns metrics for all checks. | [optional] 
- **start_date** | **datetime**| Start date for status history (ISO format). Limited to 6 months in the past. | [optional] 
- **region** | **str**| Filter by specific region. | [optional] 
  **end_date** | **datetime**| End date for status history (ISO format). | [optional] 
+ **check_id** | **str**| Filter by specific check ID. If not provided, returns metrics for all checks. | [optional] 
+ **region** | **str**| Filter by specific region. | [optional] 
+ **start_date** | **datetime**| Start date for status history (ISO format). Limited to 6 months in the past. | [optional] 
 
 ### Return type
 

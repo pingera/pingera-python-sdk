@@ -190,7 +190,7 @@ Name | Type | Description  | Notes
 
 Update a monitor check
 
-Update a monitor check. Note: The "type" of a check cannot be changed after creation.
+Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The "type" of a check cannot be changed after creation.
 
 ### Example
 
@@ -825,7 +825,7 @@ Name | Type | Description  | Notes
 
 Create a new regular check
 
-Create a new regular check
+Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
 
 ### Example
 

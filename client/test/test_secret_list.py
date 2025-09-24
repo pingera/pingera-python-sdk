@@ -36,17 +36,17 @@ class TestSecretList(unittest.TestCase):
         model = SecretList()
         if include_optional:
             return SecretList(
+                pagination = {"page":1,"page_size":20,"total_pages":1,"total_items":5},
                 secrets = [
                     pingera.models.secret_list_item.SecretListItem(
-                        created_by = 'usr123def456', 
-                        updated_by = 'usr789ghi012', 
                         secret_value = '', 
                         created_at = '2024-01-15T10:00Z', 
-                        updated_at = '2024-01-15T14:00Z', 
                         secret_name = 'DATABASE_PASSWORD', 
+                        updated_by = 'usr789ghi012', 
+                        updated_at = '2024-01-15T14:00Z', 
+                        created_by = 'usr123def456', 
                         id = 'sec123abc456', )
-                    ],
-                pagination = {"page":1,"page_size":20,"total_pages":1,"total_items":5}
+                    ]
             )
         else:
             return SecretList(

@@ -29,16 +29,16 @@ class MonitorCheckResult(BaseModel):
     """
     MonitorCheckResult
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    check_id: StrictStr = Field(description="The identifier of the monitor check this result belongs to.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check result was created in ISO format.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
+    response_time: Optional[StrictInt] = Field(default=None, description="The response time of the check in milliseconds.")
     check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata collected during the check execution.")
     check_server_id: Optional[StrictStr] = Field(default=None, description="The identifier of the server that executed this check.")
+    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check result was created in ISO format.")
     check_server: Optional[CheckServer] = Field(default=None, description="Details about the server that executed this check.")
+    check_id: StrictStr = Field(description="The identifier of the monitor check this result belongs to.")
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check result.")
-    response_time: Optional[StrictInt] = Field(default=None, description="The response time of the check in milliseconds.")
-    __properties: ClassVar[List[str]] = ["status", "check_id", "created_at", "error_message", "check_metadata", "check_server_id", "check_server", "id", "response_time"]
+    __properties: ClassVar[List[str]] = ["response_time", "check_metadata", "check_server_id", "status", "created_at", "check_server", "check_id", "error_message", "id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -110,15 +110,15 @@ class MonitorCheckResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
-            "check_id": obj.get("check_id"),
-            "created_at": obj.get("created_at"),
-            "error_message": obj.get("error_message"),
+            "response_time": obj.get("response_time"),
             "check_metadata": obj.get("check_metadata"),
             "check_server_id": obj.get("check_server_id"),
+            "status": obj.get("status"),
+            "created_at": obj.get("created_at"),
             "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
-            "id": obj.get("id"),
-            "response_time": obj.get("response_time")
+            "check_id": obj.get("check_id"),
+            "error_message": obj.get("error_message"),
+            "id": obj.get("id")
         })
         return _obj
 

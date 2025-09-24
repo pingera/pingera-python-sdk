@@ -36,15 +36,15 @@ class TestCheckJob(unittest.TestCase):
         model = CheckJob()
         if include_optional:
             return CheckJob(
-                status = 'completed',
-                check_id = 'chk123def456',
-                job_type = web_check,
-                result = {"status":"ok","response_time":250,"check_server":{"region":"us-west-1"}},
+                completed_at = '2024-01-15T14:30Z',
                 check_parameters = {"url":"https://api.example.com","timeout":10},
-                error_message = 'Unable to connect to target server',
+                result = {"status":"ok","response_time":250,"check_server":{"region":"us-west-1"}},
+                status = 'completed',
                 created_at = '2024-01-15T14:25Z',
                 started_at = '2024-01-15T14:26Z',
-                completed_at = '2024-01-15T14:30Z',
+                check_id = 'chk123def456',
+                job_type = web_check,
+                error_message = 'Unable to connect to target server',
                 id = 'job456ghi789'
             )
         else:

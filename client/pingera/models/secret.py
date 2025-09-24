@@ -29,13 +29,13 @@ class Secret(BaseModel):
     """
     Secret
     """ # noqa: E501
-    created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.")
-    updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
     secret_name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A unique name for the secret within the organization. Max 100 characters.")
+    updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
+    created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.")
-    __properties: ClassVar[List[str]] = ["created_by", "updated_by", "created_at", "updated_at", "secret_name", "id"]
+    __properties: ClassVar[List[str]] = ["created_at", "secret_name", "updated_by", "updated_at", "created_by", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,10 +74,10 @@ class Secret(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_by",
-            "updated_by",
             "created_at",
+            "updated_by",
             "updated_at",
+            "created_by",
             "id",
         ])
 
@@ -98,11 +98,11 @@ class Secret(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_by": obj.get("created_by"),
-            "updated_by": obj.get("updated_by"),
             "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at"),
             "secret_name": obj.get("secret_name"),
+            "updated_by": obj.get("updated_by"),
+            "updated_at": obj.get("updated_at"),
+            "created_by": obj.get("created_by"),
             "id": obj.get("id")
         })
         return _obj

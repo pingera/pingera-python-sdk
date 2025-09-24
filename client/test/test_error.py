@@ -36,12 +36,12 @@ class TestError(unittest.TestCase):
         model = Error()
         if include_optional:
             return Error(
+                code = 56,
                 message = '',
                 errors = {
                     'key' : null
                     },
-                status = '',
-                code = 56
+                status = ''
             )
         else:
             return Error(

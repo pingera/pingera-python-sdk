@@ -28,9 +28,9 @@ class JobListResponse(BaseModel):
     """
     JobListResponse
     """ # noqa: E501
-    jobs: Optional[List[CheckJob]] = Field(default=None, description="List of check jobs for the organization.")
     pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the job results.")
-    __properties: ClassVar[List[str]] = ["jobs", "pagination"]
+    jobs: Optional[List[CheckJob]] = Field(default=None, description="List of check jobs for the organization.")
+    __properties: ClassVar[List[str]] = ["pagination", "jobs"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class JobListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "jobs": [CheckJob.from_dict(_item) for _item in obj["jobs"]] if obj.get("jobs") is not None else None,
-            "pagination": obj.get("pagination")
+            "pagination": obj.get("pagination"),
+            "jobs": [CheckJob.from_dict(_item) for _item in obj["jobs"]] if obj.get("jobs") is not None else None
         })
         return _obj
 

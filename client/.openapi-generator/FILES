@@ -21,6 +21,7 @@ docs/CheckGroupList.md
 docs/CheckGroupsApi.md
 docs/CheckJob.md
 docs/CheckSecret.md
+docs/CheckSecretInput.md
 docs/CheckSecretsApi.md
 docs/CheckServer.md
 docs/ChecksApi.md
@@ -140,6 +141,7 @@ pingera/models/check_group2.py
 pingera/models/check_group_list.py
 pingera/models/check_job.py
 pingera/models/check_secret.py
+pingera/models/check_secret_input.py
 pingera/models/check_server.py
 pingera/models/component.py
 pingera/models/component1.py
@@ -237,6 +239,7 @@ test/test_check_group_list.py
 test/test_check_groups_api.py
 test/test_check_job.py
 test/test_check_secret.py
+test/test_check_secret_input.py
 test/test_check_secrets_api.py
 test/test_check_server.py
 test/test_checks_api.py

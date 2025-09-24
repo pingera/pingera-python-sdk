@@ -280,7 +280,6 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | API token deleted successfully |  -  |
 **401** | Unauthorized - Authentication required |  -  |
-**403** | Forbidden - Token belongs to different user |  -  |
 **404** | API token not found |  -  |
 **500** | Internal Server Error |  -  |
 **0** | Default error response |  -  |

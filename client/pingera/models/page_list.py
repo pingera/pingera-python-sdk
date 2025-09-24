@@ -29,9 +29,9 @@ class PageList(BaseModel):
     """
     PageList
     """ # noqa: E501
-    pages: Optional[List[Page]] = Field(default=None, description="List of status pages")
     pagination: Optional[Pagination] = Field(default=None, description="Pagination information")
-    __properties: ClassVar[List[str]] = ["pages", "pagination"]
+    pages: Optional[List[Page]] = Field(default=None, description="List of status pages")
+    __properties: ClassVar[List[str]] = ["pagination", "pages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +72,9 @@ class PageList(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of pagination
+        if self.pagination:
+            _dict['pagination'] = self.pagination.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in pages (list)
         _items = []
         if self.pages:
@@ -79,9 +82,6 @@ class PageList(BaseModel):
                 if _item_pages:
                     _items.append(_item_pages.to_dict())
             _dict['pages'] = _items
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
         return _dict
 
     @classmethod
@@ -94,8 +94,8 @@ class PageList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pages": [Page.from_dict(_item) for _item in obj["pages"]] if obj.get("pages") is not None else None,
-            "pagination": Pagination.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None
+            "pagination": Pagination.from_dict(obj["pagination"]) if obj.get("pagination") is not None else None,
+            "pages": [Page.from_dict(_item) for _item in obj["pages"]] if obj.get("pages") is not None else None
         })
         return _obj
 

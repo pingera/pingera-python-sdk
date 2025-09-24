@@ -28,9 +28,9 @@ class CheckGroupList(BaseModel):
     """
     CheckGroupList
     """ # noqa: E501
-    groups: Optional[List[CheckGroup1]] = Field(default=None, description="List of check groups for the organization.")
     pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the groups.")
-    __properties: ClassVar[List[str]] = ["groups", "pagination"]
+    groups: Optional[List[CheckGroup1]] = Field(default=None, description="List of check groups for the organization.")
+    __properties: ClassVar[List[str]] = ["pagination", "groups"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class CheckGroupList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "groups": [CheckGroup1.from_dict(_item) for _item in obj["groups"]] if obj.get("groups") is not None else None,
-            "pagination": obj.get("pagination")
+            "pagination": obj.get("pagination"),
+            "groups": [CheckGroup1.from_dict(_item) for _item in obj["groups"]] if obj.get("groups") is not None else None
         })
         return _obj
 

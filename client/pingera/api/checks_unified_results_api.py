@@ -44,15 +44,15 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_all_results_get(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
-        region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
-        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (starting from 1).")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
+        region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -70,24 +70,24 @@ class ChecksUnifiedResultsApi:
 
         Get all check results (regular and on-demand) for the organization, sorted by creation date. Supports filtering by check ID, status, type, region, and date range. Date range is limited to 6 months in the past.
 
-        :param status: Filter by check result status.
-        :type status: str
-        :param check_id: Filter by specific check ID.
-        :type check_id: str
-        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param region: Filter by region where check was executed.
-        :type region: str
-        :param check_type: Filter by check type.
-        :type check_type: str
-        :param result_type: Filter by result type.
-        :type result_type: str
-        :param end_date: End date for filtering results (ISO format).
-        :type end_date: datetime
         :param page: Page number for pagination (starting from 1).
         :type page: int
+        :param status: Filter by check result status.
+        :type status: str
         :param page_size: Number of results per page (maximum 100).
         :type page_size: int
+        :param end_date: End date for filtering results (ISO format).
+        :type end_date: datetime
+        :param check_type: Filter by check type.
+        :type check_type: str
+        :param check_id: Filter by specific check ID.
+        :type check_id: str
+        :param result_type: Filter by result type.
+        :type result_type: str
+        :param region: Filter by region where check was executed.
+        :type region: str
+        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -111,15 +111,15 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_all_results_get_serialize(
-            status=status,
-            check_id=check_id,
-            start_date=start_date,
-            region=region,
-            check_type=check_type,
-            result_type=result_type,
-            end_date=end_date,
             page=page,
+            status=status,
             page_size=page_size,
+            end_date=end_date,
+            check_type=check_type,
+            check_id=check_id,
+            result_type=result_type,
+            region=region,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -147,15 +147,15 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_all_results_get_with_http_info(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
-        region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
-        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (starting from 1).")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
+        region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -173,24 +173,24 @@ class ChecksUnifiedResultsApi:
 
         Get all check results (regular and on-demand) for the organization, sorted by creation date. Supports filtering by check ID, status, type, region, and date range. Date range is limited to 6 months in the past.
 
-        :param status: Filter by check result status.
-        :type status: str
-        :param check_id: Filter by specific check ID.
-        :type check_id: str
-        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param region: Filter by region where check was executed.
-        :type region: str
-        :param check_type: Filter by check type.
-        :type check_type: str
-        :param result_type: Filter by result type.
-        :type result_type: str
-        :param end_date: End date for filtering results (ISO format).
-        :type end_date: datetime
         :param page: Page number for pagination (starting from 1).
         :type page: int
+        :param status: Filter by check result status.
+        :type status: str
         :param page_size: Number of results per page (maximum 100).
         :type page_size: int
+        :param end_date: End date for filtering results (ISO format).
+        :type end_date: datetime
+        :param check_type: Filter by check type.
+        :type check_type: str
+        :param check_id: Filter by specific check ID.
+        :type check_id: str
+        :param result_type: Filter by result type.
+        :type result_type: str
+        :param region: Filter by region where check was executed.
+        :type region: str
+        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -214,15 +214,15 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_all_results_get_serialize(
-            status=status,
-            check_id=check_id,
-            start_date=start_date,
-            region=region,
-            check_type=check_type,
-            result_type=result_type,
-            end_date=end_date,
             page=page,
+            status=status,
             page_size=page_size,
+            end_date=end_date,
+            check_type=check_type,
+            check_id=check_id,
+            result_type=result_type,
+            region=region,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -250,15 +250,15 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_all_results_get_without_preload_content(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
-        region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
-        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (starting from 1).")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
+        region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -276,24 +276,24 @@ class ChecksUnifiedResultsApi:
 
         Get all check results (regular and on-demand) for the organization, sorted by creation date. Supports filtering by check ID, status, type, region, and date range. Date range is limited to 6 months in the past.
 
-        :param status: Filter by check result status.
-        :type status: str
-        :param check_id: Filter by specific check ID.
-        :type check_id: str
-        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param region: Filter by region where check was executed.
-        :type region: str
-        :param check_type: Filter by check type.
-        :type check_type: str
-        :param result_type: Filter by result type.
-        :type result_type: str
-        :param end_date: End date for filtering results (ISO format).
-        :type end_date: datetime
         :param page: Page number for pagination (starting from 1).
         :type page: int
+        :param status: Filter by check result status.
+        :type status: str
         :param page_size: Number of results per page (maximum 100).
         :type page_size: int
+        :param end_date: End date for filtering results (ISO format).
+        :type end_date: datetime
+        :param check_type: Filter by check type.
+        :type check_type: str
+        :param check_id: Filter by specific check ID.
+        :type check_id: str
+        :param result_type: Filter by result type.
+        :type result_type: str
+        :param region: Filter by region where check was executed.
+        :type region: str
+        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -317,15 +317,15 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_all_results_get_serialize(
-            status=status,
-            check_id=check_id,
-            start_date=start_date,
-            region=region,
-            check_type=check_type,
-            result_type=result_type,
-            end_date=end_date,
             page=page,
+            status=status,
             page_size=page_size,
+            end_date=end_date,
+            check_type=check_type,
+            check_id=check_id,
+            result_type=result_type,
+            region=region,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -348,15 +348,15 @@ class ChecksUnifiedResultsApi:
 
     def _v1_checks_all_results_get_serialize(
         self,
-        status,
-        check_id,
-        start_date,
-        region,
-        check_type,
-        result_type,
-        end_date,
         page,
+        status,
         page_size,
+        end_date,
+        check_type,
+        check_id,
+        result_type,
+        region,
+        start_date,
         _request_auth,
         _content_type,
         _headers,
@@ -379,38 +379,17 @@ class ChecksUnifiedResultsApi:
 
         # process the path parameters
         # process the query parameters
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
         if status is not None:
             
             _query_params.append(('status', status))
             
-        if check_id is not None:
+        if page_size is not None:
             
-            _query_params.append(('check_id', check_id))
-            
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'start_date',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('start_date', start_date))
-            
-        if region is not None:
-            
-            _query_params.append(('region', region))
-            
-        if check_type is not None:
-            
-            _query_params.append(('check_type', check_type))
-            
-        if result_type is not None:
-            
-            _query_params.append(('result_type', result_type))
+            _query_params.append(('page_size', page_size))
             
         if end_date is not None:
             if isinstance(end_date, datetime):
@@ -425,13 +404,34 @@ class ChecksUnifiedResultsApi:
             else:
                 _query_params.append(('end_date', end_date))
             
-        if page is not None:
+        if check_type is not None:
             
-            _query_params.append(('page', page))
+            _query_params.append(('check_type', check_type))
             
-        if page_size is not None:
+        if check_id is not None:
             
-            _query_params.append(('page_size', page_size))
+            _query_params.append(('check_id', check_id))
+            
+        if result_type is not None:
+            
+            _query_params.append(('result_type', result_type))
+            
+        if region is not None:
+            
+            _query_params.append(('region', region))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'start_date',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('start_date', start_date))
             
         # process the header parameters
         # process the form parameters
@@ -475,10 +475,10 @@ class ChecksUnifiedResultsApi:
     def v1_checks_check_id_response_times_get(
         self,
         check_id: Annotated[str, Field(min_length=1, strict=True)],
-        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -498,14 +498,14 @@ class ChecksUnifiedResultsApi:
 
         :param check_id: (required)
         :type check_id: str
-        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
+        :param end_date: End date for metrics (ISO format).
+        :type end_date: datetime
         :param region: Filter by specific region.
         :type region: str
         :param status: Filter by check status.
         :type status: str
-        :param end_date: End date for metrics (ISO format).
-        :type end_date: datetime
+        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -530,10 +530,10 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_check_id_response_times_get_serialize(
             check_id=check_id,
-            start_date=start_date,
+            end_date=end_date,
             region=region,
             status=status,
-            end_date=end_date,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -563,10 +563,10 @@ class ChecksUnifiedResultsApi:
     def v1_checks_check_id_response_times_get_with_http_info(
         self,
         check_id: Annotated[str, Field(min_length=1, strict=True)],
-        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -586,14 +586,14 @@ class ChecksUnifiedResultsApi:
 
         :param check_id: (required)
         :type check_id: str
-        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
+        :param end_date: End date for metrics (ISO format).
+        :type end_date: datetime
         :param region: Filter by specific region.
         :type region: str
         :param status: Filter by check status.
         :type status: str
-        :param end_date: End date for metrics (ISO format).
-        :type end_date: datetime
+        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -618,10 +618,10 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_check_id_response_times_get_serialize(
             check_id=check_id,
-            start_date=start_date,
+            end_date=end_date,
             region=region,
             status=status,
-            end_date=end_date,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -651,10 +651,10 @@ class ChecksUnifiedResultsApi:
     def v1_checks_check_id_response_times_get_without_preload_content(
         self,
         check_id: Annotated[str, Field(min_length=1, strict=True)],
-        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
         status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -674,14 +674,14 @@ class ChecksUnifiedResultsApi:
 
         :param check_id: (required)
         :type check_id: str
-        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
+        :param end_date: End date for metrics (ISO format).
+        :type end_date: datetime
         :param region: Filter by specific region.
         :type region: str
         :param status: Filter by check status.
         :type status: str
-        :param end_date: End date for metrics (ISO format).
-        :type end_date: datetime
+        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -706,10 +706,10 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_check_id_response_times_get_serialize(
             check_id=check_id,
-            start_date=start_date,
+            end_date=end_date,
             region=region,
             status=status,
-            end_date=end_date,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -734,10 +734,10 @@ class ChecksUnifiedResultsApi:
     def _v1_checks_check_id_response_times_get_serialize(
         self,
         check_id,
-        start_date,
+        end_date,
         region,
         status,
-        end_date,
+        start_date,
         _request_auth,
         _content_type,
         _headers,
@@ -762,27 +762,6 @@ class ChecksUnifiedResultsApi:
         if check_id is not None:
             _path_params['check_id'] = check_id
         # process the query parameters
-        if start_date is not None:
-            if isinstance(start_date, datetime):
-                _query_params.append(
-                    (
-                        'start_date',
-                        start_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('start_date', start_date))
-            
-        if region is not None:
-            
-            _query_params.append(('region', region))
-            
-        if status is not None:
-            
-            _query_params.append(('status', status))
-            
         if end_date is not None:
             if isinstance(end_date, datetime):
                 _query_params.append(
@@ -795,6 +774,27 @@ class ChecksUnifiedResultsApi:
                 )
             else:
                 _query_params.append(('end_date', end_date))
+            
+        if region is not None:
+            
+            _query_params.append(('region', region))
+            
+        if status is not None:
+            
+            _query_params.append(('status', status))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'start_date',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('start_date', start_date))
             
         # process the header parameters
         # process the form parameters
@@ -838,10 +838,10 @@ class ChecksUnifiedResultsApi:
     def v1_checks_status_history_get(
         self,
         status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
-        region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
         end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
+        region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -861,14 +861,14 @@ class ChecksUnifiedResultsApi:
 
         :param status: Filter by check status.
         :type status: str
-        :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
-        :type check_id: str
-        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param region: Filter by specific region.
-        :type region: str
         :param end_date: End date for status history (ISO format).
         :type end_date: datetime
+        :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
+        :type check_id: str
+        :param region: Filter by specific region.
+        :type region: str
+        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -893,10 +893,10 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_status_history_get_serialize(
             status=status,
-            check_id=check_id,
-            start_date=start_date,
-            region=region,
             end_date=end_date,
+            check_id=check_id,
+            region=region,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -925,10 +925,10 @@ class ChecksUnifiedResultsApi:
     def v1_checks_status_history_get_with_http_info(
         self,
         status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
-        region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
         end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
+        region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -948,14 +948,14 @@ class ChecksUnifiedResultsApi:
 
         :param status: Filter by check status.
         :type status: str
-        :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
-        :type check_id: str
-        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param region: Filter by specific region.
-        :type region: str
         :param end_date: End date for status history (ISO format).
         :type end_date: datetime
+        :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
+        :type check_id: str
+        :param region: Filter by specific region.
+        :type region: str
+        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -980,10 +980,10 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_status_history_get_serialize(
             status=status,
-            check_id=check_id,
-            start_date=start_date,
-            region=region,
             end_date=end_date,
+            check_id=check_id,
+            region=region,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1012,10 +1012,10 @@ class ChecksUnifiedResultsApi:
     def v1_checks_status_history_get_without_preload_content(
         self,
         status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
-        region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
         end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
+        region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1035,14 +1035,14 @@ class ChecksUnifiedResultsApi:
 
         :param status: Filter by check status.
         :type status: str
-        :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
-        :type check_id: str
-        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param region: Filter by specific region.
-        :type region: str
         :param end_date: End date for status history (ISO format).
         :type end_date: datetime
+        :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
+        :type check_id: str
+        :param region: Filter by specific region.
+        :type region: str
+        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1067,10 +1067,10 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_status_history_get_serialize(
             status=status,
-            check_id=check_id,
-            start_date=start_date,
-            region=region,
             end_date=end_date,
+            check_id=check_id,
+            region=region,
+            start_date=start_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1094,10 +1094,10 @@ class ChecksUnifiedResultsApi:
     def _v1_checks_status_history_get_serialize(
         self,
         status,
-        check_id,
-        start_date,
-        region,
         end_date,
+        check_id,
+        region,
+        start_date,
         _request_auth,
         _content_type,
         _headers,
@@ -1124,9 +1124,26 @@ class ChecksUnifiedResultsApi:
             
             _query_params.append(('status', status))
             
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
+            
         if check_id is not None:
             
             _query_params.append(('check_id', check_id))
+            
+        if region is not None:
+            
+            _query_params.append(('region', region))
             
         if start_date is not None:
             if isinstance(start_date, datetime):
@@ -1140,23 +1157,6 @@ class ChecksUnifiedResultsApi:
                 )
             else:
                 _query_params.append(('start_date', start_date))
-            
-        if region is not None:
-            
-            _query_params.append(('region', region))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'end_date',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('end_date', end_date))
             
         # process the header parameters
         # process the form parameters

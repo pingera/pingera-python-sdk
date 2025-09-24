@@ -28,15 +28,15 @@ class ExecuteCustomCheckRequest(BaseModel):
     """
     ExecuteCustomCheckRequest
     """ # noqa: E501
-    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
     port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP and SSL checks). Range: 1-65535.")
     url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the custom check. Max 100 characters.")
-    timeout: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds.")
     secrets: Optional[List[Dict[str, StrictStr]]] = Field(default=None, description="List of secrets to inject as environment variables during check execution. Each secret must have 'secret_id' and 'env_variable' keys.")
+    timeout: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds.")
     parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. For 'synthetic' and 'multistep' checks, must include 'pw_script' with a valid Playwright script.")
+    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
     type: StrictStr = Field(description="The type of monitoring check to perform.")
-    __properties: ClassVar[List[str]] = ["host", "port", "url", "name", "timeout", "secrets", "parameters", "type"]
+    __properties: ClassVar[List[str]] = ["port", "url", "name", "secrets", "timeout", "parameters", "host", "type"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -96,13 +96,13 @@ class ExecuteCustomCheckRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "host": obj.get("host"),
             "port": obj.get("port"),
             "url": obj.get("url"),
             "name": obj.get("name"),
-            "timeout": obj.get("timeout"),
             "secrets": obj.get("secrets"),
+            "timeout": obj.get("timeout"),
             "parameters": obj.get("parameters"),
+            "host": obj.get("host"),
             "type": obj.get("type")
         })
         return _obj

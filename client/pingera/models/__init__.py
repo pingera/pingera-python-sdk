@@ -30,6 +30,7 @@ from pingera.models.check_group2 import CheckGroup2
 from pingera.models.check_group_list import CheckGroupList
 from pingera.models.check_job import CheckJob
 from pingera.models.check_secret import CheckSecret
+from pingera.models.check_secret_input import CheckSecretInput
 from pingera.models.check_server import CheckServer
 from pingera.models.component import Component
 from pingera.models.component1 import Component1

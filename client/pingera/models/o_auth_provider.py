@@ -28,11 +28,11 @@ class OAuthProvider(BaseModel):
     OAuthProvider
     """ # noqa: E501
     authorization_url: Optional[StrictStr] = Field(default=None, description="OAuth authorization endpoint")
-    icon_url: Optional[StrictStr] = Field(default=None, description="URL to provider icon/logo for UI")
     name: Optional[StrictStr] = Field(default=None, description="Provider identifier")
     display_name: Optional[StrictStr] = Field(default=None, description="Human-readable provider name")
     is_active: Optional[StrictBool] = Field(default=None, description="Whether this provider is currently available")
-    __properties: ClassVar[List[str]] = ["authorization_url", "icon_url", "name", "display_name", "is_active"]
+    icon_url: Optional[StrictStr] = Field(default=None, description="URL to provider icon/logo for UI")
+    __properties: ClassVar[List[str]] = ["authorization_url", "name", "display_name", "is_active", "icon_url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,10 +72,10 @@ class OAuthProvider(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "authorization_url",
-            "icon_url",
             "name",
             "display_name",
             "is_active",
+            "icon_url",
         ])
 
         _dict = self.model_dump(
@@ -101,10 +101,10 @@ class OAuthProvider(BaseModel):
 
         _obj = cls.model_validate({
             "authorization_url": obj.get("authorization_url"),
-            "icon_url": obj.get("icon_url"),
             "name": obj.get("name"),
             "display_name": obj.get("display_name"),
-            "is_active": obj.get("is_active")
+            "is_active": obj.get("is_active"),
+            "icon_url": obj.get("icon_url")
         })
         return _obj
 

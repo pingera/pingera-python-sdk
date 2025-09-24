@@ -28,13 +28,13 @@ class OAuthLoginResponse(BaseModel):
     """
     OAuthLoginResponse
     """ # noqa: E501
-    auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used")
     linked_account: Optional[StrictBool] = Field(default=None, description="Whether OAuth account was linked to existing user")
-    is_new_user: Optional[StrictBool] = Field(default=None, description="Whether this was a new user registration")
-    user: Optional[User] = Field(default=None, description="User information")
-    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for authenticated requests")
     refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token for obtaining new access tokens")
-    __properties: ClassVar[List[str]] = ["auth_method", "linked_account", "is_new_user", "user", "access_token", "refresh_token"]
+    user: Optional[User] = Field(default=None, description="User information")
+    auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used")
+    is_new_user: Optional[StrictBool] = Field(default=None, description="Whether this was a new user registration")
+    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for authenticated requests")
+    __properties: ClassVar[List[str]] = ["linked_account", "refresh_token", "user", "auth_method", "is_new_user", "access_token"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,12 +74,12 @@ class OAuthLoginResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "auth_method",
             "linked_account",
-            "is_new_user",
-            "user",
-            "access_token",
             "refresh_token",
+            "user",
+            "auth_method",
+            "is_new_user",
+            "access_token",
         ])
 
         _dict = self.model_dump(
@@ -102,12 +102,12 @@ class OAuthLoginResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "auth_method": obj.get("auth_method"),
             "linked_account": obj.get("linked_account"),
-            "is_new_user": obj.get("is_new_user"),
+            "refresh_token": obj.get("refresh_token"),
             "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None,
-            "access_token": obj.get("access_token"),
-            "refresh_token": obj.get("refresh_token")
+            "auth_method": obj.get("auth_method"),
+            "is_new_user": obj.get("is_new_user"),
+            "access_token": obj.get("access_token")
         })
         return _obj
 

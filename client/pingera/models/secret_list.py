@@ -28,9 +28,9 @@ class SecretList(BaseModel):
     """
     SecretList
     """ # noqa: E501
-    secrets: Optional[List[SecretListItem]] = Field(default=None, description="List of secrets for the organization.")
     pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the secrets.")
-    __properties: ClassVar[List[str]] = ["secrets", "pagination"]
+    secrets: Optional[List[SecretListItem]] = Field(default=None, description="List of secrets for the organization.")
+    __properties: ClassVar[List[str]] = ["pagination", "secrets"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class SecretList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "secrets": [SecretListItem.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
-            "pagination": obj.get("pagination")
+            "pagination": obj.get("pagination"),
+            "secrets": [SecretListItem.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None
         })
         return _obj
 

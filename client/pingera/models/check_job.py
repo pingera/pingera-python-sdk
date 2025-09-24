@@ -28,17 +28,17 @@ class CheckJob(BaseModel):
     """
     CheckJob
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
-    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
-    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
+    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
     check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
+    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
     started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
-    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
+    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
-    __properties: ClassVar[List[str]] = ["status", "check_id", "job_type", "result", "check_parameters", "error_message", "created_at", "started_at", "completed_at", "id"]
+    __properties: ClassVar[List[str]] = ["completed_at", "check_parameters", "result", "status", "created_at", "started_at", "check_id", "job_type", "error_message", "id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -92,15 +92,15 @@ class CheckJob(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "status",
-            "check_id",
-            "job_type",
-            "result",
+            "completed_at",
             "check_parameters",
-            "error_message",
+            "result",
+            "status",
             "created_at",
             "started_at",
-            "completed_at",
+            "check_id",
+            "job_type",
+            "error_message",
             "id",
         ])
 
@@ -109,15 +109,15 @@ class CheckJob(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if job_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.job_type is None and "job_type" in self.model_fields_set:
-            _dict['job_type'] = None
-
         # set to None if result (nullable) is None
         # and model_fields_set contains the field
         if self.result is None and "result" in self.model_fields_set:
             _dict['result'] = None
+
+        # set to None if job_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.job_type is None and "job_type" in self.model_fields_set:
+            _dict['job_type'] = None
 
         return _dict
 
@@ -131,15 +131,15 @@ class CheckJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
-            "check_id": obj.get("check_id"),
-            "job_type": obj.get("job_type"),
-            "result": obj.get("result"),
+            "completed_at": obj.get("completed_at"),
             "check_parameters": obj.get("check_parameters"),
-            "error_message": obj.get("error_message"),
+            "result": obj.get("result"),
+            "status": obj.get("status"),
             "created_at": obj.get("created_at"),
             "started_at": obj.get("started_at"),
-            "completed_at": obj.get("completed_at"),
+            "check_id": obj.get("check_id"),
+            "job_type": obj.get("job_type"),
+            "error_message": obj.get("error_message"),
             "id": obj.get("id")
         })
         return _obj

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groups** | [**List[CheckGroup1]**](CheckGroup1.md) | List of check groups for the organization. | [optional] 
 **pagination** | **Dict[str, object]** | Pagination information for the groups. | [optional] 
+**groups** | [**List[CheckGroup1]**](CheckGroup1.md) | List of check groups for the organization. | [optional] 
 
 ## Example
 

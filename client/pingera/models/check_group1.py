@@ -29,16 +29,16 @@ class CheckGroup1(BaseModel):
     """
     CheckGroup1
     """ # noqa: E501
-    color: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex color code for the group (e.g., #4F46E5).")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check group.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the check group. Max 100 characters.")
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description for the check group. Max 500 characters.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was created in ISO format.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was last updated in ISO format.")
-    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description for the check group. Max 500 characters.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the check group. Max 100 characters.")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the check group is active.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check group.")
     checks_count: Optional[Any] = Field(default=None, description="Number of checks in this group.")
     position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering groups (0 = first).")
-    __properties: ClassVar[List[str]] = ["color", "created_at", "updated_at", "description", "name", "active", "id", "checks_count", "position"]
+    color: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex color code for the group (e.g., #4F46E5).")
+    active: Optional[StrictBool] = Field(default=None, description="Whether the check group is active.")
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "created_at", "updated_at", "checks_count", "position", "color", "active"]
 
     @field_validator('color')
     def color_validate_regular_expression(cls, value):
@@ -86,9 +86,9 @@ class CheckGroup1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
             "created_at",
             "updated_at",
-            "id",
             "checks_count",
         ])
 
@@ -114,15 +114,15 @@ class CheckGroup1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "color": obj.get("color"),
+            "id": obj.get("id"),
+            "name": obj.get("name"),
+            "description": obj.get("description"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
-            "description": obj.get("description"),
-            "name": obj.get("name"),
-            "active": obj.get("active"),
-            "id": obj.get("id"),
             "checks_count": obj.get("checks_count"),
-            "position": obj.get("position")
+            "position": obj.get("position"),
+            "color": obj.get("color"),
+            "active": obj.get("active")
         })
         return _obj
 

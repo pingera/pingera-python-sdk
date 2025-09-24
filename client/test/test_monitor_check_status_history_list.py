@@ -36,13 +36,13 @@ class TestMonitorCheckStatusHistoryList(unittest.TestCase):
         model = MonitorCheckStatusHistoryList()
         if include_optional:
             return MonitorCheckStatusHistoryList(
+                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 status_history = [
                     pingera.models.monitor_check_status_history.MonitorCheckStatusHistory(
                         ended_at = '2024-01-15T15:30Z', 
-                        status = 'ok', 
-                        started_at = '2024-01-15T14:30Z', )
-                    ],
-                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100}
+                        started_at = '2024-01-15T14:30Z', 
+                        status = 'ok', )
+                    ]
             )
         else:
             return MonitorCheckStatusHistoryList(

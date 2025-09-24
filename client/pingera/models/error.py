@@ -27,11 +27,11 @@ class Error(BaseModel):
     """
     Error
     """ # noqa: E501
+    code: Optional[StrictInt] = Field(default=None, description="Error code")
     message: Optional[StrictStr] = Field(default=None, description="Error message")
     errors: Optional[Dict[str, Any]] = Field(default=None, description="Errors")
     status: Optional[StrictStr] = Field(default=None, description="Error name")
-    code: Optional[StrictInt] = Field(default=None, description="Error code")
-    __properties: ClassVar[List[str]] = ["message", "errors", "status", "code"]
+    __properties: ClassVar[List[str]] = ["code", "message", "errors", "status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,10 +84,10 @@ class Error(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "code": obj.get("code"),
             "message": obj.get("message"),
             "errors": obj.get("errors"),
-            "status": obj.get("status"),
-            "code": obj.get("code")
+            "status": obj.get("status")
         })
         return _obj
 

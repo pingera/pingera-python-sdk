@@ -28,13 +28,13 @@ class IncidentUpdateSchemaEdit(BaseModel):
     """
     IncidentUpdateSchemaEdit
     """ # noqa: E501
-    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the incident.")
-    body: Optional[StrictStr] = Field(default=None, description="The update body content for the incident.")
     deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when updating this incident.")
-    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident update.")
+    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="The name/title of the incident. Must be between 1 and 200 characters.")
-    __properties: ClassVar[List[str]] = ["impact", "status", "body", "deliver_notifications", "components", "name"]
+    body: Optional[StrictStr] = Field(default=None, description="The update body content for the incident.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the incident.")
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident update.")
+    __properties: ClassVar[List[str]] = ["deliver_notifications", "impact", "name", "body", "status", "components"]
 
     @field_validator('impact')
     def impact_validate_enum(cls, value):
@@ -107,12 +107,12 @@ class IncidentUpdateSchemaEdit(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "impact": obj.get("impact"),
-            "status": obj.get("status"),
-            "body": obj.get("body"),
             "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
-            "components": obj.get("components"),
-            "name": obj.get("name")
+            "impact": obj.get("impact"),
+            "name": obj.get("name"),
+            "body": obj.get("body"),
+            "status": obj.get("status"),
+            "components": obj.get("components")
         })
         return _obj
 

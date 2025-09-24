@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** | The timestamp when the API token was created in ISO format. | [optional] [readonly] 
 **last_used_at** | **datetime** | The timestamp when the API token was last used in ISO format. Null if never used. | [optional] [readonly] 
-**name** | **str** | A descriptive name for the API token. Maximum 100 characters. | 
 **token** | **str** | The actual API token string. Only returned when creating a new token. | [optional] [readonly] 
+**name** | **str** | A descriptive name for the API token. Maximum 100 characters. | 
+**created_at** | **datetime** | The timestamp when the API token was created in ISO format. | [optional] [readonly] 
 **id** | **str** | The unique identifier for the API token. | [optional] [readonly] 
 
 ## Example

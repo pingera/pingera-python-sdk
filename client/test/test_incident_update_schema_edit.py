@@ -36,12 +36,12 @@ class TestIncidentUpdateSchemaEdit(unittest.TestCase):
         model = IncidentUpdateSchemaEdit()
         if include_optional:
             return IncidentUpdateSchemaEdit(
-                impact = 'minor',
-                status = 'monitoring',
-                body = 'Issue has been identified and we are working on a fix.',
                 deliver_notifications = True,
-                components = {"comp_123":"operational","comp_456":"operational"},
-                name = 'Database Connection Issues'
+                impact = 'minor',
+                name = 'Database Connection Issues',
+                body = 'Issue has been identified and we are working on a fix.',
+                status = 'monitoring',
+                components = {"comp_123":"operational","comp_456":"operational"}
             )
         else:
             return IncidentUpdateSchemaEdit(

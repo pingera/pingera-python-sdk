@@ -27,10 +27,10 @@ class ExecuteExistingCheckResponse(BaseModel):
     """
     ExecuteExistingCheckResponse
     """ # noqa: E501
+    message: StrictStr = Field(description="Human-readable message about the operation result.")
     job_id: StrictStr = Field(description="The unique identifier for the queued check job.")
     status: StrictStr = Field(description="The current status of the check job.")
-    message: StrictStr = Field(description="Human-readable message about the operation result.")
-    __properties: ClassVar[List[str]] = ["job_id", "status", "message"]
+    __properties: ClassVar[List[str]] = ["message", "job_id", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -90,9 +90,9 @@ class ExecuteExistingCheckResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "message": obj.get("message"),
             "job_id": obj.get("job_id"),
-            "status": obj.get("status"),
-            "message": obj.get("message")
+            "status": obj.get("status")
         })
         return _obj
 

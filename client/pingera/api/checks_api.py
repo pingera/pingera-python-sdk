@@ -592,7 +592,7 @@ class ChecksApi:
     ) -> MonitorCheck:
         """Update a monitor check
 
-        Update a monitor check. Note: The \"type\" of a check cannot be changed after creation.
+        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The \"type\" of a check cannot be changed after creation.
 
         :param check_id: The unique identifier of the monitor check to update. (required)
         :type check_id: str
@@ -664,7 +664,7 @@ class ChecksApi:
     ) -> ApiResponse[MonitorCheck]:
         """Update a monitor check
 
-        Update a monitor check. Note: The \"type\" of a check cannot be changed after creation.
+        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The \"type\" of a check cannot be changed after creation.
 
         :param check_id: The unique identifier of the monitor check to update. (required)
         :type check_id: str
@@ -736,7 +736,7 @@ class ChecksApi:
     ) -> RESTResponseType:
         """Update a monitor check
 
-        Update a monitor check. Note: The \"type\" of a check cannot be changed after creation.
+        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The \"type\" of a check cannot be changed after creation.
 
         :param check_id: The unique identifier of the monitor check to update. (required)
         :type check_id: str
@@ -2746,7 +2746,7 @@ class ChecksApi:
     ) -> MonitorCheck:
         """Create a new regular check
 
-        Create a new regular check
+        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
 
         :param monitor_check: (required)
         :type monitor_check: MonitorCheck
@@ -2814,7 +2814,7 @@ class ChecksApi:
     ) -> ApiResponse[MonitorCheck]:
         """Create a new regular check
 
-        Create a new regular check
+        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
 
         :param monitor_check: (required)
         :type monitor_check: MonitorCheck
@@ -2882,7 +2882,7 @@ class ChecksApi:
     ) -> RESTResponseType:
         """Create a new regular check
 
-        Create a new regular check
+        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
 
         :param monitor_check: (required)
         :type monitor_check: MonitorCheck

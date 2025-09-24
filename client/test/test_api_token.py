@@ -36,10 +36,10 @@ class TestAPIToken(unittest.TestCase):
         model = APIToken()
         if include_optional:
             return APIToken(
-                created_at = '2024-01-15T10:00Z',
                 last_used_at = '2024-01-15T14:30Z',
-                name = 'Production API Access',
                 token = 'api_1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+                name = 'Production API Access',
+                created_at = '2024-01-15T10:00Z',
                 id = 'token_abc123def456'
             )
         else:

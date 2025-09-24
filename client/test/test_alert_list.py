@@ -36,28 +36,28 @@ class TestAlertList(unittest.TestCase):
         model = AlertList()
         if include_optional:
             return AlertList(
+                pagination = {"page":1,"pages":3,"per_page":20,"total":45,"has_next":true,"has_prev":false},
                 alerts = [
                     pingera.models.alert.Alert(
-                        check_name = Production API Health Check, 
-                        severity = 'high', 
-                        status = 'firing', 
-                        check_id = 'check_ghi789jkl012', 
-                        rule_id = 'rule_def456ghi789', 
                         title = 'Production API Health Check Failed', 
-                        acknowledged_by_id = 'user_jkl012mno345', 
-                        is_active = true, 
-                        notification_count = 3, 
-                        rule_name = Production API Down Alert, 
-                        description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.', 
-                        fired_at = '2024-01-15T15:30Z', 
-                        duration = 3600, 
-                        acknowledged_at = '2024-01-15T15:35Z', 
-                        id = 'alert_abc123def456', 
                         resolved_at = '2024-01-15T16:30Z', 
+                        severity = 'high', 
                         alert_metadata = {"consecutive_failures":3,"last_check_result":"timeout","response_time":5000}, 
-                        last_notification_at = '2024-01-15T15:45Z', )
-                    ],
-                pagination = {"page":1,"pages":3,"per_page":20,"total":45,"has_next":true,"has_prev":false}
+                        rule_id = 'rule_def456ghi789', 
+                        acknowledged_by_id = 'user_jkl012mno345', 
+                        status = 'firing', 
+                        description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.', 
+                        acknowledged_at = '2024-01-15T15:35Z', 
+                        fired_at = '2024-01-15T15:30Z', 
+                        notification_count = 3, 
+                        check_id = 'check_ghi789jkl012', 
+                        duration = 3600, 
+                        is_active = true, 
+                        check_name = Production API Health Check, 
+                        rule_name = Production API Down Alert, 
+                        last_notification_at = '2024-01-15T15:45Z', 
+                        id = 'alert_abc123def456', )
+                    ]
             )
         else:
             return AlertList(

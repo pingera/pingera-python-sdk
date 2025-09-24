@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**provider_avatar_url** | **str** | Avatar URL from OAuth provider | [optional] [readonly] 
-**provider** | [**OAuthProvider**](OAuthProvider.md) |  | [optional] [readonly] 
-**created_at** | **datetime** | When the OAuth account was linked | [optional] [readonly] 
-**provider_email** | **str** | Email address from OAuth provider | [optional] [readonly] 
 **last_used_at** | **datetime** | When this OAuth account was last used for login | [optional] [readonly] 
+**provider** | [**OAuthProvider**](OAuthProvider.md) |  | [optional] [readonly] 
+**provider_email** | **str** | Email address from OAuth provider | [optional] [readonly] 
+**created_at** | **datetime** | When the OAuth account was linked | [optional] [readonly] 
+**provider_avatar_url** | **str** | Avatar URL from OAuth provider | [optional] [readonly] 
 **provider_name** | **str** | Display name from OAuth provider | [optional] [readonly] 
 **id** | **str** | OAuth account link ID | [optional] [readonly] 
 

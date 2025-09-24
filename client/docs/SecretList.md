@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**secrets** | [**List[SecretListItem]**](SecretListItem.md) | List of secrets for the organization. | [optional] 
 **pagination** | **Dict[str, object]** | Pagination information for the secrets. | [optional] 
+**secrets** | [**List[SecretListItem]**](SecretListItem.md) | List of secrets for the organization. | [optional] 
 
 ## Example
 

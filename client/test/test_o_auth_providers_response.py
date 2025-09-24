@@ -39,10 +39,10 @@ class TestOAuthProvidersResponse(unittest.TestCase):
                 providers = [
                     pingera.models.o_auth_provider.OAuthProvider(
                         authorization_url = 'https://oauth.yandex.ru/authorize', 
-                        icon_url = 'https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg', 
                         name = 'yandex', 
                         display_name = 'Yandex.ID', 
-                        is_active = True, )
+                        is_active = True, 
+                        icon_url = 'https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg', )
                     ]
             )
         else:

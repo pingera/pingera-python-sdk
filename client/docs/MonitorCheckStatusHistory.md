@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ended_at** | **datetime** | When this status period ended in ISO format. Null if still active. | [optional] 
-**status** | **str** | The status during this period. | [optional] 
 **started_at** | **datetime** | When this status period started in ISO format. | [optional] 
+**status** | **str** | The status during this period. | [optional] 
 
 ## Example
 

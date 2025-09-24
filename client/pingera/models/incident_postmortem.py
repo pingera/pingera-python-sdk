@@ -29,17 +29,17 @@ class IncidentPostmortem(BaseModel):
     IncidentPostmortem
     """ # noqa: E501
     body_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the published postmortem body was last updated.")
+    preview_key: Optional[StrictStr] = Field(default=None, description="A unique key that allows public access to preview the postmortem before it's published.")
+    incident_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the incident this postmortem belongs to.")
+    body_draft_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the draft postmortem body was last updated.")
+    body: Optional[StrictStr] = Field(default=None, description="The published content of the postmortem in Markdown format.")
     body_draft: Optional[StrictStr] = Field(default=None, description="The draft content of the postmortem that hasn't been published yet.")
-    notify_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to notify subscribers when the postmortem is published.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was created.")
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was last updated.")
-    body: Optional[StrictStr] = Field(default=None, description="The published content of the postmortem in Markdown format.")
+    notify_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to notify subscribers when the postmortem is published.")
     published_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was published and made publicly available.")
-    body_draft_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the draft postmortem body was last updated.")
-    incident_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the incident this postmortem belongs to.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident postmortem.")
-    preview_key: Optional[StrictStr] = Field(default=None, description="A unique key that allows public access to preview the postmortem before it's published.")
-    __properties: ClassVar[List[str]] = ["body_updated_at", "body_draft", "notify_subscribers", "created_at", "updated_at", "body", "published_at", "body_draft_updated_at", "incident_id", "id", "preview_key"]
+    __properties: ClassVar[List[str]] = ["body_updated_at", "preview_key", "incident_id", "body_draft_updated_at", "body", "body_draft", "created_at", "updated_at", "notify_subscribers", "published_at", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,9 +77,9 @@ class IncidentPostmortem(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "incident_id",
             "created_at",
             "updated_at",
-            "incident_id",
             "id",
         ])
 
@@ -101,16 +101,16 @@ class IncidentPostmortem(BaseModel):
 
         _obj = cls.model_validate({
             "body_updated_at": obj.get("body_updated_at"),
+            "preview_key": obj.get("preview_key"),
+            "incident_id": obj.get("incident_id"),
+            "body_draft_updated_at": obj.get("body_draft_updated_at"),
+            "body": obj.get("body"),
             "body_draft": obj.get("body_draft"),
-            "notify_subscribers": obj.get("notify_subscribers"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
-            "body": obj.get("body"),
+            "notify_subscribers": obj.get("notify_subscribers"),
             "published_at": obj.get("published_at"),
-            "body_draft_updated_at": obj.get("body_draft_updated_at"),
-            "incident_id": obj.get("incident_id"),
-            "id": obj.get("id"),
-            "preview_key": obj.get("preview_key")
+            "id": obj.get("id")
         })
         return _obj
 

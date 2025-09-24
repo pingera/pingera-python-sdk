@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **incident_updates** | [**List[PastIncidentUpdate]**](PastIncidentUpdate.md) | Array of incident updates in chronological order | 
-**impact** | **str** | The impact level of the incident | 
-**deliver_notifications** | **bool** | Whether to send notifications | [optional] [default to False]
 **name** | **str** | The name of the incident | 
+**deliver_notifications** | **bool** | Whether to send notifications | [optional] [default to False]
+**impact** | **str** | The impact level of the incident | 
 
 ## Example
 

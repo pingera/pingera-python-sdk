@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **str** | The current status of the check job execution. | [optional] [readonly] 
-**check_id** | **str** | The identifier of the monitor check this job belongs to. | [optional] [readonly] 
-**job_type** | **object** | The type of check job being executed. | [optional] [readonly] 
-**result** | **object** | The result data from the completed check job, including server information. | [optional] [readonly] 
+**completed_at** | **datetime** | The timestamp when the check job completed execution in ISO format. | [optional] [readonly] 
 **check_parameters** | **Dict[str, object]** | The parameters used for executing this check job. | [optional] [readonly] 
-**error_message** | **str** | Error message if the job execution failed. | [optional] [readonly] 
+**result** | **object** | The result data from the completed check job, including server information. | [optional] [readonly] 
+**status** | **str** | The current status of the check job execution. | [optional] [readonly] 
 **created_at** | **datetime** | The timestamp when the check job was created in ISO format. | [optional] [readonly] 
 **started_at** | **datetime** | The timestamp when the check job started execution in ISO format. | [optional] [readonly] 
-**completed_at** | **datetime** | The timestamp when the check job completed execution in ISO format. | [optional] [readonly] 
+**check_id** | **str** | The identifier of the monitor check this job belongs to. | [optional] [readonly] 
+**job_type** | **object** | The type of check job being executed. | [optional] [readonly] 
+**error_message** | **str** | Error message if the job execution failed. | [optional] [readonly] 
 **id** | **str** | The unique identifier for the check job. | [optional] [readonly] 
 
 ## Example

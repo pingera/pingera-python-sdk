@@ -36,17 +36,17 @@ class TestIncidentCreate(unittest.TestCase):
         model = IncidentCreate()
         if include_optional:
             return IncidentCreate(
-                impact = 'minor',
-                status = 'investigating',
-                body = 'We are currently investigating issues with our database connections that may affect service availability.',
                 deliver_notifications = True,
-                components = {"comp_123":"degraded_performance","comp_456":"operational"},
-                name = 'Database Connection Issues'
+                impact = 'minor',
+                name = 'Database Connection Issues',
+                body = 'We are currently investigating issues with our database connections that may affect service availability.',
+                status = 'investigating',
+                components = {"comp_123":"degraded_performance","comp_456":"operational"}
             )
         else:
             return IncidentCreate(
-                status = 'investigating',
                 name = 'Database Connection Issues',
+                status = 'investigating',
         )
         """
 

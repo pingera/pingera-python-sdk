@@ -39,22 +39,22 @@ class TestV1LoginPost200Response(unittest.TestCase):
                 access_token = '',
                 refresh_token = '',
                 user = pingera.models.user.User(
+                    password = 'securepassword123', 
+                    onboarding_step = 'setup_alerts', 
+                    is_first_login = False, 
+                    role = 'admin', 
+                    onboarding_completed_at = '2024-01-15T11:30Z', 
+                    organization_id = 'org_stellar_solutions', 
+                    created_at = '2024-01-15T10:00Z', 
+                    verification_token_expires = 2024-01-16T10:00:00Z, 
+                    email_verified = True, 
+                    last_login = '2024-01-15T14:30Z', 
+                    last_name = 'Doe', 
+                    onboarding_completed = True, 
                     first_name = 'John', 
                     org_name = 'My Company', 
-                    onboarding_completed = True, 
-                    email = 'user@example.com', 
-                    email_verified = True, 
-                    created_at = '2024-01-15T10:00Z', 
-                    onboarding_completed_at = '2024-01-15T11:30Z', 
-                    last_name = 'Doe', 
-                    last_login = '2024-01-15T14:30Z', 
-                    onboarding_step = 'setup_alerts', 
-                    verification_token_expires = 2024-01-16T10:00:00Z, 
-                    role = 'admin', 
-                    password = 'securepassword123', 
-                    organization_id = 'org_stellar_solutions', 
                     id = 'user_abc123def456', 
-                    is_first_login = False, )
+                    email = 'user@example.com', )
             )
         else:
             return V1LoginPost200Response(

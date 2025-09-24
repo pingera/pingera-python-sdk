@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**auth_method** | **str** | Authentication method used | [optional] [readonly] 
 **linked_account** | **bool** | Whether OAuth account was linked to existing user | [optional] [readonly] 
-**is_new_user** | **bool** | Whether this was a new user registration | [optional] [readonly] 
-**user** | [**User**](User.md) | User information | [optional] [readonly] 
-**access_token** | **str** | JWT access token for authenticated requests | [optional] [readonly] 
 **refresh_token** | **str** | Refresh token for obtaining new access tokens | [optional] [readonly] 
+**user** | [**User**](User.md) | User information | [optional] [readonly] 
+**auth_method** | **str** | Authentication method used | [optional] [readonly] 
+**is_new_user** | **bool** | Whether this was a new user registration | [optional] [readonly] 
+**access_token** | **str** | JWT access token for authenticated requests | [optional] [readonly] 
 
 ## Example
 
