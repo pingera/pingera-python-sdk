@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pingera-sdk"
-version = "1.0.6"
+dynamic = ["version"]
 authors = [
     {name = "Pingera Team", email = "privet@pingera.ru"},
 ]
@@ -141,3 +141,6 @@ exclude_lines = [
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
 ]
+
+[tool.setuptools.dynamic]
+version = {attr = "pingera.__version__"}

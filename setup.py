@@ -1,12 +1,18 @@
 
 from setuptools import setup, find_packages
+import os
+import sys
+
+# Add the current directory to Python path to import pingera
+sys.path.insert(0, os.path.dirname(__file__))
+from pingera import __version__
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="pingera-sdk",
-    version="1.0.6",
+    version=__version__,
     author="Pingera Team",
     author_email="privet@pingera.ru",
     description="A comprehensive Python SDK for the Pingera monitoring platform API",

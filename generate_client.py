@@ -8,6 +8,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Import version from the main package
+sys.path.insert(0, str(Path(__file__).parent))
+from pingera import __version__
+
 
 def main():
     """Generate the OpenAPI client."""
@@ -35,7 +39,7 @@ def main():
         "-g", "python",
         "-o", output_dir,
         "--package-name", "pingera",
-        "--additional-properties", "packageVersion=1.0.6,projectName=pingera-generated-client"
+        "--additional-properties", f"packageVersion={__version__},projectName=pingera-generated-client"
     ]
     
     try:
