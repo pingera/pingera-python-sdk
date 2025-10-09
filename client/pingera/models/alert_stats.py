@@ -30,9 +30,9 @@ class AlertStats(BaseModel):
     severity_breakdown: Optional[Dict[str, Any]] = Field(default=None, description="Count of alerts by severity level in the last 30 days.")
     total_channels: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert channels.")
     recent_alerts: Optional[StrictInt] = Field(default=None, description="Number of alerts fired in the last 30 days.")
-    active_alerts: Optional[StrictInt] = Field(default=None, description="Number of currently active alerts (firing or acknowledged).")
     total_rules: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert rules.")
-    __properties: ClassVar[List[str]] = ["severity_breakdown", "total_channels", "recent_alerts", "active_alerts", "total_rules"]
+    active_alerts: Optional[StrictInt] = Field(default=None, description="Number of currently active alerts (firing or acknowledged).")
+    __properties: ClassVar[List[str]] = ["severity_breakdown", "total_channels", "recent_alerts", "total_rules", "active_alerts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,8 +74,8 @@ class AlertStats(BaseModel):
             "severity_breakdown",
             "total_channels",
             "recent_alerts",
-            "active_alerts",
             "total_rules",
+            "active_alerts",
         ])
 
         _dict = self.model_dump(
@@ -98,8 +98,8 @@ class AlertStats(BaseModel):
             "severity_breakdown": obj.get("severity_breakdown"),
             "total_channels": obj.get("total_channels"),
             "recent_alerts": obj.get("recent_alerts"),
-            "active_alerts": obj.get("active_alerts"),
-            "total_rules": obj.get("total_rules")
+            "total_rules": obj.get("total_rules"),
+            "active_alerts": obj.get("active_alerts")
         })
         return _obj
 

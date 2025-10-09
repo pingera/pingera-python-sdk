@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The unique identifier for the check group. | [optional] [readonly] 
 **name** | **str** | A user-friendly name for the check group. Max 100 characters. | 
-**description** | **str** | Optional description for the check group. Max 500 characters. | [optional] 
-**created_at** | **datetime** | The timestamp when the group was created in ISO format. | [optional] [readonly] 
 **updated_at** | **datetime** | The timestamp when the group was last updated in ISO format. | [optional] [readonly] 
 **position** | **int** | Position for ordering groups (0 &#x3D; first). | [optional] 
-**color** | **str** | Hex color code for the group (e.g., #4F46E5). | [optional] 
+**created_at** | **datetime** | The timestamp when the group was created in ISO format. | [optional] [readonly] 
+**description** | **str** | Optional description for the check group. Max 500 characters. | [optional] 
 **active** | **bool** | Whether the check group is active. | [optional] 
+**color** | **str** | Hex color code for the group (e.g., #4F46E5). | [optional] 
 
 ## Example
 

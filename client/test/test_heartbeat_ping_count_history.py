@@ -36,8 +36,8 @@ class TestHeartbeatPingCountHistory(unittest.TestCase):
         model = HeartbeatPingCountHistory()
         if include_optional:
             return HeartbeatPingCountHistory(
-                ping_count = 12,
-                hour = 'Mon, 15 Jan 2024 14:00:00 GMT'
+                hour = 'Mon, 15 Jan 2024 14:00:00 GMT',
+                ping_count = 12
             )
         else:
             return HeartbeatPingCountHistory(

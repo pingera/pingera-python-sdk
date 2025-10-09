@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**message** | **str** | Human-readable result message | [optional] [readonly] 
 **success** | **bool** | Whether the account was successfully unlinked | [optional] [readonly] 
+**message** | **str** | Human-readable result message | [optional] [readonly] 
 
 ## Example
 

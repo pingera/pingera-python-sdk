@@ -36,27 +36,26 @@ class TestUnifiedResultList(unittest.TestCase):
         model = UnifiedResultList()
         if include_optional:
             return UnifiedResultList(
+                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 results = [
                     pingera.models.unified_result.UnifiedResult(
-                        response_time = 56, 
                         check_metadata = {
                             'key' : null
                             }, 
-                        check_server_id = '', 
-                        status = '', 
-                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        check_server = null, 
+                        id = '', 
+                        error_message = '', 
                         check_type = '', 
+                        check_name = '', 
                         check_id = '', 
                         result_type = 'regular', 
-                        check_server = null, 
                         region = '', 
-                        check_name = '', 
-                        error_message = '', 
-                        id = '', )
-                    ],
-                pagination = {
-                    'key' : null
-                    }
+                        triggered_alerts = [{"alert_id":"alert123abc456","title":"Check 'API Health' has failed","severity":"high","status":"firing","is_primary_trigger":true}], 
+                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        check_server_id = '', 
+                        response_time = 56, 
+                        status = '', )
+                    ]
             )
         else:
             return UnifiedResultList(

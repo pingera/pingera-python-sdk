@@ -36,26 +36,27 @@ class TestUnifiedResult(unittest.TestCase):
         model = UnifiedResult()
         if include_optional:
             return UnifiedResult(
-                response_time = 56,
                 check_metadata = {
                     'key' : null
                     },
-                check_server_id = '',
-                status = '',
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                check_server = pingera.models.check_server.CheckServer(
+                    ip_address = '192.168.1.100', 
+                    id = 'srv123abc456', 
+                    country = 'United States', 
+                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
+                    region = 'us-west-1', ),
+                id = '',
+                error_message = '',
                 check_type = '',
+                check_name = '',
                 check_id = '',
                 result_type = 'regular',
-                check_server = pingera.models.check_server.CheckServer(
-                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
-                    country = 'United States', 
-                    ip_address = '192.168.1.100', 
-                    region = 'us-west-1', 
-                    id = 'srv123abc456', ),
                 region = '',
-                check_name = '',
-                error_message = '',
-                id = ''
+                triggered_alerts = [{"alert_id":"alert123abc456","title":"Check 'API Health' has failed","severity":"high","status":"firing","is_primary_trigger":true}],
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                check_server_id = '',
+                response_time = 56,
+                status = ''
             )
         else:
             return UnifiedResult(

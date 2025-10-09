@@ -36,28 +36,28 @@ class TestLogPastIncident(unittest.TestCase):
         model = LogPastIncident()
         if include_optional:
             return LogPastIncident(
+                impact = 'major',
+                name = 'Database Outage',
                 incident_updates = [
                     pingera.models.past_incident_update.PastIncidentUpdate(
-                        created_at = '2024-01-15T10:30Z', 
                         components = {"comp_123":"major_outage","comp_456":"operational"}, 
-                        body = 'We are investigating database connectivity issues', 
-                        status = 'investigating', )
+                        status = 'investigating', 
+                        created_at = '2024-01-15T10:30Z', 
+                        body = 'We are investigating database connectivity issues', )
                     ],
-                name = 'Database Outage',
-                deliver_notifications = False,
-                impact = 'major'
+                deliver_notifications = False
             )
         else:
             return LogPastIncident(
+                impact = 'major',
+                name = 'Database Outage',
                 incident_updates = [
                     pingera.models.past_incident_update.PastIncidentUpdate(
-                        created_at = '2024-01-15T10:30Z', 
                         components = {"comp_123":"major_outage","comp_456":"operational"}, 
-                        body = 'We are investigating database connectivity issues', 
-                        status = 'investigating', )
+                        status = 'investigating', 
+                        created_at = '2024-01-15T10:30Z', 
+                        body = 'We are investigating database connectivity issues', )
                     ],
-                name = 'Database Outage',
-                impact = 'major',
         )
         """
 

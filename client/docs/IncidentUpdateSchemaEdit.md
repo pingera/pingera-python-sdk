@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**deliver_notifications** | **bool** | Whether to send notifications when updating this incident. | [optional] [default to True]
 **impact** | **str** | The impact level of the incident. | [optional] 
+**components** | **Dict[str, str]** | A dictionary mapping component IDs to their status during incident update. | [optional] 
 **name** | **str** | The name/title of the incident. Must be between 1 and 200 characters. | [optional] 
 **body** | **str** | The update body content for the incident. | [optional] 
 **status** | **str** | The current status of the incident. | [optional] 
-**components** | **Dict[str, str]** | A dictionary mapping component IDs to their status during incident update. | [optional] 
+**deliver_notifications** | **bool** | Whether to send notifications when updating this incident. | [optional] [default to True]
 
 ## Example
 

@@ -29,14 +29,14 @@ class Secret2(BaseModel):
     """
     Secret2
     """ # noqa: E501
-    secret_value: Optional[StrictStr] = Field(default=None, description="The secret value. This will be encrypted in storage but returned in API responses.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.")
-    secret_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A unique name for the secret within the organization. Max 100 characters.")
-    updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
     created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.")
-    __properties: ClassVar[List[str]] = ["secret_value", "created_at", "secret_name", "updated_by", "updated_at", "created_by", "id"]
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
+    secret_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A unique name for the secret within the organization. Max 100 characters.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.")
+    updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.")
+    secret_value: Optional[StrictStr] = Field(default=None, description="The secret value. This will be encrypted in storage but returned in API responses.")
+    __properties: ClassVar[List[str]] = ["created_by", "id", "updated_at", "secret_name", "created_at", "updated_by", "secret_value"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,11 +75,11 @@ class Secret2(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
-            "updated_by",
-            "updated_at",
             "created_by",
             "id",
+            "updated_at",
+            "created_at",
+            "updated_by",
         ])
 
         _dict = self.model_dump(
@@ -99,13 +99,13 @@ class Secret2(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "secret_value": obj.get("secret_value"),
-            "created_at": obj.get("created_at"),
-            "secret_name": obj.get("secret_name"),
-            "updated_by": obj.get("updated_by"),
-            "updated_at": obj.get("updated_at"),
             "created_by": obj.get("created_by"),
-            "id": obj.get("id")
+            "id": obj.get("id"),
+            "updated_at": obj.get("updated_at"),
+            "secret_name": obj.get("secret_name"),
+            "created_at": obj.get("created_at"),
+            "updated_by": obj.get("updated_by"),
+            "secret_value": obj.get("secret_value")
         })
         return _obj
 

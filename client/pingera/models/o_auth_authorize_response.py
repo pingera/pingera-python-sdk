@@ -27,9 +27,9 @@ class OAuthAuthorizeResponse(BaseModel):
     """
     OAuthAuthorizeResponse
     """ # noqa: E501
-    authorization_url: Optional[StrictStr] = Field(default=None, description="URL to redirect user to for OAuth authorization")
     state: Optional[StrictStr] = Field(default=None, description="OAuth state parameter for CSRF protection")
-    __properties: ClassVar[List[str]] = ["authorization_url", "state"]
+    authorization_url: Optional[StrictStr] = Field(default=None, description="URL to redirect user to for OAuth authorization")
+    __properties: ClassVar[List[str]] = ["state", "authorization_url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +65,8 @@ class OAuthAuthorizeResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "authorization_url",
             "state",
+            "authorization_url",
         ])
 
         _dict = self.model_dump(
@@ -86,8 +86,8 @@ class OAuthAuthorizeResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "authorization_url": obj.get("authorization_url"),
-            "state": obj.get("state")
+            "state": obj.get("state"),
+            "authorization_url": obj.get("authorization_url")
         })
         return _obj
 

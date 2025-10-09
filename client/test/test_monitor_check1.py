@@ -36,32 +36,32 @@ class TestMonitorCheck1(unittest.TestCase):
         model = MonitorCheck1()
         if include_optional:
             return MonitorCheck1(
-                last_checked_at = '2024-01-15T14:30Z',
-                secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}],
-                updated_at = '2024-01-15T14:00Z',
-                active = True,
-                port = 443,
-                status = 'ok',
-                host = 'example.com',
-                url = 'https://api.example.com/health',
-                timeout = 10,
-                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
-                interval = 300,
                 id = 'chk123def456',
-                name = 'Production API Health Check',
-                created_at = '2024-01-15T10:00Z',
-                group_id = 'grp123abc456',
+                parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]},
+                type = 'web',
+                host = 'example.com',
+                active = True,
+                timeout = 10,
+                secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}],
                 group = pingera.models.check_group.CheckGroup(
                     id = 'grp123abc456', 
                     name = 'Production Services', 
-                    description = 'Critical production services monitoring', 
-                    created_at = '2024-01-15T10:00Z', 
                     updated_at = '2024-01-15T14:00Z', 
                     position = 0, 
-                    color = '#4F46E5', 
-                    active = True, ),
+                    created_at = '2024-01-15T10:00Z', 
+                    description = 'Critical production services monitoring', 
+                    active = True, 
+                    color = '#4F46E5', ),
+                url = 'https://api.example.com/health',
                 position = 0,
-                type = 'web'
+                created_at = '2024-01-15T10:00Z',
+                group_id = 'grp123abc456',
+                interval = 300,
+                last_checked_at = '2024-01-15T14:30Z',
+                name = 'Production API Health Check',
+                updated_at = '2024-01-15T14:00Z',
+                port = 443,
+                status = 'ok'
             )
         else:
             return MonitorCheck1(

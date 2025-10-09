@@ -29,12 +29,12 @@ class APIToken(BaseModel):
     """
     APIToken
     """ # noqa: E501
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the API token.")
     last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was last used in ISO format. Null if never used.")
     token: Optional[StrictStr] = Field(default=None, description="The actual API token string. Only returned when creating a new token.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A descriptive name for the API token. Maximum 100 characters.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was created in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the API token.")
-    __properties: ClassVar[List[str]] = ["last_used_at", "token", "name", "created_at", "id"]
+    __properties: ClassVar[List[str]] = ["id", "last_used_at", "token", "name", "created_at"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,10 +72,10 @@ class APIToken(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
             "last_used_at",
             "token",
             "created_at",
-            "id",
         ])
 
         _dict = self.model_dump(
@@ -95,11 +95,11 @@ class APIToken(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "last_used_at": obj.get("last_used_at"),
             "token": obj.get("token"),
             "name": obj.get("name"),
-            "created_at": obj.get("created_at"),
-            "id": obj.get("id")
+            "created_at": obj.get("created_at")
         })
         return _obj
 

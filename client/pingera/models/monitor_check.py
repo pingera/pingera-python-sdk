@@ -31,25 +31,32 @@ class MonitorCheck(BaseModel):
     """
     MonitorCheck
     """ # noqa: E501
-    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
-    secrets: Optional[List[CheckSecretInput]] = Field(default=None, description="Secrets to associate with this check during creation. Each secret must have secret_id and env_variable fields.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
-    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
-    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
-    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
-    timeout: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds.")
-    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. For 'synthetic' and 'multistep' checks, must include 'pw_script' with a valid Playwright script.")
-    interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the monitor check. Max 100 characters.")
+    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. For 'synthetic' and 'multistep' checks, must include 'pw_script' with a valid Playwright script.")
+    type: StrictStr = Field(description="The type of monitoring check to perform.")
+    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
+    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
+    timeout: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds.")
+    secrets: Optional[List[CheckSecretInput]] = Field(default=None, description="Secrets to associate with this check during creation. Each secret must have secret_id and env_variable fields.")
+    group: Optional[CheckGroup] = Field(default=None, description="The group this check belongs to (if any).")
+    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
+    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.")
     group_id: Optional[StrictStr] = Field(default=None, description="The ID of the group this check belongs to (optional).")
-    group: Optional[CheckGroup] = Field(default=None, description="The group this check belongs to (if any).")
-    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
-    type: StrictStr = Field(description="The type of monitoring check to perform.")
-    __properties: ClassVar[List[str]] = ["last_checked_at", "secrets", "updated_at", "active", "port", "status", "host", "url", "timeout", "parameters", "interval", "id", "name", "created_at", "group_id", "group", "position", "type"]
+    interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours.")
+    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the monitor check. Max 100 characters.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
+    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
+    __properties: ClassVar[List[str]] = ["id", "parameters", "type", "host", "active", "timeout", "secrets", "group", "url", "position", "created_at", "group_id", "interval", "last_checked_at", "name", "updated_at", "port", "status"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep']):
+            raise ValueError("must be one of enum values ('web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep')")
+        return value
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -59,13 +66,6 @@ class MonitorCheck(BaseModel):
 
         if value not in set(['ok', 'failed', 'degraded', 'timeout', 'pending', 'paused']):
             raise ValueError("must be one of enum values ('ok', 'failed', 'degraded', 'timeout', 'pending', 'paused')")
-        return value
-
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep']):
-            raise ValueError("must be one of enum values ('web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep')")
         return value
 
     model_config = ConfigDict(
@@ -106,12 +106,12 @@ class MonitorCheck(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "group",
+            "created_at",
             "last_checked_at",
             "updated_at",
             "status",
-            "id",
-            "created_at",
-            "group",
         ])
 
         _dict = self.model_dump(
@@ -146,24 +146,24 @@ class MonitorCheck(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "last_checked_at": obj.get("last_checked_at"),
-            "secrets": [CheckSecretInput.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
-            "updated_at": obj.get("updated_at"),
-            "active": obj.get("active"),
-            "port": obj.get("port"),
-            "status": obj.get("status"),
-            "host": obj.get("host"),
-            "url": obj.get("url"),
-            "timeout": obj.get("timeout"),
-            "parameters": obj.get("parameters"),
-            "interval": obj.get("interval"),
             "id": obj.get("id"),
-            "name": obj.get("name"),
+            "parameters": obj.get("parameters"),
+            "type": obj.get("type"),
+            "host": obj.get("host"),
+            "active": obj.get("active"),
+            "timeout": obj.get("timeout"),
+            "secrets": [CheckSecretInput.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
+            "group": CheckGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
+            "url": obj.get("url"),
+            "position": obj.get("position"),
             "created_at": obj.get("created_at"),
             "group_id": obj.get("group_id"),
-            "group": CheckGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
-            "position": obj.get("position"),
-            "type": obj.get("type")
+            "interval": obj.get("interval"),
+            "last_checked_at": obj.get("last_checked_at"),
+            "name": obj.get("name"),
+            "updated_at": obj.get("updated_at"),
+            "port": obj.get("port"),
+            "status": obj.get("status")
         })
         return _obj
 

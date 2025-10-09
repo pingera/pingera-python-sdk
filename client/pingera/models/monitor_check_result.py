@@ -29,16 +29,17 @@ class MonitorCheckResult(BaseModel):
     """
     MonitorCheckResult
     """ # noqa: E501
-    response_time: Optional[StrictInt] = Field(default=None, description="The response time of the check in milliseconds.")
     check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata collected during the check execution.")
-    check_server_id: Optional[StrictStr] = Field(default=None, description="The identifier of the server that executed this check.")
-    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check result was created in ISO format.")
     check_server: Optional[CheckServer] = Field(default=None, description="Details about the server that executed this check.")
-    check_id: StrictStr = Field(description="The identifier of the monitor check this result belongs to.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check result.")
-    __properties: ClassVar[List[str]] = ["response_time", "check_metadata", "check_server_id", "status", "created_at", "check_server", "check_id", "error_message", "id"]
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
+    check_id: StrictStr = Field(description="The identifier of the monitor check this result belongs to.")
+    triggered_alerts: Optional[Any] = Field(default=None, description="Alerts that were triggered by this check result.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check result was created in ISO format.")
+    check_server_id: Optional[StrictStr] = Field(default=None, description="The identifier of the server that executed this check.")
+    response_time: Optional[StrictInt] = Field(default=None, description="The response time of the check in milliseconds.")
+    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
+    __properties: ClassVar[List[str]] = ["check_metadata", "check_server", "id", "error_message", "check_id", "triggered_alerts", "created_at", "check_server_id", "response_time", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -83,11 +84,13 @@ class MonitorCheckResult(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
             "check_server",
             "id",
+            "triggered_alerts",
+            "created_at",
         ])
 
         _dict = self.model_dump(
@@ -98,6 +101,11 @@ class MonitorCheckResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of check_server
         if self.check_server:
             _dict['check_server'] = self.check_server.to_dict()
+        # set to None if triggered_alerts (nullable) is None
+        # and model_fields_set contains the field
+        if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:
+            _dict['triggered_alerts'] = None
+
         return _dict
 
     @classmethod
@@ -110,15 +118,16 @@ class MonitorCheckResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "response_time": obj.get("response_time"),
             "check_metadata": obj.get("check_metadata"),
-            "check_server_id": obj.get("check_server_id"),
-            "status": obj.get("status"),
-            "created_at": obj.get("created_at"),
             "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
-            "check_id": obj.get("check_id"),
+            "id": obj.get("id"),
             "error_message": obj.get("error_message"),
-            "id": obj.get("id")
+            "check_id": obj.get("check_id"),
+            "triggered_alerts": obj.get("triggered_alerts"),
+            "created_at": obj.get("created_at"),
+            "check_server_id": obj.get("check_server_id"),
+            "response_time": obj.get("response_time"),
+            "status": obj.get("status")
         })
         return _obj
 

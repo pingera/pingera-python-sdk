@@ -38,12 +38,12 @@ class TestCheckGroup(unittest.TestCase):
             return CheckGroup(
                 id = 'grp123abc456',
                 name = 'Production Services',
-                description = 'Critical production services monitoring',
-                created_at = '2024-01-15T10:00Z',
                 updated_at = '2024-01-15T14:00Z',
                 position = 0,
-                color = '#4F46E5',
-                active = True
+                created_at = '2024-01-15T10:00Z',
+                description = 'Critical production services monitoring',
+                active = True,
+                color = '#4F46E5'
             )
         else:
             return CheckGroup(

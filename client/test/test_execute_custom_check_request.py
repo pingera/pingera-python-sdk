@@ -36,14 +36,14 @@ class TestExecuteCustomCheckRequest(unittest.TestCase):
         model = ExecuteCustomCheckRequest()
         if include_optional:
             return ExecuteCustomCheckRequest(
-                port = 443,
-                url = 'https://api.example.com/health',
-                name = 'Custom API Health Check',
-                secrets = [{"secret_id":"imzahxn0vqfe","env_variable":"MY_DOMAIN"}],
                 timeout = 10,
+                name = 'Custom API Health Check',
+                url = 'https://api.example.com/health',
                 parameters = {"regions":["US, East coast","EU, West"],"expected_status_code":200,"expected_content":"OK","pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});"},
+                secrets = [{"secret_id":"imzahxn0vqfe","env_variable":"MY_DOMAIN"}],
+                type = 'web',
                 host = 'example.com',
-                type = 'web'
+                port = 443
             )
         else:
             return ExecuteCustomCheckRequest(

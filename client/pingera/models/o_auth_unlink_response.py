@@ -27,9 +27,9 @@ class OAuthUnlinkResponse(BaseModel):
     """
     OAuthUnlinkResponse
     """ # noqa: E501
-    message: Optional[StrictStr] = Field(default=None, description="Human-readable result message")
     success: Optional[StrictBool] = Field(default=None, description="Whether the account was successfully unlinked")
-    __properties: ClassVar[List[str]] = ["message", "success"]
+    message: Optional[StrictStr] = Field(default=None, description="Human-readable result message")
+    __properties: ClassVar[List[str]] = ["success", "message"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +65,8 @@ class OAuthUnlinkResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "message",
             "success",
+            "message",
         ])
 
         _dict = self.model_dump(
@@ -86,8 +86,8 @@ class OAuthUnlinkResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "message": obj.get("message"),
-            "success": obj.get("success")
+            "success": obj.get("success"),
+            "message": obj.get("message")
         })
         return _obj
 

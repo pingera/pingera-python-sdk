@@ -39,8 +39,8 @@ class TestHeartbeatPingCountResponse(unittest.TestCase):
                 summary = {"total_pings":288,"total_hours":24,"average_pings_per_hour":12.0,"start_time":"Sun, 14 Jan 2024 14:00:00 GMT","end_time":"Mon, 15 Jan 2024 14:00:00 GMT"},
                 ping_counts = [
                     pingera.models.heartbeat_ping_count_history.HeartbeatPingCountHistory(
-                        ping_count = 12, 
-                        hour = 'Mon, 15 Jan 2024 14:00:00 GMT', )
+                        hour = 'Mon, 15 Jan 2024 14:00:00 GMT', 
+                        ping_count = 12, )
                     ]
             )
         else:

@@ -28,13 +28,13 @@ class IncidentCreate(BaseModel):
     """
     IncidentCreate
     """ # noqa: E501
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when creating this incident.")
     impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident creation.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name/title of the incident. Must be between 1 and 200 characters.")
     body: Optional[StrictStr] = Field(default=None, description="The initial update body content for the incident.")
     status: StrictStr = Field(description="The current status of the incident.")
-    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident creation.")
-    __properties: ClassVar[List[str]] = ["deliver_notifications", "impact", "name", "body", "status", "components"]
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when creating this incident.")
+    __properties: ClassVar[List[str]] = ["impact", "components", "name", "body", "status", "deliver_notifications"]
 
     @field_validator('impact')
     def impact_validate_enum(cls, value):
@@ -104,12 +104,12 @@ class IncidentCreate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
             "impact": obj.get("impact"),
+            "components": obj.get("components"),
             "name": obj.get("name"),
             "body": obj.get("body"),
             "status": obj.get("status"),
-            "components": obj.get("components")
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True
         })
         return _obj
 

@@ -36,13 +36,13 @@ class TestCheckSecretInput(unittest.TestCase):
         model = CheckSecretInput()
         if include_optional:
             return CheckSecretInput(
-                secret_id = 'sec123abc456',
-                env_variable = 'DATABASE_PASSWORD'
+                env_variable = 'DATABASE_PASSWORD',
+                secret_id = 'sec123abc456'
             )
         else:
             return CheckSecretInput(
-                secret_id = 'sec123abc456',
                 env_variable = 'DATABASE_PASSWORD',
+                secret_id = 'sec123abc456',
         )
         """
 

@@ -27,9 +27,9 @@ class HeartbeatPingCountHistory(BaseModel):
     """
     HeartbeatPingCountHistory
     """ # noqa: E501
-    ping_count: Optional[StrictInt] = Field(default=None, description="Number of pings received in this hour bucket.")
     hour: Optional[StrictStr] = Field(default=None, description="The hour bucket timestamp in GMT format following RFC standard.")
-    __properties: ClassVar[List[str]] = ["ping_count", "hour"]
+    ping_count: Optional[StrictInt] = Field(default=None, description="Number of pings received in this hour bucket.")
+    __properties: ClassVar[List[str]] = ["hour", "ping_count"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,8 +65,8 @@ class HeartbeatPingCountHistory(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "ping_count",
             "hour",
+            "ping_count",
         ])
 
         _dict = self.model_dump(
@@ -86,8 +86,8 @@ class HeartbeatPingCountHistory(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ping_count": obj.get("ping_count"),
-            "hour": obj.get("hour")
+            "hour": obj.get("hour"),
+            "ping_count": obj.get("ping_count")
         })
         return _obj
 

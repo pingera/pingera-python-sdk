@@ -29,20 +29,21 @@ class UnifiedResult(BaseModel):
     """
     UnifiedResult
     """ # noqa: E501
-    response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
     check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata from the check.")
-    check_server_id: Optional[StrictStr] = None
-    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    created_at: Optional[datetime] = None
+    check_server: Optional[CheckServer] = None
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
     check_type: Optional[StrictStr] = Field(default=None, description="The type of check performed (e.g., web, api, ssl).")
+    check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check, if applicable.")
     result_type: Optional[StrictStr] = Field(default=None, description="Type of the result.")
-    check_server: Optional[CheckServer] = None
     region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
-    check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
-    __properties: ClassVar[List[str]] = ["response_time", "check_metadata", "check_server_id", "status", "created_at", "check_type", "check_id", "result_type", "check_server", "region", "check_name", "error_message", "id"]
+    triggered_alerts: Optional[List[Dict[str, Any]]] = Field(default=None, description="Alerts that were triggered by this check result.")
+    created_at: Optional[datetime] = None
+    check_server_id: Optional[StrictStr] = None
+    response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
+    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
+    __properties: ClassVar[List[str]] = ["check_metadata", "check_server", "id", "error_message", "check_type", "check_name", "check_id", "result_type", "region", "triggered_alerts", "created_at", "check_server_id", "response_time", "status"]
 
     @field_validator('result_type')
     def result_type_validate_enum(cls, value):
@@ -91,15 +92,17 @@ class UnifiedResult(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
-            "check_type",
-            "result_type",
             "check_server",
-            "region",
-            "check_name",
             "id",
+            "check_type",
+            "check_name",
+            "result_type",
+            "region",
+            "triggered_alerts",
+            "created_at",
         ])
 
         _dict = self.model_dump(
@@ -115,6 +118,11 @@ class UnifiedResult(BaseModel):
         if self.error_message is None and "error_message" in self.model_fields_set:
             _dict['error_message'] = None
 
+        # set to None if triggered_alerts (nullable) is None
+        # and model_fields_set contains the field
+        if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:
+            _dict['triggered_alerts'] = None
+
         return _dict
 
     @classmethod
@@ -127,19 +135,20 @@ class UnifiedResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "response_time": obj.get("response_time"),
             "check_metadata": obj.get("check_metadata"),
-            "check_server_id": obj.get("check_server_id"),
-            "status": obj.get("status"),
-            "created_at": obj.get("created_at"),
+            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
+            "id": obj.get("id"),
+            "error_message": obj.get("error_message"),
             "check_type": obj.get("check_type"),
+            "check_name": obj.get("check_name"),
             "check_id": obj.get("check_id"),
             "result_type": obj.get("result_type"),
-            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
             "region": obj.get("region"),
-            "check_name": obj.get("check_name"),
-            "error_message": obj.get("error_message"),
-            "id": obj.get("id")
+            "triggered_alerts": obj.get("triggered_alerts"),
+            "created_at": obj.get("created_at"),
+            "check_server_id": obj.get("check_server_id"),
+            "response_time": obj.get("response_time"),
+            "status": obj.get("status")
         })
         return _obj
 

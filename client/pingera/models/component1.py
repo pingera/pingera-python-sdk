@@ -29,20 +29,20 @@ class Component1(BaseModel):
     """
     Component1
     """ # noqa: E501
-    only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational")
-    start_date: Optional[datetime] = Field(default=None, description="Date when monitoring for this component started")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was last updated")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Display name of the component")
-    status: Optional[StrictStr] = Field(default=None, description="Current operational status of the component")
-    description: Optional[StrictStr] = Field(default=None, description="Detailed description of the component")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was created")
     group_id: Optional[StrictStr] = Field(default=None, description="ID of the group this component belongs to (if any)")
-    group: Optional[StrictBool] = Field(default=False, description="Whether this component is a group container for other components")
-    showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page")
-    position: Optional[StrictInt] = Field(default=None, description="Display order position of the component on the status page")
-    page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to")
+    start_date: Optional[datetime] = Field(default=None, description="Date when monitoring for this component started")
+    only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational")
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the component")
-    __properties: ClassVar[List[str]] = ["only_show_if_degraded", "start_date", "updated_at", "name", "status", "description", "created_at", "group_id", "group", "showcase", "position", "page_id", "id"]
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Display name of the component")
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was last updated")
+    group: Optional[StrictBool] = Field(default=False, description="Whether this component is a group container for other components")
+    position: Optional[StrictInt] = Field(default=None, description="Display order position of the component on the status page")
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was created")
+    description: Optional[StrictStr] = Field(default=None, description="Detailed description of the component")
+    showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page")
+    status: Optional[StrictStr] = Field(default=None, description="Current operational status of the component")
+    page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to")
+    __properties: ClassVar[List[str]] = ["group_id", "start_date", "only_show_if_degraded", "id", "name", "updated_at", "group", "position", "created_at", "description", "showcase", "status", "page_id"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -90,10 +90,10 @@ class Component1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
             "updated_at",
             "created_at",
             "page_id",
-            "id",
         ])
 
         _dict = self.model_dump(
@@ -101,11 +101,6 @@ class Component1(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
         # set to None if group_id (nullable) is None
         # and model_fields_set contains the field
         if self.group_id is None and "group_id" in self.model_fields_set:
@@ -115,6 +110,11 @@ class Component1(BaseModel):
         # and model_fields_set contains the field
         if self.position is None and "position" in self.model_fields_set:
             _dict['position'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
 
         return _dict
 
@@ -128,19 +128,19 @@ class Component1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "only_show_if_degraded": obj.get("only_show_if_degraded"),
-            "start_date": obj.get("start_date"),
-            "updated_at": obj.get("updated_at"),
-            "name": obj.get("name"),
-            "status": obj.get("status"),
-            "description": obj.get("description"),
-            "created_at": obj.get("created_at"),
             "group_id": obj.get("group_id"),
+            "start_date": obj.get("start_date"),
+            "only_show_if_degraded": obj.get("only_show_if_degraded"),
+            "id": obj.get("id"),
+            "name": obj.get("name"),
+            "updated_at": obj.get("updated_at"),
             "group": obj.get("group") if obj.get("group") is not None else False,
-            "showcase": obj.get("showcase"),
             "position": obj.get("position"),
-            "page_id": obj.get("page_id"),
-            "id": obj.get("id")
+            "created_at": obj.get("created_at"),
+            "description": obj.get("description"),
+            "showcase": obj.get("showcase"),
+            "status": obj.get("status"),
+            "page_id": obj.get("page_id")
         })
         return _obj
 

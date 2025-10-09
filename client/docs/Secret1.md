@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**secret_value** | **str** | The secret value. This will be encrypted in storage but returned in API responses. | 
-**created_at** | **datetime** | The timestamp when the secret was created in ISO format. | [optional] [readonly] 
-**secret_name** | **str** | A unique name for the secret within the organization. Max 100 characters. | 
-**updated_by** | **str** | The ID of the user who last updated the secret. | [optional] [readonly] 
-**updated_at** | **datetime** | The timestamp when the secret was last updated in ISO format. | [optional] [readonly] 
 **created_by** | **str** | The ID of the user who created the secret. | [optional] [readonly] 
 **id** | **str** | The unique identifier for the secret. | [optional] [readonly] 
+**updated_at** | **datetime** | The timestamp when the secret was last updated in ISO format. | [optional] [readonly] 
+**secret_name** | **str** | A unique name for the secret within the organization. Max 100 characters. | 
+**created_at** | **datetime** | The timestamp when the secret was created in ISO format. | [optional] [readonly] 
+**updated_by** | **str** | The ID of the user who last updated the secret. | [optional] [readonly] 
+**secret_value** | **str** | The secret value. This will be encrypted in storage but returned in API responses. | 
 
 ## Example
 

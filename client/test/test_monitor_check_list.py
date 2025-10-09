@@ -39,24 +39,24 @@ class TestMonitorCheckList(unittest.TestCase):
                 pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 checks = [
                     pingera.models.monitor_check.MonitorCheck(
-                        last_checked_at = '2024-01-15T14:30Z', 
-                        secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}], 
-                        updated_at = '2024-01-15T14:00Z', 
-                        active = True, 
-                        port = 443, 
-                        status = 'ok', 
-                        host = 'example.com', 
-                        url = 'https://api.example.com/health', 
-                        timeout = 10, 
-                        parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]}, 
-                        interval = 300, 
                         id = 'chk123def456', 
-                        name = 'Production API Health Check', 
+                        parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]}, 
+                        type = 'web', 
+                        host = 'example.com', 
+                        active = True, 
+                        timeout = 10, 
+                        secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}], 
+                        group = null, 
+                        url = 'https://api.example.com/health', 
+                        position = 0, 
                         created_at = '2024-01-15T10:00Z', 
                         group_id = 'grp123abc456', 
-                        group = null, 
-                        position = 0, 
-                        type = 'web', )
+                        interval = 300, 
+                        last_checked_at = '2024-01-15T14:30Z', 
+                        name = 'Production API Health Check', 
+                        updated_at = '2024-01-15T14:00Z', 
+                        port = 443, 
+                        status = 'ok', )
                     ]
             )
         else:

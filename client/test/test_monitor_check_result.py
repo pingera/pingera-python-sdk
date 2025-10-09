@@ -36,20 +36,21 @@ class TestMonitorCheckResult(unittest.TestCase):
         model = MonitorCheckResult()
         if include_optional:
             return MonitorCheckResult(
-                response_time = 250,
                 check_metadata = {"status_code":200,"content_length":1024},
-                check_server_id = 'srv123abc456',
-                status = 'ok',
-                created_at = '2024-01-15T14:30Z',
                 check_server = pingera.models.check_server.CheckServer(
-                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
-                    country = 'United States', 
                     ip_address = '192.168.1.100', 
-                    region = 'us-west-1', 
-                    id = 'srv123abc456', ),
-                check_id = 'chk123def456',
+                    id = 'srv123abc456', 
+                    country = 'United States', 
+                    server_metadata = {"datacenter":"aws-oregon","provider":"aws"}, 
+                    region = 'us-west-1', ),
+                id = 'res789xyz012',
                 error_message = 'Connection timeout after 10 seconds',
-                id = 'res789xyz012'
+                check_id = 'chk123def456',
+                triggered_alerts = [{"alert_id":"alert123abc456","title":"Check 'API Health' has failed","severity":"high","status":"firing","is_primary_trigger":true}],
+                created_at = '2024-01-15T14:30Z',
+                check_server_id = 'srv123abc456',
+                response_time = 250,
+                status = 'ok'
             )
         else:
             return MonitorCheckResult(

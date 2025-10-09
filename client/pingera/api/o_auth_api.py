@@ -554,8 +554,8 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_callback_get(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
-        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
+        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
         error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         _request_timeout: Union[
@@ -577,10 +577,10 @@ class OAuthApi:
 
         :param provider_name: (required)
         :type provider_name: str
-        :param code: OAuth authorization code from provider (required)
-        :type code: str
         :param state: OAuth state parameter for CSRF validation (required)
         :type state: str
+        :param code: OAuth authorization code from provider (required)
+        :type code: str
         :param error_description: Human-readable error description
         :type error_description: str
         :param error: OAuth error code if authorization failed
@@ -609,8 +609,8 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_callback_get_serialize(
             provider_name=provider_name,
-            code=code,
             state=state,
+            code=code,
             error_description=error_description,
             error=error,
             _request_auth=_request_auth,
@@ -638,8 +638,8 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_callback_get_with_http_info(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
-        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
+        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
         error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         _request_timeout: Union[
@@ -661,10 +661,10 @@ class OAuthApi:
 
         :param provider_name: (required)
         :type provider_name: str
-        :param code: OAuth authorization code from provider (required)
-        :type code: str
         :param state: OAuth state parameter for CSRF validation (required)
         :type state: str
+        :param code: OAuth authorization code from provider (required)
+        :type code: str
         :param error_description: Human-readable error description
         :type error_description: str
         :param error: OAuth error code if authorization failed
@@ -693,8 +693,8 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_callback_get_serialize(
             provider_name=provider_name,
-            code=code,
             state=state,
+            code=code,
             error_description=error_description,
             error=error,
             _request_auth=_request_auth,
@@ -722,8 +722,8 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_callback_get_without_preload_content(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
-        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
+        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
         error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         _request_timeout: Union[
@@ -745,10 +745,10 @@ class OAuthApi:
 
         :param provider_name: (required)
         :type provider_name: str
-        :param code: OAuth authorization code from provider (required)
-        :type code: str
         :param state: OAuth state parameter for CSRF validation (required)
         :type state: str
+        :param code: OAuth authorization code from provider (required)
+        :type code: str
         :param error_description: Human-readable error description
         :type error_description: str
         :param error: OAuth error code if authorization failed
@@ -777,8 +777,8 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_callback_get_serialize(
             provider_name=provider_name,
-            code=code,
             state=state,
+            code=code,
             error_description=error_description,
             error=error,
             _request_auth=_request_auth,
@@ -801,8 +801,8 @@ class OAuthApi:
     def _v1_auth_oauth_provider_name_callback_get_serialize(
         self,
         provider_name,
-        code,
         state,
+        code,
         error_description,
         error,
         _request_auth,
@@ -829,21 +829,21 @@ class OAuthApi:
         if provider_name is not None:
             _path_params['provider_name'] = provider_name
         # process the query parameters
-        if code is not None:
-            
-            _query_params.append(('code', code))
-            
         if error_description is not None:
             
             _query_params.append(('error_description', error_description))
             
-        if error is not None:
-            
-            _query_params.append(('error', error))
-            
         if state is not None:
             
             _query_params.append(('state', state))
+            
+        if code is not None:
+            
+            _query_params.append(('code', code))
+            
+        if error is not None:
+            
+            _query_params.append(('error', error))
             
         # process the header parameters
         # process the form parameters

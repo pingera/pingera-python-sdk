@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ping_count** | **int** | Number of pings received in this hour bucket. | [optional] [readonly] 
 **hour** | **str** | The hour bucket timestamp in GMT format following RFC standard. | [optional] [readonly] 
+**ping_count** | **int** | Number of pings received in this hour bucket. | [optional] [readonly] 
 
 ## Example
 

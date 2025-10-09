@@ -5,24 +5,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **str** | A short, descriptive title for the alert. | [optional] [readonly] 
-**resolved_at** | **datetime** | The timestamp when the alert was resolved in ISO format. Null if not resolved. | [optional] [readonly] 
-**severity** | **str** | The severity level of the alert. | [optional] [readonly] 
-**alert_metadata** | **Dict[str, object]** | Additional context and metadata about what triggered the alert. | [optional] [readonly] 
-**rule_id** | **str** | The identifier of the alert rule that triggered this alert. | [optional] [readonly] 
+**id** | **str** | The unique identifier for the alert. | [optional] [readonly] 
+**check_id** | **str** | The identifier of the monitor check that triggered this alert. | [optional] [readonly] 
+**trigger_results** | **object** | The check results that triggered this alert. Includes result IDs and which one is primary. | [optional] [readonly] 
 **acknowledged_by_id** | **str** | The identifier of the user who acknowledged the alert. Null if not acknowledged. | [optional] [readonly] 
-**status** | **str** | The current status of the alert. | [optional] [readonly] 
-**description** | **str** | A detailed description of the alert condition. | [optional] [readonly] 
-**acknowledged_at** | **datetime** | The timestamp when the alert was acknowledged in ISO format. Null if not acknowledged. | [optional] [readonly] 
 **fired_at** | **datetime** | The timestamp when the alert was first triggered in ISO format. | [optional] [readonly] 
 **notification_count** | **int** | The number of notifications sent for this alert. | [optional] [readonly] 
-**check_id** | **str** | The identifier of the monitor check that triggered this alert. | [optional] [readonly] 
-**duration** | **object** | The duration of the alert in seconds. For active alerts, this is time since firing. | [optional] [readonly] 
-**is_active** | **object** | Whether the alert is currently active (firing or acknowledged). | [optional] [readonly] 
-**check_name** | **object** | The name of the monitor check that triggered this alert. | [optional] [readonly] 
 **rule_name** | **object** | The name of the alert rule that triggered this alert. | [optional] [readonly] 
 **last_notification_at** | **datetime** | The timestamp when the last notification was sent in ISO format. Null if no notifications sent. | [optional] [readonly] 
-**id** | **str** | The unique identifier for the alert. | [optional] [readonly] 
+**title** | **str** | A short, descriptive title for the alert. | [optional] [readonly] 
+**duration** | **object** | The duration of the alert in seconds. For active alerts, this is time since firing. | [optional] [readonly] 
+**description** | **str** | A detailed description of the alert condition. | [optional] [readonly] 
+**acknowledged_at** | **datetime** | The timestamp when the alert was acknowledged in ISO format. Null if not acknowledged. | [optional] [readonly] 
+**is_active** | **object** | Whether the alert is currently active (firing or acknowledged). | [optional] [readonly] 
+**rule_id** | **str** | The identifier of the alert rule that triggered this alert. | [optional] [readonly] 
+**severity** | **str** | The severity level of the alert. | [optional] [readonly] 
+**check_name** | **object** | The name of the monitor check that triggered this alert. | [optional] [readonly] 
+**resolved_at** | **datetime** | The timestamp when the alert was resolved in ISO format. Null if not resolved. | [optional] [readonly] 
+**alert_metadata** | **Dict[str, object]** | Additional context and metadata about what triggered the alert. | [optional] [readonly] 
+**status** | **str** | The current status of the alert. | [optional] [readonly] 
 
 ## Example
 

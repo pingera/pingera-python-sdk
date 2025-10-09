@@ -37,36 +37,36 @@ class TestAlertRule(unittest.TestCase):
         if include_optional:
             return AlertRule(
                 condition_parameters = {"count":3},
-                auto_resolve = True,
-                condition = 'check_failed',
-                severity = 'high',
-                enabled = True,
-                cooldown_period = 600,
+                id = 'rule_abc123def456',
                 name = 'Production API Down Alert',
-                channel_ids = ["chn_abc123","chn_def456"],
-                created_at = '2024-01-15T10:00Z',
-                check_id = 'check_def456ghi789',
                 updated_at = '2024-01-15T14:00Z',
+                severity = 'high',
+                check_id = 'check_def456ghi789',
+                cooldown_period = 600,
+                auto_resolve = True,
                 check_name = Production API Health Check,
+                channel_ids = ["chn_abc123","chn_def456"],
                 channels = [
                     pingera.models.alert_channel.AlertChannel(
                         configuration = {"recipients":["admin@example.com","ops@example.com"]}, 
+                        id = 'chn_abc123def456', 
                         last_used_at = '2024-01-15T15:30Z', 
-                        enabled = True, 
                         name = 'Production Email Alerts', 
-                        created_at = '2024-01-15T10:00Z', 
                         updated_at = '2024-01-15T14:00Z', 
-                        type = 'email', 
-                        id = 'chn_abc123def456', )
+                        created_at = '2024-01-15T10:00Z', 
+                        enabled = True, 
+                        type = 'email', )
                     ],
-                id = 'rule_abc123def456'
+                created_at = '2024-01-15T10:00Z',
+                enabled = True,
+                condition = 'check_failed'
             )
         else:
             return AlertRule(
-                condition = 'check_failed',
                 name = 'Production API Down Alert',
-                channel_ids = ["chn_abc123","chn_def456"],
                 check_id = 'check_def456ghi789',
+                channel_ids = ["chn_abc123","chn_def456"],
+                condition = 'check_failed',
         )
         """
 

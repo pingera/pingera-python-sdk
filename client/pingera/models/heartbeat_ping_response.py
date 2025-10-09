@@ -28,11 +28,11 @@ class HeartbeatPingResponse(BaseModel):
     """
     HeartbeatPingResponse
     """ # noqa: E501
+    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
+    status: Optional[StrictStr] = Field(default=None, description="The status of the ping request.")
     message: Optional[StrictStr] = Field(default=None, description="A message describing the ping result.")
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check that received the ping.")
-    status: Optional[StrictStr] = Field(default=None, description="The status of the ping request.")
-    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
-    __properties: ClassVar[List[str]] = ["message", "check_id", "status", "next_expected_ping"]
+    __properties: ClassVar[List[str]] = ["next_expected_ping", "status", "message", "check_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,10 +70,10 @@ class HeartbeatPingResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "next_expected_ping",
+            "status",
             "message",
             "check_id",
-            "status",
-            "next_expected_ping",
         ])
 
         _dict = self.model_dump(
@@ -93,10 +93,10 @@ class HeartbeatPingResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "message": obj.get("message"),
-            "check_id": obj.get("check_id"),
+            "next_expected_ping": obj.get("next_expected_ping"),
             "status": obj.get("status"),
-            "next_expected_ping": obj.get("next_expected_ping")
+            "message": obj.get("message"),
+            "check_id": obj.get("check_id")
         })
         return _obj
 

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**results** | [**List[MonitorCheckResult]**](MonitorCheckResult.md) | List of monitor check results. | [optional] 
 **pagination** | **Dict[str, object]** | Pagination information for the check results. | [optional] 
+**results** | [**List[MonitorCheckResult]**](MonitorCheckResult.md) | List of monitor check results. | [optional] 
 
 ## Example
 

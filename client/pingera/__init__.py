@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.7"
+__version__ = "1.0.9"
 
 # Define package exports
 __all__ = [
@@ -27,6 +27,7 @@ __all__ = [
     "HeartbeatsApi",
     "OAuthApi",
     "OnDemandChecksApi",
+    "PagePasswordsApi",
     "SecretsApi",
     "StatusPagesApi",
     "StatusPagesComponentsApi",
@@ -103,8 +104,15 @@ __all__ = [
     "Page",
     "Page1",
     "PageList",
+    "PagePassword",
+    "PagePasswordCreate",
+    "PagePasswordUpdate",
     "Pagination",
     "PaginationMetadata",
+    "PasswordHint",
+    "PasswordHintsResponse",
+    "PasswordVerification",
+    "PasswordVerificationResponse",
     "PastIncidentUpdate",
     "Region",
     "RegionsList",
@@ -140,6 +148,7 @@ from pingera.api.checks_unified_results_api import ChecksUnifiedResultsApi as Ch
 from pingera.api.heartbeats_api import HeartbeatsApi as HeartbeatsApi
 from pingera.api.o_auth_api import OAuthApi as OAuthApi
 from pingera.api.on_demand_checks_api import OnDemandChecksApi as OnDemandChecksApi
+from pingera.api.page_passwords_api import PagePasswordsApi as PagePasswordsApi
 from pingera.api.secrets_api import SecretsApi as SecretsApi
 from pingera.api.status_pages_api import StatusPagesApi as StatusPagesApi
 from pingera.api.status_pages_components_api import StatusPagesComponentsApi as StatusPagesComponentsApi
@@ -220,8 +229,15 @@ from pingera.models.o_auth_unlink_response import OAuthUnlinkResponse as OAuthUn
 from pingera.models.page import Page as Page
 from pingera.models.page1 import Page1 as Page1
 from pingera.models.page_list import PageList as PageList
+from pingera.models.page_password import PagePassword as PagePassword
+from pingera.models.page_password_create import PagePasswordCreate as PagePasswordCreate
+from pingera.models.page_password_update import PagePasswordUpdate as PagePasswordUpdate
 from pingera.models.pagination import Pagination as Pagination
 from pingera.models.pagination_metadata import PaginationMetadata as PaginationMetadata
+from pingera.models.password_hint import PasswordHint as PasswordHint
+from pingera.models.password_hints_response import PasswordHintsResponse as PasswordHintsResponse
+from pingera.models.password_verification import PasswordVerification as PasswordVerification
+from pingera.models.password_verification_response import PasswordVerificationResponse as PasswordVerificationResponse
 from pingera.models.past_incident_update import PastIncidentUpdate as PastIncidentUpdate
 from pingera.models.region import Region as Region
 from pingera.models.regions_list import RegionsList as RegionsList

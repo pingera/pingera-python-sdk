@@ -37,39 +37,39 @@ class TestIncident(unittest.TestCase):
         if include_optional:
             return Incident(
                 impact = 'minor',
-                incident_updates = [{"id":"upd_123","body":"We have identified the issue...","status":"identified"}],
-                auto_transition_deliver_notifications_at_end = True,
-                auto_transition_to_operational_state = True,
-                updated_at = '2024-01-15T14:30Z',
+                id = 'abc123def456',
+                scheduled_until = '2024-01-20T04:00Z',
                 scheduled_remind_prior = True,
+                monitoring_at = '2024-01-15T12:00Z',
+                auto_transition_to_maintenance_state = True,
+                deliver_notifications = True,
+                scheduled_auto_in_progress = True,
+                auto_transition_to_operational_state = True,
+                auto_transition_deliver_notifications_at_end = True,
+                scheduled_for = '2024-01-20T02:00Z',
+                incident_updates = [{"id":"upd_123","body":"We have identified the issue...","status":"identified"}],
+                page_id = 'abc123def456',
+                postmortem_published_at = 2024-01-16T12:00:00Z,
+                reminder_intervals = '24h,1h',
+                components = [{"id":"comp_123","name":"API Server","status":"degraded_performance"}],
+                body = 'We are currently investigating issues with our database connections that may affect service availability.',
+                postmortem_body_last_updated_at = 2024-01-16T10:00:00Z,
+                created_at = '2024-01-15T10:00Z',
+                scheduled_auto_completed = True,
+                scheduled_reminded_at = '2024-01-19T18:00Z',
+                metadata = {"severity":"high","team":"backend"},
+                name = 'Database Connection Issues',
+                updated_at = '2024-01-15T14:30Z',
                 postmortem_body = ## Root Cause
 The database connection pool was exhausted due to...,
-                postmortem_body_last_updated_at = 2024-01-16T10:00:00Z,
                 resolved_at = 2024-01-15T15:00:00Z,
-                auto_transition_deliver_notifications_at_start = True,
                 status = 'investigating',
-                scheduled_auto_in_progress = True,
-                auto_transition_to_maintenance_state = True,
-                scheduled_auto_completed = True,
-                body = 'We are currently investigating issues with our database connections that may affect service availability.',
-                scheduled_until = '2024-01-20T04:00Z',
-                postmortem_published_at = 2024-01-16T12:00:00Z,
-                scheduled_reminded_at = '2024-01-19T18:00Z',
-                scheduled_for = '2024-01-20T02:00Z',
-                id = 'abc123def456',
-                metadata = {"severity":"high","team":"backend"},
-                deliver_notifications = True,
-                reminder_intervals = '24h,1h',
-                monitoring_at = '2024-01-15T12:00Z',
-                name = 'Database Connection Issues',
-                components = [{"id":"comp_123","name":"API Server","status":"degraded_performance"}],
-                created_at = '2024-01-15T10:00Z',
-                page_id = 'abc123def456'
+                auto_transition_deliver_notifications_at_start = True
             )
         else:
             return Incident(
-                status = 'investigating',
                 name = 'Database Connection Issues',
+                status = 'investigating',
         )
         """
 

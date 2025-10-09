@@ -36,8 +36,8 @@ class TestOAuthUnlinkResponse(unittest.TestCase):
         model = OAuthUnlinkResponse()
         if include_optional:
             return OAuthUnlinkResponse(
-                message = 'Yandex account successfully unlinked',
-                success = True
+                success = True,
+                message = 'Yandex account successfully unlinked'
             )
         else:
             return OAuthUnlinkResponse(

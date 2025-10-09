@@ -36,9 +36,9 @@ class TestGenerated1(unittest.TestCase):
         model = Generated1()
         if include_optional:
             return Generated1(
+                group_id = '',
                 message = '',
-                check_id = '',
-                group_id = ''
+                check_id = ''
             )
         else:
             return Generated1(

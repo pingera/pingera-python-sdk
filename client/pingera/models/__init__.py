@@ -77,8 +77,15 @@ from pingera.models.o_auth_unlink_response import OAuthUnlinkResponse
 from pingera.models.page import Page
 from pingera.models.page1 import Page1
 from pingera.models.page_list import PageList
+from pingera.models.page_password import PagePassword
+from pingera.models.page_password_create import PagePasswordCreate
+from pingera.models.page_password_update import PagePasswordUpdate
 from pingera.models.pagination import Pagination
 from pingera.models.pagination_metadata import PaginationMetadata
+from pingera.models.password_hint import PasswordHint
+from pingera.models.password_hints_response import PasswordHintsResponse
+from pingera.models.password_verification import PasswordVerification
+from pingera.models.password_verification_response import PasswordVerificationResponse
 from pingera.models.past_incident_update import PastIncidentUpdate
 from pingera.models.region import Region
 from pingera.models.regions_list import RegionsList

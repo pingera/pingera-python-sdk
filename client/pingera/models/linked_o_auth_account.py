@@ -29,14 +29,14 @@ class LinkedOAuthAccount(BaseModel):
     """
     LinkedOAuthAccount
     """ # noqa: E501
+    provider_name: Optional[StrictStr] = Field(default=None, description="Display name from OAuth provider")
+    provider_avatar_url: Optional[StrictStr] = Field(default=None, description="Avatar URL from OAuth provider")
+    id: Optional[StrictStr] = Field(default=None, description="OAuth account link ID")
     last_used_at: Optional[datetime] = Field(default=None, description="When this OAuth account was last used for login")
-    provider: Optional[OAuthProvider] = None
     provider_email: Optional[StrictStr] = Field(default=None, description="Email address from OAuth provider")
     created_at: Optional[datetime] = Field(default=None, description="When the OAuth account was linked")
-    provider_avatar_url: Optional[StrictStr] = Field(default=None, description="Avatar URL from OAuth provider")
-    provider_name: Optional[StrictStr] = Field(default=None, description="Display name from OAuth provider")
-    id: Optional[StrictStr] = Field(default=None, description="OAuth account link ID")
-    __properties: ClassVar[List[str]] = ["last_used_at", "provider", "provider_email", "created_at", "provider_avatar_url", "provider_name", "id"]
+    provider: Optional[OAuthProvider] = None
+    __properties: ClassVar[List[str]] = ["provider_name", "provider_avatar_url", "id", "last_used_at", "provider_email", "created_at", "provider"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,13 +77,13 @@ class LinkedOAuthAccount(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "provider_name",
+            "provider_avatar_url",
+            "id",
             "last_used_at",
-            "provider",
             "provider_email",
             "created_at",
-            "provider_avatar_url",
-            "provider_name",
-            "id",
+            "provider",
         ])
 
         _dict = self.model_dump(
@@ -94,15 +94,15 @@ class LinkedOAuthAccount(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of provider
         if self.provider:
             _dict['provider'] = self.provider.to_dict()
-        # set to None if last_used_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.last_used_at is None and "last_used_at" in self.model_fields_set:
-            _dict['last_used_at'] = None
-
         # set to None if provider_avatar_url (nullable) is None
         # and model_fields_set contains the field
         if self.provider_avatar_url is None and "provider_avatar_url" in self.model_fields_set:
             _dict['provider_avatar_url'] = None
+
+        # set to None if last_used_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_used_at is None and "last_used_at" in self.model_fields_set:
+            _dict['last_used_at'] = None
 
         return _dict
 
@@ -116,13 +116,13 @@ class LinkedOAuthAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "provider_name": obj.get("provider_name"),
+            "provider_avatar_url": obj.get("provider_avatar_url"),
+            "id": obj.get("id"),
             "last_used_at": obj.get("last_used_at"),
-            "provider": OAuthProvider.from_dict(obj["provider"]) if obj.get("provider") is not None else None,
             "provider_email": obj.get("provider_email"),
             "created_at": obj.get("created_at"),
-            "provider_avatar_url": obj.get("provider_avatar_url"),
-            "provider_name": obj.get("provider_name"),
-            "id": obj.get("id")
+            "provider": OAuthProvider.from_dict(obj["provider"]) if obj.get("provider") is not None else None
         })
         return _obj
 

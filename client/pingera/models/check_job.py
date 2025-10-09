@@ -28,17 +28,17 @@ class CheckJob(BaseModel):
     """
     CheckJob
     """ # noqa: E501
-    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
-    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
     result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
+    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
     started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
-    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
-    __properties: ClassVar[List[str]] = ["completed_at", "check_parameters", "result", "status", "created_at", "started_at", "check_id", "job_type", "error_message", "id"]
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
+    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
+    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
+    __properties: ClassVar[List[str]] = ["result", "job_type", "id", "error_message", "started_at", "check_id", "created_at", "check_parameters", "status", "completed_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -92,16 +92,16 @@ class CheckJob(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "completed_at",
-            "check_parameters",
             "result",
-            "status",
-            "created_at",
+            "job_type",
+            "id",
+            "error_message",
             "started_at",
             "check_id",
-            "job_type",
-            "error_message",
-            "id",
+            "created_at",
+            "check_parameters",
+            "status",
+            "completed_at",
         ])
 
         _dict = self.model_dump(
@@ -131,16 +131,16 @@ class CheckJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "completed_at": obj.get("completed_at"),
-            "check_parameters": obj.get("check_parameters"),
             "result": obj.get("result"),
-            "status": obj.get("status"),
-            "created_at": obj.get("created_at"),
+            "job_type": obj.get("job_type"),
+            "id": obj.get("id"),
+            "error_message": obj.get("error_message"),
             "started_at": obj.get("started_at"),
             "check_id": obj.get("check_id"),
-            "job_type": obj.get("job_type"),
-            "error_message": obj.get("error_message"),
-            "id": obj.get("id")
+            "created_at": obj.get("created_at"),
+            "check_parameters": obj.get("check_parameters"),
+            "status": obj.get("status"),
+            "completed_at": obj.get("completed_at")
         })
         return _obj
 
