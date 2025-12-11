@@ -36,11 +36,11 @@ class TestCheckServer(unittest.TestCase):
         model = CheckServer()
         if include_optional:
             return CheckServer(
-                ip_address = '192.168.1.100',
-                id = 'srv123abc456',
-                country = 'United States',
                 server_metadata = {"datacenter":"aws-oregon","provider":"aws"},
-                region = 'us-west-1'
+                id = 'srv123abc456',
+                ip_address = '192.168.1.100',
+                region = 'us-west-1',
+                country = 'United States'
             )
         else:
             return CheckServer(

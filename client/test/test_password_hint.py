@@ -36,8 +36,8 @@ class TestPasswordHint(unittest.TestCase):
         model = PasswordHint()
         if include_optional:
             return PasswordHint(
-                name = 'VIP Access',
-                hint = 'Use the company founding year'
+                hint = 'Use the company founding year',
+                name = 'VIP Access'
             )
         else:
             return PasswordHint(

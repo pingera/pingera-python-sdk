@@ -29,12 +29,12 @@ class OAuthLoginResponse(BaseModel):
     OAuthLoginResponse
     """ # noqa: E501
     access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for authenticated requests")
-    linked_account: Optional[StrictBool] = Field(default=None, description="Whether OAuth account was linked to existing user")
-    is_new_user: Optional[StrictBool] = Field(default=None, description="Whether this was a new user registration")
     auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used")
+    is_new_user: Optional[StrictBool] = Field(default=None, description="Whether this was a new user registration")
     user: Optional[User] = Field(default=None, description="User information")
     refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token for obtaining new access tokens")
-    __properties: ClassVar[List[str]] = ["access_token", "linked_account", "is_new_user", "auth_method", "user", "refresh_token"]
+    linked_account: Optional[StrictBool] = Field(default=None, description="Whether OAuth account was linked to existing user")
+    __properties: ClassVar[List[str]] = ["access_token", "auth_method", "is_new_user", "user", "refresh_token", "linked_account"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,11 +75,11 @@ class OAuthLoginResponse(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "access_token",
-            "linked_account",
-            "is_new_user",
             "auth_method",
+            "is_new_user",
             "user",
             "refresh_token",
+            "linked_account",
         ])
 
         _dict = self.model_dump(
@@ -103,11 +103,11 @@ class OAuthLoginResponse(BaseModel):
 
         _obj = cls.model_validate({
             "access_token": obj.get("access_token"),
-            "linked_account": obj.get("linked_account"),
-            "is_new_user": obj.get("is_new_user"),
             "auth_method": obj.get("auth_method"),
+            "is_new_user": obj.get("is_new_user"),
             "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None,
-            "refresh_token": obj.get("refresh_token")
+            "refresh_token": obj.get("refresh_token"),
+            "linked_account": obj.get("linked_account")
         })
         return _obj
 

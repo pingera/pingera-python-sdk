@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**name** | **str** | Provider identifier | [optional] [readonly] 
+**icon_url** | **str** | URL to provider icon/logo for UI | [optional] [readonly] 
 **display_name** | **str** | Human-readable provider name | [optional] [readonly] 
 **authorization_url** | **str** | OAuth authorization endpoint | [optional] [readonly] 
-**name** | **str** | Provider identifier | [optional] [readonly] 
 **is_active** | **bool** | Whether this provider is currently available | [optional] [readonly] 
-**icon_url** | **str** | URL to provider icon/logo for UI | [optional] [readonly] 
 
 ## Example
 

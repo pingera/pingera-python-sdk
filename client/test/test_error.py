@@ -39,9 +39,9 @@ class TestError(unittest.TestCase):
                 errors = {
                     'key' : null
                     },
-                status = '',
                 code = 56,
-                message = ''
+                message = '',
+                status = ''
             )
         else:
             return Error(

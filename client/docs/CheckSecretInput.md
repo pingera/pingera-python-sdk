@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**env_variable** | **str** | The environment variable name for this secret. Max 100 characters. | 
 **secret_id** | **str** | The unique identifier of the secret. | 
+**env_variable** | **str** | The environment variable name for this secret. Max 100 characters. | 
 
 ## Example
 

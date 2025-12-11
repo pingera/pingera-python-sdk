@@ -41,6 +41,7 @@ class TestRegionsList(unittest.TestCase):
                     pingera.models.region.Region(
                         display_name = 'Europe, West, Belgium', 
                         available_check_types = ["api","web","tcp","ssl","synthetic","multistep"], 
+                        aliases = ["eu-west1","eu-bel"], 
                         id = 'EU, West', )
                     ]
             )

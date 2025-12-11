@@ -36,30 +36,32 @@ class TestAlertRule1(unittest.TestCase):
         model = AlertRule1()
         if include_optional:
             return AlertRule1(
-                condition_parameters = {"count":3},
-                id = 'rule_abc123def456',
-                name = 'Production API Down Alert',
                 updated_at = '2024-01-15T14:00Z',
-                severity = 'high',
-                check_id = 'check_def456ghi789',
+                multi_region_threshold = {"count":2},
                 cooldown_period = 600,
+                name = 'Production API Down Alert',
+                id = 'rule_abc123def456',
+                severity = 'high',
+                created_at = '2024-01-15T10:00Z',
                 auto_resolve = True,
                 check_name = Production API Health Check,
-                channel_ids = ["chn_abc123","chn_def456"],
+                enabled = True,
+                multi_region_mode = 'any_region',
+                condition = 'check_failed',
+                check_id = 'check_def456ghi789',
                 channels = [
                     pingera.models.alert_channel.AlertChannel(
-                        configuration = {"recipients":["admin@example.com","ops@example.com"]}, 
-                        id = 'chn_abc123def456', 
-                        last_used_at = '2024-01-15T15:30Z', 
-                        name = 'Production Email Alerts', 
                         updated_at = '2024-01-15T14:00Z', 
+                        type = 'email', 
+                        name = 'Production Email Alerts', 
+                        id = 'chn_abc123def456', 
                         created_at = '2024-01-15T10:00Z', 
                         enabled = True, 
-                        type = 'email', )
+                        last_used_at = '2024-01-15T15:30Z', 
+                        configuration = {"recipients":["admin@example.com","ops@example.com"]}, )
                     ],
-                created_at = '2024-01-15T10:00Z',
-                enabled = True,
-                condition = 'check_failed'
+                channel_ids = ["chn_abc123","chn_def456"],
+                condition_parameters = {"count":3}
             )
         else:
             return AlertRule1(

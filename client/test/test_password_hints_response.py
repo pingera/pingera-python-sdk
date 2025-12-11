@@ -38,8 +38,8 @@ class TestPasswordHintsResponse(unittest.TestCase):
             return PasswordHintsResponse(
                 hints = [
                     pingera.models.password_hint.PasswordHint(
-                        name = 'VIP Access', 
-                        hint = 'Use the company founding year', )
+                        hint = 'Use the company founding year', 
+                        name = 'VIP Access', )
                     ]
             )
         else:

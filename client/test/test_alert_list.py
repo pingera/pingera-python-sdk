@@ -39,25 +39,26 @@ class TestAlertList(unittest.TestCase):
                 pagination = {"page":1,"pages":3,"per_page":20,"total":45,"has_next":true,"has_prev":false},
                 alerts = [
                     pingera.models.alert.Alert(
-                        id = 'alert_abc123def456', 
-                        check_id = 'check_ghi789jkl012', 
-                        trigger_results = [{"result_id":"res123abc456","is_primary":true,"status":"failed","error_message":"Connection timeout","created_at":"2024-01-15T10:30:00Z"}], 
-                        acknowledged_by_id = 'user_jkl012mno345', 
                         fired_at = '2024-01-15T15:30Z', 
-                        notification_count = 3, 
-                        rule_name = Production API Down Alert, 
-                        last_notification_at = '2024-01-15T15:45Z', 
-                        title = 'Production API Health Check Failed', 
-                        duration = 3600, 
-                        description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.', 
-                        acknowledged_at = '2024-01-15T15:35Z', 
-                        is_active = true, 
+                        trigger_results = [{"result_id":"res123abc456","is_primary":true,"status":"failed","error_message":"Connection timeout","created_at":"2024-01-15T10:30:00Z","region":"us-east-1"}], 
                         rule_id = 'rule_def456ghi789', 
-                        severity = 'high', 
-                        check_name = Production API Health Check, 
-                        resolved_at = '2024-01-15T16:30Z', 
+                        title = 'Production API Health Check Failed', 
+                        status = 'firing', 
+                        description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.', 
+                        id = 'alert_abc123def456', 
+                        last_notification_at = '2024-01-15T15:45Z', 
                         alert_metadata = {"consecutive_failures":3,"last_check_result":"timeout","response_time":5000}, 
-                        status = 'firing', )
+                        resolved_at = '2024-01-15T16:30Z', 
+                        acknowledged_at = '2024-01-15T15:35Z', 
+                        check_name = Production API Health Check, 
+                        severity = 'high', 
+                        acknowledged_by_id = 'user_jkl012mno345', 
+                        check_id = 'check_ghi789jkl012', 
+                        rule_name = Production API Down Alert, 
+                        regional_summary = {"total_regions":3,"failed_regions":2,"regions":["us-east-1","eu-west-1"]}, 
+                        duration = 3600, 
+                        notification_count = 3, 
+                        is_active = true, )
                     ]
             )
         else:

@@ -136,6 +136,13 @@ class TestStatusPagesIncidentsApi(unittest.TestCase):
         """
         pass
 
+    def test_v1_pages_page_id_incidents_maintenance_get(self) -> None:
+        """Test case for v1_pages_page_id_incidents_maintenance_get
+
+        Get maintenance windows for a specific status page
+        """
+        pass
+
     def test_v1_pages_page_id_incidents_post(self) -> None:
         """Test case for v1_pages_page_id_incidents_post
 

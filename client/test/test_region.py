@@ -38,6 +38,7 @@ class TestRegion(unittest.TestCase):
             return Region(
                 display_name = 'Europe, West, Belgium',
                 available_check_types = ["api","web","tcp","ssl","synthetic","multistep"],
+                aliases = ["eu-west1","eu-bel"],
                 id = 'EU, West'
             )
         else:

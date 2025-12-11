@@ -29,17 +29,17 @@ class PagePassword(BaseModel):
     """
     PagePassword
     """ # noqa: E501
-    created_by: Optional[StrictStr] = Field(default=None, description="ID of the user who created this password")
-    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password")
-    is_expired: Optional[StrictBool] = Field(default=None, description="Whether the password is expired")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the page password")
-    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the password was last updated")
     password: Annotated[str, Field(min_length=8, strict=True)] = Field(description="The password (minimum 8 characters). Only used for input, never returned.")
+    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the page password")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the password was created")
+    created_by: Optional[StrictStr] = Field(default=None, description="ID of the user who created this password")
+    is_expired: Optional[StrictBool] = Field(default=None, description="Whether the password is expired")
     expires_at: Optional[datetime] = Field(default=None, description="Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings")
     active: Optional[StrictBool] = Field(default=None, description="Whether the password is active")
-    __properties: ClassVar[List[str]] = ["created_by", "password_hint", "is_expired", "id", "name", "updated_at", "password", "created_at", "expires_at", "active"]
+    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password")
+    __properties: ClassVar[List[str]] = ["updated_at", "password", "name", "id", "created_at", "created_by", "is_expired", "expires_at", "active", "password_hint"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,11 +78,11 @@ class PagePassword(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "updated_at",
+            "id",
+            "created_at",
             "created_by",
             "is_expired",
-            "id",
-            "updated_at",
-            "created_at",
         ])
 
         _dict = self.model_dump(
@@ -90,11 +90,6 @@ class PagePassword(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if password_hint (nullable) is None
-        # and model_fields_set contains the field
-        if self.password_hint is None and "password_hint" in self.model_fields_set:
-            _dict['password_hint'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -104,6 +99,11 @@ class PagePassword(BaseModel):
         # and model_fields_set contains the field
         if self.expires_at is None and "expires_at" in self.model_fields_set:
             _dict['expires_at'] = None
+
+        # set to None if password_hint (nullable) is None
+        # and model_fields_set contains the field
+        if self.password_hint is None and "password_hint" in self.model_fields_set:
+            _dict['password_hint'] = None
 
         return _dict
 
@@ -117,16 +117,16 @@ class PagePassword(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_by": obj.get("created_by"),
-            "password_hint": obj.get("password_hint"),
-            "is_expired": obj.get("is_expired"),
-            "id": obj.get("id"),
-            "name": obj.get("name"),
             "updated_at": obj.get("updated_at"),
             "password": obj.get("password"),
+            "name": obj.get("name"),
+            "id": obj.get("id"),
             "created_at": obj.get("created_at"),
+            "created_by": obj.get("created_by"),
+            "is_expired": obj.get("is_expired"),
             "expires_at": obj.get("expires_at"),
-            "active": obj.get("active")
+            "active": obj.get("active"),
+            "password_hint": obj.get("password_hint")
         })
         return _obj
 

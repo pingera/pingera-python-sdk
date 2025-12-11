@@ -36,9 +36,9 @@ class TestPasswordVerificationResponse(unittest.TestCase):
         model = PasswordVerificationResponse()
         if include_optional:
             return PasswordVerificationResponse(
-                access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...',
-                password_name = 'VIP Access',
                 expires_in = 3600,
+                password_name = 'VIP Access',
+                access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...',
                 token_type = 'Bearer'
             )
         else:

@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**updated_at** | **datetime** | The timestamp when the incident update was last updated. | [optional] [readonly] 
+**deliver_notifications** | **bool** | Whether to send notifications for this update. | [optional] [default to True]
+**created_at** | **datetime** | The timestamp when the incident update was created. | [optional] [readonly] 
 **id** | **str** | The unique identifier for the incident update. | [optional] [readonly] 
 **components** | **object** | Components affected by this incident update. | [optional] [readonly] 
 **incident_id** | **str** | The ID of the incident this update belongs to. | [optional] [readonly] 
 **body** | **str** | The content of the incident update. | [optional] 
-**updated_at** | **datetime** | The timestamp when the incident update was last updated. | [optional] [readonly] 
-**created_at** | **datetime** | The timestamp when the incident update was created. | [optional] [readonly] 
 **status** | **str** | The status of the incident update. | [optional] 
-**deliver_notifications** | **bool** | Whether to send notifications for this update. | [optional] [default to True]
 
 ## Example
 

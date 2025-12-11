@@ -100,11 +100,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_check_id_get**
-> MonitorCheck v1_checks_check_id_get(check_id)
+> MonitorCheck v1_checks_check_id_get(check_id, include_uptime=include_uptime, start_date=start_date, end_date=end_date)
 
 Get a specific monitor check
 
-Get a specific monitor check by ID
+Get a specific monitor check by ID. Optionally include uptime data by setting include_uptime=true.
 
 ### Example
 
@@ -144,10 +144,13 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksApi(api_client)
     check_id = 'check_id_example' # str | The unique identifier of the monitor check.
+    include_uptime = False # bool | Include uptime data in the response (default: false). (optional) (default to False)
+    start_date = '2013-10-20T19:20:30+01:00' # datetime | Start time for uptime calculation (ISO format). Defaults to 24 hours ago. (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | End time for uptime calculation (ISO format). Defaults to current time. (optional)
 
     try:
         # Get a specific monitor check
-        api_response = api_instance.v1_checks_check_id_get(check_id)
+        api_response = api_instance.v1_checks_check_id_get(check_id, include_uptime=include_uptime, start_date=start_date, end_date=end_date)
         print("The response of ChecksApi->v1_checks_check_id_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -162,6 +165,9 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **check_id** | **str**| The unique identifier of the monitor check. | 
+ **include_uptime** | **bool**| Include uptime data in the response (default: false). | [optional] [default to False]
+ **start_date** | **datetime**| Start time for uptime calculation (ISO format). Defaults to 24 hours ago. | [optional] 
+ **end_date** | **datetime**| End time for uptime calculation (ISO format). Defaults to current time. | [optional] 
 
 ### Return type
 
@@ -190,7 +196,7 @@ Name | Type | Description  | Notes
 
 Update a monitor check
 
-Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The "type" of a check cannot be changed after creation.
+Update a monitor check. Optionally include secrets in the request to replace all secret associations. Supports updating multi-region execution configuration. Note: The "type" of a check cannot be changed after creation.
 
 ### Example
 
@@ -639,7 +645,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_get**
-> MonitorCheckList v1_checks_get(page=page, page_size=page_size, group_id=group_id, status=status, name=name, type=type)
+> MonitorCheckList v1_checks_get(page=page, page_size=page_size, group_id=group_id, status=status, name=name, type=type, include_uptime=include_uptime, start_date=start_date, end_date=end_date)
 
 Get all monitor checks
 
@@ -688,10 +694,13 @@ with pingera.ApiClient(configuration) as api_client:
     status = 'status_example' # str | Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\"). (optional)
     name = 'name_example' # str | Filter checks by name using case-insensitive partial matching. (optional)
     type = 'type_example' # str | Filter checks by type. (optional)
+    include_uptime = False # bool | Include uptime data for each check in the response (default: false). (optional) (default to False)
+    start_date = '2013-10-20T19:20:30+01:00' # datetime | Start time for uptime calculation (ISO format). Defaults to 24 hours ago. (optional)
+    end_date = '2013-10-20T19:20:30+01:00' # datetime | End time for uptime calculation (ISO format). Defaults to current time. (optional)
 
     try:
         # Get all monitor checks
-        api_response = api_instance.v1_checks_get(page=page, page_size=page_size, group_id=group_id, status=status, name=name, type=type)
+        api_response = api_instance.v1_checks_get(page=page, page_size=page_size, group_id=group_id, status=status, name=name, type=type, include_uptime=include_uptime, start_date=start_date, end_date=end_date)
         print("The response of ChecksApi->v1_checks_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -711,6 +720,9 @@ Name | Type | Description  | Notes
  **status** | **str**| Filter checks by status. Can specify multiple statuses separated by commas (e.g., \&quot;ok,failed\&quot;). | [optional] 
  **name** | **str**| Filter checks by name using case-insensitive partial matching. | [optional] 
  **type** | **str**| Filter checks by type. | [optional] 
+ **include_uptime** | **bool**| Include uptime data for each check in the response (default: false). | [optional] [default to False]
+ **start_date** | **datetime**| Start time for uptime calculation (ISO format). Defaults to 24 hours ago. | [optional] 
+ **end_date** | **datetime**| End time for uptime calculation (ISO format). Defaults to current time. | [optional] 
 
 ### Return type
 
@@ -825,7 +837,7 @@ Name | Type | Description  | Notes
 
 Create a new regular check
 
-Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
+Create a new regular check. Optionally include secrets in the request to associate them with the check during creation. Supports multi-region execution configuration.
 
 ### Example
 

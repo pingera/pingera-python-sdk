@@ -5,22 +5,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**onboarding_completed_at** | **datetime** | The timestamp when onboarding was completed in ISO format. Null if not completed. | [optional] [readonly] 
-**last_name** | **str** | The user&#39;s last name. Maximum 50 characters. | [optional] 
-**onboarding_completed** | **bool** | Whether the user has completed the onboarding process. | [optional] [readonly] 
-**email** | **str** | The user&#39;s email address. Must be a valid email format and unique. | 
-**id** | **str** | The unique identifier for the user account. | [optional] [readonly] 
-**role** | **str** | The user&#39;s role within the organization. | [optional] 
-**organization_id** | **str** | The ID of the organization the user belongs to. | [optional] [readonly] 
-**last_login** | **datetime** | The timestamp of the user&#39;s last login in ISO format. Null if never logged in. | [optional] [readonly] 
 **onboarding_step** | **str** | The current step in the onboarding process. Null if onboarding is completed. | [optional] [readonly] 
 **password** | **str** | The user&#39;s password. Minimum 6 characters. Only used for input, never returned. | 
+**role** | **str** | The user&#39;s role within the organization. | [optional] 
 **created_at** | **datetime** | The timestamp when the user account was created in ISO format. | [optional] [readonly] 
-**org_name** | **str** | Organization name for registration. Used when creating a new organization. Maximum 100 characters. | [optional] 
-**first_name** | **str** | The user&#39;s first name. Maximum 50 characters. | [optional] 
-**verification_token_expires** | **object** | The expiration time of the email verification token in ISO format. Null if already verified. | [optional] [readonly] 
+**email** | **str** | The user&#39;s email address. Must be a valid email format and unique. | 
+**id** | **str** | The unique identifier for the user account. | [optional] [readonly] 
 **is_first_login** | **bool** | Whether this is the user&#39;s first login to the system. | [optional] [readonly] 
 **email_verified** | **bool** | Whether the user&#39;s email address has been verified. | [optional] [readonly] 
+**onboarding_completed_at** | **datetime** | The timestamp when onboarding was completed in ISO format. Null if not completed. | [optional] [readonly] 
+**verification_token_expires** | **object** | The expiration time of the email verification token in ISO format. Null if already verified. | [optional] [readonly] 
+**first_name** | **str** | The user&#39;s first name. Maximum 50 characters. | [optional] 
+**last_login** | **datetime** | The timestamp of the user&#39;s last login in ISO format. Null if never logged in. | [optional] [readonly] 
+**organization_id** | **str** | The ID of the organization the user belongs to. | [optional] [readonly] 
+**org_name** | **str** | Organization name for registration. Used when creating a new organization. Maximum 100 characters. | [optional] 
+**onboarding_completed** | **bool** | Whether the user has completed the onboarding process. | [optional] [readonly] 
+**last_name** | **str** | The user&#39;s last name. Maximum 50 characters. | [optional] 
 
 ## Example
 

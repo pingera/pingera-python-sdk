@@ -28,13 +28,13 @@ class HeartbeatPing(BaseModel):
     """
     HeartbeatPing
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat ping.")
     source_ip: Optional[StrictStr] = Field(default=None, description="The IP address from which the ping was sent.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check this ping belongs to.")
-    ping_data: Optional[Dict[str, Any]] = Field(default=None, description="Additional JSON data sent with the ping request.")
-    received_at: Optional[datetime] = Field(default=None, description="The timestamp when the ping was received in ISO format.")
     user_agent: Optional[StrictStr] = Field(default=None, description="The User-Agent header from the ping request.")
-    __properties: ClassVar[List[str]] = ["id", "source_ip", "check_id", "ping_data", "received_at", "user_agent"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat ping.")
+    ping_data: Optional[Dict[str, Any]] = Field(default=None, description="Additional JSON data sent with the ping request.")
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check this ping belongs to.")
+    received_at: Optional[datetime] = Field(default=None, description="The timestamp when the ping was received in ISO format.")
+    __properties: ClassVar[List[str]] = ["source_ip", "user_agent", "id", "ping_data", "check_id", "received_at"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,12 +74,12 @@ class HeartbeatPing(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "id",
             "source_ip",
-            "check_id",
-            "ping_data",
-            "received_at",
             "user_agent",
+            "id",
+            "ping_data",
+            "check_id",
+            "received_at",
         ])
 
         _dict = self.model_dump(
@@ -99,12 +99,12 @@ class HeartbeatPing(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
             "source_ip": obj.get("source_ip"),
-            "check_id": obj.get("check_id"),
+            "user_agent": obj.get("user_agent"),
+            "id": obj.get("id"),
             "ping_data": obj.get("ping_data"),
-            "received_at": obj.get("received_at"),
-            "user_agent": obj.get("user_agent")
+            "check_id": obj.get("check_id"),
+            "received_at": obj.get("received_at")
         })
         return _obj
 

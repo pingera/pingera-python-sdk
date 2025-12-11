@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **display_name** | **str** | The human-readable display name for the region. | [optional] 
 **available_check_types** | **List[str]** | List of check types available in this region. | [optional] 
+**aliases** | **List[str]** | Cloud-provider-style aliases for the region. | [optional] 
 **id** | **str** | The unique identifier for the region. | [optional] 
 
 ## Example

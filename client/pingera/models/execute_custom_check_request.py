@@ -28,21 +28,21 @@ class ExecuteCustomCheckRequest(BaseModel):
     """
     ExecuteCustomCheckRequest
     """ # noqa: E501
-    timeout: Optional[Annotated[int, Field(le=30, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the custom check. Max 100 characters.")
-    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
-    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. For 'synthetic' and 'multistep' checks, must include 'pw_script' with a valid Playwright script.")
-    secrets: Optional[List[Dict[str, StrictStr]]] = Field(default=None, description="List of secrets to inject as environment variables during check execution. Each secret must have 'secret_id' and 'env_variable' keys.")
-    type: StrictStr = Field(description="The type of monitoring check to perform.")
     host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
+    type: StrictStr = Field(description="The type of monitoring check to perform.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the custom check. Max 100 characters.")
+    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks.")
+    secrets: Optional[List[Dict[str, StrictStr]]] = Field(default=None, description="List of secrets to inject as environment variables during check execution. Each secret must have 'secret_id' and 'env_variable' keys.")
+    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
     port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP and SSL checks). Range: 1-65535.")
-    __properties: ClassVar[List[str]] = ["timeout", "name", "url", "parameters", "secrets", "type", "host", "port"]
+    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).")
+    __properties: ClassVar[List[str]] = ["host", "type", "name", "timeout", "secrets", "url", "port", "parameters"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep']):
-            raise ValueError("must be one of enum values ('web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep')")
+        if value not in set(['web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep', 'icmp', 'dns', 'portscan']):
+            raise ValueError("must be one of enum values ('web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep', 'icmp', 'dns', 'portscan')")
         return value
 
     model_config = ConfigDict(
@@ -96,14 +96,14 @@ class ExecuteCustomCheckRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "timeout": obj.get("timeout"),
-            "name": obj.get("name"),
-            "url": obj.get("url"),
-            "parameters": obj.get("parameters"),
-            "secrets": obj.get("secrets"),
-            "type": obj.get("type"),
             "host": obj.get("host"),
-            "port": obj.get("port")
+            "type": obj.get("type"),
+            "name": obj.get("name"),
+            "timeout": obj.get("timeout"),
+            "secrets": obj.get("secrets"),
+            "url": obj.get("url"),
+            "port": obj.get("port"),
+            "parameters": obj.get("parameters")
         })
         return _obj
 

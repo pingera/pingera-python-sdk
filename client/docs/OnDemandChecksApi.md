@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Execute an existing monitor check immediately
 
-Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results.
+Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results. Supports multi-region execution if configured in check parameters.
 
 ### Example
 
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 Execute a custom check with user-provided parameters
 
-Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution.
+Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution. Supports multi-region execution via parameters.
 
 ### Example
 

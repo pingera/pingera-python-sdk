@@ -39,24 +39,26 @@ class TestMonitorCheckList(unittest.TestCase):
                 pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 checks = [
                     pingera.models.monitor_check.MonitorCheck(
-                        id = 'chk123def456', 
-                        parameters = {"pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});","regions":["US, East coast","EU, West"]}, 
-                        type = 'web', 
-                        host = 'example.com', 
-                        active = True, 
-                        timeout = 10, 
                         secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}], 
-                        group = null, 
-                        url = 'https://api.example.com/health', 
-                        position = 0, 
-                        created_at = '2024-01-15T10:00Z', 
-                        group_id = 'grp123abc456', 
-                        interval = 300, 
-                        last_checked_at = '2024-01-15T14:30Z', 
-                        name = 'Production API Health Check', 
+                        parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"}}, 
+                        status = 'ok', 
                         updated_at = '2024-01-15T14:00Z', 
+                        type = 'web', 
+                        created_at = '2024-01-15T10:00Z', 
+                        id = 'chk123def456', 
+                        group_id = 'grp123abc456', 
+                        timeout = 10, 
+                        last_checked_at = '2024-01-15T14:30Z', 
+                        host = 'example.com', 
+                        group = null, 
                         port = 443, 
-                        status = 'ok', )
+                        position = 0, 
+                        name = 'Production API Health Check', 
+                        uptime_data = [{"hour":"2024-01-15T14:00:00","status":"ok","uptime":100.0}], 
+                        active = True, 
+                        url = 'https://api.example.com/health', 
+                        interval = 300, 
+                        uptime_summary = {"uptime":99.5,"avg_response_time":250,"checks":100}, )
                     ]
             )
         else:

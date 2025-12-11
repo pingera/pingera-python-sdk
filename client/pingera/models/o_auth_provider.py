@@ -27,12 +27,12 @@ class OAuthProvider(BaseModel):
     """
     OAuthProvider
     """ # noqa: E501
+    name: Optional[StrictStr] = Field(default=None, description="Provider identifier")
+    icon_url: Optional[StrictStr] = Field(default=None, description="URL to provider icon/logo for UI")
     display_name: Optional[StrictStr] = Field(default=None, description="Human-readable provider name")
     authorization_url: Optional[StrictStr] = Field(default=None, description="OAuth authorization endpoint")
-    name: Optional[StrictStr] = Field(default=None, description="Provider identifier")
     is_active: Optional[StrictBool] = Field(default=None, description="Whether this provider is currently available")
-    icon_url: Optional[StrictStr] = Field(default=None, description="URL to provider icon/logo for UI")
-    __properties: ClassVar[List[str]] = ["display_name", "authorization_url", "name", "is_active", "icon_url"]
+    __properties: ClassVar[List[str]] = ["name", "icon_url", "display_name", "authorization_url", "is_active"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,11 +71,11 @@ class OAuthProvider(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "name",
+            "icon_url",
             "display_name",
             "authorization_url",
-            "name",
             "is_active",
-            "icon_url",
         ])
 
         _dict = self.model_dump(
@@ -100,11 +100,11 @@ class OAuthProvider(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "name": obj.get("name"),
+            "icon_url": obj.get("icon_url"),
             "display_name": obj.get("display_name"),
             "authorization_url": obj.get("authorization_url"),
-            "name": obj.get("name"),
-            "is_active": obj.get("is_active"),
-            "icon_url": obj.get("icon_url")
+            "is_active": obj.get("is_active")
         })
         return _obj
 

@@ -18,6 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -28,13 +29,25 @@ class IncidentCreate(BaseModel):
     """
     IncidentCreate
     """ # noqa: E501
-    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
-    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident creation.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name/title of the incident. Must be between 1 and 200 characters.")
-    body: Optional[StrictStr] = Field(default=None, description="The initial update body content for the incident.")
-    status: StrictStr = Field(description="The current status of the incident.")
     deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when creating this incident.")
-    __properties: ClassVar[List[str]] = ["impact", "components", "name", "body", "status", "deliver_notifications"]
+    scheduled_reminded_at: Optional[datetime] = Field(default=None, description="The timestamp when reminder notifications were sent for scheduled maintenance (UTC).")
+    auto_transition_deliver_notifications_at_end: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the end of scheduled maintenance.")
+    scheduled_for: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to start (UTC).")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)] = Field(description="The name/title of the incident. Must be between 1 and 200 characters.")
+    scheduled_auto_completed: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as completed.")
+    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
+    auto_transition_to_maintenance_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components to maintenance state during scheduled maintenance.")
+    reminder_intervals: Optional[StrictStr] = Field(default=None, description="The intervals at which to send reminder notifications for scheduled maintenance.")
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident creation.")
+    auto_transition_to_operational_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components back to operational state after scheduled maintenance.")
+    scheduled_until: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to end (UTC).")
+    scheduled_remind_prior: Optional[StrictBool] = Field(default=None, description="Whether to send reminder notifications before scheduled maintenance begins.")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata associated with the incident.")
+    auto_transition_deliver_notifications_at_start: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the start of scheduled maintenance.")
+    body: Optional[StrictStr] = Field(default=None, description="The initial update body content for the incident.")
+    scheduled_auto_in_progress: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as in progress.")
+    status: StrictStr = Field(description="The current status of the incident.")
+    __properties: ClassVar[List[str]] = ["deliver_notifications", "scheduled_reminded_at", "auto_transition_deliver_notifications_at_end", "scheduled_for", "name", "scheduled_auto_completed", "impact", "auto_transition_to_maintenance_state", "reminder_intervals", "components", "auto_transition_to_operational_state", "scheduled_until", "scheduled_remind_prior", "metadata", "auto_transition_deliver_notifications_at_start", "body", "scheduled_auto_in_progress", "status"]
 
     @field_validator('impact')
     def impact_validate_enum(cls, value):
@@ -42,15 +55,15 @@ class IncidentCreate(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['minor', 'major', 'critical']):
-            raise ValueError("must be one of enum values ('minor', 'major', 'critical')")
+        if value not in set(['minor', 'major', 'critical', 'maintenance', 'none']):
+            raise ValueError("must be one of enum values ('minor', 'major', 'critical', 'maintenance', 'none')")
         return value
 
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['investigating', 'identified', 'monitoring', 'resolved']):
-            raise ValueError("must be one of enum values ('investigating', 'identified', 'monitoring', 'resolved')")
+        if value not in set(['investigating', 'identified', 'monitoring', 'resolved', 'scheduled', 'in_progress', 'verifying', 'completed']):
+            raise ValueError("must be one of enum values ('investigating', 'identified', 'monitoring', 'resolved', 'scheduled', 'in_progress', 'verifying', 'completed')")
         return value
 
     model_config = ConfigDict(
@@ -92,6 +105,41 @@ class IncidentCreate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if auto_transition_deliver_notifications_at_end (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_transition_deliver_notifications_at_end is None and "auto_transition_deliver_notifications_at_end" in self.model_fields_set:
+            _dict['auto_transition_deliver_notifications_at_end'] = None
+
+        # set to None if scheduled_auto_completed (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_auto_completed is None and "scheduled_auto_completed" in self.model_fields_set:
+            _dict['scheduled_auto_completed'] = None
+
+        # set to None if auto_transition_to_maintenance_state (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_transition_to_maintenance_state is None and "auto_transition_to_maintenance_state" in self.model_fields_set:
+            _dict['auto_transition_to_maintenance_state'] = None
+
+        # set to None if auto_transition_to_operational_state (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_transition_to_operational_state is None and "auto_transition_to_operational_state" in self.model_fields_set:
+            _dict['auto_transition_to_operational_state'] = None
+
+        # set to None if scheduled_remind_prior (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_remind_prior is None and "scheduled_remind_prior" in self.model_fields_set:
+            _dict['scheduled_remind_prior'] = None
+
+        # set to None if auto_transition_deliver_notifications_at_start (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_transition_deliver_notifications_at_start is None and "auto_transition_deliver_notifications_at_start" in self.model_fields_set:
+            _dict['auto_transition_deliver_notifications_at_start'] = None
+
+        # set to None if scheduled_auto_in_progress (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_auto_in_progress is None and "scheduled_auto_in_progress" in self.model_fields_set:
+            _dict['scheduled_auto_in_progress'] = None
+
         return _dict
 
     @classmethod
@@ -104,12 +152,24 @@ class IncidentCreate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "impact": obj.get("impact"),
-            "components": obj.get("components"),
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
+            "scheduled_reminded_at": obj.get("scheduled_reminded_at"),
+            "auto_transition_deliver_notifications_at_end": obj.get("auto_transition_deliver_notifications_at_end"),
+            "scheduled_for": obj.get("scheduled_for"),
             "name": obj.get("name"),
+            "scheduled_auto_completed": obj.get("scheduled_auto_completed"),
+            "impact": obj.get("impact"),
+            "auto_transition_to_maintenance_state": obj.get("auto_transition_to_maintenance_state"),
+            "reminder_intervals": obj.get("reminder_intervals"),
+            "components": obj.get("components"),
+            "auto_transition_to_operational_state": obj.get("auto_transition_to_operational_state"),
+            "scheduled_until": obj.get("scheduled_until"),
+            "scheduled_remind_prior": obj.get("scheduled_remind_prior"),
+            "metadata": obj.get("metadata"),
+            "auto_transition_deliver_notifications_at_start": obj.get("auto_transition_deliver_notifications_at_start"),
             "body": obj.get("body"),
-            "status": obj.get("status"),
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True
+            "scheduled_auto_in_progress": obj.get("scheduled_auto_in_progress"),
+            "status": obj.get("status")
         })
         return _obj
 

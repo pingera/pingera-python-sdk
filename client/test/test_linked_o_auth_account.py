@@ -36,18 +36,18 @@ class TestLinkedOAuthAccount(unittest.TestCase):
         model = LinkedOAuthAccount()
         if include_optional:
             return LinkedOAuthAccount(
-                provider_name = 'John Doe',
-                provider_avatar_url = 'https://avatars.yandex.net/get-yapic/123/456/islands-200',
-                id = 'oauth_acc123',
-                last_used_at = '2023-08-02T11:30:45Z',
-                provider_email = 'user@yandex.ru',
-                created_at = '2023-08-02T11:30:45Z',
                 provider = pingera.models.o_auth_provider.OAuthProvider(
+                    name = 'yandex', 
+                    icon_url = 'https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg', 
                     display_name = 'Yandex.ID', 
                     authorization_url = 'https://oauth.yandex.ru/authorize', 
-                    name = 'yandex', 
-                    is_active = True, 
-                    icon_url = 'https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg', )
+                    is_active = True, ),
+                created_at = '2023-08-02T11:30:45Z',
+                id = 'oauth_acc123',
+                provider_avatar_url = 'https://avatars.yandex.net/get-yapic/123/456/islands-200',
+                provider_email = 'user@yandex.ru',
+                provider_name = 'John Doe',
+                last_used_at = '2023-08-02T11:30:45Z'
             )
         else:
             return LinkedOAuthAccount(

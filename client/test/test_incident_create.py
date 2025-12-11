@@ -36,12 +36,24 @@ class TestIncidentCreate(unittest.TestCase):
         model = IncidentCreate()
         if include_optional:
             return IncidentCreate(
-                impact = 'minor',
-                components = {"comp_123":"degraded_performance","comp_456":"operational"},
+                deliver_notifications = True,
+                scheduled_reminded_at = '2024-01-19T18:00Z',
+                auto_transition_deliver_notifications_at_end = True,
+                scheduled_for = '2024-01-20T02:00Z',
                 name = 'Database Connection Issues',
+                scheduled_auto_completed = True,
+                impact = 'minor',
+                auto_transition_to_maintenance_state = True,
+                reminder_intervals = '24h,1h',
+                components = {"comp_123":"degraded_performance","comp_456":"operational"},
+                auto_transition_to_operational_state = True,
+                scheduled_until = '2024-01-20T04:00Z',
+                scheduled_remind_prior = True,
+                metadata = {"severity":"high","team":"backend"},
+                auto_transition_deliver_notifications_at_start = True,
                 body = 'We are currently investigating issues with our database connections that may affect service availability.',
-                status = 'investigating',
-                deliver_notifications = True
+                scheduled_auto_in_progress = True,
+                status = 'investigating'
             )
         else:
             return IncidentCreate(

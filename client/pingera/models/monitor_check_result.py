@@ -29,17 +29,18 @@ class MonitorCheckResult(BaseModel):
     """
     MonitorCheckResult
     """ # noqa: E501
-    check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata collected during the check execution.")
-    check_server: Optional[CheckServer] = Field(default=None, description="Details about the server that executed this check.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check result.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
-    check_id: StrictStr = Field(description="The identifier of the monitor check this result belongs to.")
-    triggered_alerts: Optional[Any] = Field(default=None, description="Alerts that were triggered by this check result.")
+    execution_id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this specific check execution. Use this for support tickets. Null for legacy results.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check result was created in ISO format.")
-    check_server_id: Optional[StrictStr] = Field(default=None, description="The identifier of the server that executed this check.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check result.")
     response_time: Optional[StrictInt] = Field(default=None, description="The response time of the check in milliseconds.")
+    triggered_alerts: Optional[Any] = Field(default=None, description="Alerts that were triggered by this check result.")
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
+    check_server: Optional[CheckServer] = Field(default=None, description="Details about the server that executed this check.")
+    check_id: StrictStr = Field(description="The identifier of the monitor check this result belongs to.")
+    check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata collected during the check execution.")
+    check_server_id: Optional[StrictStr] = Field(default=None, description="The identifier of the server that executed this check.")
     status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    __properties: ClassVar[List[str]] = ["check_metadata", "check_server", "id", "error_message", "check_id", "triggered_alerts", "created_at", "check_server_id", "response_time", "status"]
+    __properties: ClassVar[List[str]] = ["execution_id", "created_at", "id", "response_time", "triggered_alerts", "error_message", "check_server", "check_id", "check_metadata", "check_server_id", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -85,12 +86,14 @@ class MonitorCheckResult(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "check_server",
+            "execution_id",
+            "created_at",
             "id",
             "triggered_alerts",
-            "created_at",
+            "check_server",
         ])
 
         _dict = self.model_dump(
@@ -101,6 +104,11 @@ class MonitorCheckResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of check_server
         if self.check_server:
             _dict['check_server'] = self.check_server.to_dict()
+        # set to None if execution_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.execution_id is None and "execution_id" in self.model_fields_set:
+            _dict['execution_id'] = None
+
         # set to None if triggered_alerts (nullable) is None
         # and model_fields_set contains the field
         if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:
@@ -118,15 +126,16 @@ class MonitorCheckResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "check_metadata": obj.get("check_metadata"),
-            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
-            "id": obj.get("id"),
-            "error_message": obj.get("error_message"),
-            "check_id": obj.get("check_id"),
-            "triggered_alerts": obj.get("triggered_alerts"),
+            "execution_id": obj.get("execution_id"),
             "created_at": obj.get("created_at"),
-            "check_server_id": obj.get("check_server_id"),
+            "id": obj.get("id"),
             "response_time": obj.get("response_time"),
+            "triggered_alerts": obj.get("triggered_alerts"),
+            "error_message": obj.get("error_message"),
+            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
+            "check_id": obj.get("check_id"),
+            "check_metadata": obj.get("check_metadata"),
+            "check_server_id": obj.get("check_server_id"),
             "status": obj.get("status")
         })
         return _obj

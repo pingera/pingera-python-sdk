@@ -5,24 +5,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The unique identifier for the monitor check. 12 chars, alpha-numeric. | [optional] [readonly] 
-**parameters** | **Dict[str, object]** | Additional parameters specific to the check type. For &#39;synthetic&#39; and &#39;multistep&#39; checks, must include &#39;pw_script&#39; with a valid Playwright script. | [optional] 
-**type** | **str** | The type of monitoring check to perform. | 
-**host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
-**active** | **bool** | Whether the monitor check is active or paused. | [optional] 
-**timeout** | **int** | The timeout for each check in seconds. Range: 1-30 seconds. | [optional] 
 **secrets** | [**List[CheckSecretInput]**](CheckSecretInput.md) | Secrets to associate with this check during creation. Each secret must have secret_id and env_variable fields. | [optional] [default to []]
-**group** | [**CheckGroup**](CheckGroup.md) | The group this check belongs to (if any). | [optional] [readonly] 
-**url** | **str** | The URL to monitor (required for web/api checks). Supports international domain names. | [optional] 
-**position** | **int** | Position for ordering checks within groups or ungrouped (0 &#x3D; first). | [optional] 
-**created_at** | **datetime** | The timestamp when the monitor check was created in ISO format. | [optional] [readonly] 
-**group_id** | **str** | The ID of the group this check belongs to (optional). | [optional] 
-**interval** | **int** | The interval between checks in seconds. Range: 30 seconds to 24 hours. | [optional] 
-**last_checked_at** | **datetime** | The timestamp when the check was last executed in ISO format. | [optional] [readonly] 
-**name** | **str** | A user-friendly name for the monitor check. Max 100 characters. | 
-**updated_at** | **datetime** | The timestamp when the monitor check was last updated in ISO format. | [optional] [readonly] 
-**port** | **int** | The port number to monitor (required for TCP checks). Range: 1-65535. | [optional] 
+**parameters** | **Dict[str, object]** | Additional parameters specific to the check type. May include &#39;regions&#39; (list of region IDs) and &#39;multi_region_execution&#39; (configuration object). | [optional] 
 **status** | **str** | The current status of the monitor check. | [optional] [readonly] 
+**updated_at** | **datetime** | The timestamp when the monitor check was last updated in ISO format. | [optional] [readonly] 
+**type** | **str** | The type of monitoring check to perform. | 
+**created_at** | **datetime** | The timestamp when the monitor check was created in ISO format. | [optional] [readonly] 
+**id** | **str** | The unique identifier for the monitor check. 12 chars, alpha-numeric. | [optional] [readonly] 
+**group_id** | **str** | The ID of the group this check belongs to (optional). | [optional] 
+**timeout** | **int** | The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks. | [optional] 
+**last_checked_at** | **datetime** | The timestamp when the check was last executed in ISO format. | [optional] [readonly] 
+**host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
+**group** | [**CheckGroup**](CheckGroup.md) | The group this check belongs to (if any). | [optional] [readonly] 
+**port** | **int** | The port number to monitor (required for TCP checks). Range: 1-65535. | [optional] 
+**position** | **int** | Position for ordering checks within groups or ungrouped (0 &#x3D; first). | [optional] 
+**name** | **str** | A user-friendly name for the monitor check. Max 100 characters. | 
+**uptime_data** | **List[Dict[str, object]]** | Uptime data breakdown by hour (only included when include_uptime&#x3D;true) | [optional] [readonly] 
+**active** | **bool** | Whether the monitor check is active or paused. | [optional] 
+**url** | **str** | The URL to monitor (required for web/api checks). Supports international domain names. | [optional] 
+**interval** | **int** | The interval between checks in seconds. Range: 30 seconds to 24 hours. | [optional] 
+**uptime_summary** | **Dict[str, object]** | Uptime summary statistics (only included when include_uptime&#x3D;true) | [optional] [readonly] 
 
 ## Example
 

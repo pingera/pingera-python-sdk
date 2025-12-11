@@ -314,6 +314,9 @@ class ChecksApi:
     def v1_checks_check_id_get(
         self,
         check_id: Annotated[StrictStr, Field(description="The unique identifier of the monitor check.")],
+        include_uptime: Annotated[Optional[StrictBool], Field(description="Include uptime data in the response (default: false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start time for uptime calculation (ISO format). Defaults to 24 hours ago.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End time for uptime calculation (ISO format). Defaults to current time.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -329,10 +332,16 @@ class ChecksApi:
     ) -> MonitorCheck:
         """Get a specific monitor check
 
-        Get a specific monitor check by ID
+        Get a specific monitor check by ID. Optionally include uptime data by setting include_uptime=true.
 
         :param check_id: The unique identifier of the monitor check. (required)
         :type check_id: str
+        :param include_uptime: Include uptime data in the response (default: false).
+        :type include_uptime: bool
+        :param start_date: Start time for uptime calculation (ISO format). Defaults to 24 hours ago.
+        :type start_date: datetime
+        :param end_date: End time for uptime calculation (ISO format). Defaults to current time.
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -357,6 +366,9 @@ class ChecksApi:
 
         _param = self._v1_checks_check_id_get_serialize(
             check_id=check_id,
+            include_uptime=include_uptime,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -381,6 +393,9 @@ class ChecksApi:
     def v1_checks_check_id_get_with_http_info(
         self,
         check_id: Annotated[StrictStr, Field(description="The unique identifier of the monitor check.")],
+        include_uptime: Annotated[Optional[StrictBool], Field(description="Include uptime data in the response (default: false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start time for uptime calculation (ISO format). Defaults to 24 hours ago.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End time for uptime calculation (ISO format). Defaults to current time.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -396,10 +411,16 @@ class ChecksApi:
     ) -> ApiResponse[MonitorCheck]:
         """Get a specific monitor check
 
-        Get a specific monitor check by ID
+        Get a specific monitor check by ID. Optionally include uptime data by setting include_uptime=true.
 
         :param check_id: The unique identifier of the monitor check. (required)
         :type check_id: str
+        :param include_uptime: Include uptime data in the response (default: false).
+        :type include_uptime: bool
+        :param start_date: Start time for uptime calculation (ISO format). Defaults to 24 hours ago.
+        :type start_date: datetime
+        :param end_date: End time for uptime calculation (ISO format). Defaults to current time.
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -424,6 +445,9 @@ class ChecksApi:
 
         _param = self._v1_checks_check_id_get_serialize(
             check_id=check_id,
+            include_uptime=include_uptime,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -448,6 +472,9 @@ class ChecksApi:
     def v1_checks_check_id_get_without_preload_content(
         self,
         check_id: Annotated[StrictStr, Field(description="The unique identifier of the monitor check.")],
+        include_uptime: Annotated[Optional[StrictBool], Field(description="Include uptime data in the response (default: false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start time for uptime calculation (ISO format). Defaults to 24 hours ago.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End time for uptime calculation (ISO format). Defaults to current time.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -463,10 +490,16 @@ class ChecksApi:
     ) -> RESTResponseType:
         """Get a specific monitor check
 
-        Get a specific monitor check by ID
+        Get a specific monitor check by ID. Optionally include uptime data by setting include_uptime=true.
 
         :param check_id: The unique identifier of the monitor check. (required)
         :type check_id: str
+        :param include_uptime: Include uptime data in the response (default: false).
+        :type include_uptime: bool
+        :param start_date: Start time for uptime calculation (ISO format). Defaults to 24 hours ago.
+        :type start_date: datetime
+        :param end_date: End time for uptime calculation (ISO format). Defaults to current time.
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -491,6 +524,9 @@ class ChecksApi:
 
         _param = self._v1_checks_check_id_get_serialize(
             check_id=check_id,
+            include_uptime=include_uptime,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -510,6 +546,9 @@ class ChecksApi:
     def _v1_checks_check_id_get_serialize(
         self,
         check_id,
+        include_uptime,
+        start_date,
+        end_date,
         _request_auth,
         _content_type,
         _headers,
@@ -534,6 +573,36 @@ class ChecksApi:
         if check_id is not None:
             _path_params['check_id'] = check_id
         # process the query parameters
+        if include_uptime is not None:
+            
+            _query_params.append(('include_uptime', include_uptime))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'start_date',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('start_date', start_date))
+            
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -592,7 +661,7 @@ class ChecksApi:
     ) -> MonitorCheck:
         """Update a monitor check
 
-        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The \"type\" of a check cannot be changed after creation.
+        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Supports updating multi-region execution configuration. Note: The \"type\" of a check cannot be changed after creation.
 
         :param check_id: The unique identifier of the monitor check to update. (required)
         :type check_id: str
@@ -664,7 +733,7 @@ class ChecksApi:
     ) -> ApiResponse[MonitorCheck]:
         """Update a monitor check
 
-        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The \"type\" of a check cannot be changed after creation.
+        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Supports updating multi-region execution configuration. Note: The \"type\" of a check cannot be changed after creation.
 
         :param check_id: The unique identifier of the monitor check to update. (required)
         :type check_id: str
@@ -736,7 +805,7 @@ class ChecksApi:
     ) -> RESTResponseType:
         """Update a monitor check
 
-        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Note: The \"type\" of a check cannot be changed after creation.
+        Update a monitor check. Optionally include secrets in the request to replace all secret associations. Supports updating multi-region execution configuration. Note: The \"type\" of a check cannot be changed after creation.
 
         :param check_id: The unique identifier of the monitor check to update. (required)
         :type check_id: str
@@ -2123,6 +2192,9 @@ class ChecksApi:
         status: Annotated[Optional[StrictStr], Field(description="Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter checks by name using case-insensitive partial matching.")] = None,
         type: Annotated[Optional[StrictStr], Field(description="Filter checks by type.")] = None,
+        include_uptime: Annotated[Optional[StrictBool], Field(description="Include uptime data for each check in the response (default: false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start time for uptime calculation (ISO format). Defaults to 24 hours ago.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End time for uptime calculation (ISO format). Defaults to current time.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2152,6 +2224,12 @@ class ChecksApi:
         :type name: str
         :param type: Filter checks by type.
         :type type: str
+        :param include_uptime: Include uptime data for each check in the response (default: false).
+        :type include_uptime: bool
+        :param start_date: Start time for uptime calculation (ISO format). Defaults to 24 hours ago.
+        :type start_date: datetime
+        :param end_date: End time for uptime calculation (ISO format). Defaults to current time.
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2181,6 +2259,9 @@ class ChecksApi:
             status=status,
             name=name,
             type=type,
+            include_uptime=include_uptime,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2210,6 +2291,9 @@ class ChecksApi:
         status: Annotated[Optional[StrictStr], Field(description="Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter checks by name using case-insensitive partial matching.")] = None,
         type: Annotated[Optional[StrictStr], Field(description="Filter checks by type.")] = None,
+        include_uptime: Annotated[Optional[StrictBool], Field(description="Include uptime data for each check in the response (default: false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start time for uptime calculation (ISO format). Defaults to 24 hours ago.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End time for uptime calculation (ISO format). Defaults to current time.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2239,6 +2323,12 @@ class ChecksApi:
         :type name: str
         :param type: Filter checks by type.
         :type type: str
+        :param include_uptime: Include uptime data for each check in the response (default: false).
+        :type include_uptime: bool
+        :param start_date: Start time for uptime calculation (ISO format). Defaults to 24 hours ago.
+        :type start_date: datetime
+        :param end_date: End time for uptime calculation (ISO format). Defaults to current time.
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2268,6 +2358,9 @@ class ChecksApi:
             status=status,
             name=name,
             type=type,
+            include_uptime=include_uptime,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2297,6 +2390,9 @@ class ChecksApi:
         status: Annotated[Optional[StrictStr], Field(description="Filter checks by status. Can specify multiple statuses separated by commas (e.g., \"ok,failed\").")] = None,
         name: Annotated[Optional[StrictStr], Field(description="Filter checks by name using case-insensitive partial matching.")] = None,
         type: Annotated[Optional[StrictStr], Field(description="Filter checks by type.")] = None,
+        include_uptime: Annotated[Optional[StrictBool], Field(description="Include uptime data for each check in the response (default: false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start time for uptime calculation (ISO format). Defaults to 24 hours ago.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End time for uptime calculation (ISO format). Defaults to current time.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2326,6 +2422,12 @@ class ChecksApi:
         :type name: str
         :param type: Filter checks by type.
         :type type: str
+        :param include_uptime: Include uptime data for each check in the response (default: false).
+        :type include_uptime: bool
+        :param start_date: Start time for uptime calculation (ISO format). Defaults to 24 hours ago.
+        :type start_date: datetime
+        :param end_date: End time for uptime calculation (ISO format). Defaults to current time.
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2355,6 +2457,9 @@ class ChecksApi:
             status=status,
             name=name,
             type=type,
+            include_uptime=include_uptime,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2379,6 +2484,9 @@ class ChecksApi:
         status,
         name,
         type,
+        include_uptime,
+        start_date,
+        end_date,
         _request_auth,
         _content_type,
         _headers,
@@ -2424,6 +2532,36 @@ class ChecksApi:
         if type is not None:
             
             _query_params.append(('type', type))
+            
+        if include_uptime is not None:
+            
+            _query_params.append(('include_uptime', include_uptime))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'start_date',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('start_date', start_date))
+            
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
             
         # process the header parameters
         # process the form parameters
@@ -2746,7 +2884,7 @@ class ChecksApi:
     ) -> MonitorCheck:
         """Create a new regular check
 
-        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
+        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation. Supports multi-region execution configuration.
 
         :param monitor_check: (required)
         :type monitor_check: MonitorCheck
@@ -2814,7 +2952,7 @@ class ChecksApi:
     ) -> ApiResponse[MonitorCheck]:
         """Create a new regular check
 
-        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
+        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation. Supports multi-region execution configuration.
 
         :param monitor_check: (required)
         :type monitor_check: MonitorCheck
@@ -2882,7 +3020,7 @@ class ChecksApi:
     ) -> RESTResponseType:
         """Create a new regular check
 
-        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation.
+        Create a new regular check. Optionally include secrets in the request to associate them with the check during creation. Supports multi-region execution configuration.
 
         :param monitor_check: (required)
         :type monitor_check: MonitorCheck

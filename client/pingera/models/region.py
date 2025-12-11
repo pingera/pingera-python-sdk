@@ -29,8 +29,9 @@ class Region(BaseModel):
     """ # noqa: E501
     display_name: Optional[StrictStr] = Field(default=None, description="The human-readable display name for the region.")
     available_check_types: Optional[List[StrictStr]] = Field(default=None, description="List of check types available in this region.")
+    aliases: Optional[List[StrictStr]] = Field(default=None, description="Cloud-provider-style aliases for the region.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the region.")
-    __properties: ClassVar[List[str]] = ["display_name", "available_check_types", "id"]
+    __properties: ClassVar[List[str]] = ["display_name", "available_check_types", "aliases", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,6 +86,7 @@ class Region(BaseModel):
         _obj = cls.model_validate({
             "display_name": obj.get("display_name"),
             "available_check_types": obj.get("available_check_types"),
+            "aliases": obj.get("aliases"),
             "id": obj.get("id")
         })
         return _obj

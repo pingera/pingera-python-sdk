@@ -36,15 +36,15 @@ class TestCheckGroup1(unittest.TestCase):
         model = CheckGroup1()
         if include_optional:
             return CheckGroup1(
-                checks_count = 5,
-                id = 'grp123abc456',
-                name = 'Production Services',
                 updated_at = '2024-01-15T14:00Z',
-                position = 0,
-                created_at = '2024-01-15T10:00Z',
                 description = 'Critical production services monitoring',
+                checks_count = 5,
+                name = 'Production Services',
+                id = 'grp123abc456',
+                color = '#4F46E5',
+                created_at = '2024-01-15T10:00Z',
                 active = True,
-                color = '#4F46E5'
+                position = 0
             )
         else:
             return CheckGroup1(

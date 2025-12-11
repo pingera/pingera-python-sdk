@@ -30,12 +30,12 @@ class CheckSecret(BaseModel):
     """
     CheckSecret
     """ # noqa: E501
-    secret: Optional[Secret] = Field(default=None, description="The secret details (excluding the actual secret value).")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check-secret association.")
-    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the association was created in ISO format.")
     secret_id: StrictStr = Field(description="The unique identifier of the secret.")
-    __properties: ClassVar[List[str]] = ["secret", "id", "env_variable", "created_at", "secret_id"]
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the association was created in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check-secret association.")
+    secret: Optional[Secret] = Field(default=None, description="The secret details (excluding the actual secret value).")
+    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.")
+    __properties: ClassVar[List[str]] = ["secret_id", "created_at", "id", "secret", "env_variable"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,9 +72,9 @@ class CheckSecret(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "secret",
-            "id",
             "created_at",
+            "id",
+            "secret",
         ])
 
         _dict = self.model_dump(
@@ -97,11 +97,11 @@ class CheckSecret(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "secret": Secret.from_dict(obj["secret"]) if obj.get("secret") is not None else None,
-            "id": obj.get("id"),
-            "env_variable": obj.get("env_variable"),
+            "secret_id": obj.get("secret_id"),
             "created_at": obj.get("created_at"),
-            "secret_id": obj.get("secret_id")
+            "id": obj.get("id"),
+            "secret": Secret.from_dict(obj["secret"]) if obj.get("secret") is not None else None,
+            "env_variable": obj.get("env_variable")
         })
         return _obj
 

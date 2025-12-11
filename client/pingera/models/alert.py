@@ -28,36 +28,27 @@ class Alert(BaseModel):
     """
     Alert
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check that triggered this alert.")
-    trigger_results: Optional[Any] = Field(default=None, description="The check results that triggered this alert. Includes result IDs and which one is primary.")
-    acknowledged_by_id: Optional[StrictStr] = Field(default=None, description="The identifier of the user who acknowledged the alert. Null if not acknowledged.")
     fired_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was first triggered in ISO format.")
-    notification_count: Optional[StrictInt] = Field(default=None, description="The number of notifications sent for this alert.")
-    rule_name: Optional[Any] = Field(default=None, description="The name of the alert rule that triggered this alert.")
-    last_notification_at: Optional[datetime] = Field(default=None, description="The timestamp when the last notification was sent in ISO format. Null if no notifications sent.")
-    title: Optional[StrictStr] = Field(default=None, description="A short, descriptive title for the alert.")
-    duration: Optional[Any] = Field(default=None, description="The duration of the alert in seconds. For active alerts, this is time since firing.")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the alert condition.")
-    acknowledged_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was acknowledged in ISO format. Null if not acknowledged.")
-    is_active: Optional[Any] = Field(default=None, description="Whether the alert is currently active (firing or acknowledged).")
+    trigger_results: Optional[Any] = Field(default=None, description="The check results that triggered this alert. Includes result IDs and which one is primary.")
     rule_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert rule that triggered this alert.")
-    severity: Optional[StrictStr] = Field(default=None, description="The severity level of the alert.")
-    check_name: Optional[Any] = Field(default=None, description="The name of the monitor check that triggered this alert.")
-    resolved_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was resolved in ISO format. Null if not resolved.")
-    alert_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional context and metadata about what triggered the alert.")
+    title: Optional[StrictStr] = Field(default=None, description="A short, descriptive title for the alert.")
     status: Optional[StrictStr] = Field(default=None, description="The current status of the alert.")
-    __properties: ClassVar[List[str]] = ["id", "check_id", "trigger_results", "acknowledged_by_id", "fired_at", "notification_count", "rule_name", "last_notification_at", "title", "duration", "description", "acknowledged_at", "is_active", "rule_id", "severity", "check_name", "resolved_at", "alert_metadata", "status"]
-
-    @field_validator('severity')
-    def severity_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['low', 'medium', 'high', 'critical']):
-            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'critical')")
-        return value
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the alert condition.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert.")
+    last_notification_at: Optional[datetime] = Field(default=None, description="The timestamp when the last notification was sent in ISO format. Null if no notifications sent.")
+    alert_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional context and metadata about what triggered the alert.")
+    resolved_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was resolved in ISO format. Null if not resolved.")
+    acknowledged_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was acknowledged in ISO format. Null if not acknowledged.")
+    check_name: Optional[Any] = Field(default=None, description="The name of the monitor check that triggered this alert.")
+    severity: Optional[StrictStr] = Field(default=None, description="The severity level of the alert.")
+    acknowledged_by_id: Optional[StrictStr] = Field(default=None, description="The identifier of the user who acknowledged the alert. Null if not acknowledged.")
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check that triggered this alert.")
+    rule_name: Optional[Any] = Field(default=None, description="The name of the alert rule that triggered this alert.")
+    regional_summary: Optional[Any] = Field(default=None, description="Summary of regional results if this alert was triggered by a multi-region check")
+    duration: Optional[Any] = Field(default=None, description="The duration of the alert in seconds. For active alerts, this is time since firing.")
+    notification_count: Optional[StrictInt] = Field(default=None, description="The number of notifications sent for this alert.")
+    is_active: Optional[Any] = Field(default=None, description="Whether the alert is currently active (firing or acknowledged).")
+    __properties: ClassVar[List[str]] = ["fired_at", "trigger_results", "rule_id", "title", "status", "description", "id", "last_notification_at", "alert_metadata", "resolved_at", "acknowledged_at", "check_name", "severity", "acknowledged_by_id", "check_id", "rule_name", "regional_summary", "duration", "notification_count", "is_active"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -67,6 +58,16 @@ class Alert(BaseModel):
 
         if value not in set(['firing', 'resolved', 'acknowledged', 'suppressed']):
             raise ValueError("must be one of enum values ('firing', 'resolved', 'acknowledged', 'suppressed')")
+        return value
+
+    @field_validator('severity')
+    def severity_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'critical']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'critical')")
         return value
 
     model_config = ConfigDict(
@@ -118,27 +119,29 @@ class Alert(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "id",
-            "check_id",
-            "trigger_results",
-            "acknowledged_by_id",
             "fired_at",
-            "notification_count",
-            "rule_name",
-            "last_notification_at",
-            "title",
-            "duration",
-            "description",
-            "acknowledged_at",
-            "is_active",
+            "trigger_results",
             "rule_id",
-            "severity",
-            "check_name",
-            "resolved_at",
-            "alert_metadata",
+            "title",
             "status",
+            "description",
+            "id",
+            "last_notification_at",
+            "alert_metadata",
+            "resolved_at",
+            "acknowledged_at",
+            "check_name",
+            "severity",
+            "acknowledged_by_id",
+            "check_id",
+            "rule_name",
+            "regional_summary",
+            "duration",
+            "notification_count",
+            "is_active",
         ])
 
         _dict = self.model_dump(
@@ -151,6 +154,26 @@ class Alert(BaseModel):
         if self.trigger_results is None and "trigger_results" in self.model_fields_set:
             _dict['trigger_results'] = None
 
+        # set to None if last_notification_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_notification_at is None and "last_notification_at" in self.model_fields_set:
+            _dict['last_notification_at'] = None
+
+        # set to None if resolved_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.resolved_at is None and "resolved_at" in self.model_fields_set:
+            _dict['resolved_at'] = None
+
+        # set to None if acknowledged_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.acknowledged_at is None and "acknowledged_at" in self.model_fields_set:
+            _dict['acknowledged_at'] = None
+
+        # set to None if check_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_name is None and "check_name" in self.model_fields_set:
+            _dict['check_name'] = None
+
         # set to None if acknowledged_by_id (nullable) is None
         # and model_fields_set contains the field
         if self.acknowledged_by_id is None and "acknowledged_by_id" in self.model_fields_set:
@@ -161,35 +184,20 @@ class Alert(BaseModel):
         if self.rule_name is None and "rule_name" in self.model_fields_set:
             _dict['rule_name'] = None
 
-        # set to None if last_notification_at (nullable) is None
+        # set to None if regional_summary (nullable) is None
         # and model_fields_set contains the field
-        if self.last_notification_at is None and "last_notification_at" in self.model_fields_set:
-            _dict['last_notification_at'] = None
+        if self.regional_summary is None and "regional_summary" in self.model_fields_set:
+            _dict['regional_summary'] = None
 
         # set to None if duration (nullable) is None
         # and model_fields_set contains the field
         if self.duration is None and "duration" in self.model_fields_set:
             _dict['duration'] = None
 
-        # set to None if acknowledged_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.acknowledged_at is None and "acknowledged_at" in self.model_fields_set:
-            _dict['acknowledged_at'] = None
-
         # set to None if is_active (nullable) is None
         # and model_fields_set contains the field
         if self.is_active is None and "is_active" in self.model_fields_set:
             _dict['is_active'] = None
-
-        # set to None if check_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.check_name is None and "check_name" in self.model_fields_set:
-            _dict['check_name'] = None
-
-        # set to None if resolved_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.resolved_at is None and "resolved_at" in self.model_fields_set:
-            _dict['resolved_at'] = None
 
         return _dict
 
@@ -203,25 +211,26 @@ class Alert(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "check_id": obj.get("check_id"),
-            "trigger_results": obj.get("trigger_results"),
-            "acknowledged_by_id": obj.get("acknowledged_by_id"),
             "fired_at": obj.get("fired_at"),
-            "notification_count": obj.get("notification_count"),
-            "rule_name": obj.get("rule_name"),
-            "last_notification_at": obj.get("last_notification_at"),
-            "title": obj.get("title"),
-            "duration": obj.get("duration"),
-            "description": obj.get("description"),
-            "acknowledged_at": obj.get("acknowledged_at"),
-            "is_active": obj.get("is_active"),
+            "trigger_results": obj.get("trigger_results"),
             "rule_id": obj.get("rule_id"),
-            "severity": obj.get("severity"),
-            "check_name": obj.get("check_name"),
-            "resolved_at": obj.get("resolved_at"),
+            "title": obj.get("title"),
+            "status": obj.get("status"),
+            "description": obj.get("description"),
+            "id": obj.get("id"),
+            "last_notification_at": obj.get("last_notification_at"),
             "alert_metadata": obj.get("alert_metadata"),
-            "status": obj.get("status")
+            "resolved_at": obj.get("resolved_at"),
+            "acknowledged_at": obj.get("acknowledged_at"),
+            "check_name": obj.get("check_name"),
+            "severity": obj.get("severity"),
+            "acknowledged_by_id": obj.get("acknowledged_by_id"),
+            "check_id": obj.get("check_id"),
+            "rule_name": obj.get("rule_name"),
+            "regional_summary": obj.get("regional_summary"),
+            "duration": obj.get("duration"),
+            "notification_count": obj.get("notification_count"),
+            "is_active": obj.get("is_active")
         })
         return _obj
 

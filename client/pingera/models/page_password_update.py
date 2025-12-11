@@ -29,12 +29,12 @@ class PagePasswordUpdate(BaseModel):
     """
     PagePasswordUpdate
     """ # noqa: E501
-    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password")
-    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password")
     password: Optional[Annotated[str, Field(min_length=8, strict=True)]] = Field(default=None, description="The password (minimum 8 characters). Only used for input, never returned.")
+    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password")
     expires_at: Optional[datetime] = Field(default=None, description="Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings")
     active: Optional[StrictBool] = Field(default=None, description="Whether the password is active")
-    __properties: ClassVar[List[str]] = ["password_hint", "name", "password", "expires_at", "active"]
+    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password")
+    __properties: ClassVar[List[str]] = ["password", "name", "expires_at", "active", "password_hint"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,11 +75,6 @@ class PagePasswordUpdate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if password_hint (nullable) is None
-        # and model_fields_set contains the field
-        if self.password_hint is None and "password_hint" in self.model_fields_set:
-            _dict['password_hint'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -89,6 +84,11 @@ class PagePasswordUpdate(BaseModel):
         # and model_fields_set contains the field
         if self.expires_at is None and "expires_at" in self.model_fields_set:
             _dict['expires_at'] = None
+
+        # set to None if password_hint (nullable) is None
+        # and model_fields_set contains the field
+        if self.password_hint is None and "password_hint" in self.model_fields_set:
+            _dict['password_hint'] = None
 
         return _dict
 
@@ -102,11 +102,11 @@ class PagePasswordUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "password_hint": obj.get("password_hint"),
-            "name": obj.get("name"),
             "password": obj.get("password"),
+            "name": obj.get("name"),
             "expires_at": obj.get("expires_at"),
-            "active": obj.get("active")
+            "active": obj.get("active"),
+            "password_hint": obj.get("password_hint")
         })
         return _obj
 

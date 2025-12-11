@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**v1_pages_page_id_incidents_incident_id_postmortem_put**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_postmortem_put) | **PUT** /v1/pages/{page_id}/incidents/{incident_id}/postmortem | Create or update an incident postmortem
 [**v1_pages_page_id_incidents_incident_id_put**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_put) | **PUT** /v1/pages/{page_id}/incidents/{incident_id} | Update an incident by ID
 [**v1_pages_page_id_incidents_log_past_incident_post**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_log_past_incident_post) | **POST** /v1/pages/{page_id}/incidents/log-past-incident | Log an incident that has already occurred in the past with multiple updates
+[**v1_pages_page_id_incidents_maintenance_get**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_maintenance_get) | **GET** /v1/pages/{page_id}/incidents/maintenance | Get maintenance windows for a specific status page
 [**v1_pages_page_id_incidents_post**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_post) | **POST** /v1/pages/{page_id}/incidents | Create a new incident for a specific status page
 [**v1_pages_page_id_incidents_unresolved_get**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_unresolved_get) | **GET** /v1/pages/{page_id}/incidents/unresolved | Get unresolved incidents for a specific status page
 
@@ -200,7 +201,7 @@ No authorization required
 
 Get incidents for a specific status page
 
-Get incidents for a specific status page
+Get incidents for a specific status page (excludes maintenance windows)
 
 ### Example
 
@@ -1365,6 +1366,94 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **v1_pages_page_id_incidents_maintenance_get**
+> List[Incident] v1_pages_page_id_incidents_maintenance_get(page_id, status=status)
+
+Get maintenance windows for a specific status page
+
+Get maintenance windows filtered by status. Defaults to scheduled maintenance.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.incident import Incident
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.StatusPagesIncidentsApi(api_client)
+    page_id = 'page_id_example' # str | The ID of the status page.
+    status = 'status_example' # str | Filter by maintenance status. Can be: scheduled, in_progress, verifying, completed. Defaults to scheduled. (optional)
+
+    try:
+        # Get maintenance windows for a specific status page
+        api_response = api_instance.v1_pages_page_id_incidents_maintenance_get(page_id, status=status)
+        print("The response of StatusPagesIncidentsApi->v1_pages_page_id_incidents_maintenance_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling StatusPagesIncidentsApi->v1_pages_page_id_incidents_maintenance_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_id** | **str**| The ID of the status page. | 
+ **status** | **str**| Filter by maintenance status. Can be: scheduled, in_progress, verifying, completed. Defaults to scheduled. | [optional] 
+
+### Return type
+
+[**List[Incident]**](Incident.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **v1_pages_page_id_incidents_post**
 > Incident v1_pages_page_id_incidents_post(page_id, incident_create)
 
@@ -1460,7 +1549,7 @@ Name | Type | Description  | Notes
 
 Get unresolved incidents for a specific status page
 
-Get unresolved incidents for a specific status page
+Get unresolved incidents for a specific status page (excludes maintenance windows)
 
 ### Example
 

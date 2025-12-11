@@ -36,19 +36,19 @@ class TestComponent(unittest.TestCase):
         model = Component()
         if include_optional:
             return Component(
-                group_id = 'grp123abc456',
-                start_date = '2024-01-01T00:00Z',
+                page_id = 'page123def789',
                 only_show_if_degraded = False,
-                id = 'comp123abc456',
-                name = 'API Server',
                 updated_at = '2024-01-15T14:00Z',
                 group = False,
-                position = 1,
-                created_at = '2024-01-15T10:00Z',
                 description = 'Main REST API server handling user requests',
+                name = 'API Server',
+                id = 'comp123abc456',
+                group_id = 'grp123abc456',
+                created_at = '2024-01-15T10:00Z',
+                start_date = '2024-01-01T00:00Z',
+                position = 1,
                 showcase = True,
-                status = 'operational',
-                page_id = 'page123def789'
+                status = 'operational'
             )
         else:
             return Component(

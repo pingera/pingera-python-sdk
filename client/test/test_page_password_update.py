@@ -36,11 +36,11 @@ class TestPagePasswordUpdate(unittest.TestCase):
         model = PagePasswordUpdate()
         if include_optional:
             return PagePasswordUpdate(
-                password_hint = 'Use the company founding year',
-                name = 'VIP Access',
                 password = 'newsecurepassword123',
+                name = 'VIP Access',
                 expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                active = True
+                active = True,
+                password_hint = 'Use the company founding year'
             )
         else:
             return PagePasswordUpdate(

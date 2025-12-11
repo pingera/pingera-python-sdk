@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**access_token** | **str** | JWT access token for the page | [optional] 
-**password_name** | **str** | Name of the matched password (if available) | [optional] 
 **expires_in** | **int** | Token expiration time in seconds | [optional] 
+**password_name** | **str** | Name of the matched password (if available) | [optional] 
+**access_token** | **str** | JWT access token for the page | [optional] 
 **token_type** | **str** | Type of the token | [optional] 
 
 ## Example

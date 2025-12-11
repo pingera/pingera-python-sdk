@@ -39,15 +39,15 @@ class TestCheckGroupList(unittest.TestCase):
                 pagination = {"page":1,"page_size":20,"total_pages":1,"total_items":5},
                 groups = [
                     pingera.models.check_group1.CheckGroup1(
-                        checks_count = 5, 
-                        id = 'grp123abc456', 
-                        name = 'Production Services', 
                         updated_at = '2024-01-15T14:00Z', 
-                        position = 0, 
-                        created_at = '2024-01-15T10:00Z', 
                         description = 'Critical production services monitoring', 
+                        checks_count = 5, 
+                        name = 'Production Services', 
+                        id = 'grp123abc456', 
+                        color = '#4F46E5', 
+                        created_at = '2024-01-15T10:00Z', 
                         active = True, 
-                        color = '#4F46E5', )
+                        position = 0, )
                     ]
             )
         else:

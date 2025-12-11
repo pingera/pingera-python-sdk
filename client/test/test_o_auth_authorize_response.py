@@ -36,8 +36,8 @@ class TestOAuthAuthorizeResponse(unittest.TestCase):
         model = OAuthAuthorizeResponse()
         if include_optional:
             return OAuthAuthorizeResponse(
-                state = 'abc123def456',
-                authorization_url = 'https://oauth.yandex.ru/authorize?client_id=...&state=...'
+                authorization_url = 'https://oauth.yandex.ru/authorize?client_id=...&state=...',
+                state = 'abc123def456'
             )
         else:
             return OAuthAuthorizeResponse(

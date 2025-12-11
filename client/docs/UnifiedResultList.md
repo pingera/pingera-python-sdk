@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** | Pagination metadata. | [optional] 
 **results** | [**List[UnifiedResult]**](UnifiedResult.md) | List of check results (both regular and on-demand). | [optional] 
+**pagination** | **Dict[str, object]** | Pagination metadata. | [optional] 
 
 ## Example
 

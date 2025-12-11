@@ -29,14 +29,14 @@ class LinkedOAuthAccount(BaseModel):
     """
     LinkedOAuthAccount
     """ # noqa: E501
-    provider_name: Optional[StrictStr] = Field(default=None, description="Display name from OAuth provider")
-    provider_avatar_url: Optional[StrictStr] = Field(default=None, description="Avatar URL from OAuth provider")
-    id: Optional[StrictStr] = Field(default=None, description="OAuth account link ID")
-    last_used_at: Optional[datetime] = Field(default=None, description="When this OAuth account was last used for login")
-    provider_email: Optional[StrictStr] = Field(default=None, description="Email address from OAuth provider")
-    created_at: Optional[datetime] = Field(default=None, description="When the OAuth account was linked")
     provider: Optional[OAuthProvider] = None
-    __properties: ClassVar[List[str]] = ["provider_name", "provider_avatar_url", "id", "last_used_at", "provider_email", "created_at", "provider"]
+    created_at: Optional[datetime] = Field(default=None, description="When the OAuth account was linked")
+    id: Optional[StrictStr] = Field(default=None, description="OAuth account link ID")
+    provider_avatar_url: Optional[StrictStr] = Field(default=None, description="Avatar URL from OAuth provider")
+    provider_email: Optional[StrictStr] = Field(default=None, description="Email address from OAuth provider")
+    provider_name: Optional[StrictStr] = Field(default=None, description="Display name from OAuth provider")
+    last_used_at: Optional[datetime] = Field(default=None, description="When this OAuth account was last used for login")
+    __properties: ClassVar[List[str]] = ["provider", "created_at", "id", "provider_avatar_url", "provider_email", "provider_name", "last_used_at"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,13 +77,13 @@ class LinkedOAuthAccount(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "provider_name",
-            "provider_avatar_url",
-            "id",
-            "last_used_at",
-            "provider_email",
-            "created_at",
             "provider",
+            "created_at",
+            "id",
+            "provider_avatar_url",
+            "provider_email",
+            "provider_name",
+            "last_used_at",
         ])
 
         _dict = self.model_dump(
@@ -116,13 +116,13 @@ class LinkedOAuthAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "provider_name": obj.get("provider_name"),
-            "provider_avatar_url": obj.get("provider_avatar_url"),
-            "id": obj.get("id"),
-            "last_used_at": obj.get("last_used_at"),
-            "provider_email": obj.get("provider_email"),
+            "provider": OAuthProvider.from_dict(obj["provider"]) if obj.get("provider") is not None else None,
             "created_at": obj.get("created_at"),
-            "provider": OAuthProvider.from_dict(obj["provider"]) if obj.get("provider") is not None else None
+            "id": obj.get("id"),
+            "provider_avatar_url": obj.get("provider_avatar_url"),
+            "provider_email": obj.get("provider_email"),
+            "provider_name": obj.get("provider_name"),
+            "last_used_at": obj.get("last_used_at")
         })
         return _obj
 

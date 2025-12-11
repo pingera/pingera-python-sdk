@@ -62,7 +62,7 @@ class OnDemandChecksApi:
     ) -> ExecuteExistingCheckResponse:
         """Execute an existing monitor check immediately
 
-        Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results.
+        Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results. Supports multi-region execution if configured in check parameters.
 
         :param check_id: (required)
         :type check_id: str
@@ -134,7 +134,7 @@ class OnDemandChecksApi:
     ) -> ApiResponse[ExecuteExistingCheckResponse]:
         """Execute an existing monitor check immediately
 
-        Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results.
+        Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results. Supports multi-region execution if configured in check parameters.
 
         :param check_id: (required)
         :type check_id: str
@@ -206,7 +206,7 @@ class OnDemandChecksApi:
     ) -> RESTResponseType:
         """Execute an existing monitor check immediately
 
-        Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results.
+        Execute an existing monitor check immediately on-demand. This endpoint queues the check for immediate execution and returns a job ID for tracking progress and results. Supports multi-region execution if configured in check parameters.
 
         :param check_id: (required)
         :type check_id: str
@@ -339,7 +339,7 @@ class OnDemandChecksApi:
     ) -> ExecuteExistingCheckResponse:
         """Execute a custom check with user-provided parameters
 
-        Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution.
+        Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution. Supports multi-region execution via parameters.
 
         :param execute_custom_check_request: Custom check configuration data (required)
         :type execute_custom_check_request: ExecuteCustomCheckRequest
@@ -411,7 +411,7 @@ class OnDemandChecksApi:
     ) -> ApiResponse[ExecuteExistingCheckResponse]:
         """Execute a custom check with user-provided parameters
 
-        Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution.
+        Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution. Supports multi-region execution via parameters.
 
         :param execute_custom_check_request: Custom check configuration data (required)
         :type execute_custom_check_request: ExecuteCustomCheckRequest
@@ -483,7 +483,7 @@ class OnDemandChecksApi:
     ) -> RESTResponseType:
         """Execute a custom check with user-provided parameters
 
-        Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution.
+        Execute a custom check with user-provided parameters on-demand. This endpoint allows you to run a one-time check without saving the configuration. The check parameters are validated and the check is queued for immediate execution. Supports multi-region execution via parameters.
 
         :param execute_custom_check_request: Custom check configuration data (required)
         :type execute_custom_check_request: ExecuteCustomCheckRequest

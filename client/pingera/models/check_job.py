@@ -28,17 +28,17 @@ class CheckJob(BaseModel):
     """
     CheckJob
     """ # noqa: E501
-    result: Optional[Any] = Field(default=None, description="The result data from the completed check job, including server information.")
-    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
     error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
+    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
     started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
-    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
     completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
-    __properties: ClassVar[List[str]] = ["result", "job_type", "id", "error_message", "started_at", "check_id", "created_at", "check_parameters", "status", "completed_at"]
+    result: Optional[Any] = Field(default=None, description="Check execution result. For multi-region checks, includes 'regional_results' array with detailed data from each region. For single-region checks, includes direct check metadata.")
+    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
+    __properties: ClassVar[List[str]] = ["created_at", "id", "error_message", "check_parameters", "started_at", "check_id", "completed_at", "result", "job_type", "status"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -92,16 +92,16 @@ class CheckJob(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "result",
-            "job_type",
+            "created_at",
             "id",
             "error_message",
+            "check_parameters",
             "started_at",
             "check_id",
-            "created_at",
-            "check_parameters",
-            "status",
             "completed_at",
+            "result",
+            "job_type",
+            "status",
         ])
 
         _dict = self.model_dump(
@@ -131,16 +131,16 @@ class CheckJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "result": obj.get("result"),
-            "job_type": obj.get("job_type"),
+            "created_at": obj.get("created_at"),
             "id": obj.get("id"),
             "error_message": obj.get("error_message"),
+            "check_parameters": obj.get("check_parameters"),
             "started_at": obj.get("started_at"),
             "check_id": obj.get("check_id"),
-            "created_at": obj.get("created_at"),
-            "check_parameters": obj.get("check_parameters"),
-            "status": obj.get("status"),
-            "completed_at": obj.get("completed_at")
+            "completed_at": obj.get("completed_at"),
+            "result": obj.get("result"),
+            "job_type": obj.get("job_type"),
+            "status": obj.get("status")
         })
         return _obj
 

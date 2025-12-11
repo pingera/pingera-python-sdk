@@ -36,18 +36,18 @@ class TestSecret1(unittest.TestCase):
         model = Secret1()
         if include_optional:
             return Secret1(
-                created_by = 'usr123def456',
-                id = 'sec123abc456',
                 updated_at = '2024-01-15T14:00Z',
-                secret_name = 'DATABASE_PASSWORD',
+                secret_value = 'my-secret-password-123',
                 created_at = '2024-01-15T10:00Z',
-                updated_by = 'usr789ghi012',
-                secret_value = 'my-secret-password-123'
+                id = 'sec123abc456',
+                created_by = 'usr123def456',
+                secret_name = 'DATABASE_PASSWORD',
+                updated_by = 'usr789ghi012'
             )
         else:
             return Secret1(
-                secret_name = 'DATABASE_PASSWORD',
                 secret_value = 'my-secret-password-123',
+                secret_name = 'DATABASE_PASSWORD',
         )
         """
 

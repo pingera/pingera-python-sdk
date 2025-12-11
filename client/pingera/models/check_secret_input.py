@@ -28,9 +28,9 @@ class CheckSecretInput(BaseModel):
     """
     CheckSecretInput
     """ # noqa: E501
-    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.")
     secret_id: StrictStr = Field(description="The unique identifier of the secret.")
-    __properties: ClassVar[List[str]] = ["env_variable", "secret_id"]
+    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.")
+    __properties: ClassVar[List[str]] = ["secret_id", "env_variable"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,8 +83,8 @@ class CheckSecretInput(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "env_variable": obj.get("env_variable"),
-            "secret_id": obj.get("secret_id")
+            "secret_id": obj.get("secret_id"),
+            "env_variable": obj.get("env_variable")
         })
         return _obj
 

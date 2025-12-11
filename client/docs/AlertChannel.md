@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**configuration** | **Dict[str, object]** | Channel-specific configuration. Structure varies by channel type. | 
-**id** | **str** | The unique identifier for the alert channel. | [optional] [readonly] 
-**last_used_at** | **datetime** | The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used. | [optional] [readonly] 
-**name** | **str** | A user-friendly name for the alert channel. Max 100 characters. | 
 **updated_at** | **datetime** | The timestamp when the alert channel was last updated in ISO format. | [optional] [readonly] 
+**type** | **str** | The type of alert channel. | 
+**name** | **str** | A user-friendly name for the alert channel. Max 100 characters. | 
+**id** | **str** | The unique identifier for the alert channel. | [optional] [readonly] 
 **created_at** | **datetime** | The timestamp when the alert channel was created in ISO format. | [optional] [readonly] 
 **enabled** | **bool** | Whether the alert channel is enabled. Defaults to true. | [optional] [default to True]
-**type** | **str** | The type of alert channel. | 
+**last_used_at** | **datetime** | The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used. | [optional] [readonly] 
+**configuration** | **Dict[str, object]** | Channel-specific configuration. Structure varies by channel type. | 
 
 ## Example
 

@@ -37,27 +37,27 @@ class TestOAuthLoginResponse(unittest.TestCase):
         if include_optional:
             return OAuthLoginResponse(
                 access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...',
-                linked_account = True,
-                is_new_user = False,
                 auth_method = 'oauth_yandex',
+                is_new_user = False,
                 user = pingera.models.user.User(
-                    onboarding_completed_at = '2024-01-15T11:30Z', 
-                    last_name = 'Doe', 
-                    onboarding_completed = True, 
-                    email = 'user@example.com', 
-                    id = 'user_abc123def456', 
-                    role = 'admin', 
-                    organization_id = 'org_stellar_solutions', 
-                    last_login = '2024-01-15T14:30Z', 
                     onboarding_step = 'setup_alerts', 
                     password = 'securepassword123', 
+                    role = 'admin', 
                     created_at = '2024-01-15T10:00Z', 
-                    org_name = 'My Company', 
-                    first_name = 'John', 
-                    verification_token_expires = 2024-01-16T10:00:00Z, 
+                    email = 'user@example.com', 
+                    id = 'user_abc123def456', 
                     is_first_login = False, 
-                    email_verified = True, ),
-                refresh_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...'
+                    email_verified = True, 
+                    onboarding_completed_at = '2024-01-15T11:30Z', 
+                    verification_token_expires = 2024-01-16T10:00:00Z, 
+                    first_name = 'John', 
+                    last_login = '2024-01-15T14:30Z', 
+                    organization_id = 'org_stellar_solutions', 
+                    org_name = 'My Company', 
+                    onboarding_completed = True, 
+                    last_name = 'Doe', ),
+                refresh_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...',
+                linked_account = True
             )
         else:
             return OAuthLoginResponse(

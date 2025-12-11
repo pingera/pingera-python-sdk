@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **components** | **Dict[str, str]** | Component statuses at time of update | [optional] 
-**status** | **str** | The incident status at the time of this update. | 
-**created_at** | **datetime** | When this update was posted (ISO format). | 
 **body** | **str** | The content of the incident update. | 
+**created_at** | **datetime** | When this update was posted (ISO format). | 
+**status** | **str** | The incident status at the time of this update. | 
 
 ## Example
 
