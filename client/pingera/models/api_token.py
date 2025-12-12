@@ -29,12 +29,12 @@ class APIToken(BaseModel):
     """
     APIToken
     """ # noqa: E501
-    token: Optional[StrictStr] = Field(default=None, description="The actual API token string. Only returned when creating a new token.")
+    last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was last used in ISO format. Null if never used.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was created in ISO format.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A descriptive name for the API token. Maximum 100 characters.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the API token.")
-    last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was last used in ISO format. Null if never used.")
-    __properties: ClassVar[List[str]] = ["token", "created_at", "name", "id", "last_used_at"]
+    token: Optional[StrictStr] = Field(default=None, description="The actual API token string. Only returned when creating a new token.")
+    __properties: ClassVar[List[str]] = ["last_used_at", "created_at", "name", "id", "token"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,10 +72,10 @@ class APIToken(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "token",
+            "last_used_at",
             "created_at",
             "id",
-            "last_used_at",
+            "token",
         ])
 
         _dict = self.model_dump(
@@ -95,11 +95,11 @@ class APIToken(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "token": obj.get("token"),
+            "last_used_at": obj.get("last_used_at"),
             "created_at": obj.get("created_at"),
             "name": obj.get("name"),
             "id": obj.get("id"),
-            "last_used_at": obj.get("last_used_at")
+            "token": obj.get("token")
         })
         return _obj
 

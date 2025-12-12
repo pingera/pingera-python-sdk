@@ -27,9 +27,9 @@ class Login(BaseModel):
     """
     Login
     """ # noqa: E501
-    password: StrictStr = Field(description="The user's password for authentication.")
     email: StrictStr = Field(description="The user's email address for authentication.")
-    __properties: ClassVar[List[str]] = ["password", "email"]
+    password: StrictStr = Field(description="The user's password for authentication.")
+    __properties: ClassVar[List[str]] = ["email", "password"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,8 +82,8 @@ class Login(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "password": obj.get("password"),
-            "email": obj.get("email")
+            "email": obj.get("email"),
+            "password": obj.get("password")
         })
         return _obj
 

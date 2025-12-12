@@ -36,14 +36,14 @@ class TestExecuteCustomCheckRequest(unittest.TestCase):
         model = ExecuteCustomCheckRequest()
         if include_optional:
             return ExecuteCustomCheckRequest(
-                host = 'example.com',
                 type = 'web',
-                name = 'Custom API Health Check',
-                timeout = 10,
                 secrets = [{"secret_id":"imzahxn0vqfe","env_variable":"MY_DOMAIN"}],
-                url = 'https://api.example.com/health',
+                name = 'Custom API Health Check',
+                host = 'example.com',
+                parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"},"expected_status_code":200,"expected_content":"OK","pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});"},
+                timeout = 10,
                 port = 443,
-                parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"},"expected_status_code":200,"expected_content":"OK","pw_script":"const { test, expect } = require('@playwright/test');\n\ntest('example', async ({ page }) => {\n  await page.goto('https://example.com');\n  await expect(page).toHaveTitle(/Example/);\n});"}
+                url = 'https://api.example.com/health'
             )
         else:
             return ExecuteCustomCheckRequest(

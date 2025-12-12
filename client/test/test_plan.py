@@ -36,12 +36,12 @@ class TestPlan(unittest.TestCase):
         model = Plan()
         if include_optional:
             return Plan(
-                price = {"USD":0,"EUR":0},
                 description = 'Perfect for getting started with basic monitoring needs',
+                price = {"USD":0,"EUR":0},
                 name = 'Free Plan',
-                id = 'plan_free_123',
                 duration = 30,
-                limits = {"checks":10,"heartbeats":5,"alert_channels":3}
+                limits = {"checks":10,"heartbeats":5,"alert_channels":3},
+                id = 'plan_free_123'
             )
         else:
             return Plan(

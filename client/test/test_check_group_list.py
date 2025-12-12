@@ -36,19 +36,19 @@ class TestCheckGroupList(unittest.TestCase):
         model = CheckGroupList()
         if include_optional:
             return CheckGroupList(
-                pagination = {"page":1,"page_size":20,"total_pages":1,"total_items":5},
                 groups = [
                     pingera.models.check_group1.CheckGroup1(
-                        updated_at = '2024-01-15T14:00Z', 
+                        color = '#4F46E5', 
                         description = 'Critical production services monitoring', 
+                        created_at = '2024-01-15T10:00Z', 
                         checks_count = 5, 
                         name = 'Production Services', 
+                        updated_at = '2024-01-15T14:00Z', 
                         id = 'grp123abc456', 
-                        color = '#4F46E5', 
-                        created_at = '2024-01-15T10:00Z', 
-                        active = True, 
-                        position = 0, )
-                    ]
+                        position = 0, 
+                        active = True, )
+                    ],
+                pagination = {"page":1,"page_size":20,"total_pages":1,"total_items":5}
             )
         else:
             return CheckGroupList(

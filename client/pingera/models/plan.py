@@ -28,13 +28,13 @@ class Plan(BaseModel):
     """
     Plan
     """ # noqa: E501
-    price: Optional[Dict[str, Any]] = Field(default=None, description="Pricing information for the plan in different currencies.")
     description: Optional[StrictStr] = Field(default=None, description="A detailed description of the plan features and benefits.")
+    price: Optional[Dict[str, Any]] = Field(default=None, description="Pricing information for the plan in different currencies.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The name of the subscription plan. Maximum 100 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the subscription plan.")
     duration: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The duration of the plan subscription in days. Minimum is 1 day.")
     limits: Optional[Dict[str, Any]] = Field(default=None, description="Usage limits and quotas for the plan features.")
-    __properties: ClassVar[List[str]] = ["price", "description", "name", "id", "duration", "limits"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the subscription plan.")
+    __properties: ClassVar[List[str]] = ["description", "price", "name", "duration", "limits", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,12 +89,12 @@ class Plan(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "price": obj.get("price"),
             "description": obj.get("description"),
+            "price": obj.get("price"),
             "name": obj.get("name"),
-            "id": obj.get("id"),
             "duration": obj.get("duration"),
-            "limits": obj.get("limits")
+            "limits": obj.get("limits"),
+            "id": obj.get("id")
         })
         return _obj
 

@@ -36,16 +36,16 @@ class TestCheckJob(unittest.TestCase):
         model = CheckJob()
         if include_optional:
             return CheckJob(
-                created_at = '2024-01-15T14:25Z',
-                id = 'job456ghi789',
-                error_message = 'Unable to connect to target server',
-                check_parameters = {"url":"https://api.example.com","timeout":10},
-                started_at = '2024-01-15T14:26Z',
-                check_id = 'chk123def456',
-                completed_at = '2024-01-15T14:30Z',
                 result = {"execution_group_id":"9mnt6ecba3g4","status":"completed","avg_response_time":46,"regional_summary":{"EU, West":{"status":"ok","response_time":46}},"regional_results":[{"result_id":"1bgajfewc63e","execution_id":"d2af136a-5d83-41bb-af02-7c1bfd93110a","region":"EU, West","status":"ok","response_time":46,"check_metadata":{"latency_avg_ms":46.783},"check_server":{"region":"EU, West","id":"k8u7h8eppuod"}}]},
+                status = 'completed',
+                check_parameters = {"url":"https://api.example.com","timeout":10},
+                id = 'job456ghi789',
+                check_id = 'chk123def456',
+                created_at = '2024-01-15T14:25Z',
+                completed_at = '2024-01-15T14:30Z',
                 job_type = web_check,
-                status = 'completed'
+                error_message = 'Unable to connect to target server',
+                started_at = '2024-01-15T14:26Z'
             )
         else:
             return CheckJob(

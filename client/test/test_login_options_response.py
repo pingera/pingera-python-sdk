@@ -36,9 +36,9 @@ class TestLoginOptionsResponse(unittest.TestCase):
         model = LoginOptionsResponse()
         if include_optional:
             return LoginOptionsResponse(
+                preferred = 'password',
                 requires_2fa = False,
-                methods = ["password","passkey"],
-                preferred = 'password'
+                methods = ["password","passkey"]
             )
         else:
             return LoginOptionsResponse(

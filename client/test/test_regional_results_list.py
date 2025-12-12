@@ -38,21 +38,21 @@ class TestRegionalResultsList(unittest.TestCase):
             return RegionalResultsList(
                 regional_results = [
                     pingera.models.regional_result_summary.RegionalResultSummary(
-                        created_at = '2024-01-15T10:00:05Z', 
+                        status = 'ok', 
                         response_time = 150, 
-                        error_message = 'Connection timeout', 
-                        region = 'US, East coast', 
                         result_id = 'res123abc456', 
-                        status = 'ok', )
+                        created_at = '2024-01-15T10:00:05Z', 
+                        error_message = 'Connection timeout', 
+                        region = 'US, East coast', )
                     ],
-                execution_group_id = 'grp123abc456',
                 statistics = pingera.models.execution_group_statistics.ExecutionGroupStatistics(
                     completed_executions = 3, 
-                    total_executions = 3, 
-                    min_response_time = 120, 
                     max_response_time = 230, 
+                    failed_executions = 1, 
+                    total_executions = 3, 
                     avg_response_time = 175, 
-                    failed_executions = 1, )
+                    min_response_time = 120, ),
+                execution_group_id = 'grp123abc456'
             )
         else:
             return RegionalResultsList(

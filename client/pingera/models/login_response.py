@@ -29,10 +29,10 @@ class LoginResponse(BaseModel):
     LoginResponse
     """ # noqa: E501
     user: Optional[User] = Field(default=None, description="User information")
+    auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used")
     access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for authenticated requests")
     refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token for obtaining new access tokens")
-    auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used")
-    __properties: ClassVar[List[str]] = ["user", "access_token", "refresh_token", "auth_method"]
+    __properties: ClassVar[List[str]] = ["user", "auth_method", "access_token", "refresh_token"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -71,9 +71,9 @@ class LoginResponse(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "user",
+            "auth_method",
             "access_token",
             "refresh_token",
-            "auth_method",
         ])
 
         _dict = self.model_dump(
@@ -97,9 +97,9 @@ class LoginResponse(BaseModel):
 
         _obj = cls.model_validate({
             "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None,
+            "auth_method": obj.get("auth_method"),
             "access_token": obj.get("access_token"),
-            "refresh_token": obj.get("refresh_token"),
-            "auth_method": obj.get("auth_method")
+            "refresh_token": obj.get("refresh_token")
         })
         return _obj
 

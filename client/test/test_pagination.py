@@ -36,12 +36,12 @@ class TestPagination(unittest.TestCase):
         model = Pagination()
         if include_optional:
             return Pagination(
-                total_items = 100,
-                has_prev = False,
                 total_pages = 5,
-                page = 1,
+                has_prev = False,
                 page_size = 20,
-                has_next = True
+                total_items = 100,
+                has_next = True,
+                page = 1
             )
         else:
             return Pagination(

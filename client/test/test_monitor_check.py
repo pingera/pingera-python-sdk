@@ -36,39 +36,39 @@ class TestMonitorCheck(unittest.TestCase):
         model = MonitorCheck()
         if include_optional:
             return MonitorCheck(
-                secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}],
-                parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"}},
-                status = 'ok',
-                updated_at = '2024-01-15T14:00Z',
-                type = 'web',
-                created_at = '2024-01-15T10:00Z',
-                id = 'chk123def456',
                 group_id = 'grp123abc456',
-                timeout = 10,
-                last_checked_at = '2024-01-15T14:30Z',
-                host = 'example.com',
-                group = pingera.models.check_group.CheckGroup(
-                    updated_at = '2024-01-15T14:00Z', 
-                    description = 'Critical production services monitoring', 
-                    name = 'Production Services', 
-                    id = 'grp123abc456', 
-                    color = '#4F46E5', 
-                    created_at = '2024-01-15T10:00Z', 
-                    active = True, 
-                    position = 0, ),
-                port = 443,
-                position = 0,
+                secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}],
+                created_at = '2024-01-15T10:00Z',
                 name = 'Production API Health Check',
-                uptime_data = [{"hour":"2024-01-15T14:00:00","status":"ok","uptime":100.0}],
-                active = True,
-                url = 'https://api.example.com/health',
+                id = 'chk123def456',
+                status = 'ok',
+                last_checked_at = '2024-01-15T14:30Z',
+                updated_at = '2024-01-15T14:00Z',
+                host = 'example.com',
+                position = 0,
+                port = 443,
+                parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"}},
+                timeout = 10,
                 interval = 300,
-                uptime_summary = {"uptime":99.5,"avg_response_time":250,"checks":100}
+                url = 'https://api.example.com/health',
+                type = 'web',
+                uptime_summary = {"uptime":99.5,"avg_response_time":250,"checks":100},
+                uptime_data = [{"hour":"2024-01-15T14:00:00","status":"ok","uptime":100.0}],
+                group = pingera.models.check_group.CheckGroup(
+                    color = '#4F46E5', 
+                    description = 'Critical production services monitoring', 
+                    created_at = '2024-01-15T10:00Z', 
+                    name = 'Production Services', 
+                    updated_at = '2024-01-15T14:00Z', 
+                    id = 'grp123abc456', 
+                    position = 0, 
+                    active = True, ),
+                active = True
             )
         else:
             return MonitorCheck(
-                type = 'web',
                 name = 'Production API Health Check',
+                type = 'web',
         )
         """
 

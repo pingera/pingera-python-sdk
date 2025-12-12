@@ -27,11 +27,11 @@ class PasswordVerificationResponse(BaseModel):
     """
     PasswordVerificationResponse
     """ # noqa: E501
-    expires_in: Optional[StrictInt] = Field(default=None, description="Token expiration time in seconds")
     password_name: Optional[StrictStr] = Field(default=None, description="Name of the matched password (if available)")
-    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for the page")
     token_type: Optional[StrictStr] = Field(default=None, description="Type of the token")
-    __properties: ClassVar[List[str]] = ["expires_in", "password_name", "access_token", "token_type"]
+    expires_in: Optional[StrictInt] = Field(default=None, description="Token expiration time in seconds")
+    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for the page")
+    __properties: ClassVar[List[str]] = ["password_name", "token_type", "expires_in", "access_token"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,10 +89,10 @@ class PasswordVerificationResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "expires_in": obj.get("expires_in"),
             "password_name": obj.get("password_name"),
-            "access_token": obj.get("access_token"),
-            "token_type": obj.get("token_type")
+            "token_type": obj.get("token_type"),
+            "expires_in": obj.get("expires_in"),
+            "access_token": obj.get("access_token")
         })
         return _obj
 

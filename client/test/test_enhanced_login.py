@@ -37,8 +37,8 @@ class TestEnhancedLogin(unittest.TestCase):
         if include_optional:
             return EnhancedLogin(
                 password = 'securepassword123',
-                method = 'password',
-                email = 'user@example.com'
+                email = 'user@example.com',
+                method = 'password'
             )
         else:
             return EnhancedLogin(

@@ -6,11 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **completed_executions** | **int** | Number of completed executions | [optional] 
-**total_executions** | **int** | Total number of regional executions expected | [optional] 
-**min_response_time** | **int** | Fastest response time across regions in milliseconds | [optional] 
 **max_response_time** | **int** | Slowest response time across regions in milliseconds | [optional] 
-**avg_response_time** | **int** | Average response time across all regions in milliseconds | [optional] 
 **failed_executions** | **int** | Number of failed executions | [optional] 
+**total_executions** | **int** | Total number of regional executions expected | [optional] 
+**avg_response_time** | **int** | Average response time across all regions in milliseconds | [optional] 
+**min_response_time** | **int** | Fastest response time across regions in milliseconds | [optional] 
 
 ## Example
 

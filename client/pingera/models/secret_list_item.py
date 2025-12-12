@@ -29,14 +29,14 @@ class SecretListItem(BaseModel):
     """
     SecretListItem
     """ # noqa: E501
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
     secret_value: Optional[StrictStr] = Field(default=None, description="The secret value - not included in list responses for security.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.")
     created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.")
-    secret_name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A unique name for the secret within the organization. Max 100 characters.")
     updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.")
-    __properties: ClassVar[List[str]] = ["updated_at", "secret_value", "created_at", "id", "created_by", "secret_name", "updated_by"]
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.")
+    secret_name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A unique name for the secret within the organization. Max 100 characters.")
+    __properties: ClassVar[List[str]] = ["secret_value", "created_at", "created_by", "updated_by", "updated_at", "id", "secret_name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -75,11 +75,11 @@ class SecretListItem(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "updated_at",
             "created_at",
-            "id",
             "created_by",
             "updated_by",
+            "updated_at",
+            "id",
         ])
 
         _dict = self.model_dump(
@@ -99,13 +99,13 @@ class SecretListItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "updated_at": obj.get("updated_at"),
             "secret_value": obj.get("secret_value"),
             "created_at": obj.get("created_at"),
-            "id": obj.get("id"),
             "created_by": obj.get("created_by"),
-            "secret_name": obj.get("secret_name"),
-            "updated_by": obj.get("updated_by")
+            "updated_by": obj.get("updated_by"),
+            "updated_at": obj.get("updated_at"),
+            "id": obj.get("id"),
+            "secret_name": obj.get("secret_name")
         })
         return _obj
 

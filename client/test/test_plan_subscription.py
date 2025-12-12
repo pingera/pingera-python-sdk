@@ -36,17 +36,17 @@ class TestPlanSubscription(unittest.TestCase):
         model = PlanSubscription()
         if include_optional:
             return PlanSubscription(
-                plan = pingera.models.plan.Plan(
-                    price = {"USD":0,"EUR":0}, 
-                    description = 'Perfect for getting started with basic monitoring needs', 
-                    name = 'Free Plan', 
-                    id = 'plan_free_123', 
-                    duration = 30, 
-                    limits = {"checks":10,"heartbeats":5,"alert_channels":3}, ),
+                end_date = '2024-02-15T10:00Z',
                 created_at = '2024-01-15T10:00Z',
-                id = 'sub_abc123def456',
+                plan = pingera.models.plan.Plan(
+                    description = 'Perfect for getting started with basic monitoring needs', 
+                    price = {"USD":0,"EUR":0}, 
+                    name = 'Free Plan', 
+                    duration = 30, 
+                    limits = {"checks":10,"heartbeats":5,"alert_channels":3}, 
+                    id = 'plan_free_123', ),
                 start_date = '2024-01-15T10:00Z',
-                end_date = '2024-02-15T10:00Z'
+                id = 'sub_abc123def456'
             )
         else:
             return PlanSubscription(

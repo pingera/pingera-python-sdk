@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **password** | **str** | Password (required when method is &#39;password&#39;) | [optional] 
-**method** | **str** | Authentication method to use | [optional] [default to 'password']
 **email** | **str** | User&#39;s email address | 
+**method** | **str** | Authentication method to use | [optional] [default to 'password']
 
 ## Example
 

@@ -36,31 +36,31 @@ class TestHeartbeatCheckDetail(unittest.TestCase):
         model = HeartbeatCheckDetail()
         if include_optional:
             return HeartbeatCheckDetail(
-                updated_at = '2024-01-15T14:00Z',
-                period_seconds = 86400,
-                name = 'Nightly Backup Cron Job',
-                id = 'abc123def456',
-                ping_url = 'https://api.pingera.ru/v1/heartbeats/abc123def456/ping',
-                created_at = '2024-01-15T10:00Z',
-                active = True,
-                grace_seconds = 600,
-                last_ping_at = '2024-01-15T14:30Z',
-                next_expected_ping = '2024-01-16T14:30Z',
+                status = 'up',
                 recent_pings = [
                     pingera.models.heartbeat_ping.HeartbeatPing(
-                        source_ip = '192.168.1.100', 
-                        user_agent = 'curl/7.68.0', 
-                        id = 'ping789xyz012', 
-                        ping_data = {"status":"ok","message":"Backup completed successfully"}, 
+                        received_at = '2024-01-15T14:30Z', 
                         check_id = 'abc123def456', 
-                        received_at = '2024-01-15T14:30Z', )
+                        source_ip = '192.168.1.100', 
+                        id = 'ping789xyz012', 
+                        user_agent = 'curl/7.68.0', 
+                        ping_data = {"status":"ok","message":"Backup completed successfully"}, )
                     ],
-                status = 'up'
+                ping_url = 'https://api.pingera.ru/v1/heartbeats/abc123def456/ping',
+                grace_seconds = 600,
+                last_ping_at = '2024-01-15T14:30Z',
+                created_at = '2024-01-15T10:00Z',
+                name = 'Nightly Backup Cron Job',
+                period_seconds = 86400,
+                next_expected_ping = '2024-01-16T14:30Z',
+                updated_at = '2024-01-15T14:00Z',
+                id = 'abc123def456',
+                active = True
             )
         else:
             return HeartbeatCheckDetail(
-                period_seconds = 86400,
                 name = 'Nightly Backup Cron Job',
+                period_seconds = 86400,
         )
         """
 

@@ -36,12 +36,12 @@ class TestRegionalResultSummary(unittest.TestCase):
         model = RegionalResultSummary()
         if include_optional:
             return RegionalResultSummary(
-                created_at = '2024-01-15T10:00:05Z',
+                status = 'ok',
                 response_time = 150,
-                error_message = 'Connection timeout',
-                region = 'US, East coast',
                 result_id = 'res123abc456',
-                status = 'ok'
+                created_at = '2024-01-15T10:00:05Z',
+                error_message = 'Connection timeout',
+                region = 'US, East coast'
             )
         else:
             return RegionalResultSummary(

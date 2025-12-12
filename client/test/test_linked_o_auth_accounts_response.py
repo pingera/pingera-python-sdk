@@ -38,13 +38,13 @@ class TestLinkedOAuthAccountsResponse(unittest.TestCase):
             return LinkedOAuthAccountsResponse(
                 accounts = [
                     pingera.models.linked_o_auth_account.LinkedOAuthAccount(
+                        last_used_at = '2023-08-02T11:30:45Z', 
                         provider = null, 
                         created_at = '2023-08-02T11:30:45Z', 
-                        id = 'oauth_acc123', 
                         provider_avatar_url = 'https://avatars.yandex.net/get-yapic/123/456/islands-200', 
                         provider_email = 'user@yandex.ru', 
                         provider_name = 'John Doe', 
-                        last_used_at = '2023-08-02T11:30:45Z', )
+                        id = 'oauth_acc123', )
                     ]
             )
         else:

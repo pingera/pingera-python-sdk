@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.14"
+__version__ = "1.0.15"
 
 # Define package exports
 __all__ = [
@@ -74,7 +74,9 @@ __all__ = [
     "CheckServer",
     "Component",
     "Component1",
+    "ComponentUptime",
     "ComponentUptimeBulkRequest",
+    "ComponentUptimeEvents",
     "Credential",
     "CredentialUpdate",
     "CredentialsListResponse",
@@ -231,7 +233,9 @@ from pingera.models.check_secret_input import CheckSecretInput as CheckSecretInp
 from pingera.models.check_server import CheckServer as CheckServer
 from pingera.models.component import Component as Component
 from pingera.models.component1 import Component1 as Component1
+from pingera.models.component_uptime import ComponentUptime as ComponentUptime
 from pingera.models.component_uptime_bulk_request import ComponentUptimeBulkRequest as ComponentUptimeBulkRequest
+from pingera.models.component_uptime_events import ComponentUptimeEvents as ComponentUptimeEvents
 from pingera.models.credential import Credential as Credential
 from pingera.models.credential_update import CredentialUpdate as CredentialUpdate
 from pingera.models.credentials_list_response import CredentialsListResponse as CredentialsListResponse

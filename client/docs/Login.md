@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**password** | **str** | The user&#39;s password for authentication. | 
 **email** | **str** | The user&#39;s email address for authentication. | 
+**password** | **str** | The user&#39;s password for authentication. | 
 
 ## Example
 

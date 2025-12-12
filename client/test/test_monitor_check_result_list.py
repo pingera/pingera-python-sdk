@@ -38,17 +38,17 @@ class TestMonitorCheckResultList(unittest.TestCase):
             return MonitorCheckResultList(
                 results = [
                     pingera.models.monitor_check_result.MonitorCheckResult(
-                        execution_id = '3f7a9b2e-4d5c-4e9f-8a1b-2c3d4e5f6a7b', 
-                        created_at = '2024-01-15T14:30Z', 
-                        id = 'res789xyz012', 
-                        response_time = 250, 
+                        check_server_id = 'srv123abc456', 
+                        status = 'ok', 
                         triggered_alerts = [{"alert_id":"alert123abc456","title":"Check 'API Health' has failed","severity":"high","status":"firing","is_primary_trigger":true}], 
-                        error_message = 'Connection timeout after 10 seconds', 
-                        check_server = null, 
+                        response_time = 250, 
                         check_id = 'chk123def456', 
                         check_metadata = {"status_code":200,"content_length":1024}, 
-                        check_server_id = 'srv123abc456', 
-                        status = 'ok', )
+                        created_at = '2024-01-15T14:30Z', 
+                        execution_id = '3f7a9b2e-4d5c-4e9f-8a1b-2c3d4e5f6a7b', 
+                        id = 'res789xyz012', 
+                        error_message = 'Connection timeout after 10 seconds', 
+                        check_server = null, )
                     ],
                 pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100}
             )

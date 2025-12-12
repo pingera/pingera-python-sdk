@@ -36,26 +36,26 @@ class TestAlert(unittest.TestCase):
         model = Alert()
         if include_optional:
             return Alert(
-                fired_at = '2024-01-15T15:30Z',
-                trigger_results = [{"result_id":"res123abc456","is_primary":true,"status":"failed","error_message":"Connection timeout","created_at":"2024-01-15T10:30:00Z","region":"us-east-1"}],
-                rule_id = 'rule_def456ghi789',
+                regional_summary = {"total_regions":3,"failed_regions":2,"regions":["us-east-1","eu-west-1"]},
                 title = 'Production API Health Check Failed',
+                check_name = Production API Health Check,
+                id = 'alert_abc123def456',
+                trigger_results = [{"result_id":"res123abc456","is_primary":true,"status":"failed","error_message":"Connection timeout","created_at":"2024-01-15T10:30:00Z","region":"us-east-1"}],
                 status = 'firing',
                 description = 'The production API health check has failed 3 consecutive times, indicating a potential service outage.',
-                id = 'alert_abc123def456',
-                last_notification_at = '2024-01-15T15:45Z',
-                alert_metadata = {"consecutive_failures":3,"last_check_result":"timeout","response_time":5000},
-                resolved_at = '2024-01-15T16:30Z',
-                acknowledged_at = '2024-01-15T15:35Z',
-                check_name = Production API Health Check,
-                severity = 'high',
                 acknowledged_by_id = 'user_jkl012mno345',
-                check_id = 'check_ghi789jkl012',
-                rule_name = Production API Down Alert,
-                regional_summary = {"total_regions":3,"failed_regions":2,"regions":["us-east-1","eu-west-1"]},
+                severity = 'high',
                 duration = 3600,
+                is_active = true,
+                check_id = 'check_ghi789jkl012',
+                rule_id = 'rule_def456ghi789',
+                rule_name = Production API Down Alert,
                 notification_count = 3,
-                is_active = true
+                last_notification_at = '2024-01-15T15:45Z',
+                acknowledged_at = '2024-01-15T15:35Z',
+                fired_at = '2024-01-15T15:30Z',
+                alert_metadata = {"consecutive_failures":3,"last_check_result":"timeout","response_time":5000},
+                resolved_at = '2024-01-15T16:30Z'
             )
         else:
             return Alert(

@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **require_2fa** | **bool** | Whether to require 2FA for this user | [optional] 
-**passkey_only** | **bool** | Whether to allow only passkey authentication | [optional] 
 **preferred_auth_method** | **str** | Preferred authentication method | [optional] 
+**passkey_only** | **bool** | Whether to allow only passkey authentication | [optional] 
 
 ## Example
 

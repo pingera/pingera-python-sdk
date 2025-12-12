@@ -36,10 +36,10 @@ class TestPagePasswordCreate(unittest.TestCase):
         model = PagePasswordCreate()
         if include_optional:
             return PagePasswordCreate(
-                password = 'securepassword123',
+                name = 'VIP Access',
                 password_hint = 'Use the company founding year',
                 expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                name = 'VIP Access'
+                password = 'securepassword123'
             )
         else:
             return PagePasswordCreate(

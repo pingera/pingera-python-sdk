@@ -157,7 +157,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_auth_oauth_provider_name_callback_get**
-> OAuthLoginResponse v1_auth_oauth_provider_name_callback_get(provider_name, code, state, error=error, error_description=error_description)
+> OAuthLoginResponse v1_auth_oauth_provider_name_callback_get(provider_name, code, state, error_description=error_description, error=error)
 
 Handle OAuth callback
 
@@ -186,12 +186,12 @@ with pingera.ApiClient(configuration) as api_client:
     provider_name = 'provider_name_example' # str | 
     code = 'def456ghi789' # str | OAuth authorization code from provider
     state = 'abc123def456' # str | OAuth state parameter for CSRF validation
-    error = 'access_denied' # str | OAuth error code if authorization failed (optional)
     error_description = 'User denied access' # str | Human-readable error description (optional)
+    error = 'access_denied' # str | OAuth error code if authorization failed (optional)
 
     try:
         # Handle OAuth callback
-        api_response = api_instance.v1_auth_oauth_provider_name_callback_get(provider_name, code, state, error=error, error_description=error_description)
+        api_response = api_instance.v1_auth_oauth_provider_name_callback_get(provider_name, code, state, error_description=error_description, error=error)
         print("The response of OAuthApi->v1_auth_oauth_provider_name_callback_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -208,8 +208,8 @@ Name | Type | Description  | Notes
  **provider_name** | **str**|  | 
  **code** | **str**| OAuth authorization code from provider | 
  **state** | **str**| OAuth state parameter for CSRF validation | 
- **error** | **str**| OAuth error code if authorization failed | [optional] 
  **error_description** | **str**| Human-readable error description | [optional] 
+ **error** | **str**| OAuth error code if authorization failed | [optional] 
 
 ### Return type
 

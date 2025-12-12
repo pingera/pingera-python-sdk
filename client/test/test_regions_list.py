@@ -36,14 +36,14 @@ class TestRegionsList(unittest.TestCase):
         model = RegionsList()
         if include_optional:
             return RegionsList(
-                total_regions = 2,
                 regions = [
                     pingera.models.region.Region(
-                        display_name = 'Europe, West, Belgium', 
+                        id = 'EU, West', 
                         available_check_types = ["api","web","tcp","ssl","synthetic","multistep"], 
                         aliases = ["eu-west1","eu-bel"], 
-                        id = 'EU, West', )
-                    ]
+                        display_name = 'Europe, West, Belgium', )
+                    ],
+                total_regions = 2
             )
         else:
             return RegionsList(

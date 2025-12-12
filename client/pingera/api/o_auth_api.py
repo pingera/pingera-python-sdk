@@ -556,8 +556,8 @@ class OAuthApi:
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
         code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
-        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
+        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -581,10 +581,10 @@ class OAuthApi:
         :type code: str
         :param state: OAuth state parameter for CSRF validation (required)
         :type state: str
-        :param error: OAuth error code if authorization failed
-        :type error: str
         :param error_description: Human-readable error description
         :type error_description: str
+        :param error: OAuth error code if authorization failed
+        :type error: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -611,8 +611,8 @@ class OAuthApi:
             provider_name=provider_name,
             code=code,
             state=state,
-            error=error,
             error_description=error_description,
+            error=error,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -640,8 +640,8 @@ class OAuthApi:
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
         code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
-        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
+        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -665,10 +665,10 @@ class OAuthApi:
         :type code: str
         :param state: OAuth state parameter for CSRF validation (required)
         :type state: str
-        :param error: OAuth error code if authorization failed
-        :type error: str
         :param error_description: Human-readable error description
         :type error_description: str
+        :param error: OAuth error code if authorization failed
+        :type error: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -695,8 +695,8 @@ class OAuthApi:
             provider_name=provider_name,
             code=code,
             state=state,
-            error=error,
             error_description=error_description,
+            error=error,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -724,8 +724,8 @@ class OAuthApi:
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
         code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
         state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
-        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
+        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -749,10 +749,10 @@ class OAuthApi:
         :type code: str
         :param state: OAuth state parameter for CSRF validation (required)
         :type state: str
-        :param error: OAuth error code if authorization failed
-        :type error: str
         :param error_description: Human-readable error description
         :type error_description: str
+        :param error: OAuth error code if authorization failed
+        :type error: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -779,8 +779,8 @@ class OAuthApi:
             provider_name=provider_name,
             code=code,
             state=state,
-            error=error,
             error_description=error_description,
+            error=error,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -803,8 +803,8 @@ class OAuthApi:
         provider_name,
         code,
         state,
-        error,
         error_description,
+        error,
         _request_auth,
         _content_type,
         _headers,
@@ -829,6 +829,10 @@ class OAuthApi:
         if provider_name is not None:
             _path_params['provider_name'] = provider_name
         # process the query parameters
+        if error_description is not None:
+            
+            _query_params.append(('error_description', error_description))
+            
         if code is not None:
             
             _query_params.append(('code', code))
@@ -836,10 +840,6 @@ class OAuthApi:
         if error is not None:
             
             _query_params.append(('error', error))
-            
-        if error_description is not None:
-            
-            _query_params.append(('error_description', error_description))
             
         if state is not None:
             

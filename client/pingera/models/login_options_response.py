@@ -27,10 +27,10 @@ class LoginOptionsResponse(BaseModel):
     """
     LoginOptionsResponse
     """ # noqa: E501
+    preferred: Optional[StrictStr] = Field(default=None, description="Preferred authentication method")
     requires_2fa: Optional[StrictBool] = Field(default=None, description="Whether 2FA is required for this user")
     methods: Optional[List[StrictStr]] = Field(default=None, description="Available authentication methods for this email")
-    preferred: Optional[StrictStr] = Field(default=None, description="Preferred authentication method")
-    __properties: ClassVar[List[str]] = ["requires_2fa", "methods", "preferred"]
+    __properties: ClassVar[List[str]] = ["preferred", "requires_2fa", "methods"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,9 +67,9 @@ class LoginOptionsResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "preferred",
             "requires_2fa",
             "methods",
-            "preferred",
         ])
 
         _dict = self.model_dump(
@@ -89,9 +89,9 @@ class LoginOptionsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "preferred": obj.get("preferred"),
             "requires_2fa": obj.get("requires_2fa"),
-            "methods": obj.get("methods"),
-            "preferred": obj.get("preferred")
+            "methods": obj.get("methods")
         })
         return _obj
 

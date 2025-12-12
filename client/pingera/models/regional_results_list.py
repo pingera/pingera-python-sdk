@@ -30,9 +30,9 @@ class RegionalResultsList(BaseModel):
     RegionalResultsList
     """ # noqa: E501
     regional_results: Optional[List[RegionalResultSummary]] = Field(default=None, description="List of results from each region")
-    execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group")
     statistics: Optional[ExecutionGroupStatistics] = Field(default=None, description="Aggregated statistics")
-    __properties: ClassVar[List[str]] = ["regional_results", "execution_group_id", "statistics"]
+    execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group")
+    __properties: ClassVar[List[str]] = ["regional_results", "statistics", "execution_group_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,8 +96,8 @@ class RegionalResultsList(BaseModel):
 
         _obj = cls.model_validate({
             "regional_results": [RegionalResultSummary.from_dict(_item) for _item in obj["regional_results"]] if obj.get("regional_results") is not None else None,
-            "execution_group_id": obj.get("execution_group_id"),
-            "statistics": ExecutionGroupStatistics.from_dict(obj["statistics"]) if obj.get("statistics") is not None else None
+            "statistics": ExecutionGroupStatistics.from_dict(obj["statistics"]) if obj.get("statistics") is not None else None,
+            "execution_group_id": obj.get("execution_group_id")
         })
         return _obj
 

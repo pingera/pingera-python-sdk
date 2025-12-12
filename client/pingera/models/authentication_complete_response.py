@@ -28,12 +28,12 @@ class AuthenticationCompleteResponse(BaseModel):
     """
     AuthenticationCompleteResponse
     """ # noqa: E501
+    auth_method: Optional[StrictStr] = Field(default=None, description="The authentication method used.")
     access_token: Optional[StrictStr] = Field(default=None, description="A JWT access token for authenticating subsequent requests.")
     is_first_login: Optional[StrictBool] = Field(default=None, description="Indicates if this is the user's first successful authentication.")
-    auth_method: Optional[StrictStr] = Field(default=None, description="The authentication method used.")
-    user: Optional[User] = Field(default=None, description="Information about the authenticated user.")
     refresh_token: Optional[StrictStr] = Field(default=None, description="A JWT refresh token for generating new access tokens.")
-    __properties: ClassVar[List[str]] = ["access_token", "is_first_login", "auth_method", "user", "refresh_token"]
+    user: Optional[User] = Field(default=None, description="Information about the authenticated user.")
+    __properties: ClassVar[List[str]] = ["auth_method", "access_token", "is_first_login", "refresh_token", "user"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,11 +72,11 @@ class AuthenticationCompleteResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "auth_method",
             "access_token",
             "is_first_login",
-            "auth_method",
-            "user",
             "refresh_token",
+            "user",
         ])
 
         _dict = self.model_dump(
@@ -99,11 +99,11 @@ class AuthenticationCompleteResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "auth_method": obj.get("auth_method"),
             "access_token": obj.get("access_token"),
             "is_first_login": obj.get("is_first_login"),
-            "auth_method": obj.get("auth_method"),
-            "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None,
-            "refresh_token": obj.get("refresh_token")
+            "refresh_token": obj.get("refresh_token"),
+            "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None
         })
         return _obj
 

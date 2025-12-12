@@ -28,15 +28,15 @@ class ExecuteCustomCheckRequest(BaseModel):
     """
     ExecuteCustomCheckRequest
     """ # noqa: E501
-    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
     type: StrictStr = Field(description="The type of monitoring check to perform.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the custom check. Max 100 characters.")
-    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks.")
     secrets: Optional[List[Dict[str, StrictStr]]] = Field(default=None, description="List of secrets to inject as environment variables during check execution. Each secret must have 'secret_id' and 'env_variable' keys.")
-    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
-    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP and SSL checks). Range: 1-65535.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the custom check. Max 100 characters.")
+    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
     parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).")
-    __properties: ClassVar[List[str]] = ["host", "type", "name", "timeout", "secrets", "url", "port", "parameters"]
+    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks.")
+    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP and SSL checks). Range: 1-65535.")
+    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
+    __properties: ClassVar[List[str]] = ["type", "secrets", "name", "host", "parameters", "timeout", "port", "url"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -96,14 +96,14 @@ class ExecuteCustomCheckRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "host": obj.get("host"),
             "type": obj.get("type"),
-            "name": obj.get("name"),
-            "timeout": obj.get("timeout"),
             "secrets": obj.get("secrets"),
-            "url": obj.get("url"),
+            "name": obj.get("name"),
+            "host": obj.get("host"),
+            "parameters": obj.get("parameters"),
+            "timeout": obj.get("timeout"),
             "port": obj.get("port"),
-            "parameters": obj.get("parameters")
+            "url": obj.get("url")
         })
         return _obj
 

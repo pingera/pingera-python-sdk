@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **user** | [**User**](User.md) | User information | [optional] [readonly] 
+**auth_method** | **str** | Authentication method used | [optional] [readonly] 
 **access_token** | **str** | JWT access token for authenticated requests | [optional] [readonly] 
 **refresh_token** | **str** | Refresh token for obtaining new access tokens | [optional] [readonly] 
-**auth_method** | **str** | Authentication method used | [optional] [readonly] 
 
 ## Example
 

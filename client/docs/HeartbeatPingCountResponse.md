@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**summary** | **Dict[str, object]** | Summary statistics for the time period. | [optional] [readonly] 
 **ping_counts** | [**List[HeartbeatPingCountHistory]**](HeartbeatPingCountHistory.md) | List of hourly ping counts. | [optional] [readonly] 
+**summary** | **Dict[str, object]** | Summary statistics for the time period. | [optional] [readonly] 
 
 ## Example
 

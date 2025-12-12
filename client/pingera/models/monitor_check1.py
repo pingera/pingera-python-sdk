@@ -31,27 +31,27 @@ class MonitorCheck1(BaseModel):
     """
     MonitorCheck1
     """ # noqa: E501
-    secrets: Optional[List[CheckSecretInput]] = Field(default=None, description="Secrets to associate with this check during creation. Each secret must have secret_id and env_variable fields.")
-    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
-    type: Optional[StrictStr] = Field(default=None, description="The type of monitoring check to perform.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.")
     group_id: Optional[StrictStr] = Field(default=None, description="The ID of the group this check belongs to (optional).")
-    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks.")
-    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
-    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
-    group: Optional[CheckGroup] = Field(default=None, description="The group this check belongs to (if any).")
-    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
-    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
+    secrets: Optional[List[CheckSecretInput]] = Field(default=None, description="Secrets to associate with this check during creation. Each secret must have secret_id and env_variable fields.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.")
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the monitor check. Max 100 characters.")
-    uptime_data: Optional[List[Dict[str, Any]]] = Field(default=None, description="Uptime data breakdown by hour (only included when include_uptime=true)")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
-    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.")
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
+    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
+    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
+    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
+    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
+    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).")
+    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks.")
     interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours.")
+    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
+    type: Optional[StrictStr] = Field(default=None, description="The type of monitoring check to perform.")
     uptime_summary: Optional[Dict[str, Any]] = Field(default=None, description="Uptime summary statistics (only included when include_uptime=true)")
-    __properties: ClassVar[List[str]] = ["secrets", "parameters", "status", "updated_at", "type", "created_at", "id", "group_id", "timeout", "last_checked_at", "host", "group", "port", "position", "name", "uptime_data", "active", "url", "interval", "uptime_summary"]
+    uptime_data: Optional[List[Dict[str, Any]]] = Field(default=None, description="Uptime data breakdown by hour (only included when include_uptime=true)")
+    group: Optional[CheckGroup] = Field(default=None, description="The group this check belongs to (if any).")
+    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
+    __properties: ClassVar[List[str]] = ["group_id", "secrets", "created_at", "name", "id", "status", "last_checked_at", "updated_at", "host", "position", "port", "parameters", "timeout", "interval", "url", "type", "uptime_summary", "uptime_data", "group", "active"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -113,14 +113,14 @@ class MonitorCheck1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "status",
-            "updated_at",
             "created_at",
             "id",
+            "status",
             "last_checked_at",
-            "group",
-            "uptime_data",
+            "updated_at",
             "uptime_summary",
+            "uptime_data",
+            "group",
         ])
 
         _dict = self.model_dump(
@@ -155,26 +155,26 @@ class MonitorCheck1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "secrets": [CheckSecretInput.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
-            "parameters": obj.get("parameters"),
-            "status": obj.get("status"),
-            "updated_at": obj.get("updated_at"),
-            "type": obj.get("type"),
-            "created_at": obj.get("created_at"),
-            "id": obj.get("id"),
             "group_id": obj.get("group_id"),
-            "timeout": obj.get("timeout"),
-            "last_checked_at": obj.get("last_checked_at"),
-            "host": obj.get("host"),
-            "group": CheckGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
-            "port": obj.get("port"),
-            "position": obj.get("position"),
+            "secrets": [CheckSecretInput.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
+            "created_at": obj.get("created_at"),
             "name": obj.get("name"),
-            "uptime_data": obj.get("uptime_data"),
-            "active": obj.get("active"),
-            "url": obj.get("url"),
+            "id": obj.get("id"),
+            "status": obj.get("status"),
+            "last_checked_at": obj.get("last_checked_at"),
+            "updated_at": obj.get("updated_at"),
+            "host": obj.get("host"),
+            "position": obj.get("position"),
+            "port": obj.get("port"),
+            "parameters": obj.get("parameters"),
+            "timeout": obj.get("timeout"),
             "interval": obj.get("interval"),
-            "uptime_summary": obj.get("uptime_summary")
+            "url": obj.get("url"),
+            "type": obj.get("type"),
+            "uptime_summary": obj.get("uptime_summary"),
+            "uptime_data": obj.get("uptime_data"),
+            "group": CheckGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
+            "active": obj.get("active")
         })
         return _obj
 

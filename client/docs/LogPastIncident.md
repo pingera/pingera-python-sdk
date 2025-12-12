@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**impact** | **str** | The impact level of the incident | 
 **deliver_notifications** | **bool** | Whether to send notifications | [optional] [default to False]
-**incident_updates** | [**List[PastIncidentUpdate]**](PastIncidentUpdate.md) | Array of incident updates in chronological order | 
 **name** | **str** | The name of the incident | 
+**impact** | **str** | The impact level of the incident | 
+**incident_updates** | [**List[PastIncidentUpdate]**](PastIncidentUpdate.md) | Array of incident updates in chronological order | 
 
 ## Example
 

@@ -22,6 +22,7 @@ from typing import List
 from typing_extensions import Annotated
 from pingera.models.component import Component
 from pingera.models.component1 import Component1
+from pingera.models.component_uptime import ComponentUptime
 from pingera.models.component_uptime_bulk_request import ComponentUptimeBulkRequest
 
 from pingera.api_client import ApiClient, RequestSerialized
@@ -3337,7 +3338,7 @@ class StatusPagesComponentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> ComponentUptime:
         """Get component uptime
 
         Get uptime data for a specific component with optional date range filtering
@@ -3378,7 +3379,7 @@ class StatusPagesComponentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComponentUptime",
             '401': None,
             '403': None,
             '404': None,
@@ -3412,7 +3413,7 @@ class StatusPagesComponentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[ComponentUptime]:
         """Get component uptime
 
         Get uptime data for a specific component with optional date range filtering
@@ -3453,7 +3454,7 @@ class StatusPagesComponentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComponentUptime",
             '401': None,
             '403': None,
             '404': None,
@@ -3528,7 +3529,7 @@ class StatusPagesComponentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "ComponentUptime",
             '401': None,
             '403': None,
             '404': None,

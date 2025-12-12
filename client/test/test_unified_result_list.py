@@ -38,25 +38,25 @@ class TestUnifiedResultList(unittest.TestCase):
             return UnifiedResultList(
                 results = [
                     pingera.models.unified_result.UnifiedResult(
+                        check_server_id = '', 
+                        status = '', 
                         execution_group_id = 'grp123abc456', 
-                        execution_id = '3f7a9b2e-4d5c-4e9f-8a1b-2c3d4e5f6a7b', 
-                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        check_name = '', 
-                        id = '', 
                         response_time = 56, 
-                        triggered_alerts = [{"alert_id":"alert123abc456","title":"Check 'API Health' has failed","severity":"high","status":"firing","is_primary_trigger":true}], 
-                        error_message = '', 
-                        check_type = '', 
-                        execution_group = {"id":"grp123abc456","execution_type":"scheduled","execution_mode":"all","status":"completed","total_executions":3,"completed_executions":3,"avg_response_time":175,"min_response_time":120,"max_response_time":230,"regional_summary":{"US, East coast":{"status":"ok","response_time":150},"EU, West":{"status":"ok","response_time":200}},"requested_regions":["US, East coast","EU, West","RU, Moscow"]}, 
-                        check_server = null, 
                         check_id = '', 
                         check_metadata = {
                             'key' : null
                             }, 
-                        region = '', 
-                        check_server_id = '', 
+                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        error_message = '', 
+                        execution_id = '3f7a9b2e-4d5c-4e9f-8a1b-2c3d4e5f6a7b', 
+                        check_type = '', 
+                        execution_group = {"id":"grp123abc456","execution_type":"scheduled","execution_mode":"all","status":"completed","total_executions":3,"completed_executions":3,"avg_response_time":175,"min_response_time":120,"max_response_time":230,"regional_summary":{"US, East coast":{"status":"ok","response_time":150},"EU, West":{"status":"ok","response_time":200}},"requested_regions":["US, East coast","EU, West","RU, Moscow"]}, 
+                        check_server = null, 
+                        check_name = '', 
+                        id = '', 
                         result_type = 'regular', 
-                        status = '', )
+                        triggered_alerts = [{"alert_id":"alert123abc456","title":"Check 'API Health' has failed","severity":"high","status":"firing","is_primary_trigger":true}], 
+                        region = '', )
                     ],
                 pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100}
             )

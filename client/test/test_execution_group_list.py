@@ -36,24 +36,24 @@ class TestExecutionGroupList(unittest.TestCase):
         model = ExecutionGroupList()
         if include_optional:
             return ExecutionGroupList(
-                pagination = {"page":1,"page_size":20,"total_pages":3,"total_items":45},
                 execution_groups = [
                     pingera.models.execution_group.ExecutionGroup(
                         requested_regions = ["US, East coast","EU, West","RU, Moscow"], 
-                        created_at = '2024-01-15T10:00Z', 
-                        id = 'grp123abc456', 
                         execution_type = 'scheduled', 
+                        status = 'completed', 
                         regional_summary = {"US, East coast":{"status":"ok","response_time":150},"EU, West":{"status":"failed","error_message":"Connection timeout"}}, 
-                        triggered_by_user_id = 'usr123abc456', 
                         started_at = '2024-01-15T10:00:01Z', 
-                        timeout_at = '2024-01-15T10:05Z', 
+                        triggered_by_user_id = 'usr123abc456', 
                         check_id = 'chk123def456', 
+                        created_at = '2024-01-15T10:00Z', 
                         organization_id = 'org123xyz789', 
-                        completed_at = '2024-01-15T10:00:05Z', 
                         statistics = null, 
-                        execution_mode = 'all', 
-                        status = 'completed', )
-                    ]
+                        completed_at = '2024-01-15T10:00:05Z', 
+                        id = 'grp123abc456', 
+                        timeout_at = '2024-01-15T10:05Z', 
+                        execution_mode = 'all', )
+                    ],
+                pagination = {"page":1,"page_size":20,"total_pages":3,"total_items":45}
             )
         else:
             return ExecutionGroupList(

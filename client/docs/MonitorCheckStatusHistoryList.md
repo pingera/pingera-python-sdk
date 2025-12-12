@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** | Pagination information for the status history. | [optional] 
 **status_history** | [**List[MonitorCheckStatusHistory]**](MonitorCheckStatusHistory.md) | List of status history records for the check. | [optional] 
+**pagination** | **Dict[str, object]** | Pagination information for the status history. | [optional] 
 
 ## Example
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **v1_checks_all_results_get**
-> UnifiedResultList v1_checks_all_results_get(execution_group_id=execution_group_id, start_date=start_date, is_multi_region=is_multi_region, has_alerts=has_alerts, check_type=check_type, result_type=result_type, check_id=check_id, page=page, end_date=end_date, region=region, page_size=page_size, result_id=result_id, status=status)
+> UnifiedResultList v1_checks_all_results_get(status=status, is_multi_region=is_multi_region, page_size=page_size, execution_group_id=execution_group_id, end_date=end_date, result_id=result_id, check_id=check_id, has_alerts=has_alerts, check_type=check_type, start_date=start_date, result_type=result_type, page=page, region=region)
 
 Get all check results (regular and on-demand)
 
@@ -53,23 +53,23 @@ configuration = pingera.Configuration(
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksUnifiedResultsApi(api_client)
-    execution_group_id = 'grp123abc456' # str | Filter by specific execution group ID. Shows all regional results from a multi-region execution. (optional)
-    start_date = '2024-01-15T00:00Z' # datetime | Start date for filtering results (ISO format). Limited to 6 months in the past. (optional)
+    status = 'ok' # str | Filter by check result status. (optional)
     is_multi_region = true # bool | Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results. (optional)
+    page_size = 20 # int | Number of results per page (maximum 100). (optional) (default to 20)
+    execution_group_id = 'grp123abc456' # str | Filter by specific execution group ID. Shows all regional results from a multi-region execution. (optional)
+    end_date = '2024-01-15T23:59:59Z' # datetime | End date for filtering results (ISO format). (optional)
+    result_id = 'o8gzgweldbw2' # str | Filter by specific result ID to get a single result. (optional)
+    check_id = 'chk123abc456' # str | Filter by specific check ID. (optional)
     has_alerts = true # bool | Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results. (optional)
     check_type = 'web' # str | Filter by check type. (optional)
+    start_date = '2024-01-15T00:00Z' # datetime | Start date for filtering results (ISO format). Limited to 6 months in the past. (optional)
     result_type = 'regular' # str | Filter by result type. (optional)
-    check_id = 'chk123abc456' # str | Filter by specific check ID. (optional)
     page = 1 # int | Page number for pagination (starting from 1). (optional) (default to 1)
-    end_date = '2024-01-15T23:59:59Z' # datetime | End date for filtering results (ISO format). (optional)
     region = 'us-west-1' # str | Filter by region where check was executed. (optional)
-    page_size = 20 # int | Number of results per page (maximum 100). (optional) (default to 20)
-    result_id = 'o8gzgweldbw2' # str | Filter by specific result ID to get a single result. (optional)
-    status = 'ok' # str | Filter by check result status. (optional)
 
     try:
         # Get all check results (regular and on-demand)
-        api_response = api_instance.v1_checks_all_results_get(execution_group_id=execution_group_id, start_date=start_date, is_multi_region=is_multi_region, has_alerts=has_alerts, check_type=check_type, result_type=result_type, check_id=check_id, page=page, end_date=end_date, region=region, page_size=page_size, result_id=result_id, status=status)
+        api_response = api_instance.v1_checks_all_results_get(status=status, is_multi_region=is_multi_region, page_size=page_size, execution_group_id=execution_group_id, end_date=end_date, result_id=result_id, check_id=check_id, has_alerts=has_alerts, check_type=check_type, start_date=start_date, result_type=result_type, page=page, region=region)
         print("The response of ChecksUnifiedResultsApi->v1_checks_all_results_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -83,19 +83,19 @@ with pingera.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **execution_group_id** | **str**| Filter by specific execution group ID. Shows all regional results from a multi-region execution. | [optional] 
- **start_date** | **datetime**| Start date for filtering results (ISO format). Limited to 6 months in the past. | [optional] 
+ **status** | **str**| Filter by check result status. | [optional] 
  **is_multi_region** | **bool**| Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results. | [optional] 
+ **page_size** | **int**| Number of results per page (maximum 100). | [optional] [default to 20]
+ **execution_group_id** | **str**| Filter by specific execution group ID. Shows all regional results from a multi-region execution. | [optional] 
+ **end_date** | **datetime**| End date for filtering results (ISO format). | [optional] 
+ **result_id** | **str**| Filter by specific result ID to get a single result. | [optional] 
+ **check_id** | **str**| Filter by specific check ID. | [optional] 
  **has_alerts** | **bool**| Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results. | [optional] 
  **check_type** | **str**| Filter by check type. | [optional] 
+ **start_date** | **datetime**| Start date for filtering results (ISO format). Limited to 6 months in the past. | [optional] 
  **result_type** | **str**| Filter by result type. | [optional] 
- **check_id** | **str**| Filter by specific check ID. | [optional] 
  **page** | **int**| Page number for pagination (starting from 1). | [optional] [default to 1]
- **end_date** | **datetime**| End date for filtering results (ISO format). | [optional] 
  **region** | **str**| Filter by region where check was executed. | [optional] 
- **page_size** | **int**| Number of results per page (maximum 100). | [optional] [default to 20]
- **result_id** | **str**| Filter by specific result ID to get a single result. | [optional] 
- **status** | **str**| Filter by check result status. | [optional] 
 
 ### Return type
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_check_id_response_times_get**
-> Dict[str, object] v1_checks_check_id_response_times_get(check_id, execution_group_id=execution_group_id, start_date=start_date, is_multi_region=is_multi_region, end_date=end_date, region=region, status=status)
+> Dict[str, object] v1_checks_check_id_response_times_get(check_id, status=status, is_multi_region=is_multi_region, end_date=end_date, execution_group_id=execution_group_id, start_date=start_date, region=region)
 
 Get aggregated response time metrics for a specific check
 
@@ -167,16 +167,16 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksUnifiedResultsApi(api_client)
     check_id = 'check_id_example' # str | 
-    execution_group_id = 'grp123abc456' # str | Filter by specific execution group ID for multi-region analysis. (optional)
-    start_date = '2024-01-15T00:00Z' # datetime | Start date for metrics (ISO format). Limited to 6 months in the past. (optional)
+    status = 'ok' # str | Filter by check status. (optional)
     is_multi_region = true # bool | Filter to show only multi-region executions (true) or only single-region executions (false). (optional)
     end_date = '2024-01-15T23:59:59Z' # datetime | End date for metrics (ISO format). (optional)
+    execution_group_id = 'grp123abc456' # str | Filter by specific execution group ID for multi-region analysis. (optional)
+    start_date = '2024-01-15T00:00Z' # datetime | Start date for metrics (ISO format). Limited to 6 months in the past. (optional)
     region = 'us-west-1' # str | Filter by specific region. (optional)
-    status = 'ok' # str | Filter by check status. (optional)
 
     try:
         # Get aggregated response time metrics for a specific check
-        api_response = api_instance.v1_checks_check_id_response_times_get(check_id, execution_group_id=execution_group_id, start_date=start_date, is_multi_region=is_multi_region, end_date=end_date, region=region, status=status)
+        api_response = api_instance.v1_checks_check_id_response_times_get(check_id, status=status, is_multi_region=is_multi_region, end_date=end_date, execution_group_id=execution_group_id, start_date=start_date, region=region)
         print("The response of ChecksUnifiedResultsApi->v1_checks_check_id_response_times_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -191,12 +191,12 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **check_id** | **str**|  | 
- **execution_group_id** | **str**| Filter by specific execution group ID for multi-region analysis. | [optional] 
- **start_date** | **datetime**| Start date for metrics (ISO format). Limited to 6 months in the past. | [optional] 
+ **status** | **str**| Filter by check status. | [optional] 
  **is_multi_region** | **bool**| Filter to show only multi-region executions (true) or only single-region executions (false). | [optional] 
  **end_date** | **datetime**| End date for metrics (ISO format). | [optional] 
+ **execution_group_id** | **str**| Filter by specific execution group ID for multi-region analysis. | [optional] 
+ **start_date** | **datetime**| Start date for metrics (ISO format). Limited to 6 months in the past. | [optional] 
  **region** | **str**| Filter by specific region. | [optional] 
- **status** | **str**| Filter by check status. | [optional] 
 
 ### Return type
 
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_status_history_get**
-> Dict[str, object] v1_checks_status_history_get(execution_group_id=execution_group_id, start_date=start_date, is_multi_region=is_multi_region, has_alerts=has_alerts, check_id=check_id, end_date=end_date, region=region, result_type=result_type, status=status)
+> Dict[str, object] v1_checks_status_history_get(status=status, is_multi_region=is_multi_region, end_date=end_date, execution_group_id=execution_group_id, check_id=check_id, has_alerts=has_alerts, start_date=start_date, result_type=result_type, region=region)
 
 Get time-bucketed status history metrics
 
@@ -268,19 +268,19 @@ configuration = pingera.Configuration(
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.ChecksUnifiedResultsApi(api_client)
-    execution_group_id = 'grp123abc456' # str | Filter by specific execution group ID for multi-region analysis. (optional)
-    start_date = '2024-01-15T00:00Z' # datetime | Start date for status history (ISO format). Limited to 6 months in the past. (optional)
-    is_multi_region = true # bool | Filter to show only multi-region executions (true) or only single-region executions (false). (optional)
-    has_alerts = true # bool | Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results. (optional)
-    check_id = 'chk123abc456' # str | Filter by specific check ID. If not provided, returns metrics for all checks. (optional)
-    end_date = '2024-01-15T23:59:59Z' # datetime | End date for status history (ISO format). (optional)
-    region = 'us-west-1' # str | Filter by specific region. (optional)
-    result_type = 'regular' # str | Filter by result type. (optional)
     status = 'ok' # str | Filter by check status. (optional)
+    is_multi_region = true # bool | Filter to show only multi-region executions (true) or only single-region executions (false). (optional)
+    end_date = '2024-01-15T23:59:59Z' # datetime | End date for status history (ISO format). (optional)
+    execution_group_id = 'grp123abc456' # str | Filter by specific execution group ID for multi-region analysis. (optional)
+    check_id = 'chk123abc456' # str | Filter by specific check ID. If not provided, returns metrics for all checks. (optional)
+    has_alerts = true # bool | Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results. (optional)
+    start_date = '2024-01-15T00:00Z' # datetime | Start date for status history (ISO format). Limited to 6 months in the past. (optional)
+    result_type = 'regular' # str | Filter by result type. (optional)
+    region = 'us-west-1' # str | Filter by specific region. (optional)
 
     try:
         # Get time-bucketed status history metrics
-        api_response = api_instance.v1_checks_status_history_get(execution_group_id=execution_group_id, start_date=start_date, is_multi_region=is_multi_region, has_alerts=has_alerts, check_id=check_id, end_date=end_date, region=region, result_type=result_type, status=status)
+        api_response = api_instance.v1_checks_status_history_get(status=status, is_multi_region=is_multi_region, end_date=end_date, execution_group_id=execution_group_id, check_id=check_id, has_alerts=has_alerts, start_date=start_date, result_type=result_type, region=region)
         print("The response of ChecksUnifiedResultsApi->v1_checks_status_history_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -294,15 +294,15 @@ with pingera.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **execution_group_id** | **str**| Filter by specific execution group ID for multi-region analysis. | [optional] 
- **start_date** | **datetime**| Start date for status history (ISO format). Limited to 6 months in the past. | [optional] 
- **is_multi_region** | **bool**| Filter to show only multi-region executions (true) or only single-region executions (false). | [optional] 
- **has_alerts** | **bool**| Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results. | [optional] 
- **check_id** | **str**| Filter by specific check ID. If not provided, returns metrics for all checks. | [optional] 
- **end_date** | **datetime**| End date for status history (ISO format). | [optional] 
- **region** | **str**| Filter by specific region. | [optional] 
- **result_type** | **str**| Filter by result type. | [optional] 
  **status** | **str**| Filter by check status. | [optional] 
+ **is_multi_region** | **bool**| Filter to show only multi-region executions (true) or only single-region executions (false). | [optional] 
+ **end_date** | **datetime**| End date for status history (ISO format). | [optional] 
+ **execution_group_id** | **str**| Filter by specific execution group ID for multi-region analysis. | [optional] 
+ **check_id** | **str**| Filter by specific check ID. If not provided, returns metrics for all checks. | [optional] 
+ **has_alerts** | **bool**| Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results. | [optional] 
+ **start_date** | **datetime**| Start date for status history (ISO format). Limited to 6 months in the past. | [optional] 
+ **result_type** | **str**| Filter by result type. | [optional] 
+ **region** | **str**| Filter by specific region. | [optional] 
 
 ### Return type
 

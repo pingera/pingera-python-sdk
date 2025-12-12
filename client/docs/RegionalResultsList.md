@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **regional_results** | [**List[RegionalResultSummary]**](RegionalResultSummary.md) | List of results from each region | [optional] 
-**execution_group_id** | **str** | ID of the execution group | [optional] 
 **statistics** | [**ExecutionGroupStatistics**](ExecutionGroupStatistics.md) | Aggregated statistics | [optional] 
+**execution_group_id** | **str** | ID of the execution group | [optional] 
 
 ## Example
 

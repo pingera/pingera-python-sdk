@@ -29,24 +29,24 @@ class UnifiedResult(BaseModel):
     """
     UnifiedResult
     """ # noqa: E501
+    check_server_id: Optional[StrictStr] = None
+    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
     execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group if this result is part of a multi-region execution. Null for single-region checks.")
-    execution_id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this specific check execution. Null for legacy results.")
-    created_at: Optional[datetime] = None
-    check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
     response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
-    triggered_alerts: Optional[List[Dict[str, Any]]] = Field(default=None, description="Alerts that were triggered by this check result.")
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check, if applicable.")
+    check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata from the check.")
+    created_at: Optional[datetime] = None
     error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
+    execution_id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this specific check execution. Null for legacy results.")
     check_type: Optional[StrictStr] = Field(default=None, description="The type of check performed (e.g., web, api, ssl, icmp, dns).")
     execution_group: Optional[Dict[str, Any]] = Field(default=None, description="Execution group details if this result is part of a multi-region execution.")
     check_server: Optional[CheckServer] = None
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check, if applicable.")
-    check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata from the check.")
-    region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
-    check_server_id: Optional[StrictStr] = None
+    check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
     result_type: Optional[StrictStr] = Field(default=None, description="Type of the result.")
-    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    __properties: ClassVar[List[str]] = ["execution_group_id", "execution_id", "created_at", "check_name", "id", "response_time", "triggered_alerts", "error_message", "check_type", "execution_group", "check_server", "check_id", "check_metadata", "region", "check_server_id", "result_type", "status"]
+    triggered_alerts: Optional[List[Dict[str, Any]]] = Field(default=None, description="Alerts that were triggered by this check result.")
+    region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
+    __properties: ClassVar[List[str]] = ["check_server_id", "status", "execution_group_id", "response_time", "check_id", "check_metadata", "created_at", "error_message", "execution_id", "check_type", "execution_group", "check_server", "check_name", "id", "result_type", "triggered_alerts", "region"]
 
     @field_validator('result_type')
     def result_type_validate_enum(cls, value):
@@ -102,16 +102,16 @@ class UnifiedResult(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "execution_group_id",
-            "execution_id",
             "created_at",
-            "check_name",
-            "id",
-            "triggered_alerts",
+            "execution_id",
             "check_type",
             "execution_group",
             "check_server",
-            "region",
+            "check_name",
+            "id",
             "result_type",
+            "triggered_alerts",
+            "region",
         ])
 
         _dict = self.model_dump(
@@ -127,25 +127,25 @@ class UnifiedResult(BaseModel):
         if self.execution_group_id is None and "execution_group_id" in self.model_fields_set:
             _dict['execution_group_id'] = None
 
-        # set to None if execution_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.execution_id is None and "execution_id" in self.model_fields_set:
-            _dict['execution_id'] = None
-
-        # set to None if triggered_alerts (nullable) is None
-        # and model_fields_set contains the field
-        if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:
-            _dict['triggered_alerts'] = None
-
         # set to None if error_message (nullable) is None
         # and model_fields_set contains the field
         if self.error_message is None and "error_message" in self.model_fields_set:
             _dict['error_message'] = None
 
+        # set to None if execution_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.execution_id is None and "execution_id" in self.model_fields_set:
+            _dict['execution_id'] = None
+
         # set to None if execution_group (nullable) is None
         # and model_fields_set contains the field
         if self.execution_group is None and "execution_group" in self.model_fields_set:
             _dict['execution_group'] = None
+
+        # set to None if triggered_alerts (nullable) is None
+        # and model_fields_set contains the field
+        if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:
+            _dict['triggered_alerts'] = None
 
         return _dict
 
@@ -159,23 +159,23 @@ class UnifiedResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "check_server_id": obj.get("check_server_id"),
+            "status": obj.get("status"),
             "execution_group_id": obj.get("execution_group_id"),
-            "execution_id": obj.get("execution_id"),
-            "created_at": obj.get("created_at"),
-            "check_name": obj.get("check_name"),
-            "id": obj.get("id"),
             "response_time": obj.get("response_time"),
-            "triggered_alerts": obj.get("triggered_alerts"),
+            "check_id": obj.get("check_id"),
+            "check_metadata": obj.get("check_metadata"),
+            "created_at": obj.get("created_at"),
             "error_message": obj.get("error_message"),
+            "execution_id": obj.get("execution_id"),
             "check_type": obj.get("check_type"),
             "execution_group": obj.get("execution_group"),
             "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
-            "check_id": obj.get("check_id"),
-            "check_metadata": obj.get("check_metadata"),
-            "region": obj.get("region"),
-            "check_server_id": obj.get("check_server_id"),
+            "check_name": obj.get("check_name"),
+            "id": obj.get("id"),
             "result_type": obj.get("result_type"),
-            "status": obj.get("status")
+            "triggered_alerts": obj.get("triggered_alerts"),
+            "region": obj.get("region")
         })
         return _obj
 

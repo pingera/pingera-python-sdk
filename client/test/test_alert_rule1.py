@@ -36,31 +36,31 @@ class TestAlertRule1(unittest.TestCase):
         model = AlertRule1()
         if include_optional:
             return AlertRule1(
-                updated_at = '2024-01-15T14:00Z',
-                multi_region_threshold = {"count":2},
-                cooldown_period = 600,
-                name = 'Production API Down Alert',
-                id = 'rule_abc123def456',
-                severity = 'high',
-                created_at = '2024-01-15T10:00Z',
-                auto_resolve = True,
-                check_name = Production API Health Check,
-                enabled = True,
-                multi_region_mode = 'any_region',
-                condition = 'check_failed',
-                check_id = 'check_def456ghi789',
                 channels = [
                     pingera.models.alert_channel.AlertChannel(
-                        updated_at = '2024-01-15T14:00Z', 
                         type = 'email', 
-                        name = 'Production Email Alerts', 
-                        id = 'chn_abc123def456', 
-                        created_at = '2024-01-15T10:00Z', 
-                        enabled = True, 
                         last_used_at = '2024-01-15T15:30Z', 
-                        configuration = {"recipients":["admin@example.com","ops@example.com"]}, )
+                        created_at = '2024-01-15T10:00Z', 
+                        configuration = {"recipients":["admin@example.com","ops@example.com"]}, 
+                        name = 'Production Email Alerts', 
+                        enabled = True, 
+                        updated_at = '2024-01-15T14:00Z', 
+                        id = 'chn_abc123def456', )
                     ],
+                condition = 'check_failed',
                 channel_ids = ["chn_abc123","chn_def456"],
+                check_id = 'check_def456ghi789',
+                auto_resolve = True,
+                multi_region_threshold = {"count":2},
+                created_at = '2024-01-15T10:00Z',
+                check_name = Production API Health Check,
+                severity = 'high',
+                name = 'Production API Down Alert',
+                cooldown_period = 600,
+                enabled = True,
+                updated_at = '2024-01-15T14:00Z',
+                id = 'rule_abc123def456',
+                multi_region_mode = 'any_region',
                 condition_parameters = {"count":3}
             )
         else:

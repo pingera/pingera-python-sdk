@@ -37,11 +37,11 @@ class TestExecutionGroupStatistics(unittest.TestCase):
         if include_optional:
             return ExecutionGroupStatistics(
                 completed_executions = 3,
-                total_executions = 3,
-                min_response_time = 120,
                 max_response_time = 230,
+                failed_executions = 1,
+                total_executions = 3,
                 avg_response_time = 175,
-                failed_executions = 1
+                min_response_time = 120
             )
         else:
             return ExecutionGroupStatistics(

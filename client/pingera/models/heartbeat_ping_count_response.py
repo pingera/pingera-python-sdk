@@ -28,9 +28,9 @@ class HeartbeatPingCountResponse(BaseModel):
     """
     HeartbeatPingCountResponse
     """ # noqa: E501
-    summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary statistics for the time period.")
     ping_counts: Optional[List[HeartbeatPingCountHistory]] = Field(default=None, description="List of hourly ping counts.")
-    __properties: ClassVar[List[str]] = ["summary", "ping_counts"]
+    summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary statistics for the time period.")
+    __properties: ClassVar[List[str]] = ["ping_counts", "summary"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,8 +66,8 @@ class HeartbeatPingCountResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "summary",
             "ping_counts",
+            "summary",
         ])
 
         _dict = self.model_dump(
@@ -94,8 +94,8 @@ class HeartbeatPingCountResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "summary": obj.get("summary"),
-            "ping_counts": [HeartbeatPingCountHistory.from_dict(_item) for _item in obj["ping_counts"]] if obj.get("ping_counts") is not None else None
+            "ping_counts": [HeartbeatPingCountHistory.from_dict(_item) for _item in obj["ping_counts"]] if obj.get("ping_counts") is not None else None,
+            "summary": obj.get("summary")
         })
         return _obj
 

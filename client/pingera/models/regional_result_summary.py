@@ -28,13 +28,13 @@ class RegionalResultSummary(BaseModel):
     """
     RegionalResultSummary
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when this regional result was created")
+    status: Optional[StrictStr] = Field(default=None, description="Status of the check in this region")
     response_time: Optional[StrictInt] = Field(default=None, description="Response time in milliseconds (null if check failed)")
+    result_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the check result")
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when this regional result was created")
     error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed")
     region: Optional[StrictStr] = Field(default=None, description="Region where this check was executed")
-    result_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the check result")
-    status: Optional[StrictStr] = Field(default=None, description="Status of the check in this region")
-    __properties: ClassVar[List[str]] = ["created_at", "response_time", "error_message", "region", "result_id", "status"]
+    __properties: ClassVar[List[str]] = ["status", "response_time", "result_id", "created_at", "error_message", "region"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -107,12 +107,12 @@ class RegionalResultSummary(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
+            "status": obj.get("status"),
             "response_time": obj.get("response_time"),
-            "error_message": obj.get("error_message"),
-            "region": obj.get("region"),
             "result_id": obj.get("result_id"),
-            "status": obj.get("status")
+            "created_at": obj.get("created_at"),
+            "error_message": obj.get("error_message"),
+            "region": obj.get("region")
         })
         return _obj
 

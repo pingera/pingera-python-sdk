@@ -37,9 +37,9 @@ class TestRegistrationCompleteResponse(unittest.TestCase):
         if include_optional:
             return RegistrationCompleteResponse(
                 credential = pingera.models.credential.Credential(
-                    device_name = 'My MacBook Pro', 
+                    id = 'cred_2Xy...Z1a', 
                     created_at = '2025-08-02T11:30:45Z', 
-                    id = 'cred_2Xy...Z1a', ),
+                    device_name = 'My MacBook Pro', ),
                 success = True
             )
         else:

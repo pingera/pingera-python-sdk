@@ -36,22 +36,22 @@ class TestCheckSecret(unittest.TestCase):
         model = CheckSecret()
         if include_optional:
             return CheckSecret(
-                secret_id = 'sec123abc456',
                 created_at = '2024-01-15T10:00Z',
-                id = 'cs123abc456',
                 secret = pingera.models.secret.Secret(
-                    updated_at = '2024-01-15T14:00Z', 
-                    created_at = '2024-01-15T10:00Z', 
-                    id = 'sec123abc456', 
                     created_by = 'usr123def456', 
-                    secret_name = 'DATABASE_PASSWORD', 
-                    updated_by = 'usr789ghi012', ),
-                env_variable = 'DATABASE_PASSWORD'
+                    created_at = '2024-01-15T10:00Z', 
+                    updated_by = 'usr789ghi012', 
+                    updated_at = '2024-01-15T14:00Z', 
+                    id = 'sec123abc456', 
+                    secret_name = 'DATABASE_PASSWORD', ),
+                env_variable = 'DATABASE_PASSWORD',
+                id = 'cs123abc456',
+                secret_id = 'sec123abc456'
             )
         else:
             return CheckSecret(
-                secret_id = 'sec123abc456',
                 env_variable = 'DATABASE_PASSWORD',
+                secret_id = 'sec123abc456',
         )
         """
 

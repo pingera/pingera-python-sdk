@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**authorization_url** | **str** | URL to redirect user to for OAuth authorization | [optional] [readonly] 
 **state** | **str** | OAuth state parameter for CSRF protection | [optional] [readonly] 
+**authorization_url** | **str** | URL to redirect user to for OAuth authorization | [optional] [readonly] 
 
 ## Example
 

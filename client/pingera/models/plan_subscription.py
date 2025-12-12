@@ -29,12 +29,12 @@ class PlanSubscription(BaseModel):
     """
     PlanSubscription
     """ # noqa: E501
-    plan: Optional[Plan] = Field(default=None, description="The subscribed plan details including pricing and limits.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the subscription was created in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the plan subscription.")
-    start_date: Optional[datetime] = Field(default=None, description="The start date of the subscription in ISO format.")
     end_date: Optional[datetime] = Field(default=None, description="The end date of the subscription in ISO format.")
-    __properties: ClassVar[List[str]] = ["plan", "created_at", "id", "start_date", "end_date"]
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the subscription was created in ISO format.")
+    plan: Optional[Plan] = Field(default=None, description="The subscribed plan details including pricing and limits.")
+    start_date: Optional[datetime] = Field(default=None, description="The start date of the subscription in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the plan subscription.")
+    __properties: ClassVar[List[str]] = ["end_date", "created_at", "plan", "start_date", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,11 +94,11 @@ class PlanSubscription(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "plan": Plan.from_dict(obj["plan"]) if obj.get("plan") is not None else None,
+            "end_date": obj.get("end_date"),
             "created_at": obj.get("created_at"),
-            "id": obj.get("id"),
+            "plan": Plan.from_dict(obj["plan"]) if obj.get("plan") is not None else None,
             "start_date": obj.get("start_date"),
-            "end_date": obj.get("end_date")
+            "id": obj.get("id")
         })
         return _obj
 

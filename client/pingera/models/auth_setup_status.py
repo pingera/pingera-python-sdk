@@ -28,11 +28,11 @@ class AuthSetupStatus(BaseModel):
     AuthSetupStatus
     """ # noqa: E501
     has_password: Optional[StrictBool] = Field(default=None, description="Whether user has a password set")
-    setup_complete: Optional[StrictBool] = Field(default=None, description="Whether authentication setup is complete")
     oauth_providers: Optional[List[StrictStr]] = Field(default=None, description="Connected OAuth providers")
-    two_factor_enabled: Optional[StrictBool] = Field(default=None, description="Whether 2FA is enabled")
+    setup_complete: Optional[StrictBool] = Field(default=None, description="Whether authentication setup is complete")
     passkey_count: Optional[StrictInt] = Field(default=None, description="Number of registered passkeys")
-    __properties: ClassVar[List[str]] = ["has_password", "setup_complete", "oauth_providers", "two_factor_enabled", "passkey_count"]
+    two_factor_enabled: Optional[StrictBool] = Field(default=None, description="Whether 2FA is enabled")
+    __properties: ClassVar[List[str]] = ["has_password", "oauth_providers", "setup_complete", "passkey_count", "two_factor_enabled"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,10 +72,10 @@ class AuthSetupStatus(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "has_password",
-            "setup_complete",
             "oauth_providers",
-            "two_factor_enabled",
+            "setup_complete",
             "passkey_count",
+            "two_factor_enabled",
         ])
 
         _dict = self.model_dump(
@@ -96,10 +96,10 @@ class AuthSetupStatus(BaseModel):
 
         _obj = cls.model_validate({
             "has_password": obj.get("has_password"),
-            "setup_complete": obj.get("setup_complete"),
             "oauth_providers": obj.get("oauth_providers"),
-            "two_factor_enabled": obj.get("two_factor_enabled"),
-            "passkey_count": obj.get("passkey_count")
+            "setup_complete": obj.get("setup_complete"),
+            "passkey_count": obj.get("passkey_count"),
+            "two_factor_enabled": obj.get("two_factor_enabled")
         })
         return _obj
 

@@ -37,7 +37,9 @@ docs/ChecksApi.md
 docs/ChecksUnifiedResultsApi.md
 docs/Component.md
 docs/Component1.md
+docs/ComponentUptime.md
 docs/ComponentUptimeBulkRequest.md
+docs/ComponentUptimeEvents.md
 docs/Credential.md
 docs/CredentialUpdate.md
 docs/CredentialsListResponse.md
@@ -199,7 +201,9 @@ pingera/models/check_secret_input.py
 pingera/models/check_server.py
 pingera/models/component.py
 pingera/models/component1.py
+pingera/models/component_uptime.py
 pingera/models/component_uptime_bulk_request.py
+pingera/models/component_uptime_events.py
 pingera/models/credential.py
 pingera/models/credential_update.py
 pingera/models/credentials_list_response.py
@@ -335,7 +339,9 @@ test/test_checks_api.py
 test/test_checks_unified_results_api.py
 test/test_component.py
 test/test_component1.py
+test/test_component_uptime.py
 test/test_component_uptime_bulk_request.py
+test/test_component_uptime_events.py
 test/test_credential.py
 test/test_credential_update.py
 test/test_credentials_list_response.py

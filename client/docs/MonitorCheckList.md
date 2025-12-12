@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** | Pagination information for the check results. | [optional] 
 **checks** | [**List[MonitorCheck]**](MonitorCheck.md) | List of monitor checks for the organization. | [optional] 
+**pagination** | **Dict[str, object]** | Pagination information for the check results. | [optional] 
 
 ## Example
 

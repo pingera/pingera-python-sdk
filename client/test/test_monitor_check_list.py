@@ -36,30 +36,30 @@ class TestMonitorCheckList(unittest.TestCase):
         model = MonitorCheckList()
         if include_optional:
             return MonitorCheckList(
-                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100},
                 checks = [
                     pingera.models.monitor_check.MonitorCheck(
-                        secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}], 
-                        parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"}}, 
-                        status = 'ok', 
-                        updated_at = '2024-01-15T14:00Z', 
-                        type = 'web', 
-                        created_at = '2024-01-15T10:00Z', 
-                        id = 'chk123def456', 
                         group_id = 'grp123abc456', 
-                        timeout = 10, 
-                        last_checked_at = '2024-01-15T14:30Z', 
-                        host = 'example.com', 
-                        group = null, 
-                        port = 443, 
-                        position = 0, 
+                        secrets = [{"secret_id":"sec123abc456","env_variable":"API_TOKEN"}], 
+                        created_at = '2024-01-15T10:00Z', 
                         name = 'Production API Health Check', 
-                        uptime_data = [{"hour":"2024-01-15T14:00:00","status":"ok","uptime":100.0}], 
-                        active = True, 
-                        url = 'https://api.example.com/health', 
+                        id = 'chk123def456', 
+                        status = 'ok', 
+                        last_checked_at = '2024-01-15T14:30Z', 
+                        updated_at = '2024-01-15T14:00Z', 
+                        host = 'example.com', 
+                        position = 0, 
+                        port = 443, 
+                        parameters = {"regions":["US, East coast","EU, West"],"multi_region_execution":{"enabled":true,"execution_mode":"all"}}, 
+                        timeout = 10, 
                         interval = 300, 
-                        uptime_summary = {"uptime":99.5,"avg_response_time":250,"checks":100}, )
-                    ]
+                        url = 'https://api.example.com/health', 
+                        type = 'web', 
+                        uptime_summary = {"uptime":99.5,"avg_response_time":250,"checks":100}, 
+                        uptime_data = [{"hour":"2024-01-15T14:00:00","status":"ok","uptime":100.0}], 
+                        group = null, 
+                        active = True, )
+                    ],
+                pagination = {"page":1,"page_size":20,"total_pages":5,"total_items":100}
             )
         else:
             return MonitorCheckList(

@@ -29,62 +29,62 @@ class Page(BaseModel):
     """
     Page
     """ # noqa: E501
-    template: Optional[Any] = Field(default=None, description="Name of the template used for this page")
-    activity_score: Optional[StrictInt] = Field(default=None, description="Internal activity score for the page")
-    ip_restrictions: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="IP address restrictions for viewing the page")
-    google_analytics_id: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Google Analytics measurement ID (e.g., G-XXXXXXXXXX or UA-XXXXXXXXX-X)")
-    css_button_color: Optional[StrictStr] = Field(default=None, description="Button background color in HEX format")
-    state: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="State/region where your organization is located")
-    notifications_email_footer: Optional[StrictStr] = Field(default=None, description="Footer text included in notification emails")
-    css_border_color: Optional[StrictStr] = Field(default=None, description="Border color for page elements in HEX format")
     favicon_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the favicon image")
-    viewers_must_be_team_members: Optional[StrictBool] = Field(default=None, description="Whether only team members can view this page. In other words if page is public or not.")
-    time_zone: Optional[StrictStr] = Field(default=None, description="Timezone for displaying dates and times on the status page")
-    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization this page belongs to")
-    hidden_from_search: Optional[StrictBool] = Field(default=None, description="Whether to hide this page from search engines")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was last updated")
-    css_body_background_color: Optional[StrictStr] = Field(default=None, description="Background color for the page body in HEX format")
-    css_reds: Optional[StrictStr] = Field(default=None, description="Red color used for major outage status in HEX format")
-    css_link_color: Optional[StrictStr] = Field(default=None, description="Color for links in HEX format")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was created")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the status page")
-    template_id: Optional[Annotated[str, Field(strict=True, max_length=12)]] = Field(default=None, description="ID of the template used for this page")
-    allow_sms_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow SMS subscriptions")
-    allow_webhook_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow webhook subscriptions")
-    css_greens: Optional[StrictStr] = Field(default=None, description="Green color used for operational status in HEX format")
-    css_graph_color: Optional[StrictStr] = Field(default=None, description="Color used for graphs and charts in HEX format")
-    css_spinner_color: Optional[StrictStr] = Field(default=None, description="Loading spinner color in HEX format")
-    css_yellows: Optional[StrictStr] = Field(default=None, description="Yellow color used for degraded status in HEX format")
-    domain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Custom domain for the status page")
-    css_button_border_color: Optional[StrictStr] = Field(default=None, description="Button border color in HEX format")
-    support_url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to your support or contact page")
-    email_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the logo used in email notifications")
-    allow_rss_atom_feeds: Optional[StrictBool] = Field(default=None, description="Whether to provide RSS/Atom feeds")
-    css_button_hover_color: Optional[StrictStr] = Field(default=None, description="Button color on hover in HEX format")
-    notifications_from_email: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Email address used as sender for notifications")
-    css_oranges: Optional[StrictStr] = Field(default=None, description="Orange color used for partial outage status in HEX format")
-    hero_cover: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the hero cover image")
-    css_no_data: Optional[StrictStr] = Field(default=None, description="Color used when no data is available in HEX format")
-    yandex_metrica_id: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Yandex Metrica counter ID for analytics tracking")
-    city: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="City where your organization is located")
-    css_button_text_color: Optional[StrictStr] = Field(default=None, description="Button text color in HEX format")
-    css_light_font_color: Optional[StrictStr] = Field(default=None, description="Light font color for secondary text in HEX format")
-    subdomain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Subdomain for accessing the status page (e.g., 'mycompany' for mycompany.pingera.ru)")
-    language: Optional[StrictStr] = Field(default=None, description="Language for the status page interface")
-    country: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Country where your organization is located")
-    password_protected: Optional[StrictBool] = Field(default=None, description="Whether this page is protected by password(s). When true, users must enter a valid password to access the page.")
     css_font_color: Optional[StrictStr] = Field(default=None, description="Primary font color in HEX format")
-    page_description: Optional[StrictStr] = Field(default=None, description="Brief description of what this status page monitors")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Display name of the status page")
-    allow_page_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to page updates")
-    transactional_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the logo used in transactional emails")
-    allow_email_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow email subscriptions")
-    allow_incident_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to incident updates")
-    url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Company URL - users will be redirected there when clicking on the logo")
     css_blues: Optional[StrictStr] = Field(default=None, description="Blue color used for maintenance status in HEX format")
+    allow_page_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to page updates")
+    css_button_text_color: Optional[StrictStr] = Field(default=None, description="Button text color in HEX format")
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was created")
+    country: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Country where your organization is located")
+    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization this page belongs to")
+    allow_rss_atom_feeds: Optional[StrictBool] = Field(default=None, description="Whether to provide RSS/Atom feeds")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Display name of the status page")
+    page_description: Optional[StrictStr] = Field(default=None, description="Brief description of what this status page monitors")
+    notifications_email_footer: Optional[StrictStr] = Field(default=None, description="Footer text included in notification emails")
+    css_no_data: Optional[StrictStr] = Field(default=None, description="Color used when no data is available in HEX format")
+    time_zone: Optional[StrictStr] = Field(default=None, description="Timezone for displaying dates and times on the status page")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the status page")
+    allow_email_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow email subscriptions")
+    css_button_border_color: Optional[StrictStr] = Field(default=None, description="Button border color in HEX format")
+    email_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the logo used in email notifications")
+    css_button_color: Optional[StrictStr] = Field(default=None, description="Button background color in HEX format")
     headline: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Headline text displayed on the status page")
+    allow_incident_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow users to subscribe to incident updates")
+    activity_score: Optional[StrictInt] = Field(default=None, description="Internal activity score for the page")
+    language: Optional[StrictStr] = Field(default=None, description="Language for the status page interface")
     company_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the company logo")
-    __properties: ClassVar[List[str]] = ["template", "activity_score", "ip_restrictions", "google_analytics_id", "css_button_color", "state", "notifications_email_footer", "css_border_color", "favicon_logo", "viewers_must_be_team_members", "time_zone", "organization_id", "hidden_from_search", "updated_at", "css_body_background_color", "css_reds", "css_link_color", "created_at", "id", "template_id", "allow_sms_subscribers", "allow_webhook_subscribers", "css_greens", "css_graph_color", "css_spinner_color", "css_yellows", "domain", "css_button_border_color", "support_url", "email_logo", "allow_rss_atom_feeds", "css_button_hover_color", "notifications_from_email", "css_oranges", "hero_cover", "css_no_data", "yandex_metrica_id", "city", "css_button_text_color", "css_light_font_color", "subdomain", "language", "country", "password_protected", "css_font_color", "page_description", "name", "allow_page_subscribers", "transactional_logo", "allow_email_subscribers", "allow_incident_subscribers", "url", "css_blues", "headline", "company_logo"]
+    domain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Custom domain for the status page")
+    css_link_color: Optional[StrictStr] = Field(default=None, description="Color for links in HEX format")
+    hero_cover: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the hero cover image")
+    allow_sms_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow SMS subscriptions")
+    password_protected: Optional[StrictBool] = Field(default=None, description="Whether this page is protected by password(s). When true, users must enter a valid password to access the page.")
+    css_spinner_color: Optional[StrictStr] = Field(default=None, description="Loading spinner color in HEX format")
+    yandex_metrica_id: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Yandex Metrica counter ID for analytics tracking")
+    css_oranges: Optional[StrictStr] = Field(default=None, description="Orange color used for partial outage status in HEX format")
+    css_greens: Optional[StrictStr] = Field(default=None, description="Green color used for operational status in HEX format")
+    transactional_logo: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to the logo used in transactional emails")
+    url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Company URL - users will be redirected there when clicking on the logo")
+    css_border_color: Optional[StrictStr] = Field(default=None, description="Border color for page elements in HEX format")
+    template: Optional[Any] = Field(default=None, description="Name of the template used for this page")
+    subdomain: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Subdomain for accessing the status page (e.g., 'mycompany' for mycompany.pingera.ru)")
+    viewers_must_be_team_members: Optional[StrictBool] = Field(default=None, description="Whether only team members can view this page. In other words if page is public or not.")
+    css_yellows: Optional[StrictStr] = Field(default=None, description="Yellow color used for degraded status in HEX format")
+    hidden_from_search: Optional[StrictBool] = Field(default=None, description="Whether to hide this page from search engines")
+    state: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="State/region where your organization is located")
+    google_analytics_id: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Google Analytics measurement ID (e.g., G-XXXXXXXXXX or UA-XXXXXXXXX-X)")
+    notifications_from_email: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Email address used as sender for notifications")
+    allow_webhook_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to allow webhook subscriptions")
+    css_body_background_color: Optional[StrictStr] = Field(default=None, description="Background color for the page body in HEX format")
+    css_light_font_color: Optional[StrictStr] = Field(default=None, description="Light font color for secondary text in HEX format")
+    template_id: Optional[Annotated[str, Field(strict=True, max_length=12)]] = Field(default=None, description="ID of the template used for this page")
+    support_url: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="URL to your support or contact page")
+    city: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="City where your organization is located")
+    css_graph_color: Optional[StrictStr] = Field(default=None, description="Color used for graphs and charts in HEX format")
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the page was last updated")
+    css_reds: Optional[StrictStr] = Field(default=None, description="Red color used for major outage status in HEX format")
+    css_button_hover_color: Optional[StrictStr] = Field(default=None, description="Button color on hover in HEX format")
+    ip_restrictions: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="IP address restrictions for viewing the page")
+    __properties: ClassVar[List[str]] = ["favicon_logo", "css_font_color", "css_blues", "allow_page_subscribers", "css_button_text_color", "created_at", "country", "organization_id", "allow_rss_atom_feeds", "name", "page_description", "notifications_email_footer", "css_no_data", "time_zone", "id", "allow_email_subscribers", "css_button_border_color", "email_logo", "css_button_color", "headline", "allow_incident_subscribers", "activity_score", "language", "company_logo", "domain", "css_link_color", "hero_cover", "allow_sms_subscribers", "password_protected", "css_spinner_color", "yandex_metrica_id", "css_oranges", "css_greens", "transactional_logo", "url", "css_border_color", "template", "subdomain", "viewers_must_be_team_members", "css_yellows", "hidden_from_search", "state", "google_analytics_id", "notifications_from_email", "allow_webhook_subscribers", "css_body_background_color", "css_light_font_color", "template_id", "support_url", "city", "css_graph_color", "updated_at", "css_reds", "css_button_hover_color", "ip_restrictions"]
 
     @field_validator('time_zone')
     def time_zone_validate_enum(cls, value):
@@ -92,18 +92,8 @@ class Page(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['Africa/Abidjan', 'Africa/Accra', 'Africa/Addis_Ababa', 'Africa/Algiers', 'Africa/Asmara', 'Africa/Asmera', 'Africa/Bamako', 'Africa/Bangui', 'Africa/Banjul', 'Africa/Bissau', 'Africa/Blantyre', 'Africa/Brazzaville', 'Africa/Bujumbura', 'Africa/Cairo', 'Africa/Casablanca', 'Africa/Ceuta', 'Africa/Conakry', 'Africa/Dakar', 'Africa/Dar_es_Salaam', 'Africa/Djibouti', 'Africa/Douala', 'Africa/El_Aaiun', 'Africa/Freetown', 'Africa/Gaborone', 'Africa/Harare', 'Africa/Johannesburg', 'Africa/Juba', 'Africa/Kampala', 'Africa/Khartoum', 'Africa/Kigali', 'Africa/Kinshasa', 'Africa/Lagos', 'Africa/Libreville', 'Africa/Lome', 'Africa/Luanda', 'Africa/Lubumbashi', 'Africa/Lusaka', 'Africa/Malabo', 'Africa/Maputo', 'Africa/Maseru', 'Africa/Mbabane', 'Africa/Mogadishu', 'Africa/Monrovia', 'Africa/Nairobi', 'Africa/Ndjamena', 'Africa/Niamey', 'Africa/Nouakchott', 'Africa/Ouagadougou', 'Africa/Porto-Novo', 'Africa/Sao_Tome', 'Africa/Timbuktu', 'Africa/Tripoli', 'Africa/Tunis', 'Africa/Windhoek', 'America/Adak', 'America/Anchorage', 'America/Anguilla', 'America/Antigua', 'America/Araguaina', 'America/Argentina/Buenos_Aires', 'America/Argentina/Catamarca', 'America/Argentina/ComodRivadavia', 'America/Argentina/Cordoba', 'America/Argentina/Jujuy', 'America/Argentina/La_Rioja', 'America/Argentina/Mendoza', 'America/Argentina/Rio_Gallegos', 'America/Argentina/Salta', 'America/Argentina/San_Juan', 'America/Argentina/San_Luis', 'America/Argentina/Tucuman', 'America/Argentina/Ushuaia', 'America/Aruba', 'America/Asuncion', 'America/Atikokan', 'America/Atka', 'America/Bahia', 'America/Bahia_Banderas', 'America/Barbados', 'America/Belem', 'America/Belize', 'America/Blanc-Sablon', 'America/Boa_Vista', 'America/Bogota', 'America/Boise', 'America/Buenos_Aires', 'America/Cambridge_Bay', 'America/Campo_Grande', 'America/Cancun', 'America/Caracas', 'America/Catamarca', 'America/Cayenne', 'America/Cayman', 'America/Chicago', 'America/Chihuahua', 'America/Ciudad_Juarez', 'America/Coral_Harbour', 'America/Cordoba', 'America/Costa_Rica', 'America/Coyhaique', 'America/Creston', 'America/Cuiaba', 'America/Curacao', 'America/Danmarkshavn', 'America/Dawson', 'America/Dawson_Creek', 'America/Denver', 'America/Detroit', 'America/Dominica', 'America/Edmonton', 'America/Eirunepe', 'America/El_Salvador', 'America/Ensenada', 'America/Fort_Nelson', 'America/Fort_Wayne', 'America/Fortaleza', 'America/Glace_Bay', 'America/Godthab', 'America/Goose_Bay', 'America/Grand_Turk', 'America/Grenada', 'America/Guadeloupe', 'America/Guatemala', 'America/Guayaquil', 'America/Guyana', 'America/Halifax', 'America/Havana', 'America/Hermosillo', 'America/Indiana/Indianapolis', 'America/Indiana/Knox', 'America/Indiana/Marengo', 'America/Indiana/Petersburg', 'America/Indiana/Tell_City', 'America/Indiana/Vevay', 'America/Indiana/Vincennes', 'America/Indiana/Winamac', 'America/Indianapolis', 'America/Inuvik', 'America/Iqaluit', 'America/Jamaica', 'America/Jujuy', 'America/Juneau', 'America/Kentucky/Louisville', 'America/Kentucky/Monticello', 'America/Knox_IN', 'America/Kralendijk', 'America/La_Paz', 'America/Lima', 'America/Los_Angeles', 'America/Louisville', 'America/Lower_Princes', 'America/Maceio', 'America/Managua', 'America/Manaus', 'America/Marigot', 'America/Martinique', 'America/Matamoros', 'America/Mazatlan', 'America/Mendoza', 'America/Menominee', 'America/Merida', 'America/Metlakatla', 'America/Mexico_City', 'America/Miquelon', 'America/Moncton', 'America/Monterrey', 'America/Montevideo', 'America/Montreal', 'America/Montserrat', 'America/Nassau', 'America/New_York', 'America/Nipigon', 'America/Nome', 'America/Noronha', 'America/North_Dakota/Beulah', 'America/North_Dakota/Center', 'America/North_Dakota/New_Salem', 'America/Nuuk', 'America/Ojinaga', 'America/Panama', 'America/Pangnirtung', 'America/Paramaribo', 'America/Phoenix', 'America/Port-au-Prince', 'America/Port_of_Spain', 'America/Porto_Acre', 'America/Porto_Velho', 'America/Puerto_Rico', 'America/Punta_Arenas', 'America/Rainy_River', 'America/Rankin_Inlet', 'America/Recife', 'America/Regina', 'America/Resolute', 'America/Rio_Branco', 'America/Rosario', 'America/Santa_Isabel', 'America/Santarem', 'America/Santiago', 'America/Santo_Domingo', 'America/Sao_Paulo', 'America/Scoresbysund', 'America/Shiprock', 'America/Sitka', 'America/St_Barthelemy', 'America/St_Johns', 'America/St_Kitts', 'America/St_Lucia', 'America/St_Thomas', 'America/St_Vincent', 'America/Swift_Current', 'America/Tegucigalpa', 'America/Thule', 'America/Thunder_Bay', 'America/Tijuana', 'America/Toronto', 'America/Tortola', 'America/Vancouver', 'America/Virgin', 'America/Whitehorse', 'America/Winnipeg', 'America/Yakutat', 'America/Yellowknife', 'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/DumontDUrville', 'Antarctica/Macquarie', 'Antarctica/Mawson', 'Antarctica/McMurdo', 'Antarctica/Palmer', 'Antarctica/Rothera', 'Antarctica/South_Pole', 'Antarctica/Syowa', 'Antarctica/Troll', 'Antarctica/Vostok', 'Arctic/Longyearbyen', 'Asia/Aden', 'Asia/Almaty', 'Asia/Amman', 'Asia/Anadyr', 'Asia/Aqtau', 'Asia/Aqtobe', 'Asia/Ashgabat', 'Asia/Ashkhabad', 'Asia/Atyrau', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok', 'Asia/Barnaul', 'Asia/Beirut', 'Asia/Bishkek', 'Asia/Brunei', 'Asia/Calcutta', 'Asia/Chita', 'Asia/Choibalsan', 'Asia/Chongqing', 'Asia/Chungking', 'Asia/Colombo', 'Asia/Dacca', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Dili', 'Asia/Dubai', 'Asia/Dushanbe', 'Asia/Famagusta', 'Asia/Gaza', 'Asia/Harbin', 'Asia/Hebron', 'Asia/Ho_Chi_Minh', 'Asia/Hong_Kong', 'Asia/Hovd', 'Asia/Irkutsk', 'Asia/Istanbul', 'Asia/Jakarta', 'Asia/Jayapura', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Kamchatka', 'Asia/Karachi', 'Asia/Kashgar', 'Asia/Kathmandu', 'Asia/Katmandu', 'Asia/Khandyga', 'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuching', 'Asia/Kuwait', 'Asia/Macao', 'Asia/Macau', 'Asia/Magadan', 'Asia/Makassar', 'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Novokuznetsk', 'Asia/Novosibirsk', 'Asia/Omsk', 'Asia/Oral', 'Asia/Phnom_Penh', 'Asia/Pontianak', 'Asia/Pyongyang', 'Asia/Qatar', 'Asia/Qostanay', 'Asia/Qyzylorda', 'Asia/Rangoon', 'Asia/Riyadh', 'Asia/Saigon', 'Asia/Sakhalin', 'Asia/Samarkand', 'Asia/Seoul', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Srednekolymsk', 'Asia/Taipei', 'Asia/Tashkent', 'Asia/Tbilisi', 'Asia/Tehran', 'Asia/Tel_Aviv', 'Asia/Thimbu', 'Asia/Thimphu', 'Asia/Tokyo', 'Asia/Tomsk', 'Asia/Ujung_Pandang', 'Asia/Ulaanbaatar', 'Asia/Ulan_Bator', 'Asia/Urumqi', 'Asia/Ust-Nera', 'Asia/Vientiane', 'Asia/Vladivostok', 'Asia/Yakutsk', 'Asia/Yangon', 'Asia/Yekaterinburg', 'Asia/Yerevan', 'Atlantic/Azores', 'Atlantic/Bermuda', 'Atlantic/Canary', 'Atlantic/Cape_Verde', 'Atlantic/Faeroe', 'Atlantic/Faroe', 'Atlantic/Jan_Mayen', 'Atlantic/Madeira', 'Atlantic/Reykjavik', 'Atlantic/South_Georgia', 'Atlantic/St_Helena', 'Atlantic/Stanley', 'Australia/ACT', 'Australia/Adelaide', 'Australia/Brisbane', 'Australia/Broken_Hill', 'Australia/Canberra', 'Australia/Currie', 'Australia/Darwin', 'Australia/Eucla', 'Australia/Hobart', 'Australia/LHI', 'Australia/Lindeman', 'Australia/Lord_Howe', 'Australia/Melbourne', 'Australia/NSW', 'Australia/North', 'Australia/Perth', 'Australia/Queensland', 'Australia/South', 'Australia/Sydney', 'Australia/Tasmania', 'Australia/Victoria', 'Australia/West', 'Australia/Yancowinna', 'Brazil/Acre', 'Brazil/DeNoronha', 'Brazil/East', 'Brazil/West', 'CET', 'CST6CDT', 'Canada/Atlantic', 'Canada/Central', 'Canada/Eastern', 'Canada/Mountain', 'Canada/Newfoundland', 'Canada/Pacific', 'Canada/Saskatchewan', 'Canada/Yukon', 'Chile/Continental', 'Chile/EasterIsland', 'Cuba', 'EET', 'EST', 'EST5EDT', 'Egypt', 'Eire', 'Etc/GMT', 'Etc/GMT+0', 'Etc/GMT+1', 'Etc/GMT+10', 'Etc/GMT+11', 'Etc/GMT+12', 'Etc/GMT+2', 'Etc/GMT+3', 'Etc/GMT+4', 'Etc/GMT+5', 'Etc/GMT+6', 'Etc/GMT+7', 'Etc/GMT+8', 'Etc/GMT+9', 'Etc/GMT-0', 'Etc/GMT-1', 'Etc/GMT-10', 'Etc/GMT-11', 'Etc/GMT-12', 'Etc/GMT-13', 'Etc/GMT-14', 'Etc/GMT-2', 'Etc/GMT-3', 'Etc/GMT-4', 'Etc/GMT-5', 'Etc/GMT-6', 'Etc/GMT-7', 'Etc/GMT-8', 'Etc/GMT-9', 'Etc/GMT0', 'Etc/Greenwich', 'Etc/UCT', 'Etc/UTC', 'Etc/Universal', 'Etc/Zulu', 'Europe/Amsterdam', 'Europe/Andorra', 'Europe/Astrakhan', 'Europe/Athens', 'Europe/Belfast', 'Europe/Belgrade', 'Europe/Berlin', 'Europe/Bratislava', 'Europe/Brussels', 'Europe/Bucharest', 'Europe/Budapest', 'Europe/Busingen', 'Europe/Chisinau', 'Europe/Copenhagen', 'Europe/Dublin', 'Europe/Gibraltar', 'Europe/Guernsey', 'Europe/Helsinki', 'Europe/Isle_of_Man', 'Europe/Istanbul', 'Europe/Jersey', 'Europe/Kaliningrad', 'Europe/Kiev', 'Europe/Kirov', 'Europe/Kyiv', 'Europe/Lisbon', 'Europe/Ljubljana', 'Europe/London', 'Europe/Luxembourg', 'Europe/Madrid', 'Europe/Malta', 'Europe/Mariehamn', 'Europe/Minsk', 'Europe/Monaco', 'Europe/Moscow', 'Europe/Nicosia', 'Europe/Oslo', 'Europe/Paris', 'Europe/Podgorica', 'Europe/Prague', 'Europe/Riga', 'Europe/Rome', 'Europe/Samara', 'Europe/San_Marino', 'Europe/Sarajevo', 'Europe/Saratov', 'Europe/Simferopol', 'Europe/Skopje', 'Europe/Sofia', 'Europe/Stockholm', 'Europe/Tallinn', 'Europe/Tirane', 'Europe/Tiraspol', 'Europe/Ulyanovsk', 'Europe/Uzhgorod', 'Europe/Vaduz', 'Europe/Vatican', 'Europe/Vienna', 'Europe/Vilnius', 'Europe/Volgograd', 'Europe/Warsaw', 'Europe/Zagreb', 'Europe/Zaporozhye', 'Europe/Zurich', 'GB', 'GB-Eire', 'GMT', 'GMT+0', 'GMT-0', 'GMT0', 'Greenwich', 'HST', 'Hongkong', 'Iceland', 'Indian/Antananarivo', 'Indian/Chagos', 'Indian/Christmas', 'Indian/Cocos', 'Indian/Comoro', 'Indian/Kerguelen', 'Indian/Mahe', 'Indian/Maldives', 'Indian/Mauritius', 'Indian/Mayotte', 'Indian/Reunion', 'Iran', 'Israel', 'Jamaica', 'Japan', 'Kwajalein', 'Libya', 'MET', 'MST', 'MST7MDT', 'Mexico/BajaNorte', 'Mexico/BajaSur', 'Mexico/General', 'NZ', 'NZ-CHAT', 'Navajo', 'PRC', 'PST8PDT', 'Pacific/Apia', 'Pacific/Auckland', 'Pacific/Bougainville', 'Pacific/Chatham', 'Pacific/Chuuk', 'Pacific/Easter', 'Pacific/Efate', 'Pacific/Enderbury', 'Pacific/Fakaofo', 'Pacific/Fiji', 'Pacific/Funafuti', 'Pacific/Galapagos', 'Pacific/Gambier', 'Pacific/Guadalcanal', 'Pacific/Guam', 'Pacific/Honolulu', 'Pacific/Johnston', 'Pacific/Kanton', 'Pacific/Kiritimati', 'Pacific/Kosrae', 'Pacific/Kwajalein', 'Pacific/Majuro', 'Pacific/Marquesas', 'Pacific/Midway', 'Pacific/Nauru', 'Pacific/Niue', 'Pacific/Norfolk', 'Pacific/Noumea', 'Pacific/Pago_Pago', 'Pacific/Palau', 'Pacific/Pitcairn', 'Pacific/Pohnpei', 'Pacific/Ponape', 'Pacific/Port_Moresby', 'Pacific/Rarotonga', 'Pacific/Saipan', 'Pacific/Samoa', 'Pacific/Tahiti', 'Pacific/Tarawa', 'Pacific/Tongatapu', 'Pacific/Truk', 'Pacific/Wake', 'Pacific/Wallis', 'Pacific/Yap', 'Poland', 'Portugal', 'ROC', 'ROK', 'Singapore', 'Turkey', 'UCT', 'US/Alaska', 'US/Aleutian', 'US/Arizona', 'US/Central', 'US/East-Indiana', 'US/Eastern', 'US/Hawaii', 'US/Indiana-Starke', 'US/Michigan', 'US/Mountain', 'US/Pacific', 'US/Samoa', 'UTC', 'Universal', 'W-SU', 'WET', 'Zulu']):
-            raise ValueError("must be one of enum values ('Africa/Abidjan', 'Africa/Accra', 'Africa/Addis_Ababa', 'Africa/Algiers', 'Africa/Asmara', 'Africa/Asmera', 'Africa/Bamako', 'Africa/Bangui', 'Africa/Banjul', 'Africa/Bissau', 'Africa/Blantyre', 'Africa/Brazzaville', 'Africa/Bujumbura', 'Africa/Cairo', 'Africa/Casablanca', 'Africa/Ceuta', 'Africa/Conakry', 'Africa/Dakar', 'Africa/Dar_es_Salaam', 'Africa/Djibouti', 'Africa/Douala', 'Africa/El_Aaiun', 'Africa/Freetown', 'Africa/Gaborone', 'Africa/Harare', 'Africa/Johannesburg', 'Africa/Juba', 'Africa/Kampala', 'Africa/Khartoum', 'Africa/Kigali', 'Africa/Kinshasa', 'Africa/Lagos', 'Africa/Libreville', 'Africa/Lome', 'Africa/Luanda', 'Africa/Lubumbashi', 'Africa/Lusaka', 'Africa/Malabo', 'Africa/Maputo', 'Africa/Maseru', 'Africa/Mbabane', 'Africa/Mogadishu', 'Africa/Monrovia', 'Africa/Nairobi', 'Africa/Ndjamena', 'Africa/Niamey', 'Africa/Nouakchott', 'Africa/Ouagadougou', 'Africa/Porto-Novo', 'Africa/Sao_Tome', 'Africa/Timbuktu', 'Africa/Tripoli', 'Africa/Tunis', 'Africa/Windhoek', 'America/Adak', 'America/Anchorage', 'America/Anguilla', 'America/Antigua', 'America/Araguaina', 'America/Argentina/Buenos_Aires', 'America/Argentina/Catamarca', 'America/Argentina/ComodRivadavia', 'America/Argentina/Cordoba', 'America/Argentina/Jujuy', 'America/Argentina/La_Rioja', 'America/Argentina/Mendoza', 'America/Argentina/Rio_Gallegos', 'America/Argentina/Salta', 'America/Argentina/San_Juan', 'America/Argentina/San_Luis', 'America/Argentina/Tucuman', 'America/Argentina/Ushuaia', 'America/Aruba', 'America/Asuncion', 'America/Atikokan', 'America/Atka', 'America/Bahia', 'America/Bahia_Banderas', 'America/Barbados', 'America/Belem', 'America/Belize', 'America/Blanc-Sablon', 'America/Boa_Vista', 'America/Bogota', 'America/Boise', 'America/Buenos_Aires', 'America/Cambridge_Bay', 'America/Campo_Grande', 'America/Cancun', 'America/Caracas', 'America/Catamarca', 'America/Cayenne', 'America/Cayman', 'America/Chicago', 'America/Chihuahua', 'America/Ciudad_Juarez', 'America/Coral_Harbour', 'America/Cordoba', 'America/Costa_Rica', 'America/Coyhaique', 'America/Creston', 'America/Cuiaba', 'America/Curacao', 'America/Danmarkshavn', 'America/Dawson', 'America/Dawson_Creek', 'America/Denver', 'America/Detroit', 'America/Dominica', 'America/Edmonton', 'America/Eirunepe', 'America/El_Salvador', 'America/Ensenada', 'America/Fort_Nelson', 'America/Fort_Wayne', 'America/Fortaleza', 'America/Glace_Bay', 'America/Godthab', 'America/Goose_Bay', 'America/Grand_Turk', 'America/Grenada', 'America/Guadeloupe', 'America/Guatemala', 'America/Guayaquil', 'America/Guyana', 'America/Halifax', 'America/Havana', 'America/Hermosillo', 'America/Indiana/Indianapolis', 'America/Indiana/Knox', 'America/Indiana/Marengo', 'America/Indiana/Petersburg', 'America/Indiana/Tell_City', 'America/Indiana/Vevay', 'America/Indiana/Vincennes', 'America/Indiana/Winamac', 'America/Indianapolis', 'America/Inuvik', 'America/Iqaluit', 'America/Jamaica', 'America/Jujuy', 'America/Juneau', 'America/Kentucky/Louisville', 'America/Kentucky/Monticello', 'America/Knox_IN', 'America/Kralendijk', 'America/La_Paz', 'America/Lima', 'America/Los_Angeles', 'America/Louisville', 'America/Lower_Princes', 'America/Maceio', 'America/Managua', 'America/Manaus', 'America/Marigot', 'America/Martinique', 'America/Matamoros', 'America/Mazatlan', 'America/Mendoza', 'America/Menominee', 'America/Merida', 'America/Metlakatla', 'America/Mexico_City', 'America/Miquelon', 'America/Moncton', 'America/Monterrey', 'America/Montevideo', 'America/Montreal', 'America/Montserrat', 'America/Nassau', 'America/New_York', 'America/Nipigon', 'America/Nome', 'America/Noronha', 'America/North_Dakota/Beulah', 'America/North_Dakota/Center', 'America/North_Dakota/New_Salem', 'America/Nuuk', 'America/Ojinaga', 'America/Panama', 'America/Pangnirtung', 'America/Paramaribo', 'America/Phoenix', 'America/Port-au-Prince', 'America/Port_of_Spain', 'America/Porto_Acre', 'America/Porto_Velho', 'America/Puerto_Rico', 'America/Punta_Arenas', 'America/Rainy_River', 'America/Rankin_Inlet', 'America/Recife', 'America/Regina', 'America/Resolute', 'America/Rio_Branco', 'America/Rosario', 'America/Santa_Isabel', 'America/Santarem', 'America/Santiago', 'America/Santo_Domingo', 'America/Sao_Paulo', 'America/Scoresbysund', 'America/Shiprock', 'America/Sitka', 'America/St_Barthelemy', 'America/St_Johns', 'America/St_Kitts', 'America/St_Lucia', 'America/St_Thomas', 'America/St_Vincent', 'America/Swift_Current', 'America/Tegucigalpa', 'America/Thule', 'America/Thunder_Bay', 'America/Tijuana', 'America/Toronto', 'America/Tortola', 'America/Vancouver', 'America/Virgin', 'America/Whitehorse', 'America/Winnipeg', 'America/Yakutat', 'America/Yellowknife', 'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/DumontDUrville', 'Antarctica/Macquarie', 'Antarctica/Mawson', 'Antarctica/McMurdo', 'Antarctica/Palmer', 'Antarctica/Rothera', 'Antarctica/South_Pole', 'Antarctica/Syowa', 'Antarctica/Troll', 'Antarctica/Vostok', 'Arctic/Longyearbyen', 'Asia/Aden', 'Asia/Almaty', 'Asia/Amman', 'Asia/Anadyr', 'Asia/Aqtau', 'Asia/Aqtobe', 'Asia/Ashgabat', 'Asia/Ashkhabad', 'Asia/Atyrau', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok', 'Asia/Barnaul', 'Asia/Beirut', 'Asia/Bishkek', 'Asia/Brunei', 'Asia/Calcutta', 'Asia/Chita', 'Asia/Choibalsan', 'Asia/Chongqing', 'Asia/Chungking', 'Asia/Colombo', 'Asia/Dacca', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Dili', 'Asia/Dubai', 'Asia/Dushanbe', 'Asia/Famagusta', 'Asia/Gaza', 'Asia/Harbin', 'Asia/Hebron', 'Asia/Ho_Chi_Minh', 'Asia/Hong_Kong', 'Asia/Hovd', 'Asia/Irkutsk', 'Asia/Istanbul', 'Asia/Jakarta', 'Asia/Jayapura', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Kamchatka', 'Asia/Karachi', 'Asia/Kashgar', 'Asia/Kathmandu', 'Asia/Katmandu', 'Asia/Khandyga', 'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuching', 'Asia/Kuwait', 'Asia/Macao', 'Asia/Macau', 'Asia/Magadan', 'Asia/Makassar', 'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Novokuznetsk', 'Asia/Novosibirsk', 'Asia/Omsk', 'Asia/Oral', 'Asia/Phnom_Penh', 'Asia/Pontianak', 'Asia/Pyongyang', 'Asia/Qatar', 'Asia/Qostanay', 'Asia/Qyzylorda', 'Asia/Rangoon', 'Asia/Riyadh', 'Asia/Saigon', 'Asia/Sakhalin', 'Asia/Samarkand', 'Asia/Seoul', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Srednekolymsk', 'Asia/Taipei', 'Asia/Tashkent', 'Asia/Tbilisi', 'Asia/Tehran', 'Asia/Tel_Aviv', 'Asia/Thimbu', 'Asia/Thimphu', 'Asia/Tokyo', 'Asia/Tomsk', 'Asia/Ujung_Pandang', 'Asia/Ulaanbaatar', 'Asia/Ulan_Bator', 'Asia/Urumqi', 'Asia/Ust-Nera', 'Asia/Vientiane', 'Asia/Vladivostok', 'Asia/Yakutsk', 'Asia/Yangon', 'Asia/Yekaterinburg', 'Asia/Yerevan', 'Atlantic/Azores', 'Atlantic/Bermuda', 'Atlantic/Canary', 'Atlantic/Cape_Verde', 'Atlantic/Faeroe', 'Atlantic/Faroe', 'Atlantic/Jan_Mayen', 'Atlantic/Madeira', 'Atlantic/Reykjavik', 'Atlantic/South_Georgia', 'Atlantic/St_Helena', 'Atlantic/Stanley', 'Australia/ACT', 'Australia/Adelaide', 'Australia/Brisbane', 'Australia/Broken_Hill', 'Australia/Canberra', 'Australia/Currie', 'Australia/Darwin', 'Australia/Eucla', 'Australia/Hobart', 'Australia/LHI', 'Australia/Lindeman', 'Australia/Lord_Howe', 'Australia/Melbourne', 'Australia/NSW', 'Australia/North', 'Australia/Perth', 'Australia/Queensland', 'Australia/South', 'Australia/Sydney', 'Australia/Tasmania', 'Australia/Victoria', 'Australia/West', 'Australia/Yancowinna', 'Brazil/Acre', 'Brazil/DeNoronha', 'Brazil/East', 'Brazil/West', 'CET', 'CST6CDT', 'Canada/Atlantic', 'Canada/Central', 'Canada/Eastern', 'Canada/Mountain', 'Canada/Newfoundland', 'Canada/Pacific', 'Canada/Saskatchewan', 'Canada/Yukon', 'Chile/Continental', 'Chile/EasterIsland', 'Cuba', 'EET', 'EST', 'EST5EDT', 'Egypt', 'Eire', 'Etc/GMT', 'Etc/GMT+0', 'Etc/GMT+1', 'Etc/GMT+10', 'Etc/GMT+11', 'Etc/GMT+12', 'Etc/GMT+2', 'Etc/GMT+3', 'Etc/GMT+4', 'Etc/GMT+5', 'Etc/GMT+6', 'Etc/GMT+7', 'Etc/GMT+8', 'Etc/GMT+9', 'Etc/GMT-0', 'Etc/GMT-1', 'Etc/GMT-10', 'Etc/GMT-11', 'Etc/GMT-12', 'Etc/GMT-13', 'Etc/GMT-14', 'Etc/GMT-2', 'Etc/GMT-3', 'Etc/GMT-4', 'Etc/GMT-5', 'Etc/GMT-6', 'Etc/GMT-7', 'Etc/GMT-8', 'Etc/GMT-9', 'Etc/GMT0', 'Etc/Greenwich', 'Etc/UCT', 'Etc/UTC', 'Etc/Universal', 'Etc/Zulu', 'Europe/Amsterdam', 'Europe/Andorra', 'Europe/Astrakhan', 'Europe/Athens', 'Europe/Belfast', 'Europe/Belgrade', 'Europe/Berlin', 'Europe/Bratislava', 'Europe/Brussels', 'Europe/Bucharest', 'Europe/Budapest', 'Europe/Busingen', 'Europe/Chisinau', 'Europe/Copenhagen', 'Europe/Dublin', 'Europe/Gibraltar', 'Europe/Guernsey', 'Europe/Helsinki', 'Europe/Isle_of_Man', 'Europe/Istanbul', 'Europe/Jersey', 'Europe/Kaliningrad', 'Europe/Kiev', 'Europe/Kirov', 'Europe/Kyiv', 'Europe/Lisbon', 'Europe/Ljubljana', 'Europe/London', 'Europe/Luxembourg', 'Europe/Madrid', 'Europe/Malta', 'Europe/Mariehamn', 'Europe/Minsk', 'Europe/Monaco', 'Europe/Moscow', 'Europe/Nicosia', 'Europe/Oslo', 'Europe/Paris', 'Europe/Podgorica', 'Europe/Prague', 'Europe/Riga', 'Europe/Rome', 'Europe/Samara', 'Europe/San_Marino', 'Europe/Sarajevo', 'Europe/Saratov', 'Europe/Simferopol', 'Europe/Skopje', 'Europe/Sofia', 'Europe/Stockholm', 'Europe/Tallinn', 'Europe/Tirane', 'Europe/Tiraspol', 'Europe/Ulyanovsk', 'Europe/Uzhgorod', 'Europe/Vaduz', 'Europe/Vatican', 'Europe/Vienna', 'Europe/Vilnius', 'Europe/Volgograd', 'Europe/Warsaw', 'Europe/Zagreb', 'Europe/Zaporozhye', 'Europe/Zurich', 'GB', 'GB-Eire', 'GMT', 'GMT+0', 'GMT-0', 'GMT0', 'Greenwich', 'HST', 'Hongkong', 'Iceland', 'Indian/Antananarivo', 'Indian/Chagos', 'Indian/Christmas', 'Indian/Cocos', 'Indian/Comoro', 'Indian/Kerguelen', 'Indian/Mahe', 'Indian/Maldives', 'Indian/Mauritius', 'Indian/Mayotte', 'Indian/Reunion', 'Iran', 'Israel', 'Jamaica', 'Japan', 'Kwajalein', 'Libya', 'MET', 'MST', 'MST7MDT', 'Mexico/BajaNorte', 'Mexico/BajaSur', 'Mexico/General', 'NZ', 'NZ-CHAT', 'Navajo', 'PRC', 'PST8PDT', 'Pacific/Apia', 'Pacific/Auckland', 'Pacific/Bougainville', 'Pacific/Chatham', 'Pacific/Chuuk', 'Pacific/Easter', 'Pacific/Efate', 'Pacific/Enderbury', 'Pacific/Fakaofo', 'Pacific/Fiji', 'Pacific/Funafuti', 'Pacific/Galapagos', 'Pacific/Gambier', 'Pacific/Guadalcanal', 'Pacific/Guam', 'Pacific/Honolulu', 'Pacific/Johnston', 'Pacific/Kanton', 'Pacific/Kiritimati', 'Pacific/Kosrae', 'Pacific/Kwajalein', 'Pacific/Majuro', 'Pacific/Marquesas', 'Pacific/Midway', 'Pacific/Nauru', 'Pacific/Niue', 'Pacific/Norfolk', 'Pacific/Noumea', 'Pacific/Pago_Pago', 'Pacific/Palau', 'Pacific/Pitcairn', 'Pacific/Pohnpei', 'Pacific/Ponape', 'Pacific/Port_Moresby', 'Pacific/Rarotonga', 'Pacific/Saipan', 'Pacific/Samoa', 'Pacific/Tahiti', 'Pacific/Tarawa', 'Pacific/Tongatapu', 'Pacific/Truk', 'Pacific/Wake', 'Pacific/Wallis', 'Pacific/Yap', 'Poland', 'Portugal', 'ROC', 'ROK', 'Singapore', 'Turkey', 'UCT', 'US/Alaska', 'US/Aleutian', 'US/Arizona', 'US/Central', 'US/East-Indiana', 'US/Eastern', 'US/Hawaii', 'US/Indiana-Starke', 'US/Michigan', 'US/Mountain', 'US/Pacific', 'US/Samoa', 'UTC', 'Universal', 'W-SU', 'WET', 'Zulu')")
-        return value
-
-    @field_validator('subdomain')
-    def subdomain_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$", value):
-            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/")
+        if value not in set(['Africa/Abidjan', 'Africa/Accra', 'Africa/Addis_Ababa', 'Africa/Algiers', 'Africa/Asmara', 'Africa/Asmera', 'Africa/Bamako', 'Africa/Bangui', 'Africa/Banjul', 'Africa/Bissau', 'Africa/Blantyre', 'Africa/Brazzaville', 'Africa/Bujumbura', 'Africa/Cairo', 'Africa/Casablanca', 'Africa/Ceuta', 'Africa/Conakry', 'Africa/Dakar', 'Africa/Dar_es_Salaam', 'Africa/Djibouti', 'Africa/Douala', 'Africa/El_Aaiun', 'Africa/Freetown', 'Africa/Gaborone', 'Africa/Harare', 'Africa/Johannesburg', 'Africa/Juba', 'Africa/Kampala', 'Africa/Khartoum', 'Africa/Kigali', 'Africa/Kinshasa', 'Africa/Lagos', 'Africa/Libreville', 'Africa/Lome', 'Africa/Luanda', 'Africa/Lubumbashi', 'Africa/Lusaka', 'Africa/Malabo', 'Africa/Maputo', 'Africa/Maseru', 'Africa/Mbabane', 'Africa/Mogadishu', 'Africa/Monrovia', 'Africa/Nairobi', 'Africa/Ndjamena', 'Africa/Niamey', 'Africa/Nouakchott', 'Africa/Ouagadougou', 'Africa/Porto-Novo', 'Africa/Sao_Tome', 'Africa/Timbuktu', 'Africa/Tripoli', 'Africa/Tunis', 'Africa/Windhoek', 'America/Adak', 'America/Anchorage', 'America/Anguilla', 'America/Antigua', 'America/Araguaina', 'America/Argentina/Buenos_Aires', 'America/Argentina/Catamarca', 'America/Argentina/ComodRivadavia', 'America/Argentina/Cordoba', 'America/Argentina/Jujuy', 'America/Argentina/La_Rioja', 'America/Argentina/Mendoza', 'America/Argentina/Rio_Gallegos', 'America/Argentina/Salta', 'America/Argentina/San_Juan', 'America/Argentina/San_Luis', 'America/Argentina/Tucuman', 'America/Argentina/Ushuaia', 'America/Aruba', 'America/Asuncion', 'America/Atikokan', 'America/Atka', 'America/Bahia', 'America/Bahia_Banderas', 'America/Barbados', 'America/Belem', 'America/Belize', 'America/Blanc-Sablon', 'America/Boa_Vista', 'America/Bogota', 'America/Boise', 'America/Buenos_Aires', 'America/Cambridge_Bay', 'America/Campo_Grande', 'America/Cancun', 'America/Caracas', 'America/Catamarca', 'America/Cayenne', 'America/Cayman', 'America/Chicago', 'America/Chihuahua', 'America/Ciudad_Juarez', 'America/Coral_Harbour', 'America/Cordoba', 'America/Costa_Rica', 'America/Creston', 'America/Cuiaba', 'America/Curacao', 'America/Danmarkshavn', 'America/Dawson', 'America/Dawson_Creek', 'America/Denver', 'America/Detroit', 'America/Dominica', 'America/Edmonton', 'America/Eirunepe', 'America/El_Salvador', 'America/Ensenada', 'America/Fort_Nelson', 'America/Fort_Wayne', 'America/Fortaleza', 'America/Glace_Bay', 'America/Godthab', 'America/Goose_Bay', 'America/Grand_Turk', 'America/Grenada', 'America/Guadeloupe', 'America/Guatemala', 'America/Guayaquil', 'America/Guyana', 'America/Halifax', 'America/Havana', 'America/Hermosillo', 'America/Indiana/Indianapolis', 'America/Indiana/Knox', 'America/Indiana/Marengo', 'America/Indiana/Petersburg', 'America/Indiana/Tell_City', 'America/Indiana/Vevay', 'America/Indiana/Vincennes', 'America/Indiana/Winamac', 'America/Indianapolis', 'America/Inuvik', 'America/Iqaluit', 'America/Jamaica', 'America/Jujuy', 'America/Juneau', 'America/Kentucky/Louisville', 'America/Kentucky/Monticello', 'America/Knox_IN', 'America/Kralendijk', 'America/La_Paz', 'America/Lima', 'America/Los_Angeles', 'America/Louisville', 'America/Lower_Princes', 'America/Maceio', 'America/Managua', 'America/Manaus', 'America/Marigot', 'America/Martinique', 'America/Matamoros', 'America/Mazatlan', 'America/Mendoza', 'America/Menominee', 'America/Merida', 'America/Metlakatla', 'America/Mexico_City', 'America/Miquelon', 'America/Moncton', 'America/Monterrey', 'America/Montevideo', 'America/Montreal', 'America/Montserrat', 'America/Nassau', 'America/New_York', 'America/Nipigon', 'America/Nome', 'America/Noronha', 'America/North_Dakota/Beulah', 'America/North_Dakota/Center', 'America/North_Dakota/New_Salem', 'America/Nuuk', 'America/Ojinaga', 'America/Panama', 'America/Pangnirtung', 'America/Paramaribo', 'America/Phoenix', 'America/Port-au-Prince', 'America/Port_of_Spain', 'America/Porto_Acre', 'America/Porto_Velho', 'America/Puerto_Rico', 'America/Punta_Arenas', 'America/Rainy_River', 'America/Rankin_Inlet', 'America/Recife', 'America/Regina', 'America/Resolute', 'America/Rio_Branco', 'America/Rosario', 'America/Santa_Isabel', 'America/Santarem', 'America/Santiago', 'America/Santo_Domingo', 'America/Sao_Paulo', 'America/Scoresbysund', 'America/Shiprock', 'America/Sitka', 'America/St_Barthelemy', 'America/St_Johns', 'America/St_Kitts', 'America/St_Lucia', 'America/St_Thomas', 'America/St_Vincent', 'America/Swift_Current', 'America/Tegucigalpa', 'America/Thule', 'America/Thunder_Bay', 'America/Tijuana', 'America/Toronto', 'America/Tortola', 'America/Vancouver', 'America/Virgin', 'America/Whitehorse', 'America/Winnipeg', 'America/Yakutat', 'America/Yellowknife', 'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/DumontDUrville', 'Antarctica/Macquarie', 'Antarctica/Mawson', 'Antarctica/McMurdo', 'Antarctica/Palmer', 'Antarctica/Rothera', 'Antarctica/South_Pole', 'Antarctica/Syowa', 'Antarctica/Troll', 'Antarctica/Vostok', 'Arctic/Longyearbyen', 'Asia/Aden', 'Asia/Almaty', 'Asia/Amman', 'Asia/Anadyr', 'Asia/Aqtau', 'Asia/Aqtobe', 'Asia/Ashgabat', 'Asia/Ashkhabad', 'Asia/Atyrau', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok', 'Asia/Barnaul', 'Asia/Beirut', 'Asia/Bishkek', 'Asia/Brunei', 'Asia/Calcutta', 'Asia/Chita', 'Asia/Choibalsan', 'Asia/Chongqing', 'Asia/Chungking', 'Asia/Colombo', 'Asia/Dacca', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Dili', 'Asia/Dubai', 'Asia/Dushanbe', 'Asia/Famagusta', 'Asia/Gaza', 'Asia/Harbin', 'Asia/Hebron', 'Asia/Ho_Chi_Minh', 'Asia/Hong_Kong', 'Asia/Hovd', 'Asia/Irkutsk', 'Asia/Istanbul', 'Asia/Jakarta', 'Asia/Jayapura', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Kamchatka', 'Asia/Karachi', 'Asia/Kashgar', 'Asia/Kathmandu', 'Asia/Katmandu', 'Asia/Khandyga', 'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuching', 'Asia/Kuwait', 'Asia/Macao', 'Asia/Macau', 'Asia/Magadan', 'Asia/Makassar', 'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Novokuznetsk', 'Asia/Novosibirsk', 'Asia/Omsk', 'Asia/Oral', 'Asia/Phnom_Penh', 'Asia/Pontianak', 'Asia/Pyongyang', 'Asia/Qatar', 'Asia/Qostanay', 'Asia/Qyzylorda', 'Asia/Rangoon', 'Asia/Riyadh', 'Asia/Saigon', 'Asia/Sakhalin', 'Asia/Samarkand', 'Asia/Seoul', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Srednekolymsk', 'Asia/Taipei', 'Asia/Tashkent', 'Asia/Tbilisi', 'Asia/Tehran', 'Asia/Tel_Aviv', 'Asia/Thimbu', 'Asia/Thimphu', 'Asia/Tokyo', 'Asia/Tomsk', 'Asia/Ujung_Pandang', 'Asia/Ulaanbaatar', 'Asia/Ulan_Bator', 'Asia/Urumqi', 'Asia/Ust-Nera', 'Asia/Vientiane', 'Asia/Vladivostok', 'Asia/Yakutsk', 'Asia/Yangon', 'Asia/Yekaterinburg', 'Asia/Yerevan', 'Atlantic/Azores', 'Atlantic/Bermuda', 'Atlantic/Canary', 'Atlantic/Cape_Verde', 'Atlantic/Faeroe', 'Atlantic/Faroe', 'Atlantic/Jan_Mayen', 'Atlantic/Madeira', 'Atlantic/Reykjavik', 'Atlantic/South_Georgia', 'Atlantic/St_Helena', 'Atlantic/Stanley', 'Australia/ACT', 'Australia/Adelaide', 'Australia/Brisbane', 'Australia/Broken_Hill', 'Australia/Canberra', 'Australia/Currie', 'Australia/Darwin', 'Australia/Eucla', 'Australia/Hobart', 'Australia/LHI', 'Australia/Lindeman', 'Australia/Lord_Howe', 'Australia/Melbourne', 'Australia/NSW', 'Australia/North', 'Australia/Perth', 'Australia/Queensland', 'Australia/South', 'Australia/Sydney', 'Australia/Tasmania', 'Australia/Victoria', 'Australia/West', 'Australia/Yancowinna', 'Brazil/Acre', 'Brazil/DeNoronha', 'Brazil/East', 'Brazil/West', 'CET', 'CST6CDT', 'Canada/Atlantic', 'Canada/Central', 'Canada/Eastern', 'Canada/Mountain', 'Canada/Newfoundland', 'Canada/Pacific', 'Canada/Saskatchewan', 'Canada/Yukon', 'Chile/Continental', 'Chile/EasterIsland', 'Cuba', 'EET', 'EST', 'EST5EDT', 'Egypt', 'Eire', 'Etc/GMT', 'Etc/GMT+0', 'Etc/GMT+1', 'Etc/GMT+10', 'Etc/GMT+11', 'Etc/GMT+12', 'Etc/GMT+2', 'Etc/GMT+3', 'Etc/GMT+4', 'Etc/GMT+5', 'Etc/GMT+6', 'Etc/GMT+7', 'Etc/GMT+8', 'Etc/GMT+9', 'Etc/GMT-0', 'Etc/GMT-1', 'Etc/GMT-10', 'Etc/GMT-11', 'Etc/GMT-12', 'Etc/GMT-13', 'Etc/GMT-14', 'Etc/GMT-2', 'Etc/GMT-3', 'Etc/GMT-4', 'Etc/GMT-5', 'Etc/GMT-6', 'Etc/GMT-7', 'Etc/GMT-8', 'Etc/GMT-9', 'Etc/GMT0', 'Etc/Greenwich', 'Etc/UCT', 'Etc/UTC', 'Etc/Universal', 'Etc/Zulu', 'Europe/Amsterdam', 'Europe/Andorra', 'Europe/Astrakhan', 'Europe/Athens', 'Europe/Belfast', 'Europe/Belgrade', 'Europe/Berlin', 'Europe/Bratislava', 'Europe/Brussels', 'Europe/Bucharest', 'Europe/Budapest', 'Europe/Busingen', 'Europe/Chisinau', 'Europe/Copenhagen', 'Europe/Dublin', 'Europe/Gibraltar', 'Europe/Guernsey', 'Europe/Helsinki', 'Europe/Isle_of_Man', 'Europe/Istanbul', 'Europe/Jersey', 'Europe/Kaliningrad', 'Europe/Kiev', 'Europe/Kirov', 'Europe/Kyiv', 'Europe/Lisbon', 'Europe/Ljubljana', 'Europe/London', 'Europe/Luxembourg', 'Europe/Madrid', 'Europe/Malta', 'Europe/Mariehamn', 'Europe/Minsk', 'Europe/Monaco', 'Europe/Moscow', 'Europe/Nicosia', 'Europe/Oslo', 'Europe/Paris', 'Europe/Podgorica', 'Europe/Prague', 'Europe/Riga', 'Europe/Rome', 'Europe/Samara', 'Europe/San_Marino', 'Europe/Sarajevo', 'Europe/Saratov', 'Europe/Simferopol', 'Europe/Skopje', 'Europe/Sofia', 'Europe/Stockholm', 'Europe/Tallinn', 'Europe/Tirane', 'Europe/Tiraspol', 'Europe/Ulyanovsk', 'Europe/Uzhgorod', 'Europe/Vaduz', 'Europe/Vatican', 'Europe/Vienna', 'Europe/Vilnius', 'Europe/Volgograd', 'Europe/Warsaw', 'Europe/Zagreb', 'Europe/Zaporozhye', 'Europe/Zurich', 'GB', 'GB-Eire', 'GMT', 'GMT+0', 'GMT-0', 'GMT0', 'Greenwich', 'HST', 'Hongkong', 'Iceland', 'Indian/Antananarivo', 'Indian/Chagos', 'Indian/Christmas', 'Indian/Cocos', 'Indian/Comoro', 'Indian/Kerguelen', 'Indian/Mahe', 'Indian/Maldives', 'Indian/Mauritius', 'Indian/Mayotte', 'Indian/Reunion', 'Iran', 'Israel', 'Jamaica', 'Japan', 'Kwajalein', 'Libya', 'MET', 'MST', 'MST7MDT', 'Mexico/BajaNorte', 'Mexico/BajaSur', 'Mexico/General', 'NZ', 'NZ-CHAT', 'Navajo', 'PRC', 'PST8PDT', 'Pacific/Apia', 'Pacific/Auckland', 'Pacific/Bougainville', 'Pacific/Chatham', 'Pacific/Chuuk', 'Pacific/Easter', 'Pacific/Efate', 'Pacific/Enderbury', 'Pacific/Fakaofo', 'Pacific/Fiji', 'Pacific/Funafuti', 'Pacific/Galapagos', 'Pacific/Gambier', 'Pacific/Guadalcanal', 'Pacific/Guam', 'Pacific/Honolulu', 'Pacific/Johnston', 'Pacific/Kanton', 'Pacific/Kiritimati', 'Pacific/Kosrae', 'Pacific/Kwajalein', 'Pacific/Majuro', 'Pacific/Marquesas', 'Pacific/Midway', 'Pacific/Nauru', 'Pacific/Niue', 'Pacific/Norfolk', 'Pacific/Noumea', 'Pacific/Pago_Pago', 'Pacific/Palau', 'Pacific/Pitcairn', 'Pacific/Pohnpei', 'Pacific/Ponape', 'Pacific/Port_Moresby', 'Pacific/Rarotonga', 'Pacific/Saipan', 'Pacific/Samoa', 'Pacific/Tahiti', 'Pacific/Tarawa', 'Pacific/Tongatapu', 'Pacific/Truk', 'Pacific/Wake', 'Pacific/Wallis', 'Pacific/Yap', 'Poland', 'Portugal', 'ROC', 'ROK', 'Singapore', 'Turkey', 'UCT', 'US/Alaska', 'US/Aleutian', 'US/Arizona', 'US/Central', 'US/East-Indiana', 'US/Eastern', 'US/Hawaii', 'US/Indiana-Starke', 'US/Michigan', 'US/Mountain', 'US/Pacific', 'US/Samoa', 'UTC', 'Universal', 'W-SU', 'WET', 'Zulu']):
+            raise ValueError("must be one of enum values ('Africa/Abidjan', 'Africa/Accra', 'Africa/Addis_Ababa', 'Africa/Algiers', 'Africa/Asmara', 'Africa/Asmera', 'Africa/Bamako', 'Africa/Bangui', 'Africa/Banjul', 'Africa/Bissau', 'Africa/Blantyre', 'Africa/Brazzaville', 'Africa/Bujumbura', 'Africa/Cairo', 'Africa/Casablanca', 'Africa/Ceuta', 'Africa/Conakry', 'Africa/Dakar', 'Africa/Dar_es_Salaam', 'Africa/Djibouti', 'Africa/Douala', 'Africa/El_Aaiun', 'Africa/Freetown', 'Africa/Gaborone', 'Africa/Harare', 'Africa/Johannesburg', 'Africa/Juba', 'Africa/Kampala', 'Africa/Khartoum', 'Africa/Kigali', 'Africa/Kinshasa', 'Africa/Lagos', 'Africa/Libreville', 'Africa/Lome', 'Africa/Luanda', 'Africa/Lubumbashi', 'Africa/Lusaka', 'Africa/Malabo', 'Africa/Maputo', 'Africa/Maseru', 'Africa/Mbabane', 'Africa/Mogadishu', 'Africa/Monrovia', 'Africa/Nairobi', 'Africa/Ndjamena', 'Africa/Niamey', 'Africa/Nouakchott', 'Africa/Ouagadougou', 'Africa/Porto-Novo', 'Africa/Sao_Tome', 'Africa/Timbuktu', 'Africa/Tripoli', 'Africa/Tunis', 'Africa/Windhoek', 'America/Adak', 'America/Anchorage', 'America/Anguilla', 'America/Antigua', 'America/Araguaina', 'America/Argentina/Buenos_Aires', 'America/Argentina/Catamarca', 'America/Argentina/ComodRivadavia', 'America/Argentina/Cordoba', 'America/Argentina/Jujuy', 'America/Argentina/La_Rioja', 'America/Argentina/Mendoza', 'America/Argentina/Rio_Gallegos', 'America/Argentina/Salta', 'America/Argentina/San_Juan', 'America/Argentina/San_Luis', 'America/Argentina/Tucuman', 'America/Argentina/Ushuaia', 'America/Aruba', 'America/Asuncion', 'America/Atikokan', 'America/Atka', 'America/Bahia', 'America/Bahia_Banderas', 'America/Barbados', 'America/Belem', 'America/Belize', 'America/Blanc-Sablon', 'America/Boa_Vista', 'America/Bogota', 'America/Boise', 'America/Buenos_Aires', 'America/Cambridge_Bay', 'America/Campo_Grande', 'America/Cancun', 'America/Caracas', 'America/Catamarca', 'America/Cayenne', 'America/Cayman', 'America/Chicago', 'America/Chihuahua', 'America/Ciudad_Juarez', 'America/Coral_Harbour', 'America/Cordoba', 'America/Costa_Rica', 'America/Creston', 'America/Cuiaba', 'America/Curacao', 'America/Danmarkshavn', 'America/Dawson', 'America/Dawson_Creek', 'America/Denver', 'America/Detroit', 'America/Dominica', 'America/Edmonton', 'America/Eirunepe', 'America/El_Salvador', 'America/Ensenada', 'America/Fort_Nelson', 'America/Fort_Wayne', 'America/Fortaleza', 'America/Glace_Bay', 'America/Godthab', 'America/Goose_Bay', 'America/Grand_Turk', 'America/Grenada', 'America/Guadeloupe', 'America/Guatemala', 'America/Guayaquil', 'America/Guyana', 'America/Halifax', 'America/Havana', 'America/Hermosillo', 'America/Indiana/Indianapolis', 'America/Indiana/Knox', 'America/Indiana/Marengo', 'America/Indiana/Petersburg', 'America/Indiana/Tell_City', 'America/Indiana/Vevay', 'America/Indiana/Vincennes', 'America/Indiana/Winamac', 'America/Indianapolis', 'America/Inuvik', 'America/Iqaluit', 'America/Jamaica', 'America/Jujuy', 'America/Juneau', 'America/Kentucky/Louisville', 'America/Kentucky/Monticello', 'America/Knox_IN', 'America/Kralendijk', 'America/La_Paz', 'America/Lima', 'America/Los_Angeles', 'America/Louisville', 'America/Lower_Princes', 'America/Maceio', 'America/Managua', 'America/Manaus', 'America/Marigot', 'America/Martinique', 'America/Matamoros', 'America/Mazatlan', 'America/Mendoza', 'America/Menominee', 'America/Merida', 'America/Metlakatla', 'America/Mexico_City', 'America/Miquelon', 'America/Moncton', 'America/Monterrey', 'America/Montevideo', 'America/Montreal', 'America/Montserrat', 'America/Nassau', 'America/New_York', 'America/Nipigon', 'America/Nome', 'America/Noronha', 'America/North_Dakota/Beulah', 'America/North_Dakota/Center', 'America/North_Dakota/New_Salem', 'America/Nuuk', 'America/Ojinaga', 'America/Panama', 'America/Pangnirtung', 'America/Paramaribo', 'America/Phoenix', 'America/Port-au-Prince', 'America/Port_of_Spain', 'America/Porto_Acre', 'America/Porto_Velho', 'America/Puerto_Rico', 'America/Punta_Arenas', 'America/Rainy_River', 'America/Rankin_Inlet', 'America/Recife', 'America/Regina', 'America/Resolute', 'America/Rio_Branco', 'America/Rosario', 'America/Santa_Isabel', 'America/Santarem', 'America/Santiago', 'America/Santo_Domingo', 'America/Sao_Paulo', 'America/Scoresbysund', 'America/Shiprock', 'America/Sitka', 'America/St_Barthelemy', 'America/St_Johns', 'America/St_Kitts', 'America/St_Lucia', 'America/St_Thomas', 'America/St_Vincent', 'America/Swift_Current', 'America/Tegucigalpa', 'America/Thule', 'America/Thunder_Bay', 'America/Tijuana', 'America/Toronto', 'America/Tortola', 'America/Vancouver', 'America/Virgin', 'America/Whitehorse', 'America/Winnipeg', 'America/Yakutat', 'America/Yellowknife', 'Antarctica/Casey', 'Antarctica/Davis', 'Antarctica/DumontDUrville', 'Antarctica/Macquarie', 'Antarctica/Mawson', 'Antarctica/McMurdo', 'Antarctica/Palmer', 'Antarctica/Rothera', 'Antarctica/South_Pole', 'Antarctica/Syowa', 'Antarctica/Troll', 'Antarctica/Vostok', 'Arctic/Longyearbyen', 'Asia/Aden', 'Asia/Almaty', 'Asia/Amman', 'Asia/Anadyr', 'Asia/Aqtau', 'Asia/Aqtobe', 'Asia/Ashgabat', 'Asia/Ashkhabad', 'Asia/Atyrau', 'Asia/Baghdad', 'Asia/Bahrain', 'Asia/Baku', 'Asia/Bangkok', 'Asia/Barnaul', 'Asia/Beirut', 'Asia/Bishkek', 'Asia/Brunei', 'Asia/Calcutta', 'Asia/Chita', 'Asia/Choibalsan', 'Asia/Chongqing', 'Asia/Chungking', 'Asia/Colombo', 'Asia/Dacca', 'Asia/Damascus', 'Asia/Dhaka', 'Asia/Dili', 'Asia/Dubai', 'Asia/Dushanbe', 'Asia/Famagusta', 'Asia/Gaza', 'Asia/Harbin', 'Asia/Hebron', 'Asia/Ho_Chi_Minh', 'Asia/Hong_Kong', 'Asia/Hovd', 'Asia/Irkutsk', 'Asia/Istanbul', 'Asia/Jakarta', 'Asia/Jayapura', 'Asia/Jerusalem', 'Asia/Kabul', 'Asia/Kamchatka', 'Asia/Karachi', 'Asia/Kashgar', 'Asia/Kathmandu', 'Asia/Katmandu', 'Asia/Khandyga', 'Asia/Kolkata', 'Asia/Krasnoyarsk', 'Asia/Kuala_Lumpur', 'Asia/Kuching', 'Asia/Kuwait', 'Asia/Macao', 'Asia/Macau', 'Asia/Magadan', 'Asia/Makassar', 'Asia/Manila', 'Asia/Muscat', 'Asia/Nicosia', 'Asia/Novokuznetsk', 'Asia/Novosibirsk', 'Asia/Omsk', 'Asia/Oral', 'Asia/Phnom_Penh', 'Asia/Pontianak', 'Asia/Pyongyang', 'Asia/Qatar', 'Asia/Qostanay', 'Asia/Qyzylorda', 'Asia/Rangoon', 'Asia/Riyadh', 'Asia/Saigon', 'Asia/Sakhalin', 'Asia/Samarkand', 'Asia/Seoul', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Srednekolymsk', 'Asia/Taipei', 'Asia/Tashkent', 'Asia/Tbilisi', 'Asia/Tehran', 'Asia/Tel_Aviv', 'Asia/Thimbu', 'Asia/Thimphu', 'Asia/Tokyo', 'Asia/Tomsk', 'Asia/Ujung_Pandang', 'Asia/Ulaanbaatar', 'Asia/Ulan_Bator', 'Asia/Urumqi', 'Asia/Ust-Nera', 'Asia/Vientiane', 'Asia/Vladivostok', 'Asia/Yakutsk', 'Asia/Yangon', 'Asia/Yekaterinburg', 'Asia/Yerevan', 'Atlantic/Azores', 'Atlantic/Bermuda', 'Atlantic/Canary', 'Atlantic/Cape_Verde', 'Atlantic/Faeroe', 'Atlantic/Faroe', 'Atlantic/Jan_Mayen', 'Atlantic/Madeira', 'Atlantic/Reykjavik', 'Atlantic/South_Georgia', 'Atlantic/St_Helena', 'Atlantic/Stanley', 'Australia/ACT', 'Australia/Adelaide', 'Australia/Brisbane', 'Australia/Broken_Hill', 'Australia/Canberra', 'Australia/Currie', 'Australia/Darwin', 'Australia/Eucla', 'Australia/Hobart', 'Australia/LHI', 'Australia/Lindeman', 'Australia/Lord_Howe', 'Australia/Melbourne', 'Australia/NSW', 'Australia/North', 'Australia/Perth', 'Australia/Queensland', 'Australia/South', 'Australia/Sydney', 'Australia/Tasmania', 'Australia/Victoria', 'Australia/West', 'Australia/Yancowinna', 'Brazil/Acre', 'Brazil/DeNoronha', 'Brazil/East', 'Brazil/West', 'CET', 'CST6CDT', 'Canada/Atlantic', 'Canada/Central', 'Canada/Eastern', 'Canada/Mountain', 'Canada/Newfoundland', 'Canada/Pacific', 'Canada/Saskatchewan', 'Canada/Yukon', 'Chile/Continental', 'Chile/EasterIsland', 'Cuba', 'EET', 'EST', 'EST5EDT', 'Egypt', 'Eire', 'Etc/GMT', 'Etc/GMT+0', 'Etc/GMT+1', 'Etc/GMT+10', 'Etc/GMT+11', 'Etc/GMT+12', 'Etc/GMT+2', 'Etc/GMT+3', 'Etc/GMT+4', 'Etc/GMT+5', 'Etc/GMT+6', 'Etc/GMT+7', 'Etc/GMT+8', 'Etc/GMT+9', 'Etc/GMT-0', 'Etc/GMT-1', 'Etc/GMT-10', 'Etc/GMT-11', 'Etc/GMT-12', 'Etc/GMT-13', 'Etc/GMT-14', 'Etc/GMT-2', 'Etc/GMT-3', 'Etc/GMT-4', 'Etc/GMT-5', 'Etc/GMT-6', 'Etc/GMT-7', 'Etc/GMT-8', 'Etc/GMT-9', 'Etc/GMT0', 'Etc/Greenwich', 'Etc/UCT', 'Etc/UTC', 'Etc/Universal', 'Etc/Zulu', 'Europe/Amsterdam', 'Europe/Andorra', 'Europe/Astrakhan', 'Europe/Athens', 'Europe/Belfast', 'Europe/Belgrade', 'Europe/Berlin', 'Europe/Bratislava', 'Europe/Brussels', 'Europe/Bucharest', 'Europe/Budapest', 'Europe/Busingen', 'Europe/Chisinau', 'Europe/Copenhagen', 'Europe/Dublin', 'Europe/Gibraltar', 'Europe/Guernsey', 'Europe/Helsinki', 'Europe/Isle_of_Man', 'Europe/Istanbul', 'Europe/Jersey', 'Europe/Kaliningrad', 'Europe/Kiev', 'Europe/Kirov', 'Europe/Kyiv', 'Europe/Lisbon', 'Europe/Ljubljana', 'Europe/London', 'Europe/Luxembourg', 'Europe/Madrid', 'Europe/Malta', 'Europe/Mariehamn', 'Europe/Minsk', 'Europe/Monaco', 'Europe/Moscow', 'Europe/Nicosia', 'Europe/Oslo', 'Europe/Paris', 'Europe/Podgorica', 'Europe/Prague', 'Europe/Riga', 'Europe/Rome', 'Europe/Samara', 'Europe/San_Marino', 'Europe/Sarajevo', 'Europe/Saratov', 'Europe/Simferopol', 'Europe/Skopje', 'Europe/Sofia', 'Europe/Stockholm', 'Europe/Tallinn', 'Europe/Tirane', 'Europe/Tiraspol', 'Europe/Ulyanovsk', 'Europe/Uzhgorod', 'Europe/Vaduz', 'Europe/Vatican', 'Europe/Vienna', 'Europe/Vilnius', 'Europe/Volgograd', 'Europe/Warsaw', 'Europe/Zagreb', 'Europe/Zaporozhye', 'Europe/Zurich', 'GB', 'GB-Eire', 'GMT', 'GMT+0', 'GMT-0', 'GMT0', 'Greenwich', 'HST', 'Hongkong', 'Iceland', 'Indian/Antananarivo', 'Indian/Chagos', 'Indian/Christmas', 'Indian/Cocos', 'Indian/Comoro', 'Indian/Kerguelen', 'Indian/Mahe', 'Indian/Maldives', 'Indian/Mauritius', 'Indian/Mayotte', 'Indian/Reunion', 'Iran', 'Israel', 'Jamaica', 'Japan', 'Kwajalein', 'Libya', 'MET', 'MST', 'MST7MDT', 'Mexico/BajaNorte', 'Mexico/BajaSur', 'Mexico/General', 'NZ', 'NZ-CHAT', 'Navajo', 'PRC', 'PST8PDT', 'Pacific/Apia', 'Pacific/Auckland', 'Pacific/Bougainville', 'Pacific/Chatham', 'Pacific/Chuuk', 'Pacific/Easter', 'Pacific/Efate', 'Pacific/Enderbury', 'Pacific/Fakaofo', 'Pacific/Fiji', 'Pacific/Funafuti', 'Pacific/Galapagos', 'Pacific/Gambier', 'Pacific/Guadalcanal', 'Pacific/Guam', 'Pacific/Honolulu', 'Pacific/Johnston', 'Pacific/Kanton', 'Pacific/Kiritimati', 'Pacific/Kosrae', 'Pacific/Kwajalein', 'Pacific/Majuro', 'Pacific/Marquesas', 'Pacific/Midway', 'Pacific/Nauru', 'Pacific/Niue', 'Pacific/Norfolk', 'Pacific/Noumea', 'Pacific/Pago_Pago', 'Pacific/Palau', 'Pacific/Pitcairn', 'Pacific/Pohnpei', 'Pacific/Ponape', 'Pacific/Port_Moresby', 'Pacific/Rarotonga', 'Pacific/Saipan', 'Pacific/Samoa', 'Pacific/Tahiti', 'Pacific/Tarawa', 'Pacific/Tongatapu', 'Pacific/Truk', 'Pacific/Wake', 'Pacific/Wallis', 'Pacific/Yap', 'Poland', 'Portugal', 'ROC', 'ROK', 'Singapore', 'Turkey', 'UCT', 'US/Alaska', 'US/Aleutian', 'US/Arizona', 'US/Central', 'US/East-Indiana', 'US/Eastern', 'US/Hawaii', 'US/Indiana-Starke', 'US/Michigan', 'US/Mountain', 'US/Pacific', 'US/Samoa', 'UTC', 'Universal', 'W-SU', 'WET', 'Zulu')")
         return value
 
     @field_validator('language')
@@ -114,6 +104,16 @@ class Page(BaseModel):
 
         if value not in set(['ru', 'en']):
             raise ValueError("must be one of enum values ('ru', 'en')")
+        return value
+
+    @field_validator('subdomain')
+    def subdomain_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/")
         return value
 
     model_config = ConfigDict(
@@ -153,11 +153,11 @@ class Page(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "template",
-            "organization_id",
-            "updated_at",
             "created_at",
+            "organization_id",
             "id",
+            "template",
+            "updated_at",
         ])
 
         _dict = self.model_dump(
@@ -165,245 +165,245 @@ class Page(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if template (nullable) is None
-        # and model_fields_set contains the field
-        if self.template is None and "template" in self.model_fields_set:
-            _dict['template'] = None
-
-        # set to None if activity_score (nullable) is None
-        # and model_fields_set contains the field
-        if self.activity_score is None and "activity_score" in self.model_fields_set:
-            _dict['activity_score'] = None
-
-        # set to None if ip_restrictions (nullable) is None
-        # and model_fields_set contains the field
-        if self.ip_restrictions is None and "ip_restrictions" in self.model_fields_set:
-            _dict['ip_restrictions'] = None
-
-        # set to None if google_analytics_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.google_analytics_id is None and "google_analytics_id" in self.model_fields_set:
-            _dict['google_analytics_id'] = None
-
-        # set to None if css_button_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_button_color is None and "css_button_color" in self.model_fields_set:
-            _dict['css_button_color'] = None
-
-        # set to None if state (nullable) is None
-        # and model_fields_set contains the field
-        if self.state is None and "state" in self.model_fields_set:
-            _dict['state'] = None
-
-        # set to None if notifications_email_footer (nullable) is None
-        # and model_fields_set contains the field
-        if self.notifications_email_footer is None and "notifications_email_footer" in self.model_fields_set:
-            _dict['notifications_email_footer'] = None
-
-        # set to None if css_border_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_border_color is None and "css_border_color" in self.model_fields_set:
-            _dict['css_border_color'] = None
-
         # set to None if favicon_logo (nullable) is None
         # and model_fields_set contains the field
         if self.favicon_logo is None and "favicon_logo" in self.model_fields_set:
             _dict['favicon_logo'] = None
-
-        # set to None if viewers_must_be_team_members (nullable) is None
-        # and model_fields_set contains the field
-        if self.viewers_must_be_team_members is None and "viewers_must_be_team_members" in self.model_fields_set:
-            _dict['viewers_must_be_team_members'] = None
-
-        # set to None if time_zone (nullable) is None
-        # and model_fields_set contains the field
-        if self.time_zone is None and "time_zone" in self.model_fields_set:
-            _dict['time_zone'] = None
-
-        # set to None if hidden_from_search (nullable) is None
-        # and model_fields_set contains the field
-        if self.hidden_from_search is None and "hidden_from_search" in self.model_fields_set:
-            _dict['hidden_from_search'] = None
-
-        # set to None if css_body_background_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_body_background_color is None and "css_body_background_color" in self.model_fields_set:
-            _dict['css_body_background_color'] = None
-
-        # set to None if css_reds (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_reds is None and "css_reds" in self.model_fields_set:
-            _dict['css_reds'] = None
-
-        # set to None if css_link_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_link_color is None and "css_link_color" in self.model_fields_set:
-            _dict['css_link_color'] = None
-
-        # set to None if template_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.template_id is None and "template_id" in self.model_fields_set:
-            _dict['template_id'] = None
-
-        # set to None if allow_sms_subscribers (nullable) is None
-        # and model_fields_set contains the field
-        if self.allow_sms_subscribers is None and "allow_sms_subscribers" in self.model_fields_set:
-            _dict['allow_sms_subscribers'] = None
-
-        # set to None if allow_webhook_subscribers (nullable) is None
-        # and model_fields_set contains the field
-        if self.allow_webhook_subscribers is None and "allow_webhook_subscribers" in self.model_fields_set:
-            _dict['allow_webhook_subscribers'] = None
-
-        # set to None if css_greens (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_greens is None and "css_greens" in self.model_fields_set:
-            _dict['css_greens'] = None
-
-        # set to None if css_graph_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_graph_color is None and "css_graph_color" in self.model_fields_set:
-            _dict['css_graph_color'] = None
-
-        # set to None if css_spinner_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_spinner_color is None and "css_spinner_color" in self.model_fields_set:
-            _dict['css_spinner_color'] = None
-
-        # set to None if css_yellows (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_yellows is None and "css_yellows" in self.model_fields_set:
-            _dict['css_yellows'] = None
-
-        # set to None if domain (nullable) is None
-        # and model_fields_set contains the field
-        if self.domain is None and "domain" in self.model_fields_set:
-            _dict['domain'] = None
-
-        # set to None if css_button_border_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_button_border_color is None and "css_button_border_color" in self.model_fields_set:
-            _dict['css_button_border_color'] = None
-
-        # set to None if support_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.support_url is None and "support_url" in self.model_fields_set:
-            _dict['support_url'] = None
-
-        # set to None if email_logo (nullable) is None
-        # and model_fields_set contains the field
-        if self.email_logo is None and "email_logo" in self.model_fields_set:
-            _dict['email_logo'] = None
-
-        # set to None if allow_rss_atom_feeds (nullable) is None
-        # and model_fields_set contains the field
-        if self.allow_rss_atom_feeds is None and "allow_rss_atom_feeds" in self.model_fields_set:
-            _dict['allow_rss_atom_feeds'] = None
-
-        # set to None if css_button_hover_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_button_hover_color is None and "css_button_hover_color" in self.model_fields_set:
-            _dict['css_button_hover_color'] = None
-
-        # set to None if notifications_from_email (nullable) is None
-        # and model_fields_set contains the field
-        if self.notifications_from_email is None and "notifications_from_email" in self.model_fields_set:
-            _dict['notifications_from_email'] = None
-
-        # set to None if css_oranges (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_oranges is None and "css_oranges" in self.model_fields_set:
-            _dict['css_oranges'] = None
-
-        # set to None if hero_cover (nullable) is None
-        # and model_fields_set contains the field
-        if self.hero_cover is None and "hero_cover" in self.model_fields_set:
-            _dict['hero_cover'] = None
-
-        # set to None if css_no_data (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_no_data is None and "css_no_data" in self.model_fields_set:
-            _dict['css_no_data'] = None
-
-        # set to None if yandex_metrica_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.yandex_metrica_id is None and "yandex_metrica_id" in self.model_fields_set:
-            _dict['yandex_metrica_id'] = None
-
-        # set to None if city (nullable) is None
-        # and model_fields_set contains the field
-        if self.city is None and "city" in self.model_fields_set:
-            _dict['city'] = None
-
-        # set to None if css_button_text_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_button_text_color is None and "css_button_text_color" in self.model_fields_set:
-            _dict['css_button_text_color'] = None
-
-        # set to None if css_light_font_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.css_light_font_color is None and "css_light_font_color" in self.model_fields_set:
-            _dict['css_light_font_color'] = None
-
-        # set to None if country (nullable) is None
-        # and model_fields_set contains the field
-        if self.country is None and "country" in self.model_fields_set:
-            _dict['country'] = None
-
-        # set to None if password_protected (nullable) is None
-        # and model_fields_set contains the field
-        if self.password_protected is None and "password_protected" in self.model_fields_set:
-            _dict['password_protected'] = None
 
         # set to None if css_font_color (nullable) is None
         # and model_fields_set contains the field
         if self.css_font_color is None and "css_font_color" in self.model_fields_set:
             _dict['css_font_color'] = None
 
-        # set to None if page_description (nullable) is None
+        # set to None if css_blues (nullable) is None
         # and model_fields_set contains the field
-        if self.page_description is None and "page_description" in self.model_fields_set:
-            _dict['page_description'] = None
+        if self.css_blues is None and "css_blues" in self.model_fields_set:
+            _dict['css_blues'] = None
 
         # set to None if allow_page_subscribers (nullable) is None
         # and model_fields_set contains the field
         if self.allow_page_subscribers is None and "allow_page_subscribers" in self.model_fields_set:
             _dict['allow_page_subscribers'] = None
 
-        # set to None if transactional_logo (nullable) is None
+        # set to None if css_button_text_color (nullable) is None
         # and model_fields_set contains the field
-        if self.transactional_logo is None and "transactional_logo" in self.model_fields_set:
-            _dict['transactional_logo'] = None
+        if self.css_button_text_color is None and "css_button_text_color" in self.model_fields_set:
+            _dict['css_button_text_color'] = None
+
+        # set to None if country (nullable) is None
+        # and model_fields_set contains the field
+        if self.country is None and "country" in self.model_fields_set:
+            _dict['country'] = None
+
+        # set to None if allow_rss_atom_feeds (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_rss_atom_feeds is None and "allow_rss_atom_feeds" in self.model_fields_set:
+            _dict['allow_rss_atom_feeds'] = None
+
+        # set to None if page_description (nullable) is None
+        # and model_fields_set contains the field
+        if self.page_description is None and "page_description" in self.model_fields_set:
+            _dict['page_description'] = None
+
+        # set to None if notifications_email_footer (nullable) is None
+        # and model_fields_set contains the field
+        if self.notifications_email_footer is None and "notifications_email_footer" in self.model_fields_set:
+            _dict['notifications_email_footer'] = None
+
+        # set to None if css_no_data (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_no_data is None and "css_no_data" in self.model_fields_set:
+            _dict['css_no_data'] = None
+
+        # set to None if time_zone (nullable) is None
+        # and model_fields_set contains the field
+        if self.time_zone is None and "time_zone" in self.model_fields_set:
+            _dict['time_zone'] = None
 
         # set to None if allow_email_subscribers (nullable) is None
         # and model_fields_set contains the field
         if self.allow_email_subscribers is None and "allow_email_subscribers" in self.model_fields_set:
             _dict['allow_email_subscribers'] = None
 
-        # set to None if allow_incident_subscribers (nullable) is None
+        # set to None if css_button_border_color (nullable) is None
         # and model_fields_set contains the field
-        if self.allow_incident_subscribers is None and "allow_incident_subscribers" in self.model_fields_set:
-            _dict['allow_incident_subscribers'] = None
+        if self.css_button_border_color is None and "css_button_border_color" in self.model_fields_set:
+            _dict['css_button_border_color'] = None
 
-        # set to None if url (nullable) is None
+        # set to None if email_logo (nullable) is None
         # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['url'] = None
+        if self.email_logo is None and "email_logo" in self.model_fields_set:
+            _dict['email_logo'] = None
 
-        # set to None if css_blues (nullable) is None
+        # set to None if css_button_color (nullable) is None
         # and model_fields_set contains the field
-        if self.css_blues is None and "css_blues" in self.model_fields_set:
-            _dict['css_blues'] = None
+        if self.css_button_color is None and "css_button_color" in self.model_fields_set:
+            _dict['css_button_color'] = None
 
         # set to None if headline (nullable) is None
         # and model_fields_set contains the field
         if self.headline is None and "headline" in self.model_fields_set:
             _dict['headline'] = None
 
+        # set to None if allow_incident_subscribers (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_incident_subscribers is None and "allow_incident_subscribers" in self.model_fields_set:
+            _dict['allow_incident_subscribers'] = None
+
+        # set to None if activity_score (nullable) is None
+        # and model_fields_set contains the field
+        if self.activity_score is None and "activity_score" in self.model_fields_set:
+            _dict['activity_score'] = None
+
         # set to None if company_logo (nullable) is None
         # and model_fields_set contains the field
         if self.company_logo is None and "company_logo" in self.model_fields_set:
             _dict['company_logo'] = None
+
+        # set to None if domain (nullable) is None
+        # and model_fields_set contains the field
+        if self.domain is None and "domain" in self.model_fields_set:
+            _dict['domain'] = None
+
+        # set to None if css_link_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_link_color is None and "css_link_color" in self.model_fields_set:
+            _dict['css_link_color'] = None
+
+        # set to None if hero_cover (nullable) is None
+        # and model_fields_set contains the field
+        if self.hero_cover is None and "hero_cover" in self.model_fields_set:
+            _dict['hero_cover'] = None
+
+        # set to None if allow_sms_subscribers (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_sms_subscribers is None and "allow_sms_subscribers" in self.model_fields_set:
+            _dict['allow_sms_subscribers'] = None
+
+        # set to None if password_protected (nullable) is None
+        # and model_fields_set contains the field
+        if self.password_protected is None and "password_protected" in self.model_fields_set:
+            _dict['password_protected'] = None
+
+        # set to None if css_spinner_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_spinner_color is None and "css_spinner_color" in self.model_fields_set:
+            _dict['css_spinner_color'] = None
+
+        # set to None if yandex_metrica_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.yandex_metrica_id is None and "yandex_metrica_id" in self.model_fields_set:
+            _dict['yandex_metrica_id'] = None
+
+        # set to None if css_oranges (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_oranges is None and "css_oranges" in self.model_fields_set:
+            _dict['css_oranges'] = None
+
+        # set to None if css_greens (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_greens is None and "css_greens" in self.model_fields_set:
+            _dict['css_greens'] = None
+
+        # set to None if transactional_logo (nullable) is None
+        # and model_fields_set contains the field
+        if self.transactional_logo is None and "transactional_logo" in self.model_fields_set:
+            _dict['transactional_logo'] = None
+
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['url'] = None
+
+        # set to None if css_border_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_border_color is None and "css_border_color" in self.model_fields_set:
+            _dict['css_border_color'] = None
+
+        # set to None if template (nullable) is None
+        # and model_fields_set contains the field
+        if self.template is None and "template" in self.model_fields_set:
+            _dict['template'] = None
+
+        # set to None if viewers_must_be_team_members (nullable) is None
+        # and model_fields_set contains the field
+        if self.viewers_must_be_team_members is None and "viewers_must_be_team_members" in self.model_fields_set:
+            _dict['viewers_must_be_team_members'] = None
+
+        # set to None if css_yellows (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_yellows is None and "css_yellows" in self.model_fields_set:
+            _dict['css_yellows'] = None
+
+        # set to None if hidden_from_search (nullable) is None
+        # and model_fields_set contains the field
+        if self.hidden_from_search is None and "hidden_from_search" in self.model_fields_set:
+            _dict['hidden_from_search'] = None
+
+        # set to None if state (nullable) is None
+        # and model_fields_set contains the field
+        if self.state is None and "state" in self.model_fields_set:
+            _dict['state'] = None
+
+        # set to None if google_analytics_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.google_analytics_id is None and "google_analytics_id" in self.model_fields_set:
+            _dict['google_analytics_id'] = None
+
+        # set to None if notifications_from_email (nullable) is None
+        # and model_fields_set contains the field
+        if self.notifications_from_email is None and "notifications_from_email" in self.model_fields_set:
+            _dict['notifications_from_email'] = None
+
+        # set to None if allow_webhook_subscribers (nullable) is None
+        # and model_fields_set contains the field
+        if self.allow_webhook_subscribers is None and "allow_webhook_subscribers" in self.model_fields_set:
+            _dict['allow_webhook_subscribers'] = None
+
+        # set to None if css_body_background_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_body_background_color is None and "css_body_background_color" in self.model_fields_set:
+            _dict['css_body_background_color'] = None
+
+        # set to None if css_light_font_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_light_font_color is None and "css_light_font_color" in self.model_fields_set:
+            _dict['css_light_font_color'] = None
+
+        # set to None if template_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.template_id is None and "template_id" in self.model_fields_set:
+            _dict['template_id'] = None
+
+        # set to None if support_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.support_url is None and "support_url" in self.model_fields_set:
+            _dict['support_url'] = None
+
+        # set to None if city (nullable) is None
+        # and model_fields_set contains the field
+        if self.city is None and "city" in self.model_fields_set:
+            _dict['city'] = None
+
+        # set to None if css_graph_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_graph_color is None and "css_graph_color" in self.model_fields_set:
+            _dict['css_graph_color'] = None
+
+        # set to None if css_reds (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_reds is None and "css_reds" in self.model_fields_set:
+            _dict['css_reds'] = None
+
+        # set to None if css_button_hover_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.css_button_hover_color is None and "css_button_hover_color" in self.model_fields_set:
+            _dict['css_button_hover_color'] = None
+
+        # set to None if ip_restrictions (nullable) is None
+        # and model_fields_set contains the field
+        if self.ip_restrictions is None and "ip_restrictions" in self.model_fields_set:
+            _dict['ip_restrictions'] = None
 
         return _dict
 
@@ -417,61 +417,61 @@ class Page(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "template": obj.get("template"),
-            "activity_score": obj.get("activity_score"),
-            "ip_restrictions": obj.get("ip_restrictions"),
-            "google_analytics_id": obj.get("google_analytics_id"),
-            "css_button_color": obj.get("css_button_color"),
-            "state": obj.get("state"),
-            "notifications_email_footer": obj.get("notifications_email_footer"),
-            "css_border_color": obj.get("css_border_color"),
             "favicon_logo": obj.get("favicon_logo"),
-            "viewers_must_be_team_members": obj.get("viewers_must_be_team_members"),
-            "time_zone": obj.get("time_zone"),
-            "organization_id": obj.get("organization_id"),
-            "hidden_from_search": obj.get("hidden_from_search"),
-            "updated_at": obj.get("updated_at"),
-            "css_body_background_color": obj.get("css_body_background_color"),
-            "css_reds": obj.get("css_reds"),
-            "css_link_color": obj.get("css_link_color"),
-            "created_at": obj.get("created_at"),
-            "id": obj.get("id"),
-            "template_id": obj.get("template_id"),
-            "allow_sms_subscribers": obj.get("allow_sms_subscribers"),
-            "allow_webhook_subscribers": obj.get("allow_webhook_subscribers"),
-            "css_greens": obj.get("css_greens"),
-            "css_graph_color": obj.get("css_graph_color"),
-            "css_spinner_color": obj.get("css_spinner_color"),
-            "css_yellows": obj.get("css_yellows"),
-            "domain": obj.get("domain"),
-            "css_button_border_color": obj.get("css_button_border_color"),
-            "support_url": obj.get("support_url"),
-            "email_logo": obj.get("email_logo"),
-            "allow_rss_atom_feeds": obj.get("allow_rss_atom_feeds"),
-            "css_button_hover_color": obj.get("css_button_hover_color"),
-            "notifications_from_email": obj.get("notifications_from_email"),
-            "css_oranges": obj.get("css_oranges"),
-            "hero_cover": obj.get("hero_cover"),
-            "css_no_data": obj.get("css_no_data"),
-            "yandex_metrica_id": obj.get("yandex_metrica_id"),
-            "city": obj.get("city"),
-            "css_button_text_color": obj.get("css_button_text_color"),
-            "css_light_font_color": obj.get("css_light_font_color"),
-            "subdomain": obj.get("subdomain"),
-            "language": obj.get("language"),
-            "country": obj.get("country"),
-            "password_protected": obj.get("password_protected"),
             "css_font_color": obj.get("css_font_color"),
-            "page_description": obj.get("page_description"),
-            "name": obj.get("name"),
-            "allow_page_subscribers": obj.get("allow_page_subscribers"),
-            "transactional_logo": obj.get("transactional_logo"),
-            "allow_email_subscribers": obj.get("allow_email_subscribers"),
-            "allow_incident_subscribers": obj.get("allow_incident_subscribers"),
-            "url": obj.get("url"),
             "css_blues": obj.get("css_blues"),
+            "allow_page_subscribers": obj.get("allow_page_subscribers"),
+            "css_button_text_color": obj.get("css_button_text_color"),
+            "created_at": obj.get("created_at"),
+            "country": obj.get("country"),
+            "organization_id": obj.get("organization_id"),
+            "allow_rss_atom_feeds": obj.get("allow_rss_atom_feeds"),
+            "name": obj.get("name"),
+            "page_description": obj.get("page_description"),
+            "notifications_email_footer": obj.get("notifications_email_footer"),
+            "css_no_data": obj.get("css_no_data"),
+            "time_zone": obj.get("time_zone"),
+            "id": obj.get("id"),
+            "allow_email_subscribers": obj.get("allow_email_subscribers"),
+            "css_button_border_color": obj.get("css_button_border_color"),
+            "email_logo": obj.get("email_logo"),
+            "css_button_color": obj.get("css_button_color"),
             "headline": obj.get("headline"),
-            "company_logo": obj.get("company_logo")
+            "allow_incident_subscribers": obj.get("allow_incident_subscribers"),
+            "activity_score": obj.get("activity_score"),
+            "language": obj.get("language"),
+            "company_logo": obj.get("company_logo"),
+            "domain": obj.get("domain"),
+            "css_link_color": obj.get("css_link_color"),
+            "hero_cover": obj.get("hero_cover"),
+            "allow_sms_subscribers": obj.get("allow_sms_subscribers"),
+            "password_protected": obj.get("password_protected"),
+            "css_spinner_color": obj.get("css_spinner_color"),
+            "yandex_metrica_id": obj.get("yandex_metrica_id"),
+            "css_oranges": obj.get("css_oranges"),
+            "css_greens": obj.get("css_greens"),
+            "transactional_logo": obj.get("transactional_logo"),
+            "url": obj.get("url"),
+            "css_border_color": obj.get("css_border_color"),
+            "template": obj.get("template"),
+            "subdomain": obj.get("subdomain"),
+            "viewers_must_be_team_members": obj.get("viewers_must_be_team_members"),
+            "css_yellows": obj.get("css_yellows"),
+            "hidden_from_search": obj.get("hidden_from_search"),
+            "state": obj.get("state"),
+            "google_analytics_id": obj.get("google_analytics_id"),
+            "notifications_from_email": obj.get("notifications_from_email"),
+            "allow_webhook_subscribers": obj.get("allow_webhook_subscribers"),
+            "css_body_background_color": obj.get("css_body_background_color"),
+            "css_light_font_color": obj.get("css_light_font_color"),
+            "template_id": obj.get("template_id"),
+            "support_url": obj.get("support_url"),
+            "city": obj.get("city"),
+            "css_graph_color": obj.get("css_graph_color"),
+            "updated_at": obj.get("updated_at"),
+            "css_reds": obj.get("css_reds"),
+            "css_button_hover_color": obj.get("css_button_hover_color"),
+            "ip_restrictions": obj.get("ip_restrictions")
         })
         return _obj
 

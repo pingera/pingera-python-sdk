@@ -36,11 +36,11 @@ class TestOAuthProvider(unittest.TestCase):
         model = OAuthProvider()
         if include_optional:
             return OAuthProvider(
-                name = 'yandex',
-                icon_url = 'https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg',
-                display_name = 'Yandex.ID',
+                is_active = True,
                 authorization_url = 'https://oauth.yandex.ru/authorize',
-                is_active = True
+                icon_url = 'https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg',
+                name = 'yandex',
+                display_name = 'Yandex.ID'
             )
         else:
             return OAuthProvider(

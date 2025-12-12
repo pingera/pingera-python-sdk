@@ -36,27 +36,27 @@ class TestUser(unittest.TestCase):
         model = User()
         if include_optional:
             return User(
-                onboarding_step = 'setup_alerts',
-                password = 'securepassword123',
-                role = 'admin',
-                created_at = '2024-01-15T10:00Z',
                 email = 'user@example.com',
-                id = 'user_abc123def456',
-                is_first_login = False,
-                email_verified = True,
-                onboarding_completed_at = '2024-01-15T11:30Z',
-                verification_token_expires = 2024-01-16T10:00:00Z,
-                first_name = 'John',
-                last_login = '2024-01-15T14:30Z',
-                organization_id = 'org_stellar_solutions',
-                org_name = 'My Company',
                 onboarding_completed = True,
-                last_name = 'Doe'
+                onboarding_step = 'setup_alerts',
+                verification_token_expires = 2024-01-16T10:00:00Z,
+                last_name = 'Doe',
+                org_name = 'My Company',
+                created_at = '2024-01-15T10:00Z',
+                organization_id = 'org_stellar_solutions',
+                is_first_login = False,
+                last_login = '2024-01-15T14:30Z',
+                role = 'admin',
+                id = 'user_abc123def456',
+                onboarding_completed_at = '2024-01-15T11:30Z',
+                first_name = 'John',
+                email_verified = True,
+                password = 'securepassword123'
             )
         else:
             return User(
-                password = 'securepassword123',
                 email = 'user@example.com',
+                password = 'securepassword123',
         )
         """
 

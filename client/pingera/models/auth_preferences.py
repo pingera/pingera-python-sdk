@@ -28,9 +28,9 @@ class AuthPreferences(BaseModel):
     AuthPreferences
     """ # noqa: E501
     require_2fa: Optional[StrictBool] = Field(default=None, description="Whether to require 2FA for this user")
-    passkey_only: Optional[StrictBool] = Field(default=None, description="Whether to allow only passkey authentication")
     preferred_auth_method: Optional[StrictStr] = Field(default=None, description="Preferred authentication method")
-    __properties: ClassVar[List[str]] = ["require_2fa", "passkey_only", "preferred_auth_method"]
+    passkey_only: Optional[StrictBool] = Field(default=None, description="Whether to allow only passkey authentication")
+    __properties: ClassVar[List[str]] = ["require_2fa", "preferred_auth_method", "passkey_only"]
 
     @field_validator('preferred_auth_method')
     def preferred_auth_method_validate_enum(cls, value):
@@ -99,8 +99,8 @@ class AuthPreferences(BaseModel):
 
         _obj = cls.model_validate({
             "require_2fa": obj.get("require_2fa"),
-            "passkey_only": obj.get("passkey_only"),
-            "preferred_auth_method": obj.get("preferred_auth_method")
+            "preferred_auth_method": obj.get("preferred_auth_method"),
+            "passkey_only": obj.get("passkey_only")
         })
         return _obj
 

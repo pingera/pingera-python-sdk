@@ -30,20 +30,20 @@ class ExecutionGroup(BaseModel):
     ExecutionGroup
     """ # noqa: E501
     requested_regions: Optional[List[StrictStr]] = Field(default=None, description="List of regions where execution was requested")
-    created_at: Optional[datetime] = Field(default=None, description="When the execution group was created")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the execution group")
     execution_type: Optional[StrictStr] = Field(default=None, description="Type of execution")
-    regional_summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary of results by region")
-    triggered_by_user_id: Optional[StrictStr] = Field(default=None, description="ID of user who triggered the execution (null for scheduled)")
-    started_at: Optional[datetime] = Field(default=None, description="When the execution started")
-    timeout_at: Optional[datetime] = Field(default=None, description="When to give up waiting for results")
-    check_id: Optional[StrictStr] = Field(default=None, description="ID of the check (null for on-demand custom checks)")
-    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization that owns this execution")
-    completed_at: Optional[datetime] = Field(default=None, description="When the execution completed")
-    statistics: Optional[ExecutionGroupStatistics] = Field(default=None, description="Aggregated statistics for this execution group")
-    execution_mode: Optional[StrictStr] = Field(default=None, description="Execution mode used")
     status: Optional[StrictStr] = Field(default=None, description="Overall status of the execution group")
-    __properties: ClassVar[List[str]] = ["requested_regions", "created_at", "id", "execution_type", "regional_summary", "triggered_by_user_id", "started_at", "timeout_at", "check_id", "organization_id", "completed_at", "statistics", "execution_mode", "status"]
+    regional_summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary of results by region")
+    started_at: Optional[datetime] = Field(default=None, description="When the execution started")
+    triggered_by_user_id: Optional[StrictStr] = Field(default=None, description="ID of user who triggered the execution (null for scheduled)")
+    check_id: Optional[StrictStr] = Field(default=None, description="ID of the check (null for on-demand custom checks)")
+    created_at: Optional[datetime] = Field(default=None, description="When the execution group was created")
+    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization that owns this execution")
+    statistics: Optional[ExecutionGroupStatistics] = Field(default=None, description="Aggregated statistics for this execution group")
+    completed_at: Optional[datetime] = Field(default=None, description="When the execution completed")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the execution group")
+    timeout_at: Optional[datetime] = Field(default=None, description="When to give up waiting for results")
+    execution_mode: Optional[StrictStr] = Field(default=None, description="Execution mode used")
+    __properties: ClassVar[List[str]] = ["requested_regions", "execution_type", "status", "regional_summary", "started_at", "triggered_by_user_id", "check_id", "created_at", "organization_id", "statistics", "completed_at", "id", "timeout_at", "execution_mode"]
 
     @field_validator('execution_type')
     def execution_type_validate_enum(cls, value):
@@ -55,16 +55,6 @@ class ExecutionGroup(BaseModel):
             raise ValueError("must be one of enum values ('scheduled', 'on_demand')")
         return value
 
-    @field_validator('execution_mode')
-    def execution_mode_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['all', 'random_n']):
-            raise ValueError("must be one of enum values ('all', 'random_n')")
-        return value
-
     @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
@@ -73,6 +63,16 @@ class ExecutionGroup(BaseModel):
 
         if value not in set(['pending', 'running', 'completed', 'partial', 'failed']):
             raise ValueError("must be one of enum values ('pending', 'running', 'completed', 'partial', 'failed')")
+        return value
+
+    @field_validator('execution_mode')
+    def execution_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['all', 'random_n']):
+            raise ValueError("must be one of enum values ('all', 'random_n')")
         return value
 
     model_config = ConfigDict(
@@ -119,20 +119,15 @@ class ExecutionGroup(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of statistics
         if self.statistics:
             _dict['statistics'] = self.statistics.to_dict()
-        # set to None if triggered_by_user_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.triggered_by_user_id is None and "triggered_by_user_id" in self.model_fields_set:
-            _dict['triggered_by_user_id'] = None
-
         # set to None if started_at (nullable) is None
         # and model_fields_set contains the field
         if self.started_at is None and "started_at" in self.model_fields_set:
             _dict['started_at'] = None
 
-        # set to None if timeout_at (nullable) is None
+        # set to None if triggered_by_user_id (nullable) is None
         # and model_fields_set contains the field
-        if self.timeout_at is None and "timeout_at" in self.model_fields_set:
-            _dict['timeout_at'] = None
+        if self.triggered_by_user_id is None and "triggered_by_user_id" in self.model_fields_set:
+            _dict['triggered_by_user_id'] = None
 
         # set to None if check_id (nullable) is None
         # and model_fields_set contains the field
@@ -143,6 +138,11 @@ class ExecutionGroup(BaseModel):
         # and model_fields_set contains the field
         if self.completed_at is None and "completed_at" in self.model_fields_set:
             _dict['completed_at'] = None
+
+        # set to None if timeout_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.timeout_at is None and "timeout_at" in self.model_fields_set:
+            _dict['timeout_at'] = None
 
         return _dict
 
@@ -157,19 +157,19 @@ class ExecutionGroup(BaseModel):
 
         _obj = cls.model_validate({
             "requested_regions": obj.get("requested_regions"),
-            "created_at": obj.get("created_at"),
-            "id": obj.get("id"),
             "execution_type": obj.get("execution_type"),
+            "status": obj.get("status"),
             "regional_summary": obj.get("regional_summary"),
-            "triggered_by_user_id": obj.get("triggered_by_user_id"),
             "started_at": obj.get("started_at"),
-            "timeout_at": obj.get("timeout_at"),
+            "triggered_by_user_id": obj.get("triggered_by_user_id"),
             "check_id": obj.get("check_id"),
+            "created_at": obj.get("created_at"),
             "organization_id": obj.get("organization_id"),
-            "completed_at": obj.get("completed_at"),
             "statistics": ExecutionGroupStatistics.from_dict(obj["statistics"]) if obj.get("statistics") is not None else None,
-            "execution_mode": obj.get("execution_mode"),
-            "status": obj.get("status")
+            "completed_at": obj.get("completed_at"),
+            "id": obj.get("id"),
+            "timeout_at": obj.get("timeout_at"),
+            "execution_mode": obj.get("execution_mode")
         })
         return _obj
 

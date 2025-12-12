@@ -36,13 +36,13 @@ class TestLogin(unittest.TestCase):
         model = Login()
         if include_optional:
             return Login(
-                password = 'securepassword123',
-                email = 'user@example.com'
+                email = 'user@example.com',
+                password = 'securepassword123'
             )
         else:
             return Login(
-                password = 'securepassword123',
                 email = 'user@example.com',
+                password = 'securepassword123',
         )
         """
 

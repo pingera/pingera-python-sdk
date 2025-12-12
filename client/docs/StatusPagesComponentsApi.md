@@ -1017,7 +1017,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_page_id_components_component_id_uptime_get**
-> v1_pages_page_id_components_component_id_uptime_get(page_id, component_id)
+> ComponentUptime v1_pages_page_id_components_component_id_uptime_get(page_id, component_id)
 
 Get component uptime
 
@@ -1030,6 +1030,7 @@ Get uptime data for a specific component with optional date range filtering
 
 ```python
 import pingera
+from pingera.models.component_uptime import ComponentUptime
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -1064,7 +1065,9 @@ with pingera.ApiClient(configuration) as api_client:
 
     try:
         # Get component uptime
-        api_instance.v1_pages_page_id_components_component_id_uptime_get(page_id, component_id)
+        api_response = api_instance.v1_pages_page_id_components_component_id_uptime_get(page_id, component_id)
+        print("The response of StatusPagesComponentsApi->v1_pages_page_id_components_component_id_uptime_get:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling StatusPagesComponentsApi->v1_pages_page_id_components_component_id_uptime_get: %s\n" % e)
 ```
@@ -1081,7 +1084,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**ComponentUptime**](ComponentUptime.md)
 
 ### Authorization
 

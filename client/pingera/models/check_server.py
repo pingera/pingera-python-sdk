@@ -28,11 +28,11 @@ class CheckServer(BaseModel):
     CheckServer
     """ # noqa: E501
     server_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata about the server configuration.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check server.")
     ip_address: Optional[StrictStr] = Field(default=None, description="The IP address of the check server.")
-    region: Optional[StrictStr] = Field(default=None, description="The geographical region where the server is located.")
     country: Optional[StrictStr] = Field(default=None, description="The country where the server is located.")
-    __properties: ClassVar[List[str]] = ["server_metadata", "id", "ip_address", "region", "country"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check server.")
+    region: Optional[StrictStr] = Field(default=None, description="The geographical region where the server is located.")
+    __properties: ClassVar[List[str]] = ["server_metadata", "ip_address", "country", "id", "region"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,10 +88,10 @@ class CheckServer(BaseModel):
 
         _obj = cls.model_validate({
             "server_metadata": obj.get("server_metadata"),
-            "id": obj.get("id"),
             "ip_address": obj.get("ip_address"),
-            "region": obj.get("region"),
-            "country": obj.get("country")
+            "country": obj.get("country"),
+            "id": obj.get("id"),
+            "region": obj.get("region")
         })
         return _obj
 

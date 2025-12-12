@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**execution_id** | **str** | Unique identifier for this specific check execution. Use this for support tickets. Null for legacy results. | [optional] [readonly] 
-**created_at** | **datetime** | The timestamp when the check result was created in ISO format. | [optional] [readonly] 
-**id** | **str** | The unique identifier for the check result. | [optional] [readonly] 
-**response_time** | **int** | The response time of the check in milliseconds. | [optional] 
-**triggered_alerts** | **object** | Alerts that were triggered by this check result. | [optional] [readonly] 
-**error_message** | **str** | Error message if the check failed. | [optional] 
-**check_server** | [**CheckServer**](CheckServer.md) | Details about the server that executed this check. | [optional] [readonly] 
-**check_id** | **str** | The identifier of the monitor check this result belongs to. | 
-**check_metadata** | **Dict[str, object]** | Additional metadata collected during the check execution. | [optional] 
 **check_server_id** | **str** | The identifier of the server that executed this check. | [optional] 
 **status** | **str** | The result status of the check execution. | [optional] 
+**triggered_alerts** | **object** | Alerts that were triggered by this check result. | [optional] [readonly] 
+**response_time** | **int** | The response time of the check in milliseconds. | [optional] 
+**check_id** | **str** | The identifier of the monitor check this result belongs to. | 
+**check_metadata** | **Dict[str, object]** | Additional metadata collected during the check execution. | [optional] 
+**created_at** | **datetime** | The timestamp when the check result was created in ISO format. | [optional] [readonly] 
+**execution_id** | **str** | Unique identifier for this specific check execution. Use this for support tickets. Null for legacy results. | [optional] [readonly] 
+**id** | **str** | The unique identifier for the check result. | [optional] [readonly] 
+**error_message** | **str** | Error message if the check failed. | [optional] 
+**check_server** | [**CheckServer**](CheckServer.md) | Details about the server that executed this check. | [optional] [readonly] 
 
 ## Example
 

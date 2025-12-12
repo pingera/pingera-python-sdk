@@ -28,10 +28,10 @@ class Credential(BaseModel):
     """
     Credential
     """ # noqa: E501
-    device_name: Optional[StrictStr] = Field(default=None, description="The user-provided name for the device or passkey.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the credential was registered.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the credential.")
-    __properties: ClassVar[List[str]] = ["device_name", "created_at", "id"]
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the credential was registered.")
+    device_name: Optional[StrictStr] = Field(default=None, description="The user-provided name for the device or passkey.")
+    __properties: ClassVar[List[str]] = ["id", "created_at", "device_name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,9 +68,9 @@ class Credential(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "device_name",
-            "created_at",
             "id",
+            "created_at",
+            "device_name",
         ])
 
         _dict = self.model_dump(
@@ -90,9 +90,9 @@ class Credential(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "device_name": obj.get("device_name"),
+            "id": obj.get("id"),
             "created_at": obj.get("created_at"),
-            "id": obj.get("id")
+            "device_name": obj.get("device_name")
         })
         return _obj
 

@@ -36,9 +36,9 @@ class TestCredential(unittest.TestCase):
         model = Credential()
         if include_optional:
             return Credential(
-                device_name = 'My MacBook Pro',
+                id = 'cred_2Xy...Z1a',
                 created_at = '2025-08-02T11:30:45Z',
-                id = 'cred_2Xy...Z1a'
+                device_name = 'My MacBook Pro'
             )
         else:
             return Credential(

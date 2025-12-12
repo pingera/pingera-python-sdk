@@ -36,16 +36,16 @@ class TestOrganization(unittest.TestCase):
         model = Organization()
         if include_optional:
             return Organization(
-                current_subscription = pingera.models.plan_subscription.PlanSubscription(
-                    plan = null, 
-                    created_at = '2024-01-15T10:00Z', 
-                    id = 'sub_abc123def456', 
-                    start_date = '2024-01-15T10:00Z', 
-                    end_date = '2024-02-15T10:00Z', ),
-                auto_renew = True,
                 created_at = '2024-01-15T10:00Z',
                 name = 'Stellar Solutions',
-                id = 'org_stellar_solutions'
+                id = 'org_stellar_solutions',
+                auto_renew = True,
+                current_subscription = pingera.models.plan_subscription.PlanSubscription(
+                    end_date = '2024-02-15T10:00Z', 
+                    created_at = '2024-01-15T10:00Z', 
+                    plan = null, 
+                    start_date = '2024-01-15T10:00Z', 
+                    id = 'sub_abc123def456', )
             )
         else:
             return Organization(

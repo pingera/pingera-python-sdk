@@ -27,13 +27,13 @@ class Pagination(BaseModel):
     """
     Pagination
     """ # noqa: E501
-    total_items: Optional[StrictInt] = Field(default=None, description="Total number of items")
-    has_prev: Optional[StrictBool] = Field(default=None, description="Whether there is a previous page")
     total_pages: Optional[StrictInt] = Field(default=None, description="Total number of pages")
-    page: Optional[StrictInt] = Field(default=None, description="Current page number")
+    has_prev: Optional[StrictBool] = Field(default=None, description="Whether there is a previous page")
     page_size: Optional[StrictInt] = Field(default=None, description="Number of items per page")
+    total_items: Optional[StrictInt] = Field(default=None, description="Total number of items")
     has_next: Optional[StrictBool] = Field(default=None, description="Whether there is a next page")
-    __properties: ClassVar[List[str]] = ["total_items", "has_prev", "total_pages", "page", "page_size", "has_next"]
+    page: Optional[StrictInt] = Field(default=None, description="Current page number")
+    __properties: ClassVar[List[str]] = ["total_pages", "has_prev", "page_size", "total_items", "has_next", "page"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,12 +86,12 @@ class Pagination(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "total_items": obj.get("total_items"),
-            "has_prev": obj.get("has_prev"),
             "total_pages": obj.get("total_pages"),
-            "page": obj.get("page"),
+            "has_prev": obj.get("has_prev"),
             "page_size": obj.get("page_size"),
-            "has_next": obj.get("has_next")
+            "total_items": obj.get("total_items"),
+            "has_next": obj.get("has_next"),
+            "page": obj.get("page")
         })
         return _obj
 

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**pagination** | **Dict[str, object]** | Pagination information | [optional] 
 **execution_groups** | [**List[ExecutionGroup]**](ExecutionGroup.md) | List of execution groups | [optional] 
+**pagination** | **Dict[str, object]** | Pagination information | [optional] 
 
 ## Example
 

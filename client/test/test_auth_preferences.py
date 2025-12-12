@@ -37,8 +37,8 @@ class TestAuthPreferences(unittest.TestCase):
         if include_optional:
             return AuthPreferences(
                 require_2fa = False,
-                passkey_only = False,
-                preferred_auth_method = 'password'
+                preferred_auth_method = 'password',
+                passkey_only = False
             )
         else:
             return AuthPreferences(

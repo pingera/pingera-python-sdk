@@ -29,23 +29,23 @@ class User1(BaseModel):
     """
     User1
     """ # noqa: E501
-    onboarding_step: Optional[StrictStr] = Field(default=None, description="The current step in the onboarding process. Null if onboarding is completed.")
-    password: Optional[Annotated[str, Field(min_length=6, strict=True)]] = Field(default=None, description="The user's password. Minimum 6 characters. Only used for input, never returned.")
-    role: Optional[StrictStr] = Field(default=None, description="The user's role within the organization.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the user account was created in ISO format.")
     email: Optional[StrictStr] = Field(default=None, description="The user's email address. Must be a valid email format and unique.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the user account.")
-    is_first_login: Optional[StrictBool] = Field(default=None, description="Whether this is the user's first login to the system.")
-    email_verified: Optional[StrictBool] = Field(default=None, description="Whether the user's email address has been verified.")
-    onboarding_completed_at: Optional[datetime] = Field(default=None, description="The timestamp when onboarding was completed in ISO format. Null if not completed.")
-    verification_token_expires: Optional[Any] = Field(default=None, description="The expiration time of the email verification token in ISO format. Null if already verified.")
-    first_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's first name. Maximum 50 characters.")
-    last_login: Optional[datetime] = Field(default=None, description="The timestamp of the user's last login in ISO format. Null if never logged in.")
-    organization_id: Optional[StrictStr] = Field(default=None, description="The ID of the organization the user belongs to.")
-    org_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Organization name for registration. Used when creating a new organization. Maximum 100 characters.")
     onboarding_completed: Optional[StrictBool] = Field(default=None, description="Whether the user has completed the onboarding process.")
+    onboarding_step: Optional[StrictStr] = Field(default=None, description="The current step in the onboarding process. Null if onboarding is completed.")
+    verification_token_expires: Optional[Any] = Field(default=None, description="The expiration time of the email verification token in ISO format. Null if already verified.")
     last_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's last name. Maximum 50 characters.")
-    __properties: ClassVar[List[str]] = ["onboarding_step", "password", "role", "created_at", "email", "id", "is_first_login", "email_verified", "onboarding_completed_at", "verification_token_expires", "first_name", "last_login", "organization_id", "org_name", "onboarding_completed", "last_name"]
+    org_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Organization name for registration. Used when creating a new organization. Maximum 100 characters.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the user account was created in ISO format.")
+    organization_id: Optional[StrictStr] = Field(default=None, description="The ID of the organization the user belongs to.")
+    is_first_login: Optional[StrictBool] = Field(default=None, description="Whether this is the user's first login to the system.")
+    last_login: Optional[datetime] = Field(default=None, description="The timestamp of the user's last login in ISO format. Null if never logged in.")
+    role: Optional[StrictStr] = Field(default=None, description="The user's role within the organization.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the user account.")
+    onboarding_completed_at: Optional[datetime] = Field(default=None, description="The timestamp when onboarding was completed in ISO format. Null if not completed.")
+    first_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's first name. Maximum 50 characters.")
+    email_verified: Optional[StrictBool] = Field(default=None, description="Whether the user's email address has been verified.")
+    password: Optional[Annotated[str, Field(min_length=6, strict=True)]] = Field(default=None, description="The user's password. Minimum 6 characters. Only used for input, never returned.")
+    __properties: ClassVar[List[str]] = ["email", "onboarding_completed", "onboarding_step", "verification_token_expires", "last_name", "org_name", "created_at", "organization_id", "is_first_login", "last_login", "role", "id", "onboarding_completed_at", "first_name", "email_verified", "password"]
 
     @field_validator('role')
     def role_validate_enum(cls, value):
@@ -99,16 +99,16 @@ class User1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "onboarding_step",
-            "created_at",
-            "id",
-            "is_first_login",
-            "email_verified",
-            "onboarding_completed_at",
-            "verification_token_expires",
-            "last_login",
-            "organization_id",
             "onboarding_completed",
+            "onboarding_step",
+            "verification_token_expires",
+            "created_at",
+            "organization_id",
+            "is_first_login",
+            "last_login",
+            "id",
+            "onboarding_completed_at",
+            "email_verified",
         ])
 
         _dict = self.model_dump(
@@ -138,22 +138,22 @@ class User1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "onboarding_step": obj.get("onboarding_step"),
-            "password": obj.get("password"),
-            "role": obj.get("role"),
-            "created_at": obj.get("created_at"),
             "email": obj.get("email"),
-            "id": obj.get("id"),
-            "is_first_login": obj.get("is_first_login"),
-            "email_verified": obj.get("email_verified"),
-            "onboarding_completed_at": obj.get("onboarding_completed_at"),
-            "verification_token_expires": obj.get("verification_token_expires"),
-            "first_name": obj.get("first_name"),
-            "last_login": obj.get("last_login"),
-            "organization_id": obj.get("organization_id"),
-            "org_name": obj.get("org_name"),
             "onboarding_completed": obj.get("onboarding_completed"),
-            "last_name": obj.get("last_name")
+            "onboarding_step": obj.get("onboarding_step"),
+            "verification_token_expires": obj.get("verification_token_expires"),
+            "last_name": obj.get("last_name"),
+            "org_name": obj.get("org_name"),
+            "created_at": obj.get("created_at"),
+            "organization_id": obj.get("organization_id"),
+            "is_first_login": obj.get("is_first_login"),
+            "last_login": obj.get("last_login"),
+            "role": obj.get("role"),
+            "id": obj.get("id"),
+            "onboarding_completed_at": obj.get("onboarding_completed_at"),
+            "first_name": obj.get("first_name"),
+            "email_verified": obj.get("email_verified"),
+            "password": obj.get("password")
         })
         return _obj
 

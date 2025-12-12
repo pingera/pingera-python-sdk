@@ -29,15 +29,15 @@ class AlertChannel1(BaseModel):
     """
     AlertChannel1
     """ # noqa: E501
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.")
     type: Optional[StrictStr] = Field(default=None, description="The type of alert channel.")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the alert channel. Max 100 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.")
-    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
     last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.")
     configuration: Optional[Dict[str, Any]] = Field(default=None, description="Channel-specific configuration. Structure varies by channel type.")
-    __properties: ClassVar[List[str]] = ["updated_at", "type", "name", "id", "created_at", "enabled", "last_used_at", "configuration"]
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the alert channel. Max 100 characters.")
+    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.")
+    __properties: ClassVar[List[str]] = ["type", "last_used_at", "created_at", "configuration", "name", "enabled", "updated_at", "id"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
@@ -85,10 +85,10 @@ class AlertChannel1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "last_used_at",
+            "created_at",
             "updated_at",
             "id",
-            "created_at",
-            "last_used_at",
         ])
 
         _dict = self.model_dump(
@@ -113,14 +113,14 @@ class AlertChannel1(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "updated_at": obj.get("updated_at"),
             "type": obj.get("type"),
-            "name": obj.get("name"),
-            "id": obj.get("id"),
-            "created_at": obj.get("created_at"),
-            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
             "last_used_at": obj.get("last_used_at"),
-            "configuration": obj.get("configuration")
+            "created_at": obj.get("created_at"),
+            "configuration": obj.get("configuration"),
+            "name": obj.get("name"),
+            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
+            "updated_at": obj.get("updated_at"),
+            "id": obj.get("id")
         })
         return _obj
 

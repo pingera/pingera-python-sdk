@@ -28,11 +28,11 @@ class HeartbeatPingResponse(BaseModel):
     """
     HeartbeatPingResponse
     """ # noqa: E501
-    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check that received the ping.")
-    message: Optional[StrictStr] = Field(default=None, description="A message describing the ping result.")
     status: Optional[StrictStr] = Field(default=None, description="The status of the ping request.")
-    __properties: ClassVar[List[str]] = ["next_expected_ping", "check_id", "message", "status"]
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check that received the ping.")
+    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
+    message: Optional[StrictStr] = Field(default=None, description="A message describing the ping result.")
+    __properties: ClassVar[List[str]] = ["status", "check_id", "next_expected_ping", "message"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,10 +70,10 @@ class HeartbeatPingResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "next_expected_ping",
-            "check_id",
-            "message",
             "status",
+            "check_id",
+            "next_expected_ping",
+            "message",
         ])
 
         _dict = self.model_dump(
@@ -93,10 +93,10 @@ class HeartbeatPingResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "next_expected_ping": obj.get("next_expected_ping"),
+            "status": obj.get("status"),
             "check_id": obj.get("check_id"),
-            "message": obj.get("message"),
-            "status": obj.get("status")
+            "next_expected_ping": obj.get("next_expected_ping"),
+            "message": obj.get("message")
         })
         return _obj
 

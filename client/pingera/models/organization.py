@@ -30,12 +30,12 @@ class Organization(BaseModel):
     """
     Organization
     """ # noqa: E501
-    current_subscription: Optional[PlanSubscription] = Field(default=None, description="The current active subscription for the organization.")
-    auto_renew: Optional[StrictBool] = Field(default=None, description="Whether the subscription will automatically renew at the end of the billing period.")
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the organization was created in ISO format.")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The name of the organization. Maximum 100 characters.")
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the organization.")
-    __properties: ClassVar[List[str]] = ["current_subscription", "auto_renew", "created_at", "name", "id"]
+    auto_renew: Optional[StrictBool] = Field(default=None, description="Whether the subscription will automatically renew at the end of the billing period.")
+    current_subscription: Optional[PlanSubscription] = Field(default=None, description="The current active subscription for the organization.")
+    __properties: ClassVar[List[str]] = ["created_at", "name", "id", "auto_renew", "current_subscription"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,9 +72,9 @@ class Organization(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "current_subscription",
             "created_at",
             "id",
+            "current_subscription",
         ])
 
         _dict = self.model_dump(
@@ -97,11 +97,11 @@ class Organization(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "current_subscription": PlanSubscription.from_dict(obj["current_subscription"]) if obj.get("current_subscription") is not None else None,
-            "auto_renew": obj.get("auto_renew"),
             "created_at": obj.get("created_at"),
             "name": obj.get("name"),
-            "id": obj.get("id")
+            "id": obj.get("id"),
+            "auto_renew": obj.get("auto_renew"),
+            "current_subscription": PlanSubscription.from_dict(obj["current_subscription"]) if obj.get("current_subscription") is not None else None
         })
         return _obj
 

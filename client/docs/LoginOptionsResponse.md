@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**preferred** | **str** | Preferred authentication method | [optional] [readonly] 
 **requires_2fa** | **bool** | Whether 2FA is required for this user | [optional] [readonly] 
 **methods** | **List[str]** | Available authentication methods for this email | [optional] [readonly] 
-**preferred** | **str** | Preferred authentication method | [optional] [readonly] 
 
 ## Example
 

@@ -36,18 +36,18 @@ class TestRegistrationComplete(unittest.TestCase):
         model = RegistrationComplete()
         if include_optional:
             return RegistrationComplete(
+                challenge_id = 'challenge-123-456',
                 credential = {
                     'key' : null
                     },
-                challenge_id = 'challenge-123-456',
                 device_name = 'Unnamed Device'
             )
         else:
             return RegistrationComplete(
+                challenge_id = 'challenge-123-456',
                 credential = {
                     'key' : null
                     },
-                challenge_id = 'challenge-123-456',
         )
         """
 

@@ -42,7 +42,9 @@ from pingera.models.check_secret_input import CheckSecretInput
 from pingera.models.check_server import CheckServer
 from pingera.models.component import Component
 from pingera.models.component1 import Component1
+from pingera.models.component_uptime import ComponentUptime
 from pingera.models.component_uptime_bulk_request import ComponentUptimeBulkRequest
+from pingera.models.component_uptime_events import ComponentUptimeEvents
 from pingera.models.credential import Credential
 from pingera.models.credential_update import CredentialUpdate
 from pingera.models.credentials_list_response import CredentialsListResponse

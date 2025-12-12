@@ -37,10 +37,10 @@ class TestAuthSetupStatus(unittest.TestCase):
         if include_optional:
             return AuthSetupStatus(
                 has_password = True,
-                setup_complete = True,
                 oauth_providers = ["google","github"],
-                two_factor_enabled = False,
-                passkey_count = 2
+                setup_complete = True,
+                passkey_count = 2,
+                two_factor_enabled = False
             )
         else:
             return AuthSetupStatus(

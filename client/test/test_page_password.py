@@ -36,16 +36,16 @@ class TestPagePassword(unittest.TestCase):
         model = PagePassword()
         if include_optional:
             return PagePassword(
-                updated_at = '2024-01-15T14:00Z',
-                password = 'securepassword123',
-                name = 'VIP Access',
-                id = 'pwd_abc123def456',
+                is_expired = False,
                 created_at = '2024-01-15T10:00Z',
                 created_by = 'user_abc123def456',
-                is_expired = False,
                 expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                name = 'VIP Access',
+                password_hint = 'Use the company founding year',
+                updated_at = '2024-01-15T14:00Z',
+                id = 'pwd_abc123def456',
                 active = True,
-                password_hint = 'Use the company founding year'
+                password = 'securepassword123'
             )
         else:
             return PagePassword(

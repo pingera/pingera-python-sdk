@@ -6,10 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **has_password** | **bool** | Whether user has a password set | [optional] [readonly] 
-**setup_complete** | **bool** | Whether authentication setup is complete | [optional] [readonly] 
 **oauth_providers** | **List[str]** | Connected OAuth providers | [optional] [readonly] 
-**two_factor_enabled** | **bool** | Whether 2FA is enabled | [optional] [readonly] 
+**setup_complete** | **bool** | Whether authentication setup is complete | [optional] [readonly] 
 **passkey_count** | **int** | Number of registered passkeys | [optional] [readonly] 
+**two_factor_enabled** | **bool** | Whether 2FA is enabled | [optional] [readonly] 
 
 ## Example
 

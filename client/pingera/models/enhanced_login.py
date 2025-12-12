@@ -28,9 +28,9 @@ class EnhancedLogin(BaseModel):
     EnhancedLogin
     """ # noqa: E501
     password: Optional[StrictStr] = Field(default=None, description="Password (required when method is 'password')")
-    method: Optional[StrictStr] = Field(default='password', description="Authentication method to use")
     email: StrictStr = Field(description="User's email address")
-    __properties: ClassVar[List[str]] = ["password", "method", "email"]
+    method: Optional[StrictStr] = Field(default='password', description="Authentication method to use")
+    __properties: ClassVar[List[str]] = ["password", "email", "method"]
 
     @field_validator('method')
     def method_validate_enum(cls, value):
@@ -99,8 +99,8 @@ class EnhancedLogin(BaseModel):
 
         _obj = cls.model_validate({
             "password": obj.get("password"),
-            "method": obj.get("method") if obj.get("method") is not None else 'password',
-            "email": obj.get("email")
+            "email": obj.get("email"),
+            "method": obj.get("method") if obj.get("method") is not None else 'password'
         })
         return _obj
 

@@ -37,25 +37,25 @@ class TestExecutionGroup(unittest.TestCase):
         if include_optional:
             return ExecutionGroup(
                 requested_regions = ["US, East coast","EU, West","RU, Moscow"],
-                created_at = '2024-01-15T10:00Z',
-                id = 'grp123abc456',
                 execution_type = 'scheduled',
+                status = 'completed',
                 regional_summary = {"US, East coast":{"status":"ok","response_time":150},"EU, West":{"status":"failed","error_message":"Connection timeout"}},
-                triggered_by_user_id = 'usr123abc456',
                 started_at = '2024-01-15T10:00:01Z',
-                timeout_at = '2024-01-15T10:05Z',
+                triggered_by_user_id = 'usr123abc456',
                 check_id = 'chk123def456',
+                created_at = '2024-01-15T10:00Z',
                 organization_id = 'org123xyz789',
-                completed_at = '2024-01-15T10:00:05Z',
                 statistics = pingera.models.execution_group_statistics.ExecutionGroupStatistics(
                     completed_executions = 3, 
-                    total_executions = 3, 
-                    min_response_time = 120, 
                     max_response_time = 230, 
+                    failed_executions = 1, 
+                    total_executions = 3, 
                     avg_response_time = 175, 
-                    failed_executions = 1, ),
-                execution_mode = 'all',
-                status = 'completed'
+                    min_response_time = 120, ),
+                completed_at = '2024-01-15T10:00:05Z',
+                id = 'grp123abc456',
+                timeout_at = '2024-01-15T10:05Z',
+                execution_mode = 'all'
             )
         else:
             return ExecutionGroup(

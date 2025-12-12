@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**price** | **Dict[str, object]** | Pricing information for the plan in different currencies. | [optional] 
 **description** | **str** | A detailed description of the plan features and benefits. | [optional] 
+**price** | **Dict[str, object]** | Pricing information for the plan in different currencies. | [optional] 
 **name** | **str** | The name of the subscription plan. Maximum 100 characters. | 
-**id** | **str** | The unique identifier for the subscription plan. | [optional] [readonly] 
 **duration** | **int** | The duration of the plan subscription in days. Minimum is 1 day. | [optional] 
 **limits** | **Dict[str, object]** | Usage limits and quotas for the plan features. | [optional] 
+**id** | **str** | The unique identifier for the subscription plan. | [optional] [readonly] 
 
 ## Example
 

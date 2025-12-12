@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**hint** | **str** | The password hint | [optional] 
 **name** | **str** | Name of the password (if available) | [optional] 
+**hint** | **str** | The password hint | [optional] 
 
 ## Example
 

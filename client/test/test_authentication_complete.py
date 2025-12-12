@@ -36,17 +36,17 @@ class TestAuthenticationComplete(unittest.TestCase):
         model = AuthenticationComplete()
         if include_optional:
             return AuthenticationComplete(
+                challenge_id = 'challenge-789-012',
                 credential = {
                     'key' : null
-                    },
-                challenge_id = 'challenge-789-012'
+                    }
             )
         else:
             return AuthenticationComplete(
+                challenge_id = 'challenge-789-012',
                 credential = {
                     'key' : null
                     },
-                challenge_id = 'challenge-789-012',
         )
         """
 

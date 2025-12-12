@@ -28,9 +28,9 @@ class ExecutionGroupList(BaseModel):
     """
     ExecutionGroupList
     """ # noqa: E501
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information")
     execution_groups: Optional[List[ExecutionGroup]] = Field(default=None, description="List of execution groups")
-    __properties: ClassVar[List[str]] = ["pagination", "execution_groups"]
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information")
+    __properties: ClassVar[List[str]] = ["execution_groups", "pagination"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,8 +90,8 @@ class ExecutionGroupList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "pagination": obj.get("pagination"),
-            "execution_groups": [ExecutionGroup.from_dict(_item) for _item in obj["execution_groups"]] if obj.get("execution_groups") is not None else None
+            "execution_groups": [ExecutionGroup.from_dict(_item) for _item in obj["execution_groups"]] if obj.get("execution_groups") is not None else None,
+            "pagination": obj.get("pagination")
         })
         return _obj
 

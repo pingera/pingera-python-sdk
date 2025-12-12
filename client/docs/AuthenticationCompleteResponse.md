@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**auth_method** | **str** | The authentication method used. | [optional] [readonly] 
 **access_token** | **str** | A JWT access token for authenticating subsequent requests. | [optional] [readonly] 
 **is_first_login** | **bool** | Indicates if this is the user&#39;s first successful authentication. | [optional] [readonly] 
-**auth_method** | **str** | The authentication method used. | [optional] [readonly] 
-**user** | [**User**](User.md) | Information about the authenticated user. | [optional] [readonly] 
 **refresh_token** | **str** | A JWT refresh token for generating new access tokens. | [optional] [readonly] 
+**user** | [**User**](User.md) | Information about the authenticated user. | [optional] [readonly] 
 
 ## Example
 

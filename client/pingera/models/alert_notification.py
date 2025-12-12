@@ -28,27 +28,27 @@ class AlertNotification(BaseModel):
     """
     AlertNotification
     """ # noqa: E501
-    sent_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was successfully sent in ISO format. Null if not sent.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was created in ISO format.")
+    status: Optional[StrictStr] = Field(default=None, description="The delivery status of the notification.")
     alert_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert this notification belongs to.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert notification.")
-    channel_type: Optional[StrictStr] = Field(default=None, description="The type of the alert channel used for this notification.")
+    sent_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was successfully sent in ISO format. Null if not sent.")
+    retry_count: Optional[StrictInt] = Field(default=None, description="The number of retry attempts for this notification.")
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was created in ISO format.")
+    notification_type: Optional[StrictStr] = Field(default=None, description="The type of notification sent.")
     channel_name: Optional[Any] = Field(default=None, description="The name of the alert channel used for this notification.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert notification.")
     error_message: Optional[StrictStr] = Field(default=None, description="Error message if the notification failed to send. Null if successful.")
     channel_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert channel used for this notification.")
-    notification_type: Optional[StrictStr] = Field(default=None, description="The type of notification sent.")
-    retry_count: Optional[StrictInt] = Field(default=None, description="The number of retry attempts for this notification.")
-    status: Optional[StrictStr] = Field(default=None, description="The delivery status of the notification.")
-    __properties: ClassVar[List[str]] = ["sent_at", "created_at", "alert_id", "id", "channel_type", "channel_name", "error_message", "channel_id", "notification_type", "retry_count", "status"]
+    channel_type: Optional[StrictStr] = Field(default=None, description="The type of the alert channel used for this notification.")
+    __properties: ClassVar[List[str]] = ["status", "alert_id", "sent_at", "retry_count", "created_at", "notification_type", "channel_name", "id", "error_message", "channel_id", "channel_type"]
 
-    @field_validator('channel_type')
-    def channel_type_validate_enum(cls, value):
+    @field_validator('status')
+    def status_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
             return value
 
-        if value not in set(['email', 'webhook', 'statuspage', 'telegram']):
-            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram')")
+        if value not in set(['pending', 'sent', 'failed', 'retrying']):
+            raise ValueError("must be one of enum values ('pending', 'sent', 'failed', 'retrying')")
         return value
 
     @field_validator('notification_type')
@@ -61,14 +61,14 @@ class AlertNotification(BaseModel):
             raise ValueError("must be one of enum values ('alert_fired', 'alert_resolved', 'alert_acknowledged')")
         return value
 
-    @field_validator('status')
-    def status_validate_enum(cls, value):
+    @field_validator('channel_type')
+    def channel_type_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
             return value
 
-        if value not in set(['pending', 'sent', 'failed', 'retrying']):
-            raise ValueError("must be one of enum values ('pending', 'sent', 'failed', 'retrying')")
+        if value not in set(['email', 'webhook', 'statuspage', 'telegram']):
+            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram')")
         return value
 
     model_config = ConfigDict(
@@ -114,17 +114,17 @@ class AlertNotification(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "sent_at",
-            "created_at",
+            "status",
             "alert_id",
-            "id",
-            "channel_type",
+            "sent_at",
+            "retry_count",
+            "created_at",
+            "notification_type",
             "channel_name",
+            "id",
             "error_message",
             "channel_id",
-            "notification_type",
-            "retry_count",
-            "status",
+            "channel_type",
         ])
 
         _dict = self.model_dump(
@@ -159,17 +159,17 @@ class AlertNotification(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "sent_at": obj.get("sent_at"),
-            "created_at": obj.get("created_at"),
+            "status": obj.get("status"),
             "alert_id": obj.get("alert_id"),
-            "id": obj.get("id"),
-            "channel_type": obj.get("channel_type"),
+            "sent_at": obj.get("sent_at"),
+            "retry_count": obj.get("retry_count"),
+            "created_at": obj.get("created_at"),
+            "notification_type": obj.get("notification_type"),
             "channel_name": obj.get("channel_name"),
+            "id": obj.get("id"),
             "error_message": obj.get("error_message"),
             "channel_id": obj.get("channel_id"),
-            "notification_type": obj.get("notification_type"),
-            "retry_count": obj.get("retry_count"),
-            "status": obj.get("status")
+            "channel_type": obj.get("channel_type")
         })
         return _obj
 

@@ -27,9 +27,9 @@ class PasswordHint(BaseModel):
     """
     PasswordHint
     """ # noqa: E501
-    hint: Optional[StrictStr] = Field(default=None, description="The password hint")
     name: Optional[StrictStr] = Field(default=None, description="Name of the password (if available)")
-    __properties: ClassVar[List[str]] = ["hint", "name"]
+    hint: Optional[StrictStr] = Field(default=None, description="The password hint")
+    __properties: ClassVar[List[str]] = ["name", "hint"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,8 +87,8 @@ class PasswordHint(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "hint": obj.get("hint"),
-            "name": obj.get("name")
+            "name": obj.get("name"),
+            "hint": obj.get("hint")
         })
         return _obj
 
