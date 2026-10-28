@@ -8540,8 +8540,8 @@
       }
     },
     "responses": {
-      "UNPROCESSABLE_CONTENT": {
-        "description": "Unprocessable Content",
+      "UNPROCESSABLE_ENTITY": {
+        "description": "Unprocessable Entity",
         "content": {
           "application/json": {
             "schema": {
@@ -8567,7 +8567,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "User registered successfully. Email verification sent.",
@@ -8776,7 +8776,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "User updated successfully.",
@@ -8846,7 +8846,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "User updated successfully.",
@@ -10130,7 +10130,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Status page created successfully.",
@@ -10210,7 +10210,7 @@
         ],
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "List of status pages retrieved successfully with pagination.",
@@ -10307,7 +10307,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Status page updated successfully.",
@@ -10365,7 +10365,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Status page updated successfully.",
@@ -10675,7 +10675,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Component successfully created",
@@ -10735,7 +10735,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Component updated successfully",
@@ -10793,7 +10793,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Component updated successfully",
@@ -11006,7 +11006,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Component group created successfully",
@@ -11128,7 +11128,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Component group updated successfully",
@@ -11186,7 +11186,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Component group updated successfully",
@@ -11281,7 +11281,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "default": {
             "$ref": "#/components/responses/DEFAULT_ERROR"
@@ -11687,7 +11687,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -11813,7 +11813,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -11876,7 +11876,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -11984,7 +11984,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -12124,7 +12124,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -12189,7 +12189,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -12261,7 +12261,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -12486,7 +12486,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -12786,7 +12786,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -12913,7 +12913,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -13672,7 +13672,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -13776,7 +13776,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -13868,7 +13868,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "default": {
             "$ref": "#/components/responses/DEFAULT_ERROR"
@@ -14022,7 +14022,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -14129,7 +14129,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -14630,7 +14630,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -14727,7 +14727,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -14781,7 +14781,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -15176,7 +15176,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created"
@@ -15451,7 +15451,7 @@
         ],
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -15565,7 +15565,7 @@
         ],
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -15737,7 +15737,7 @@
         ],
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -15821,7 +15821,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "User authenticated successfully.",
@@ -15979,7 +15979,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Authentication preferences updated successfully.",
@@ -16071,7 +16071,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Passkey registered successfully.",
@@ -16125,7 +16125,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Authentication options generated successfully.",
@@ -16165,7 +16165,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "User authenticated successfully.",
@@ -16311,7 +16311,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Credential updated successfully.",
@@ -16432,7 +16432,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -16529,7 +16529,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -16696,7 +16696,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -16818,7 +16818,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -16915,7 +16915,7 @@
       "patch": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -17060,7 +17060,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Created",
@@ -17114,7 +17114,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -17480,7 +17480,7 @@
         ],
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -17518,7 +17518,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -17595,7 +17595,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -17648,7 +17648,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "OK",
@@ -17741,7 +17741,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Password verified successfully, access token returned",
@@ -17892,7 +17892,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
             "description": "Password created successfully",
@@ -17949,7 +17949,7 @@
       "put": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "200": {
             "description": "Password updated successfully",
@@ -18058,7 +18058,7 @@
       "post": {
         "responses": {
           "422": {
-            "$ref": "#/components/responses/UNPROCESSABLE_CONTENT"
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "202": {
             "description": "Accepted",

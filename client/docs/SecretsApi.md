@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **201** | Created |  -  |
 **0** | Default error response |  -  |
 
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | OK |  -  |
 **0** | Default error response |  -  |
 

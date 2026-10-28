@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **202** | Accepted |  -  |
 **0** | Default error response |  -  |
 

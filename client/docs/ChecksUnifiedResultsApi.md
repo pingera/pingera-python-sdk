@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | OK |  -  |
 **400** | Bad Request - Invalid parameters or date range |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | OK |  -  |
 **400** | Bad Request - Invalid parameters or date range |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | OK |  -  |
 **400** | Bad Request - Invalid parameters or date range |  -  |
 **401** | Unauthorized - Authentication required |  -  |

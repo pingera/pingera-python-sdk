@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Component group updated successfully |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -448,7 +448,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Component group updated successfully |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -632,7 +632,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **201** | Component group created successfully |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -910,7 +910,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Component updated successfully |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -1007,7 +1007,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Component updated successfully |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -1283,7 +1283,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **201** | Component successfully created |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -1378,7 +1378,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Uptime data successfully calculated |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |

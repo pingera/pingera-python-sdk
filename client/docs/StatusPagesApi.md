@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | List of status pages retrieved successfully with pagination. |  -  |
 **400** | Bad Request - Invalid pagination parameters |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -767,7 +767,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Status page updated successfully. |  -  |
 **400** | Bad Request - Validation error, invalid domain, subdomain, timezone, or file format |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -862,7 +862,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Status page updated successfully. |  -  |
 **400** | Bad Request - Validation error, invalid domain, subdomain, timezone, or file format |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -954,7 +954,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Status page created successfully. |  -  |
 **400** | Bad Request - Validation error, invalid subdomain, or invalid domain |  -  |
 **401** | Unauthorized - Authentication required |  -  |

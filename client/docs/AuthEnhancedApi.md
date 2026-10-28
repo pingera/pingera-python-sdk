@@ -149,7 +149,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | User authenticated successfully. |  -  |
 **400** | Bad Request - Missing fields or unsupported method |  -  |
 **401** | Unauthorized - Authentication failed |  -  |
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Authentication preferences updated successfully. |  -  |
 **400** | Bad Request - Invalid authentication method or validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |

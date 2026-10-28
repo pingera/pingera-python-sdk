@@ -642,7 +642,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | OK |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Invalid or missing authentication |  -  |
@@ -908,7 +908,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **201** | Created |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Invalid or missing authentication |  -  |
@@ -999,7 +999,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | Test attempted. &#x60;success&#x60; and &#x60;error&#x60; describe the delivery outcome. |  -  |
 **400** | Channel type cannot be tested or configuration is incomplete |  -  |
 **401** | Unauthorized - Invalid or missing authentication |  -  |
@@ -1271,7 +1271,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **201** | Created |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Invalid or missing authentication |  -  |
@@ -1540,7 +1540,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Content |  -  |
+**422** | Unprocessable Entity |  -  |
 **200** | OK |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Invalid or missing authentication |  -  |
