@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**result_id** | **str** | Unique identifier of the check result | [optional] 
+**region** | **str** | Region where this check was executed | [optional] 
 **status** | **str** | Status of the check in this region | [optional] 
 **response_time** | **int** | Response time in milliseconds (null if check failed) | [optional] 
-**result_id** | **str** | Unique identifier of the check result | [optional] 
-**created_at** | **datetime** | Timestamp when this regional result was created | [optional] 
 **error_message** | **str** | Error message if the check failed | [optional] 
-**region** | **str** | Region where this check was executed | [optional] 
+**created_at** | **datetime** | Timestamp when this regional result was created | [optional] 
 
 ## Example
 

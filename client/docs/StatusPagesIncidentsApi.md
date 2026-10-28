@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**v1_pages_page_id_incidents_incident_id_delete**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_delete) | **DELETE** /v1/pages/{page_id}/incidents/{incident_id} | Delete an incident by ID
 [**v1_pages_page_id_incidents_incident_id_get**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_get) | **GET** /v1/pages/{page_id}/incidents/{incident_id} | Get a specific incident by ID
 [**v1_pages_page_id_incidents_incident_id_incident_updates_get**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_incident_updates_get) | **GET** /v1/pages/{page_id}/incidents/{incident_id}/incident_updates | Get all updates for a specific incident
+[**v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete) | **DELETE** /v1/pages/{page_id}/incidents/{incident_id}/incident_updates/{incident_update_id} | Delete an incident update
 [**v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_patch**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_patch) | **PATCH** /v1/pages/{page_id}/incidents/{incident_id}/incident_updates/{incident_update_id} | Update an incident update
 [**v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_put**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_put) | **PUT** /v1/pages/{page_id}/incidents/{incident_id}/incident_updates/{incident_update_id} | Update an incident update
 [**v1_pages_page_id_incidents_incident_id_incident_updates_post**](StatusPagesIncidentsApi.md#v1_pages_page_id_incidents_incident_id_incident_updates_post) | **POST** /v1/pages/{page_id}/incidents/{incident_id}/incident_updates | Create a new update for a specific incident
@@ -26,7 +27,7 @@ Method | HTTP request | Description
 
 
 # **v1_incident_impacts_get**
-> v1_incident_impacts_get()
+> List[str] v1_incident_impacts_get()
 
 ### Example
 
@@ -49,7 +50,9 @@ with pingera.ApiClient(configuration) as api_client:
     api_instance = pingera.StatusPagesIncidentsApi(api_client)
 
     try:
-        api_instance.v1_incident_impacts_get()
+        api_response = api_instance.v1_incident_impacts_get()
+        print("The response of StatusPagesIncidentsApi->v1_incident_impacts_get:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling StatusPagesIncidentsApi->v1_incident_impacts_get: %s\n" % e)
 ```
@@ -62,7 +65,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**List[str]**
 
 ### Authorization
 
@@ -83,7 +86,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_incident_statuses_get**
-> v1_incident_statuses_get()
+> List[str] v1_incident_statuses_get()
 
 ### Example
 
@@ -106,7 +109,9 @@ with pingera.ApiClient(configuration) as api_client:
     api_instance = pingera.StatusPagesIncidentsApi(api_client)
 
     try:
-        api_instance.v1_incident_statuses_get()
+        api_response = api_instance.v1_incident_statuses_get()
+        print("The response of StatusPagesIncidentsApi->v1_incident_statuses_get:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling StatusPagesIncidentsApi->v1_incident_statuses_get: %s\n" % e)
 ```
@@ -119,7 +124,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**List[str]**
 
 ### Authorization
 
@@ -140,7 +145,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_maintenance_statuses_get**
-> v1_maintenance_statuses_get()
+> List[str] v1_maintenance_statuses_get()
 
 ### Example
 
@@ -163,7 +168,9 @@ with pingera.ApiClient(configuration) as api_client:
     api_instance = pingera.StatusPagesIncidentsApi(api_client)
 
     try:
-        api_instance.v1_maintenance_statuses_get()
+        api_response = api_instance.v1_maintenance_statuses_get()
+        print("The response of StatusPagesIncidentsApi->v1_maintenance_statuses_get:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling StatusPagesIncidentsApi->v1_maintenance_statuses_get: %s\n" % e)
 ```
@@ -176,7 +183,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**List[str]**
 
 ### Authorization
 
@@ -541,6 +548,93 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete**
+> v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete(page_id, incident_id, incident_update_id)
+
+Delete an incident update
+
+Delete an incident update
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.StatusPagesIncidentsApi(api_client)
+    page_id = 'page_id_example' # str | The ID of the status page.
+    incident_id = 'incident_id_example' # str | The ID of the incident.
+    incident_update_id = 'incident_update_id_example' # str | The ID of the incident update.
+
+    try:
+        # Delete an incident update
+        api_instance.v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete(page_id, incident_id, incident_update_id)
+    except Exception as e:
+        print("Exception when calling StatusPagesIncidentsApi->v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_id** | **str**| The ID of the status page. | 
+ **incident_id** | **str**| The ID of the incident. | 
+ **incident_update_id** | **str**| The ID of the incident update. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No Content |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

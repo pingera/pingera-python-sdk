@@ -24,6 +24,7 @@ from pingera.models.page import Page
 from pingera.models.pagination import Pagination
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PageList(BaseModel):
     """
@@ -34,7 +35,8 @@ class PageList(BaseModel):
     __properties: ClassVar[List[str]] = ["pages", "pagination"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +48,7 @@ class PageList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -76,8 +77,7 @@ class PageList(BaseModel):
         _items = []
         if self.pages:
             for _item_pages in self.pages:
-                if _item_pages:
-                    _items.append(_item_pages.to_dict())
+                _items.append(_item_pages.to_dict() if _item_pages is not None else None)
             _dict['pages'] = _items
         # override the default output from pydantic by calling `to_dict()` of pagination
         if self.pagination:

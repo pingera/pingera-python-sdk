@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The unique identifier for the credential. | [optional] [readonly] 
-**created_at** | **datetime** | The timestamp when the credential was registered. | [optional] [readonly] 
 **device_name** | **str** | The user-provided name for the device or passkey. | [optional] [readonly] 
+**created_at** | **datetime** | The timestamp when the credential was registered. | [optional] [readonly] 
 
 ## Example
 

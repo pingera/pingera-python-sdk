@@ -11,8 +11,10 @@ Method | HTTP request | Description
 [**v1_alerts_channels_channel_id_delete**](AlertsApi.md#v1_alerts_channels_channel_id_delete) | **DELETE** /v1/alerts/channels/{channel_id} | Delete an alert channel by ID
 [**v1_alerts_channels_channel_id_get**](AlertsApi.md#v1_alerts_channels_channel_id_get) | **GET** /v1/alerts/channels/{channel_id} | Get an alert channel by id
 [**v1_alerts_channels_channel_id_put**](AlertsApi.md#v1_alerts_channels_channel_id_put) | **PUT** /v1/alerts/channels/{channel_id} | Update an alert channel by ID
+[**v1_alerts_channels_channel_id_test_post**](AlertsApi.md#v1_alerts_channels_channel_id_test_post) | **POST** /v1/alerts/channels/{channel_id}/test | Send a test notification through a saved alert channel
 [**v1_alerts_channels_get**](AlertsApi.md#v1_alerts_channels_get) | **GET** /v1/alerts/channels | Get all alert channels
 [**v1_alerts_channels_post**](AlertsApi.md#v1_alerts_channels_post) | **POST** /v1/alerts/channels | Create a new alert channel
+[**v1_alerts_channels_test_post**](AlertsApi.md#v1_alerts_channels_test_post) | **POST** /v1/alerts/channels/test | Send a test notification using an unsaved channel configuration
 [**v1_alerts_get**](AlertsApi.md#v1_alerts_get) | **GET** /v1/alerts | Get all alerts
 [**v1_alerts_rules_get**](AlertsApi.md#v1_alerts_rules_get) | **GET** /v1/alerts/rules | Get all alert rules
 [**v1_alerts_rules_post**](AlertsApi.md#v1_alerts_rules_post) | **POST** /v1/alerts/rules | Create a new alert rule
@@ -650,6 +652,97 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **v1_alerts_channels_channel_id_test_post**
+> AlertChannelTestResult v1_alerts_channels_channel_id_test_post(channel_id)
+
+Send a test notification through a saved alert channel
+
+Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.alert_channel_test_result import AlertChannelTestResult
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.AlertsApi(api_client)
+    channel_id = 'channel_id_example' # str | 
+
+    try:
+        # Send a test notification through a saved alert channel
+        api_response = api_instance.v1_alerts_channels_channel_id_test_post(channel_id)
+        print("The response of AlertsApi->v1_alerts_channels_channel_id_test_post:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AlertsApi->v1_alerts_channels_channel_id_test_post: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **channel_id** | **str**|  | 
+
+### Return type
+
+[**AlertChannelTestResult**](AlertChannelTestResult.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Test attempted. &#x60;success&#x60; and &#x60;error&#x60; describe the delivery outcome. |  -  |
+**400** | Channel type cannot be tested or configuration is incomplete |  -  |
+**401** | Unauthorized - Invalid or missing authentication |  -  |
+**403** | Forbidden - editor role required |  -  |
+**429** | Too many test notifications |  -  |
+**404** | Alert channel not found |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **v1_alerts_channels_get**
 > List[AlertChannel] v1_alerts_channels_get()
 
@@ -820,6 +913,98 @@ Name | Type | Description  | Notes
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Invalid or missing authentication |  -  |
 **500** | Internal Server Error |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_alerts_channels_test_post**
+> AlertChannelTestResult v1_alerts_channels_test_post(alert_channel_test_request)
+
+Send a test notification using an unsaved channel configuration
+
+Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.alert_channel_test_request import AlertChannelTestRequest
+from pingera.models.alert_channel_test_result import AlertChannelTestResult
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.AlertsApi(api_client)
+    alert_channel_test_request = pingera.AlertChannelTestRequest() # AlertChannelTestRequest | 
+
+    try:
+        # Send a test notification using an unsaved channel configuration
+        api_response = api_instance.v1_alerts_channels_test_post(alert_channel_test_request)
+        print("The response of AlertsApi->v1_alerts_channels_test_post:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AlertsApi->v1_alerts_channels_test_post: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alert_channel_test_request** | [**AlertChannelTestRequest**](AlertChannelTestRequest.md)|  | 
+
+### Return type
+
+[**AlertChannelTestResult**](AlertChannelTestResult.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**422** | Unprocessable Entity |  -  |
+**200** | Test attempted. &#x60;success&#x60; and &#x60;error&#x60; describe the delivery outcome. |  -  |
+**400** | Channel type cannot be tested or configuration is incomplete |  -  |
+**401** | Unauthorized - Invalid or missing authentication |  -  |
+**403** | Forbidden - editor role required |  -  |
+**429** | Too many test notifications |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

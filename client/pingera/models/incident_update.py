@@ -23,20 +23,21 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IncidentUpdate(BaseModel):
     """
     IncidentUpdate
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The status of the incident update.")
-    body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.")
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
-    components: Optional[Any] = Field(default=None, description="Components affected by this incident update.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was created.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was last updated.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.")
-    incident_id: Optional[StrictStr] = Field(default=None, description="The ID of the incident this update belongs to.")
-    __properties: ClassVar[List[str]] = ["status", "body", "deliver_notifications", "components", "created_at", "updated_at", "id", "incident_id"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.", json_schema_extra={"examples": ["upd_123456789"]})
+    incident_id: Optional[StrictStr] = Field(default=None, description="The ID of the incident this update belongs to.", json_schema_extra={"examples": ["inc_123456789"]})
+    status: Optional[StrictStr] = Field(default=None, description="The status of the incident update.", json_schema_extra={"examples": ["investigating"]})
+    body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.", json_schema_extra={"examples": ["We have identified the root cause and are implementing a fix."]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was created.", json_schema_extra={"examples": ["2024-01-15T10:30:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was last updated.", json_schema_extra={"examples": ["2024-01-15T10:30:00Z"]})
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.", json_schema_extra={"examples": [True]})
+    components: Optional[Any] = Field(default=None, description="Components affected by this incident update.", json_schema_extra={"examples": [[{"id": "comp_123", "name": "API", "status": "operational"}]]})
+    __properties: ClassVar[List[str]] = ["id", "incident_id", "status", "body", "created_at", "updated_at", "deliver_notifications", "components"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -49,7 +50,8 @@ class IncidentUpdate(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -61,8 +63,7 @@ class IncidentUpdate(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -85,11 +86,11 @@ class IncidentUpdate(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "components",
-            "created_at",
-            "updated_at",
             "id",
             "incident_id",
+            "created_at",
+            "updated_at",
+            "components",
         ])
 
         _dict = self.model_dump(
@@ -114,14 +115,14 @@ class IncidentUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "incident_id": obj.get("incident_id"),
             "status": obj.get("status"),
             "body": obj.get("body"),
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
-            "components": obj.get("components"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
-            "id": obj.get("id"),
-            "incident_id": obj.get("incident_id")
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
+            "components": obj.get("components")
         })
         return _obj
 

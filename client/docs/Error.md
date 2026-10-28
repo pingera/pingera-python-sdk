@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **str** | Error name | [optional] 
 **code** | **int** | Error code | [optional] 
-**errors** | **Dict[str, object]** | Errors | [optional] 
+**status** | **str** | Error name | [optional] 
 **message** | **str** | Error message | [optional] 
+**errors** | **Dict[str, object]** | Errors | [optional] 
 
 ## Example
 

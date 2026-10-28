@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | The type of alert channel. | [optional] 
-**last_used_at** | **datetime** | The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used. | [optional] [readonly] 
-**created_at** | **datetime** | The timestamp when the alert channel was created in ISO format. | [optional] [readonly] 
-**configuration** | **Dict[str, object]** | Channel-specific configuration. Structure varies by channel type. | [optional] 
-**name** | **str** | A user-friendly name for the alert channel. Max 100 characters. | [optional] 
-**enabled** | **bool** | Whether the alert channel is enabled. Defaults to true. | [optional] [default to True]
-**updated_at** | **datetime** | The timestamp when the alert channel was last updated in ISO format. | [optional] [readonly] 
 **id** | **str** | The unique identifier for the alert channel. | [optional] [readonly] 
+**name** | **str** | A user-friendly name for the alert channel. Max 100 characters. | [optional] 
+**type** | **str** | The type of alert channel. | [optional] 
+**enabled** | **bool** | Whether the alert channel is enabled. Defaults to true. | [optional] [default to True]
+**configuration** | **Dict[str, object]** | Channel-specific configuration. Structure varies by channel type. | [optional] 
+**created_at** | **datetime** | The timestamp when the alert channel was created in ISO format. | [optional] [readonly] 
+**updated_at** | **datetime** | The timestamp when the alert channel was last updated in ISO format. | [optional] [readonly] 
+**last_used_at** | **datetime** | The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used. | [optional] [readonly] 
 
 ## Example
 

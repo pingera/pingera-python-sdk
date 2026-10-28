@@ -105,7 +105,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_heartbeats_check_id_channels_get**
-> v1_heartbeats_check_id_channels_get(check_id)
+> object v1_heartbeats_check_id_channels_get(check_id)
 
 Get alert channels assigned to heartbeat check
 
@@ -151,7 +151,9 @@ with pingera.ApiClient(configuration) as api_client:
 
     try:
         # Get alert channels assigned to heartbeat check
-        api_instance.v1_heartbeats_check_id_channels_get(check_id)
+        api_response = api_instance.v1_heartbeats_check_id_channels_get(check_id)
+        print("The response of HeartbeatsApi->v1_heartbeats_check_id_channels_get:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling HeartbeatsApi->v1_heartbeats_check_id_channels_get: %s\n" % e)
 ```
@@ -167,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Authorization
 
@@ -188,7 +190,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_heartbeats_check_id_channels_post**
-> v1_heartbeats_check_id_channels_post(check_id, heartbeat_check_channel_assignment)
+> object v1_heartbeats_check_id_channels_post(check_id, heartbeat_check_channel_assignment)
 
 Assign alert channels to heartbeat check
 
@@ -236,7 +238,9 @@ with pingera.ApiClient(configuration) as api_client:
 
     try:
         # Assign alert channels to heartbeat check
-        api_instance.v1_heartbeats_check_id_channels_post(check_id, heartbeat_check_channel_assignment)
+        api_response = api_instance.v1_heartbeats_check_id_channels_post(check_id, heartbeat_check_channel_assignment)
+        print("The response of HeartbeatsApi->v1_heartbeats_check_id_channels_post:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling HeartbeatsApi->v1_heartbeats_check_id_channels_post: %s\n" % e)
 ```
@@ -253,7 +257,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Authorization
 

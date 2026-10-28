@@ -24,20 +24,22 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.plan import Plan
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PlanSubscription(BaseModel):
     """
     PlanSubscription
     """ # noqa: E501
-    end_date: Optional[datetime] = Field(default=None, description="The end date of the subscription in ISO format.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the subscription was created in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the plan subscription.", json_schema_extra={"examples": ["sub_abc123def456"]})
     plan: Optional[Plan] = Field(default=None, description="The subscribed plan details including pricing and limits.")
-    start_date: Optional[datetime] = Field(default=None, description="The start date of the subscription in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the plan subscription.")
-    __properties: ClassVar[List[str]] = ["end_date", "created_at", "plan", "start_date", "id"]
+    start_date: Optional[datetime] = Field(default=None, description="The start date of the subscription in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    end_date: Optional[datetime] = Field(default=None, description="The end date of the subscription in ISO format.", json_schema_extra={"examples": ["2024-02-15T10:00:00Z"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the subscription was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "plan", "start_date", "end_date", "created_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +51,7 @@ class PlanSubscription(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -70,8 +71,8 @@ class PlanSubscription(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "plan",
             "id",
+            "plan",
         ])
 
         _dict = self.model_dump(
@@ -94,11 +95,11 @@ class PlanSubscription(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "end_date": obj.get("end_date"),
-            "created_at": obj.get("created_at"),
+            "id": obj.get("id"),
             "plan": Plan.from_dict(obj["plan"]) if obj.get("plan") is not None else None,
             "start_date": obj.get("start_date"),
-            "id": obj.get("id")
+            "end_date": obj.get("end_date"),
+            "created_at": obj.get("created_at")
         })
         return _obj
 

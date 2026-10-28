@@ -15,11 +15,12 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.15"
+__version__ = "1.1.0"
 
 # Define package exports
 __all__ = [
     "AlertsApi",
+    "AuditApi",
     "CheckGroupsApi",
     "CheckSecretsApi",
     "ChecksApi",
@@ -29,6 +30,8 @@ __all__ = [
     "OAuthApi",
     "OnDemandChecksApi",
     "PagePasswordsApi",
+    "PrivateLocationsApi",
+    "ReportsApi",
     "SecretsApi",
     "StatusPagesApi",
     "StatusPagesComponentsApi",
@@ -51,11 +54,16 @@ __all__ = [
     "Alert",
     "AlertChannel",
     "AlertChannel1",
+    "AlertChannelTestDelivery",
+    "AlertChannelTestRequest",
+    "AlertChannelTestResult",
     "AlertList",
     "AlertNotification",
     "AlertRule",
     "AlertRule1",
     "AlertStats",
+    "Audit",
+    "AuditList",
     "AuthBeginRequest",
     "AuthPreferences",
     "AuthPreferences1",
@@ -72,6 +80,9 @@ __all__ = [
     "CheckSecret",
     "CheckSecretInput",
     "CheckServer",
+    "CheckUptime",
+    "CheckUptimeHour",
+    "CheckUptimeSummary",
     "Component",
     "Component1",
     "ComponentUptime",
@@ -80,6 +91,9 @@ __all__ = [
     "Credential",
     "CredentialUpdate",
     "CredentialsListResponse",
+    "EmailDomain",
+    "EmailDomainDnsRecord",
+    "EmailDomainDnsRecords",
     "EnhancedLogin",
     "Error",
     "ExecuteCustomCheckRequest",
@@ -122,12 +136,16 @@ __all__ = [
     "MonitorCheckResultList",
     "MonitorCheckStatusHistory",
     "MonitorCheckStatusHistoryList",
+    "OAuthAuthorizeRequest",
     "OAuthAuthorizeResponse",
+    "OAuthCallback",
+    "OAuthLinkCompleteResponse",
     "OAuthLoginResponse",
     "OAuthProvider",
     "OAuthProvidersResponse",
     "OAuthUnlinkResponse",
     "Organization",
+    "OrganizationUpdate",
     "Page",
     "Page1",
     "PageList",
@@ -143,6 +161,13 @@ __all__ = [
     "PastIncidentUpdate",
     "Plan",
     "PlanSubscription",
+    "PrivateLocation",
+    "PrivateLocationCreate",
+    "PrivateLocationCreated",
+    "PrivateLocationDetail",
+    "PrivateLocationList",
+    "PrivateLocationRunner",
+    "PrivateLocationUpdate",
     "Region",
     "RegionalResultSummary",
     "RegionalResultsList",
@@ -150,6 +175,12 @@ __all__ = [
     "RegistrationComplete",
     "RegistrationCompleteResponse",
     "RegistrationOptionsResponse",
+    "ReportList",
+    "ReportRequest",
+    "ReportResponse",
+    "RunnerToken",
+    "RunnerTokenCreate",
+    "RunnerTokenCreated",
     "Secret",
     "Secret1",
     "Secret2",
@@ -157,9 +188,14 @@ __all__ = [
     "SecretListItem",
     "UnifiedResult",
     "UnifiedResultList",
+    "Usage",
+    "UsageNextPlan",
+    "UsageNextSubscription",
+    "UsagePlan",
     "User",
     "User1",
     "V1LoginPost200Response",
+    "V1PagesGetTemplatesGet200ResponseValue",
     "V1RefreshPost200Response",
     "V1UsersChangePasswordPost200Response",
     "V1UsersChangePasswordPostRequest",
@@ -175,6 +211,7 @@ __all__ = [
 
 # import apis into sdk package
 from pingera.api.alerts_api import AlertsApi as AlertsApi
+from pingera.api.audit_api import AuditApi as AuditApi
 from pingera.api.check_groups_api import CheckGroupsApi as CheckGroupsApi
 from pingera.api.check_secrets_api import CheckSecretsApi as CheckSecretsApi
 from pingera.api.checks_api import ChecksApi as ChecksApi
@@ -184,6 +221,8 @@ from pingera.api.heartbeats_api import HeartbeatsApi as HeartbeatsApi
 from pingera.api.o_auth_api import OAuthApi as OAuthApi
 from pingera.api.on_demand_checks_api import OnDemandChecksApi as OnDemandChecksApi
 from pingera.api.page_passwords_api import PagePasswordsApi as PagePasswordsApi
+from pingera.api.private_locations_api import PrivateLocationsApi as PrivateLocationsApi
+from pingera.api.reports_api import ReportsApi as ReportsApi
 from pingera.api.secrets_api import SecretsApi as SecretsApi
 from pingera.api.status_pages_api import StatusPagesApi as StatusPagesApi
 from pingera.api.status_pages_components_api import StatusPagesComponentsApi as StatusPagesComponentsApi
@@ -210,11 +249,16 @@ from pingera.models.api_token import APIToken as APIToken
 from pingera.models.alert import Alert as Alert
 from pingera.models.alert_channel import AlertChannel as AlertChannel
 from pingera.models.alert_channel1 import AlertChannel1 as AlertChannel1
+from pingera.models.alert_channel_test_delivery import AlertChannelTestDelivery as AlertChannelTestDelivery
+from pingera.models.alert_channel_test_request import AlertChannelTestRequest as AlertChannelTestRequest
+from pingera.models.alert_channel_test_result import AlertChannelTestResult as AlertChannelTestResult
 from pingera.models.alert_list import AlertList as AlertList
 from pingera.models.alert_notification import AlertNotification as AlertNotification
 from pingera.models.alert_rule import AlertRule as AlertRule
 from pingera.models.alert_rule1 import AlertRule1 as AlertRule1
 from pingera.models.alert_stats import AlertStats as AlertStats
+from pingera.models.audit import Audit as Audit
+from pingera.models.audit_list import AuditList as AuditList
 from pingera.models.auth_begin_request import AuthBeginRequest as AuthBeginRequest
 from pingera.models.auth_preferences import AuthPreferences as AuthPreferences
 from pingera.models.auth_preferences1 import AuthPreferences1 as AuthPreferences1
@@ -231,6 +275,9 @@ from pingera.models.check_job import CheckJob as CheckJob
 from pingera.models.check_secret import CheckSecret as CheckSecret
 from pingera.models.check_secret_input import CheckSecretInput as CheckSecretInput
 from pingera.models.check_server import CheckServer as CheckServer
+from pingera.models.check_uptime import CheckUptime as CheckUptime
+from pingera.models.check_uptime_hour import CheckUptimeHour as CheckUptimeHour
+from pingera.models.check_uptime_summary import CheckUptimeSummary as CheckUptimeSummary
 from pingera.models.component import Component as Component
 from pingera.models.component1 import Component1 as Component1
 from pingera.models.component_uptime import ComponentUptime as ComponentUptime
@@ -239,6 +286,9 @@ from pingera.models.component_uptime_events import ComponentUptimeEvents as Comp
 from pingera.models.credential import Credential as Credential
 from pingera.models.credential_update import CredentialUpdate as CredentialUpdate
 from pingera.models.credentials_list_response import CredentialsListResponse as CredentialsListResponse
+from pingera.models.email_domain import EmailDomain as EmailDomain
+from pingera.models.email_domain_dns_record import EmailDomainDnsRecord as EmailDomainDnsRecord
+from pingera.models.email_domain_dns_records import EmailDomainDnsRecords as EmailDomainDnsRecords
 from pingera.models.enhanced_login import EnhancedLogin as EnhancedLogin
 from pingera.models.error import Error as Error
 from pingera.models.execute_custom_check_request import ExecuteCustomCheckRequest as ExecuteCustomCheckRequest
@@ -281,12 +331,16 @@ from pingera.models.monitor_check_result import MonitorCheckResult as MonitorChe
 from pingera.models.monitor_check_result_list import MonitorCheckResultList as MonitorCheckResultList
 from pingera.models.monitor_check_status_history import MonitorCheckStatusHistory as MonitorCheckStatusHistory
 from pingera.models.monitor_check_status_history_list import MonitorCheckStatusHistoryList as MonitorCheckStatusHistoryList
+from pingera.models.o_auth_authorize_request import OAuthAuthorizeRequest as OAuthAuthorizeRequest
 from pingera.models.o_auth_authorize_response import OAuthAuthorizeResponse as OAuthAuthorizeResponse
+from pingera.models.o_auth_callback import OAuthCallback as OAuthCallback
+from pingera.models.o_auth_link_complete_response import OAuthLinkCompleteResponse as OAuthLinkCompleteResponse
 from pingera.models.o_auth_login_response import OAuthLoginResponse as OAuthLoginResponse
 from pingera.models.o_auth_provider import OAuthProvider as OAuthProvider
 from pingera.models.o_auth_providers_response import OAuthProvidersResponse as OAuthProvidersResponse
 from pingera.models.o_auth_unlink_response import OAuthUnlinkResponse as OAuthUnlinkResponse
 from pingera.models.organization import Organization as Organization
+from pingera.models.organization_update import OrganizationUpdate as OrganizationUpdate
 from pingera.models.page import Page as Page
 from pingera.models.page1 import Page1 as Page1
 from pingera.models.page_list import PageList as PageList
@@ -302,6 +356,13 @@ from pingera.models.password_verification_response import PasswordVerificationRe
 from pingera.models.past_incident_update import PastIncidentUpdate as PastIncidentUpdate
 from pingera.models.plan import Plan as Plan
 from pingera.models.plan_subscription import PlanSubscription as PlanSubscription
+from pingera.models.private_location import PrivateLocation as PrivateLocation
+from pingera.models.private_location_create import PrivateLocationCreate as PrivateLocationCreate
+from pingera.models.private_location_created import PrivateLocationCreated as PrivateLocationCreated
+from pingera.models.private_location_detail import PrivateLocationDetail as PrivateLocationDetail
+from pingera.models.private_location_list import PrivateLocationList as PrivateLocationList
+from pingera.models.private_location_runner import PrivateLocationRunner as PrivateLocationRunner
+from pingera.models.private_location_update import PrivateLocationUpdate as PrivateLocationUpdate
 from pingera.models.region import Region as Region
 from pingera.models.regional_result_summary import RegionalResultSummary as RegionalResultSummary
 from pingera.models.regional_results_list import RegionalResultsList as RegionalResultsList
@@ -309,6 +370,12 @@ from pingera.models.regions_list import RegionsList as RegionsList
 from pingera.models.registration_complete import RegistrationComplete as RegistrationComplete
 from pingera.models.registration_complete_response import RegistrationCompleteResponse as RegistrationCompleteResponse
 from pingera.models.registration_options_response import RegistrationOptionsResponse as RegistrationOptionsResponse
+from pingera.models.report_list import ReportList as ReportList
+from pingera.models.report_request import ReportRequest as ReportRequest
+from pingera.models.report_response import ReportResponse as ReportResponse
+from pingera.models.runner_token import RunnerToken as RunnerToken
+from pingera.models.runner_token_create import RunnerTokenCreate as RunnerTokenCreate
+from pingera.models.runner_token_created import RunnerTokenCreated as RunnerTokenCreated
 from pingera.models.secret import Secret as Secret
 from pingera.models.secret1 import Secret1 as Secret1
 from pingera.models.secret2 import Secret2 as Secret2
@@ -316,9 +383,14 @@ from pingera.models.secret_list import SecretList as SecretList
 from pingera.models.secret_list_item import SecretListItem as SecretListItem
 from pingera.models.unified_result import UnifiedResult as UnifiedResult
 from pingera.models.unified_result_list import UnifiedResultList as UnifiedResultList
+from pingera.models.usage import Usage as Usage
+from pingera.models.usage_next_plan import UsageNextPlan as UsageNextPlan
+from pingera.models.usage_next_subscription import UsageNextSubscription as UsageNextSubscription
+from pingera.models.usage_plan import UsagePlan as UsagePlan
 from pingera.models.user import User as User
 from pingera.models.user1 import User1 as User1
 from pingera.models.v1_login_post200_response import V1LoginPost200Response as V1LoginPost200Response
+from pingera.models.v1_pages_get_templates_get200_response_value import V1PagesGetTemplatesGet200ResponseValue as V1PagesGetTemplatesGet200ResponseValue
 from pingera.models.v1_refresh_post200_response import V1RefreshPost200Response as V1RefreshPost200Response
 from pingera.models.v1_users_change_password_post200_response import V1UsersChangePasswordPost200Response as V1UsersChangePasswordPost200Response
 from pingera.models.v1_users_change_password_post_request import V1UsersChangePasswordPostRequest as V1UsersChangePasswordPostRequest
@@ -330,3 +402,4 @@ from pingera.models.v1_users_resend_verification_post200_response import V1Users
 from pingera.models.v1_users_resend_verification_post_request import V1UsersResendVerificationPostRequest as V1UsersResendVerificationPostRequest
 from pingera.models.v1_users_reset_password_post_request import V1UsersResetPasswordPostRequest as V1UsersResetPasswordPostRequest
 from pingera.models.v1_verify_email_token_get200_response import V1VerifyEmailTokenGet200Response as V1VerifyEmailTokenGet200Response
+

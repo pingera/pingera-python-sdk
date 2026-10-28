@@ -23,35 +23,57 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from pingera.models.check_group import CheckGroup
-from pingera.models.check_secret_input import CheckSecretInput
+from pingera.models.check_secret import CheckSecret
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class MonitorCheck(BaseModel):
     """
     MonitorCheck
     """ # noqa: E501
-    group_id: Optional[StrictStr] = Field(default=None, description="The ID of the group this check belongs to (optional).")
-    secrets: Optional[List[CheckSecretInput]] = Field(default=None, description="Secrets to associate with this check during creation. Each secret must have secret_id and env_variable fields.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the monitor check. Max 100 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.")
-    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.")
-    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.")
-    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).")
-    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.")
-    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).")
-    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks.")
-    interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours.")
-    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.")
-    type: StrictStr = Field(description="The type of monitoring check to perform.")
-    uptime_summary: Optional[Dict[str, Any]] = Field(default=None, description="Uptime summary statistics (only included when include_uptime=true)")
-    uptime_data: Optional[List[Dict[str, Any]]] = Field(default=None, description="Uptime data breakdown by hour (only included when include_uptime=true)")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the monitor check. 12 chars, alpha-numeric.", json_schema_extra={"examples": ["chk123def456"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the monitor check. Max 100 characters.", json_schema_extra={"examples": ["Production API Health Check"]})
+    type: StrictStr = Field(description="The type of monitoring check to perform.", json_schema_extra={"examples": ["web"]})
+    url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="The URL to monitor (required for web/api checks). Supports international domain names.", json_schema_extra={"examples": ["https://api.example.com/health"]})
+    host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.", json_schema_extra={"examples": ["example.com"]})
+    port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.", json_schema_extra={"examples": [443]})
+    interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours. Required when scheduling_type is 'interval'.", json_schema_extra={"examples": [300]})
+    scheduling_type: Optional[StrictStr] = Field(default='interval', description="The scheduling type for this check. 'interval' uses fixed intervals, 'cron' uses cron expressions.", json_schema_extra={"examples": ["interval"]})
+    cron_schedule: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Cron expression for scheduling (required when scheduling_type is 'cron'). Uses standard cron format.", json_schema_extra={"examples": ["0 9 * * 1"]})
+    timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 120 seconds for synthetic checks (the whole run, including browser start) and up to 180 seconds for portscan and multistep checks.", json_schema_extra={"examples": [10]})
+    parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).", json_schema_extra={"examples": [{"regions": ["US, East coast", "EU, West"], "multi_region_execution": {"enabled": True, "execution_mode": "all"}}]})
+    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.", json_schema_extra={"examples": [True]})
+    group_id: Optional[StrictStr] = Field(default=None, description="The ID of the group this check belongs to (optional).", json_schema_extra={"examples": ["grp123abc456"]})
     group: Optional[CheckGroup] = Field(default=None, description="The group this check belongs to (if any).")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the monitor check is active or paused.")
-    __properties: ClassVar[List[str]] = ["group_id", "secrets", "created_at", "name", "id", "status", "last_checked_at", "updated_at", "host", "position", "port", "parameters", "timeout", "interval", "url", "type", "uptime_summary", "uptime_data", "group", "active"]
+    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering checks within groups or ungrouped (0 = first).", json_schema_extra={"examples": [0]})
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the monitor check.", json_schema_extra={"examples": ["ok"]})
+    credit_throttled: Optional[Any] = Field(default=None, description="True when the organization is out of credits and the check runs at a reduced frequency until credits reset or the plan is upgraded.", json_schema_extra={"examples": [False]})
+    effective_interval: Optional[Any] = Field(default=None, description="The interval in seconds the check actually runs at. Equals 'interval' unless the check is credit-throttled.", json_schema_extra={"examples": [300]})
+    last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    secrets: Optional[List[CheckSecret]] = Field(default=None, description="Secrets associated with this check for environment variable injection.")
+    uptime_data: Optional[List[Dict[str, Any]]] = Field(default=None, description="Uptime data breakdown by hour (only included when include_uptime=true)", json_schema_extra={"examples": [[{"hour": "2024-01-15T14:00:00", "status": "ok", "uptime": 100.0}]]})
+    uptime_summary: Optional[Dict[str, Any]] = Field(default=None, description="Uptime summary statistics (only included when include_uptime=true)", json_schema_extra={"examples": [{"uptime": 99.5, "avg_response_time": 250, "checks": 100}]})
+    __properties: ClassVar[List[str]] = ["id", "name", "type", "url", "host", "port", "interval", "scheduling_type", "cron_schedule", "timeout", "parameters", "active", "group_id", "group", "position", "status", "credit_throttled", "effective_interval", "last_checked_at", "created_at", "updated_at", "secrets", "uptime_data", "uptime_summary"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep', 'icmp', 'dns', 'portscan']):
+            raise ValueError("must be one of enum values ('web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep', 'icmp', 'dns', 'portscan')")
+        return value
+
+    @field_validator('scheduling_type')
+    def scheduling_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['interval', 'cron']):
+            raise ValueError("must be one of enum values ('interval', 'cron')")
+        return value
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -63,15 +85,9 @@ class MonitorCheck(BaseModel):
             raise ValueError("must be one of enum values ('ok', 'failed', 'degraded', 'timeout', 'pending', 'paused')")
         return value
 
-    @field_validator('type')
-    def type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep', 'icmp', 'dns', 'portscan']):
-            raise ValueError("must be one of enum values ('web', 'api', 'ssl', 'tcp', 'synthetic', 'multistep', 'icmp', 'dns', 'portscan')")
-        return value
-
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -83,8 +99,7 @@ class MonitorCheck(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -108,16 +123,22 @@ class MonitorCheck(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
             "id",
-            "status",
-            "last_checked_at",
-            "updated_at",
-            "uptime_summary",
-            "uptime_data",
             "group",
+            "status",
+            "credit_throttled",
+            "effective_interval",
+            "last_checked_at",
+            "created_at",
+            "updated_at",
+            "secrets",
+            "uptime_data",
+            "uptime_summary",
         ])
 
         _dict = self.model_dump(
@@ -125,20 +146,34 @@ class MonitorCheck(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of group
+        if self.group:
+            _dict['group'] = self.group.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in secrets (list)
         _items = []
         if self.secrets:
             for _item_secrets in self.secrets:
-                if _item_secrets:
-                    _items.append(_item_secrets.to_dict())
+                _items.append(_item_secrets.to_dict() if _item_secrets is not None else None)
             _dict['secrets'] = _items
-        # override the default output from pydantic by calling `to_dict()` of group
-        if self.group:
-            _dict['group'] = self.group.to_dict()
+        # set to None if cron_schedule (nullable) is None
+        # and model_fields_set contains the field
+        if self.cron_schedule is None and "cron_schedule" in self.model_fields_set:
+            _dict['cron_schedule'] = None
+
         # set to None if group_id (nullable) is None
         # and model_fields_set contains the field
         if self.group_id is None and "group_id" in self.model_fields_set:
             _dict['group_id'] = None
+
+        # set to None if credit_throttled (nullable) is None
+        # and model_fields_set contains the field
+        if self.credit_throttled is None and "credit_throttled" in self.model_fields_set:
+            _dict['credit_throttled'] = None
+
+        # set to None if effective_interval (nullable) is None
+        # and model_fields_set contains the field
+        if self.effective_interval is None and "effective_interval" in self.model_fields_set:
+            _dict['effective_interval'] = None
 
         return _dict
 
@@ -152,26 +187,30 @@ class MonitorCheck(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "group_id": obj.get("group_id"),
-            "secrets": [CheckSecretInput.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
-            "created_at": obj.get("created_at"),
-            "name": obj.get("name"),
             "id": obj.get("id"),
-            "status": obj.get("status"),
-            "last_checked_at": obj.get("last_checked_at"),
-            "updated_at": obj.get("updated_at"),
-            "host": obj.get("host"),
-            "position": obj.get("position"),
-            "port": obj.get("port"),
-            "parameters": obj.get("parameters"),
-            "timeout": obj.get("timeout"),
-            "interval": obj.get("interval"),
-            "url": obj.get("url"),
+            "name": obj.get("name"),
             "type": obj.get("type"),
-            "uptime_summary": obj.get("uptime_summary"),
-            "uptime_data": obj.get("uptime_data"),
+            "url": obj.get("url"),
+            "host": obj.get("host"),
+            "port": obj.get("port"),
+            "interval": obj.get("interval"),
+            "scheduling_type": obj.get("scheduling_type") if obj.get("scheduling_type") is not None else 'interval',
+            "cron_schedule": obj.get("cron_schedule"),
+            "timeout": obj.get("timeout"),
+            "parameters": obj.get("parameters"),
+            "active": obj.get("active"),
+            "group_id": obj.get("group_id"),
             "group": CheckGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
-            "active": obj.get("active")
+            "position": obj.get("position"),
+            "status": obj.get("status"),
+            "credit_throttled": obj.get("credit_throttled"),
+            "effective_interval": obj.get("effective_interval"),
+            "last_checked_at": obj.get("last_checked_at"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at"),
+            "secrets": [CheckSecret.from_dict(_item) for _item in obj["secrets"]] if obj.get("secrets") is not None else None,
+            "uptime_data": obj.get("uptime_data"),
+            "uptime_summary": obj.get("uptime_summary")
         })
         return _obj
 

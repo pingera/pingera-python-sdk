@@ -5,16 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**is_expired** | **bool** | Whether the password is expired | [optional] [readonly] 
-**created_at** | **datetime** | Timestamp when the password was created | [optional] [readonly] 
-**created_by** | **str** | ID of the user who created this password | [optional] [readonly] 
-**expires_at** | **datetime** | Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings | [optional] 
-**name** | **str** | Optional name/label for the password | [optional] 
-**password_hint** | **str** | Optional hint for the password | [optional] 
-**updated_at** | **datetime** | Timestamp when the password was last updated | [optional] [readonly] 
 **id** | **str** | Unique identifier for the page password | [optional] [readonly] 
-**active** | **bool** | Whether the password is active | [optional] 
+**name** | **str** | Optional name/label for the password | [optional] 
 **password** | **str** | The password (minimum 8 characters). Only used for input, never returned. | 
+**password_hint** | **str** | Optional hint for the password | [optional] 
+**active** | **bool** | Whether the password is active | [optional] 
+**expires_at** | **datetime** | Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings | [optional] 
+**created_at** | **datetime** | Timestamp when the password was created | [optional] [readonly] 
+**updated_at** | **datetime** | Timestamp when the password was last updated | [optional] [readonly] 
+**created_by** | **str** | ID of the user who created this password | [optional] [readonly] 
+**is_expired** | **bool** | Whether the password is expired | [optional] [readonly] 
 
 ## Example
 

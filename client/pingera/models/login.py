@@ -22,17 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Login(BaseModel):
     """
     Login
     """ # noqa: E501
-    email: StrictStr = Field(description="The user's email address for authentication.")
-    password: StrictStr = Field(description="The user's password for authentication.")
+    email: StrictStr = Field(description="The user's email address for authentication.", json_schema_extra={"examples": ["user@example.com"]})
+    password: StrictStr = Field(description="The user's password for authentication.", json_schema_extra={"examples": ["securepassword123"]})
     __properties: ClassVar[List[str]] = ["email", "password"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -44,8 +46,7 @@ class Login(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

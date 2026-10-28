@@ -5,11 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** | The timestamp when the organization was created in ISO format. | [optional] [readonly] 
-**name** | **str** | The name of the organization. Maximum 100 characters. | 
 **id** | **str** | The unique identifier for the organization. | [optional] [readonly] 
-**auto_renew** | **bool** | Whether the subscription will automatically renew at the end of the billing period. | [optional] 
+**name** | **str** | The name of the organization. Maximum 100 characters. | 
+**created_at** | **datetime** | The timestamp when the organization was created in ISO format. | [optional] [readonly] 
 **current_subscription** | [**PlanSubscription**](PlanSubscription.md) | The current active subscription for the organization. | [optional] [readonly] 
+**auto_renew** | **bool** | Whether the subscription will automatically renew at the end of the billing period. | [optional] 
+**payment_method_preference** | **str** | Preferred payment method for the organization. | [optional] [readonly] 
+**invoice_email** | **str** | Email address for invoice delivery. | [optional] 
+**invoice_company_name** | **str** | Legal company name for invoices. | [optional] 
+**invoice_tax_id** | **str** | Tax ID / INN for invoice. | [optional] 
+**invoice_address** | **str** | Full legal address for invoices. | [optional] 
+**timezone** | **str** | Timezone for displaying dates and times on the status page | [optional] 
 
 ## Example
 

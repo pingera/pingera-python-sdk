@@ -24,29 +24,30 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IncidentUpdateSchemaEdit(BaseModel):
     """
     IncidentUpdateSchemaEdit
     """ # noqa: E501
-    scheduled_until: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to end (UTC).")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the incident or maintenance window.")
-    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.")
-    scheduled_auto_in_progress: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as in progress.")
-    scheduled_for: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to start (UTC).")
-    body: Optional[StrictStr] = Field(default=None, description="The update body content for the incident.")
-    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident update.")
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when updating this incident.")
-    auto_transition_to_operational_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components back to operational state after scheduled maintenance.")
-    scheduled_reminded_at: Optional[datetime] = Field(default=None, description="The timestamp when reminder notifications were sent for scheduled maintenance (UTC).")
-    auto_transition_deliver_notifications_at_end: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the end of scheduled maintenance.")
-    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="The name/title of the incident. Must be between 1 and 200 characters.")
-    auto_transition_to_maintenance_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components to maintenance state during scheduled maintenance.")
-    scheduled_auto_completed: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as completed.")
-    scheduled_remind_prior: Optional[StrictBool] = Field(default=None, description="Whether to send reminder notifications before scheduled maintenance begins.")
-    reminder_intervals: Optional[StrictStr] = Field(default=None, description="The intervals at which to send reminder notifications for scheduled maintenance.")
-    auto_transition_deliver_notifications_at_start: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the start of scheduled maintenance.")
-    __properties: ClassVar[List[str]] = ["scheduled_until", "status", "impact", "scheduled_auto_in_progress", "scheduled_for", "body", "components", "deliver_notifications", "auto_transition_to_operational_state", "scheduled_reminded_at", "auto_transition_deliver_notifications_at_end", "name", "auto_transition_to_maintenance_state", "scheduled_auto_completed", "scheduled_remind_prior", "reminder_intervals", "auto_transition_deliver_notifications_at_start"]
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = Field(default=None, description="The name/title of the incident. Must be between 1 and 200 characters.", json_schema_extra={"examples": ["Database Connection Issues"]})
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the incident or maintenance window.", json_schema_extra={"examples": ["monitoring"]})
+    impact: Optional[StrictStr] = Field(default=None, description="The impact level of the incident.", json_schema_extra={"examples": ["minor"]})
+    body: Optional[StrictStr] = Field(default=None, description="The update body content for the incident.", json_schema_extra={"examples": ["Issue has been identified and we are working on a fix."]})
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status during incident update.", json_schema_extra={"examples": [{"comp_123": "operational", "comp_456": "operational"}]})
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications when updating this incident.", json_schema_extra={"examples": [True]})
+    scheduled_for: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to start (UTC).", json_schema_extra={"examples": ["2024-01-20T02:00:00Z"]})
+    scheduled_until: Optional[datetime] = Field(default=None, description="For scheduled maintenance, the timestamp when maintenance is scheduled to end (UTC).", json_schema_extra={"examples": ["2024-01-20T04:00:00Z"]})
+    scheduled_reminded_at: Optional[datetime] = Field(default=None, description="The timestamp when reminder notifications were sent for scheduled maintenance (UTC).", json_schema_extra={"examples": ["2024-01-19T18:00:00Z"]})
+    scheduled_auto_completed: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as completed.", json_schema_extra={"examples": [True]})
+    scheduled_auto_in_progress: Optional[StrictBool] = Field(default=None, description="Whether the scheduled maintenance should automatically be marked as in progress.", json_schema_extra={"examples": [True]})
+    auto_transition_deliver_notifications_at_end: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the end of scheduled maintenance.", json_schema_extra={"examples": [True]})
+    auto_transition_deliver_notifications_at_start: Optional[StrictBool] = Field(default=None, description="Whether to deliver notifications when auto-transitioning at the start of scheduled maintenance.", json_schema_extra={"examples": [True]})
+    auto_transition_to_maintenance_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components to maintenance state during scheduled maintenance.", json_schema_extra={"examples": [True]})
+    auto_transition_to_operational_state: Optional[StrictBool] = Field(default=None, description="Whether to automatically transition components back to operational state after scheduled maintenance.", json_schema_extra={"examples": [True]})
+    scheduled_remind_prior: Optional[StrictBool] = Field(default=None, description="Whether to send reminder notifications before scheduled maintenance begins.", json_schema_extra={"examples": [True]})
+    reminder_intervals: Optional[StrictStr] = Field(default=None, description="The intervals at which to send reminder notifications for scheduled maintenance.", json_schema_extra={"examples": ["24h,1h"]})
+    __properties: ClassVar[List[str]] = ["name", "status", "impact", "body", "components", "deliver_notifications", "scheduled_for", "scheduled_until", "scheduled_reminded_at", "scheduled_auto_completed", "scheduled_auto_in_progress", "auto_transition_deliver_notifications_at_end", "auto_transition_deliver_notifications_at_start", "auto_transition_to_maintenance_state", "auto_transition_to_operational_state", "scheduled_remind_prior", "reminder_intervals"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -69,7 +70,8 @@ class IncidentUpdateSchemaEdit(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -81,8 +83,7 @@ class IncidentUpdateSchemaEdit(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -107,40 +108,40 @@ class IncidentUpdateSchemaEdit(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if scheduled_auto_completed (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_auto_completed is None and "scheduled_auto_completed" in self.model_fields_set:
+            _dict['scheduled_auto_completed'] = None
+
         # set to None if scheduled_auto_in_progress (nullable) is None
         # and model_fields_set contains the field
         if self.scheduled_auto_in_progress is None and "scheduled_auto_in_progress" in self.model_fields_set:
             _dict['scheduled_auto_in_progress'] = None
-
-        # set to None if auto_transition_to_operational_state (nullable) is None
-        # and model_fields_set contains the field
-        if self.auto_transition_to_operational_state is None and "auto_transition_to_operational_state" in self.model_fields_set:
-            _dict['auto_transition_to_operational_state'] = None
 
         # set to None if auto_transition_deliver_notifications_at_end (nullable) is None
         # and model_fields_set contains the field
         if self.auto_transition_deliver_notifications_at_end is None and "auto_transition_deliver_notifications_at_end" in self.model_fields_set:
             _dict['auto_transition_deliver_notifications_at_end'] = None
 
+        # set to None if auto_transition_deliver_notifications_at_start (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_transition_deliver_notifications_at_start is None and "auto_transition_deliver_notifications_at_start" in self.model_fields_set:
+            _dict['auto_transition_deliver_notifications_at_start'] = None
+
         # set to None if auto_transition_to_maintenance_state (nullable) is None
         # and model_fields_set contains the field
         if self.auto_transition_to_maintenance_state is None and "auto_transition_to_maintenance_state" in self.model_fields_set:
             _dict['auto_transition_to_maintenance_state'] = None
 
-        # set to None if scheduled_auto_completed (nullable) is None
+        # set to None if auto_transition_to_operational_state (nullable) is None
         # and model_fields_set contains the field
-        if self.scheduled_auto_completed is None and "scheduled_auto_completed" in self.model_fields_set:
-            _dict['scheduled_auto_completed'] = None
+        if self.auto_transition_to_operational_state is None and "auto_transition_to_operational_state" in self.model_fields_set:
+            _dict['auto_transition_to_operational_state'] = None
 
         # set to None if scheduled_remind_prior (nullable) is None
         # and model_fields_set contains the field
         if self.scheduled_remind_prior is None and "scheduled_remind_prior" in self.model_fields_set:
             _dict['scheduled_remind_prior'] = None
-
-        # set to None if auto_transition_deliver_notifications_at_start (nullable) is None
-        # and model_fields_set contains the field
-        if self.auto_transition_deliver_notifications_at_start is None and "auto_transition_deliver_notifications_at_start" in self.model_fields_set:
-            _dict['auto_transition_deliver_notifications_at_start'] = None
 
         return _dict
 
@@ -154,23 +155,23 @@ class IncidentUpdateSchemaEdit(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "scheduled_until": obj.get("scheduled_until"),
+            "name": obj.get("name"),
             "status": obj.get("status"),
             "impact": obj.get("impact"),
-            "scheduled_auto_in_progress": obj.get("scheduled_auto_in_progress"),
-            "scheduled_for": obj.get("scheduled_for"),
             "body": obj.get("body"),
             "components": obj.get("components"),
             "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True,
-            "auto_transition_to_operational_state": obj.get("auto_transition_to_operational_state"),
+            "scheduled_for": obj.get("scheduled_for"),
+            "scheduled_until": obj.get("scheduled_until"),
             "scheduled_reminded_at": obj.get("scheduled_reminded_at"),
-            "auto_transition_deliver_notifications_at_end": obj.get("auto_transition_deliver_notifications_at_end"),
-            "name": obj.get("name"),
-            "auto_transition_to_maintenance_state": obj.get("auto_transition_to_maintenance_state"),
             "scheduled_auto_completed": obj.get("scheduled_auto_completed"),
+            "scheduled_auto_in_progress": obj.get("scheduled_auto_in_progress"),
+            "auto_transition_deliver_notifications_at_end": obj.get("auto_transition_deliver_notifications_at_end"),
+            "auto_transition_deliver_notifications_at_start": obj.get("auto_transition_deliver_notifications_at_start"),
+            "auto_transition_to_maintenance_state": obj.get("auto_transition_to_maintenance_state"),
+            "auto_transition_to_operational_state": obj.get("auto_transition_to_operational_state"),
             "scheduled_remind_prior": obj.get("scheduled_remind_prior"),
-            "reminder_intervals": obj.get("reminder_intervals"),
-            "auto_transition_deliver_notifications_at_start": obj.get("auto_transition_deliver_notifications_at_start")
+            "reminder_intervals": obj.get("reminder_intervals")
         })
         return _obj
 

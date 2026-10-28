@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -105,6 +104,7 @@ class WebauthnApi:
             '422': "Error",
             '200': "AuthenticationOptionsResponse",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -174,6 +174,7 @@ class WebauthnApi:
             '422': "Error",
             '200': "AuthenticationOptionsResponse",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -243,6 +244,7 @@ class WebauthnApi:
             '422': "Error",
             '200': "AuthenticationOptionsResponse",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -386,6 +388,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -457,6 +460,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -528,6 +532,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -670,6 +675,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -740,6 +746,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -810,6 +817,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -946,6 +954,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1021,6 +1030,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1096,6 +1106,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1238,6 +1249,7 @@ class WebauthnApi:
             '200': "CredentialsListResponse",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1303,6 +1315,7 @@ class WebauthnApi:
             '200': "CredentialsListResponse",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1368,6 +1381,7 @@ class WebauthnApi:
             '200': "CredentialsListResponse",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1491,6 +1505,7 @@ class WebauthnApi:
             '200': "RegistrationOptionsResponse",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1556,6 +1571,7 @@ class WebauthnApi:
             '200': "RegistrationOptionsResponse",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1621,6 +1637,7 @@ class WebauthnApi:
             '200': "RegistrationOptionsResponse",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1750,6 +1767,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1821,6 +1839,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1892,6 +1911,7 @@ class WebauthnApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

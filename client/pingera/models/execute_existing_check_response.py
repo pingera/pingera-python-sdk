@@ -22,15 +22,16 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ExecuteExistingCheckResponse(BaseModel):
     """
     ExecuteExistingCheckResponse
     """ # noqa: E501
-    status: StrictStr = Field(description="The current status of the check job.")
-    job_id: StrictStr = Field(description="The unique identifier for the queued check job.")
-    message: StrictStr = Field(description="Human-readable message about the operation result.")
-    __properties: ClassVar[List[str]] = ["status", "job_id", "message"]
+    job_id: StrictStr = Field(description="The unique identifier for the queued check job.", json_schema_extra={"examples": ["job456ghi789"]})
+    status: StrictStr = Field(description="The current status of the check job.", json_schema_extra={"examples": ["queued"]})
+    message: StrictStr = Field(description="Human-readable message about the operation result.", json_schema_extra={"examples": ["Check execution queued successfully"]})
+    __properties: ClassVar[List[str]] = ["job_id", "status", "message"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -40,7 +41,8 @@ class ExecuteExistingCheckResponse(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -52,8 +54,7 @@ class ExecuteExistingCheckResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -90,8 +91,8 @@ class ExecuteExistingCheckResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
             "job_id": obj.get("job_id"),
+            "status": obj.get("status"),
             "message": obj.get("message")
         })
         return _obj

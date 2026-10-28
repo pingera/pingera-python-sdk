@@ -22,17 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class HeartbeatPingCountHistory(BaseModel):
     """
     HeartbeatPingCountHistory
     """ # noqa: E501
-    hour: Optional[StrictStr] = Field(default=None, description="The hour bucket timestamp in GMT format following RFC standard.")
-    ping_count: Optional[StrictInt] = Field(default=None, description="Number of pings received in this hour bucket.")
+    hour: Optional[StrictStr] = Field(default=None, description="The hour bucket timestamp in GMT format following RFC standard.", json_schema_extra={"examples": ["Mon, 15 Jan 2024 14:00:00 GMT"]})
+    ping_count: Optional[StrictInt] = Field(default=None, description="Number of pings received in this hour bucket.", json_schema_extra={"examples": [12]})
     __properties: ClassVar[List[str]] = ["hour", "ping_count"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -44,8 +46,7 @@ class HeartbeatPingCountHistory(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

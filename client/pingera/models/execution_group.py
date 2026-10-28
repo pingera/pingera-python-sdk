@@ -24,26 +24,27 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.execution_group_statistics import ExecutionGroupStatistics
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ExecutionGroup(BaseModel):
     """
     ExecutionGroup
     """ # noqa: E501
-    requested_regions: Optional[List[StrictStr]] = Field(default=None, description="List of regions where execution was requested")
-    execution_type: Optional[StrictStr] = Field(default=None, description="Type of execution")
-    status: Optional[StrictStr] = Field(default=None, description="Overall status of the execution group")
-    regional_summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary of results by region")
-    started_at: Optional[datetime] = Field(default=None, description="When the execution started")
-    triggered_by_user_id: Optional[StrictStr] = Field(default=None, description="ID of user who triggered the execution (null for scheduled)")
-    check_id: Optional[StrictStr] = Field(default=None, description="ID of the check (null for on-demand custom checks)")
-    created_at: Optional[datetime] = Field(default=None, description="When the execution group was created")
-    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization that owns this execution")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the execution group", json_schema_extra={"examples": ["grp123abc456"]})
+    check_id: Optional[StrictStr] = Field(default=None, description="ID of the check (null for on-demand custom checks)", json_schema_extra={"examples": ["chk123def456"]})
+    organization_id: Optional[StrictStr] = Field(default=None, description="ID of the organization that owns this execution", json_schema_extra={"examples": ["org123xyz789"]})
+    execution_type: Optional[StrictStr] = Field(default=None, description="Type of execution", json_schema_extra={"examples": ["scheduled"]})
+    triggered_by_user_id: Optional[StrictStr] = Field(default=None, description="ID of user who triggered the execution (null for scheduled)", json_schema_extra={"examples": ["usr123abc456"]})
+    requested_regions: Optional[List[StrictStr]] = Field(default=None, description="List of regions where execution was requested", json_schema_extra={"examples": [["US, East coast", "EU, West", "RU, Moscow"]]})
+    execution_mode: Optional[StrictStr] = Field(default=None, description="Execution mode used", json_schema_extra={"examples": ["all"]})
+    status: Optional[StrictStr] = Field(default=None, description="Overall status of the execution group", json_schema_extra={"examples": ["completed"]})
+    regional_summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary of results by region", json_schema_extra={"examples": [{"US, East coast": {"status": "ok", "response_time": 150}, "EU, West": {"status": "failed", "error_message": "Connection timeout"}}]})
     statistics: Optional[ExecutionGroupStatistics] = Field(default=None, description="Aggregated statistics for this execution group")
-    completed_at: Optional[datetime] = Field(default=None, description="When the execution completed")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the execution group")
-    timeout_at: Optional[datetime] = Field(default=None, description="When to give up waiting for results")
-    execution_mode: Optional[StrictStr] = Field(default=None, description="Execution mode used")
-    __properties: ClassVar[List[str]] = ["requested_regions", "execution_type", "status", "regional_summary", "started_at", "triggered_by_user_id", "check_id", "created_at", "organization_id", "statistics", "completed_at", "id", "timeout_at", "execution_mode"]
+    created_at: Optional[datetime] = Field(default=None, description="When the execution group was created", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    started_at: Optional[datetime] = Field(default=None, description="When the execution started", json_schema_extra={"examples": ["2024-01-15T10:00:01Z"]})
+    completed_at: Optional[datetime] = Field(default=None, description="When the execution completed", json_schema_extra={"examples": ["2024-01-15T10:00:05Z"]})
+    timeout_at: Optional[datetime] = Field(default=None, description="When to give up waiting for results", json_schema_extra={"examples": ["2024-01-15T10:05:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "check_id", "organization_id", "execution_type", "triggered_by_user_id", "requested_regions", "execution_mode", "status", "regional_summary", "statistics", "created_at", "started_at", "completed_at", "timeout_at"]
 
     @field_validator('execution_type')
     def execution_type_validate_enum(cls, value):
@@ -53,16 +54,6 @@ class ExecutionGroup(BaseModel):
 
         if value not in set(['scheduled', 'on_demand']):
             raise ValueError("must be one of enum values ('scheduled', 'on_demand')")
-        return value
-
-    @field_validator('status')
-    def status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['pending', 'running', 'completed', 'partial', 'failed']):
-            raise ValueError("must be one of enum values ('pending', 'running', 'completed', 'partial', 'failed')")
         return value
 
     @field_validator('execution_mode')
@@ -75,8 +66,19 @@ class ExecutionGroup(BaseModel):
             raise ValueError("must be one of enum values ('all', 'random_n')")
         return value
 
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['pending', 'running', 'completed', 'partial', 'failed']):
+            raise ValueError("must be one of enum values ('pending', 'running', 'completed', 'partial', 'failed')")
+        return value
+
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -88,8 +90,7 @@ class ExecutionGroup(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -119,20 +120,20 @@ class ExecutionGroup(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of statistics
         if self.statistics:
             _dict['statistics'] = self.statistics.to_dict()
-        # set to None if started_at (nullable) is None
+        # set to None if check_id (nullable) is None
         # and model_fields_set contains the field
-        if self.started_at is None and "started_at" in self.model_fields_set:
-            _dict['started_at'] = None
+        if self.check_id is None and "check_id" in self.model_fields_set:
+            _dict['check_id'] = None
 
         # set to None if triggered_by_user_id (nullable) is None
         # and model_fields_set contains the field
         if self.triggered_by_user_id is None and "triggered_by_user_id" in self.model_fields_set:
             _dict['triggered_by_user_id'] = None
 
-        # set to None if check_id (nullable) is None
+        # set to None if started_at (nullable) is None
         # and model_fields_set contains the field
-        if self.check_id is None and "check_id" in self.model_fields_set:
-            _dict['check_id'] = None
+        if self.started_at is None and "started_at" in self.model_fields_set:
+            _dict['started_at'] = None
 
         # set to None if completed_at (nullable) is None
         # and model_fields_set contains the field
@@ -156,20 +157,20 @@ class ExecutionGroup(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "requested_regions": obj.get("requested_regions"),
+            "id": obj.get("id"),
+            "check_id": obj.get("check_id"),
+            "organization_id": obj.get("organization_id"),
             "execution_type": obj.get("execution_type"),
+            "triggered_by_user_id": obj.get("triggered_by_user_id"),
+            "requested_regions": obj.get("requested_regions"),
+            "execution_mode": obj.get("execution_mode"),
             "status": obj.get("status"),
             "regional_summary": obj.get("regional_summary"),
-            "started_at": obj.get("started_at"),
-            "triggered_by_user_id": obj.get("triggered_by_user_id"),
-            "check_id": obj.get("check_id"),
-            "created_at": obj.get("created_at"),
-            "organization_id": obj.get("organization_id"),
             "statistics": ExecutionGroupStatistics.from_dict(obj["statistics"]) if obj.get("statistics") is not None else None,
+            "created_at": obj.get("created_at"),
+            "started_at": obj.get("started_at"),
             "completed_at": obj.get("completed_at"),
-            "id": obj.get("id"),
-            "timeout_at": obj.get("timeout_at"),
-            "execution_mode": obj.get("execution_mode")
+            "timeout_at": obj.get("timeout_at")
         })
         return _obj
 

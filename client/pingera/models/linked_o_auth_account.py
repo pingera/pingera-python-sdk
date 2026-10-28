@@ -24,22 +24,24 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.o_auth_provider import OAuthProvider
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class LinkedOAuthAccount(BaseModel):
     """
     LinkedOAuthAccount
     """ # noqa: E501
-    last_used_at: Optional[datetime] = Field(default=None, description="When this OAuth account was last used for login")
+    id: Optional[StrictStr] = Field(default=None, description="OAuth account link ID", json_schema_extra={"examples": ["oauth_acc123"]})
     provider: Optional[OAuthProvider] = None
-    created_at: Optional[datetime] = Field(default=None, description="When the OAuth account was linked")
-    provider_avatar_url: Optional[StrictStr] = Field(default=None, description="Avatar URL from OAuth provider")
-    provider_email: Optional[StrictStr] = Field(default=None, description="Email address from OAuth provider")
-    provider_name: Optional[StrictStr] = Field(default=None, description="Display name from OAuth provider")
-    id: Optional[StrictStr] = Field(default=None, description="OAuth account link ID")
-    __properties: ClassVar[List[str]] = ["last_used_at", "provider", "created_at", "provider_avatar_url", "provider_email", "provider_name", "id"]
+    provider_email: Optional[StrictStr] = Field(default=None, description="Email address from OAuth provider", json_schema_extra={"examples": ["user@yandex.ru"]})
+    provider_name: Optional[StrictStr] = Field(default=None, description="Display name from OAuth provider", json_schema_extra={"examples": ["John Doe"]})
+    provider_avatar_url: Optional[StrictStr] = Field(default=None, description="Avatar URL from OAuth provider", json_schema_extra={"examples": ["https://avatars.yandex.net/get-yapic/123/456/islands-200"]})
+    created_at: Optional[datetime] = Field(default=None, description="When the OAuth account was linked", json_schema_extra={"examples": ["2023-08-02T11:30:45Z"]})
+    last_used_at: Optional[datetime] = Field(default=None, description="When this OAuth account was last used for login", json_schema_extra={"examples": ["2023-08-02T11:30:45Z"]})
+    __properties: ClassVar[List[str]] = ["id", "provider", "provider_email", "provider_name", "provider_avatar_url", "created_at", "last_used_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -51,8 +53,7 @@ class LinkedOAuthAccount(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -77,13 +78,13 @@ class LinkedOAuthAccount(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "last_used_at",
+            "id",
             "provider",
-            "created_at",
-            "provider_avatar_url",
             "provider_email",
             "provider_name",
-            "id",
+            "provider_avatar_url",
+            "created_at",
+            "last_used_at",
         ])
 
         _dict = self.model_dump(
@@ -94,15 +95,15 @@ class LinkedOAuthAccount(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of provider
         if self.provider:
             _dict['provider'] = self.provider.to_dict()
-        # set to None if last_used_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.last_used_at is None and "last_used_at" in self.model_fields_set:
-            _dict['last_used_at'] = None
-
         # set to None if provider_avatar_url (nullable) is None
         # and model_fields_set contains the field
         if self.provider_avatar_url is None and "provider_avatar_url" in self.model_fields_set:
             _dict['provider_avatar_url'] = None
+
+        # set to None if last_used_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_used_at is None and "last_used_at" in self.model_fields_set:
+            _dict['last_used_at'] = None
 
         return _dict
 
@@ -116,13 +117,13 @@ class LinkedOAuthAccount(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "last_used_at": obj.get("last_used_at"),
+            "id": obj.get("id"),
             "provider": OAuthProvider.from_dict(obj["provider"]) if obj.get("provider") is not None else None,
-            "created_at": obj.get("created_at"),
-            "provider_avatar_url": obj.get("provider_avatar_url"),
             "provider_email": obj.get("provider_email"),
             "provider_name": obj.get("provider_name"),
-            "id": obj.get("id")
+            "provider_avatar_url": obj.get("provider_avatar_url"),
+            "created_at": obj.get("created_at"),
+            "last_used_at": obj.get("last_used_at")
         })
         return _obj
 

@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** | The type of monitoring check to perform. | 
-**secrets** | **List[Dict[str, str]]** | List of secrets to inject as environment variables during check execution. Each secret must have &#39;secret_id&#39; and &#39;env_variable&#39; keys. | [optional] [default to []]
 **name** | **str** | A user-friendly name for the custom check. Max 100 characters. | 
-**host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
-**parameters** | **Dict[str, object]** | Additional parameters specific to the check type. May include &#39;regions&#39; (list of region IDs) and &#39;multi_region_execution&#39; (configuration object). | [optional] 
-**timeout** | **int** | The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks. | [optional] 
-**port** | **int** | The port number to monitor (required for TCP and SSL checks). Range: 1-65535. | [optional] 
+**type** | **str** | The type of monitoring check to perform. | 
 **url** | **str** | The URL to monitor (required for web/api checks). Supports international domain names. | [optional] 
+**host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
+**port** | **int** | The port number to monitor (required for TCP and SSL checks). Range: 1-65535. | [optional] 
+**timeout** | **int** | The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 180 seconds for portscan checks. | [optional] 
+**parameters** | **Dict[str, object]** | Additional parameters specific to the check type. May include &#39;regions&#39; (list of region IDs) and &#39;multi_region_execution&#39; (configuration object). | [optional] 
+**secrets** | **List[Dict[str, str]]** | List of secrets to inject as environment variables during check execution. Each secret must have &#39;secret_id&#39; and &#39;env_variable&#39; keys. | [optional] [default to []]
 
 ## Example
 

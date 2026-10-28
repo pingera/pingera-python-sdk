@@ -19,21 +19,35 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IncidentUpdateEdit(BaseModel):
     """
     IncidentUpdateEdit
     """ # noqa: E501
-    body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the update was created in ISO format.")
-    __properties: ClassVar[List[str]] = ["body", "created_at"]
+    body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.", json_schema_extra={"examples": ["We have identified the root cause and are implementing a fix."]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the update was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T11:30:00Z"]})
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="A dictionary mapping component IDs to their status for this incident update. Providing this field replaces the existing set of affected components for the update.", json_schema_extra={"examples": [{"comp_123": "major_outage"}]})
+    __properties: ClassVar[List[str]] = ["body", "created_at", "components"]
+
+    @field_validator('components')
+    def components_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        for i in value.values():
+            if i not in set(['operational', 'under_maintenance', 'degraded_performance', 'partial_outage', 'major_outage']):
+                raise ValueError("dict values must be one of enum values ('operational', 'under_maintenance', 'degraded_performance', 'partial_outage', 'major_outage')")
+        return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +59,7 @@ class IncidentUpdateEdit(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -84,7 +97,8 @@ class IncidentUpdateEdit(BaseModel):
 
         _obj = cls.model_validate({
             "body": obj.get("body"),
-            "created_at": obj.get("created_at")
+            "created_at": obj.get("created_at"),
+            "components": obj.get("components")
         })
         return _obj
 

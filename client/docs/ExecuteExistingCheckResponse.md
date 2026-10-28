@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **str** | The current status of the check job. | 
 **job_id** | **str** | The unique identifier for the queued check job. | 
+**status** | **str** | The current status of the check job. | 
 **message** | **str** | Human-readable message about the operation result. | 
 
 ## Example

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -109,6 +108,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ExecutionGroupList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -188,6 +188,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ExecutionGroupList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -267,6 +268,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ExecutionGroupList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -410,6 +412,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ExecutionGroup",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -477,6 +480,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ExecutionGroup",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -544,6 +548,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ExecutionGroup",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -672,6 +677,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RegionalResultsList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -739,6 +745,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RegionalResultsList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -806,6 +813,7 @@ class ExecutionGroupsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RegionalResultsList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

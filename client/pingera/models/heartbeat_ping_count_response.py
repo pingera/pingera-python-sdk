@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.heartbeat_ping_count_history import HeartbeatPingCountHistory
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class HeartbeatPingCountResponse(BaseModel):
     """
     HeartbeatPingCountResponse
     """ # noqa: E501
     ping_counts: Optional[List[HeartbeatPingCountHistory]] = Field(default=None, description="List of hourly ping counts.")
-    summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary statistics for the time period.")
+    summary: Optional[Dict[str, Any]] = Field(default=None, description="Summary statistics for the time period.", json_schema_extra={"examples": [{"total_pings": 288, "total_hours": 24, "average_pings_per_hour": 12.0, "start_time": "Sun, 14 Jan 2024 14:00:00 GMT", "end_time": "Mon, 15 Jan 2024 14:00:00 GMT"}]})
     __properties: ClassVar[List[str]] = ["ping_counts", "summary"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class HeartbeatPingCountResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -79,8 +80,7 @@ class HeartbeatPingCountResponse(BaseModel):
         _items = []
         if self.ping_counts:
             for _item_ping_counts in self.ping_counts:
-                if _item_ping_counts:
-                    _items.append(_item_ping_counts.to_dict())
+                _items.append(_item_ping_counts.to_dict() if _item_ping_counts is not None else None)
             _dict['ping_counts'] = _items
         return _dict
 

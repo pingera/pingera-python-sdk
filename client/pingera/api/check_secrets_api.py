@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -95,6 +94,7 @@ class CheckSecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[CheckSecret]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -162,6 +162,7 @@ class CheckSecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[CheckSecret]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -229,6 +230,7 @@ class CheckSecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[CheckSecret]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -362,6 +364,7 @@ class CheckSecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "CheckSecret",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -434,6 +437,7 @@ class CheckSecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "CheckSecret",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -506,6 +510,7 @@ class CheckSecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "CheckSecret",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -655,6 +660,7 @@ class CheckSecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "List[CheckSecret]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -727,6 +733,7 @@ class CheckSecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "List[CheckSecret]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -799,6 +806,7 @@ class CheckSecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "List[CheckSecret]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -948,6 +956,7 @@ class CheckSecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1019,6 +1028,7 @@ class CheckSecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1090,6 +1100,7 @@ class CheckSecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

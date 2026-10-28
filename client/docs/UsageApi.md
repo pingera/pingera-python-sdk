@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **v1_usage_get**
-> Error v1_usage_get()
+> Usage v1_usage_get()
 
 Get usage statistics
 
@@ -21,7 +21,7 @@ Get user organization usage statistics
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.usage import Usage
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -69,7 +69,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Error**](Error.md)
+[**Usage**](Usage.md)
 
 ### Authorization
 
@@ -84,6 +84,7 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | Usage statistics |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **v1_component_statuses_get**
-> v1_component_statuses_get()
+> List[str] v1_component_statuses_get()
 
 Get available components' statuses
 
@@ -50,7 +50,9 @@ with pingera.ApiClient(configuration) as api_client:
 
     try:
         # Get available components' statuses
-        api_instance.v1_component_statuses_get()
+        api_response = api_instance.v1_component_statuses_get()
+        print("The response of StatusPagesComponentsApi->v1_component_statuses_get:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling StatusPagesComponentsApi->v1_component_statuses_get: %s\n" % e)
 ```
@@ -63,7 +65,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**List[str]**
 
 ### Authorization
 
@@ -78,7 +80,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | List of components successfully retrieved |  -  |
+**200** | List of component statuses |  -  |
 **500** | Internal Server Error |  -  |
 **0** | Default error response |  -  |
 
@@ -1293,7 +1295,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_page_id_components_uptime_post**
-> v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request)
+> List[ComponentUptime] v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request)
 
 Get bulk component uptime
 
@@ -1306,6 +1308,7 @@ Get uptime data for multiple components in bulk with optional date range filteri
 
 ```python
 import pingera
+from pingera.models.component_uptime import ComponentUptime
 from pingera.models.component_uptime_bulk_request import ComponentUptimeBulkRequest
 from pingera.rest import ApiException
 from pprint import pprint
@@ -1341,7 +1344,9 @@ with pingera.ApiClient(configuration) as api_client:
 
     try:
         # Get bulk component uptime
-        api_instance.v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request)
+        api_response = api_instance.v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request)
+        print("The response of StatusPagesComponentsApi->v1_pages_page_id_components_uptime_post:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling StatusPagesComponentsApi->v1_pages_page_id_components_uptime_post: %s\n" % e)
 ```
@@ -1358,7 +1363,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**List[ComponentUptime]**](ComponentUptime.md)
 
 ### Authorization
 

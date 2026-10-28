@@ -1,21 +1,13 @@
+# Pingera Python SDK
 
-# Pingera SDK
+[![PyPI](https://img.shields.io/pypi/v/pingera-sdk)](https://pypi.org/project/pingera-sdk/)
+[![Python versions](https://img.shields.io/pypi/pyversions/pingera-sdk)](https://pypi.org/project/pingera-sdk/)
+[![CI](https://github.com/pingera/pingera-python-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/pingera/pingera-python-sdk/actions/workflows/ci.yml)
 
-A comprehensive Python SDK for the [Pingera monitoring platform API](https://api.pingera.ru), built using OpenAPI Generator for full type safety and complete API coverage.
-
-## Features
-
-- **Complete API Coverage**: Auto-generated from the official OpenAPI specification
-- **Type Safety**: Full type hints and Pydantic model validation
-- **Easy Authentication**: Support for Bearer tokens and API keys
-- **Comprehensive**: All Pingera API endpoints supported:
-  - Status Pages Management
-  - Status Pages (Components & Incidents)
-  - Monitoring Checks
-  - Heartbeats
-  - Alerts
-  - On-demand Checks
-  - Unified Results
+The official Python SDK for the [Pingera](https://pingera.ru) monitoring and status page platform API.
+It is generated from the [Pingera OpenAPI specification](https://api.pingera.ru/openapi.json), so it
+covers every endpoint and ships typed [Pydantic](https://docs.pydantic.dev) models for all requests
+and responses.
 
 ## Installation
 
@@ -23,213 +15,177 @@ A comprehensive Python SDK for the [Pingera monitoring platform API](https://api
 pip install pingera-sdk
 ```
 
-Or install from source:
+Requires Python 3.10 or newer.
 
-```bash
-git clone https://github.com/pingera/pingera-sdk.git
-cd pingera-sdk
-pip install -e .
-```
+## Quick start
 
-## Quick Start
-
-### Authentication
-
-Set your API token via environment variable:
+Create an API token in the Pingera app under [Settings → API tokens](https://app.pingera.ru/settings/tokens)
+and export it:
 
 ```bash
 export PINGERA_API_KEY="your_api_token"
 ```
 
-### Basic Usage
-
 ```python
-from pingera import ApiClient, Configuration
-from pingera.api import ChecksApi, StatusPagesComponentsApi
+import os
 
-# Configure the client
-configuration = Configuration()
-configuration.host = "https://api.pingera.ru"
-configuration.api_key['apiKeyAuth'] = "your_api_token"
+from pingera import ApiClient, ChecksApi, Configuration, StatusPagesApi, StatusPagesComponentsApi
 
-# Create API client
+configuration = Configuration()  # defaults to https://api.pingera.ru
+configuration.api_key["apiKeyAuth"] = os.environ["PINGERA_API_KEY"]
+
 with ApiClient(configuration) as api_client:
-    # Initialize API instances
-    checks_api = ChecksApi(api_client)
-    components_api = StatusPagesComponentsApi(api_client)
-    
-    # List status pages
-    status_pages_api = StatusPagesApi(api_client)
-    pages = status_pages_api.v1_pages_get()
-    print(f"Found {len(pages.data)} status pages")
-    
-    # List monitoring checks
-    checks = checks_api.v1_checks_get(page=1, page_size=10)
-    print(f"Found {len(checks.checks)} checks")
-    
-    # List components for a status page
-    components = components_api.v1_pages_page_id_components_get("your_page_id")
-    print(f"Found {len(components.data)} components")
+    pages = StatusPagesApi(api_client).v1_pages_get()
+    print(f"Found {len(pages.pages)} status pages")
+
+    checks = ChecksApi(api_client).v1_checks_get(page=1, page_size=10)
+    for check in checks.checks:
+        print(check.name, check.type, check.status)
+
+    components = StatusPagesComponentsApi(api_client).v1_pages_page_id_components_get("your_page_id")
+    print(f"Found {len(components)} components")
 ```
 
-### Available APIs
+### Authentication
 
-The SDK provides access to all Pingera API endpoints through these API classes:
+Use an API token (recommended for scripts and integrations):
 
 ```python
-from pingera.api import (
-    StatusPagesApi,              # Manage status pages
-    StatusPagesComponentsApi,    # Manage status page components
-    StatusPagesIncidentsApi,     # Manage incidents and maintenance
-    ChecksApi,                   # Manage monitoring checks
-    AlertsApi,                   # Manage alerts and notifications
-    HeartbeatsApi,               # Manage heartbeat monitoring
-    OnDemandChecksApi,           # Execute checks on-demand
-    ChecksUnifiedResultsApi      # Get unified check results
+configuration.api_key["apiKeyAuth"] = "your_api_token"
+```
+
+Or a JWT access token obtained by logging in:
+
+```python
+configuration = Configuration(access_token="your_jwt")
+```
+
+## Available APIs
+
+All API classes can be imported from `pingera` or `pingera.api`. Method names follow the endpoint
+path and HTTP method, e.g. `GET /v1/checks/{check_id}` is `ChecksApi.v1_checks_check_id_get`.
+
+| API class | Purpose |
+| --- | --- |
+| `ChecksApi` | Monitoring checks, results, regions, uptime and status history |
+| `CheckGroupsApi` | Group checks together |
+| `CheckSecretsApi` / `SecretsApi` | Secrets and their assignment to checks |
+| `ChecksUnifiedResultsApi` | Unified results across checks |
+| `ExecutionGroupsApi` | Multi-region execution results |
+| `OnDemandChecksApi` | Run checks on demand and poll for results |
+| `HeartbeatsApi` | Heartbeat (cron job) monitoring |
+| `PrivateLocationsApi` | Private locations and runner tokens for self-hosted runners |
+| `AlertsApi` | Alerts, alert rules and notification channels |
+| `StatusPagesApi` | Status pages, custom sender email domains |
+| `StatusPagesComponentsApi` | Status page components and their uptime |
+| `StatusPagesIncidentsApi` | Incidents, maintenance and postmortems |
+| `PagePasswordsApi` | Password protection for status pages |
+| `ReportsApi` | PDF report generation |
+| `AuditApi` | Organization audit trail |
+| `OrganizationsApi` / `UsageApi` | Organization settings, plans, subscriptions and usage |
+| `UsersApi` / `AuthEnhancedApi` / `OAuthApi` / `WebauthnApi` | Users, API tokens and authentication |
+
+The full reference for every method and model is in [client/README.md](client/README.md) and
+[client/docs/](client/docs/).
+
+## Working with models
+
+```python
+from pingera import StatusPagesIncidentsApi
+from pingera.models import IncidentCreate, IncidentUpdateCreate
+
+incidents_api = StatusPagesIncidentsApi(api_client)
+
+incident = incidents_api.v1_pages_page_id_incidents_post(
+    "your_page_id",
+    IncidentCreate(
+        name="Database connectivity issues",
+        body="We are investigating connectivity issues",
+        status="investigating",
+        impact="major",
+    ),
+)
+
+incidents_api.v1_pages_page_id_incidents_incident_id_incident_updates_post(
+    "your_page_id",
+    incident.id,
+    IncidentUpdateCreate(status="identified", body="The cause has been found"),
 )
 ```
 
-### Working with Models
+Models can be converted with `to_dict()` / `to_json()` and created with `from_dict()` / `from_json()`.
 
-All API requests and responses use typed Pydantic models:
+## Error handling
+
+Failed requests raise `pingera.ApiException`, or a subclass for common statuses
+(`BadRequestException`, `UnauthorizedException`, `ForbiddenException`, `NotFoundException`,
+`ServiceException`):
 
 ```python
-from pingera.models import (
-    Component,
-    IncidentCreate,
-    IncidentUpdateCreate,
-    ExecuteCustomCheckRequest
-)
+from pingera.exceptions import ApiException, NotFoundException
 
-# Create a new component
-new_component = Component(
-    name="API Server",
-    description="Main API endpoint",
-    status="operational"
-)
-
-# Create an incident
-new_incident = IncidentCreate(
-    name="Database Connectivity Issues", 
-    body="We are investigating connectivity issues",
-    status="investigating",
-    impact="major"
-)
+try:
+    check = ChecksApi(api_client).v1_checks_check_id_get("missing")
+except NotFoundException:
+    print("Check not found")
+except ApiException as e:
+    print(f"API error {e.status}: {e.body}")
 ```
 
 ## Examples
 
-Check the `examples/` directory for comprehensive usage examples:
+See the [examples/](examples/) directory:
 
-- [`basic_usage.py`](examples/basic_usage.py) - Basic client setup and operations
-- [`status_pages_management.py`](examples/status_pages_management.py) - Status pages CRUD operations
-- [`component_management.py`](examples/component_management.py) - Component CRUD operations
-- [`incident_management.py`](examples/incident_management.py) - Incident and maintenance management
-- [`comprehensive_sdk_usage.py`](examples/comprehensive_sdk_usage.py) - Comprehensive API demonstration
-- [`on_demand_synthetic_check.py`](examples/on_demand_synthetic_check.py) - Execute synthetic check with playwright script and get the result
+- [`basic_usage.py`](examples/basic_usage.py) - client setup and basic calls
+- [`status_pages_management.py`](examples/status_pages_management.py) - status page CRUD
+- [`component_management.py`](examples/component_management.py) - component CRUD
+- [`incident_management.py`](examples/incident_management.py) - incidents and maintenance
+- [`list_regions.py`](examples/list_regions.py) - available check regions
+- [`on_demand_synthetic_check.py`](examples/on_demand_synthetic_check.py) - run a Playwright check on demand and wait for the result
+- [`comprehensive_sdk_usage.py`](examples/comprehensive_sdk_usage.py) and [`generated_client_usage.py`](examples/generated_client_usage.py) - tours of most APIs
 
-## Configuration
-
-### Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `PINGERA_API_KEY` | Your Pingera API token |
-| `PINGERA_PAGE_ID` | Default page ID for status page operations |
-
-### Manual Configuration
-
-```python
-from pingera import Configuration
-
-configuration = Configuration()
-configuration.host = "https://api.pingera.ru"
-
-# API token authentication
-configuration.api_key['apiKeyAuth'] = "your_api_token"
-
-# Optional: configure timeouts, retries, etc.
-configuration.timeout = 30
-```
-
-## Error Handling
-
-The SDK uses proper exception handling:
-
-```python
-from pingera.exceptions import ApiException
-
-try:
-    checks = checks_api.v1_checks_get()
-except ApiException as e:
-    print(f"API Error [{e.status}]: {e.reason}")
-    if e.body:
-        print(f"Details: {e.body}")
-```
+The examples read `PINGERA_API_KEY` (or `PINGERA_BEARER_TOKEN`) and, where needed, `PINGERA_PAGE_ID`.
 
 ## Development
-
-### Regenerating the Client
-
-If the Pingera API specification changes, you can regenerate the client:
-
-```bash
-# Install the OpenAPI generator
-pip install openapi-generator-cli[jdk4py]
-
-# Regenerate the client
-python generate_client.py
-```
-
-### Running Tests
 
 ```bash
 pip install -e ".[dev]"
 pytest
 ```
 
-### Running Examples
+### Regenerating the client
+
+The SDK is generated with [OpenAPI Generator](https://openapi-generator.tech), run through Docker:
 
 ```bash
-# Set your credentials
-export PINGERA_API_KEY="your_api_token"
-export PINGERA_PAGE_ID="your_page_id"
-
-# Run examples
-python examples/basic_usage.py
-python examples/component_management.py
-python examples/incident_management.py
+python generate_client.py                  # fetch https://api.pingera.ru/openapi.json and regenerate
+python generate_client.py --spec spec.json # regenerate from a local spec file
+python generate_client.py --check          # only check whether the SDK matches the live API
 ```
 
-## API Documentation
+The script stores the spec in [openapi/openapi.json](openapi/openapi.json) and rewrites
+`client/pingera/`, `client/docs/` and `client/README.md`. Don't edit those generated files by hand.
+Use `--runner local` to call a locally installed `openapi-generator-cli` instead of Docker.
 
-For detailed API documentation, visit:
-- [Official Pingera API Docs](https://docs.pingera.ru/api/overview)
-- [Generated Client Docs](client/README.md)
+A [scheduled workflow](.github/workflows/api-drift.yml) runs `--check` against the live API every
+day, so new endpoints, fields and enum values are noticed quickly.
 
-## Contributing
+### Releasing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Run the test suite
-6. Submit a pull request
+1. Regenerate the client and run the tests.
+2. Bump `version` in [pyproject.toml](pyproject.toml) (the only place it is defined), then run
+   `python generate_client.py` again so the generated code picks up the new version.
+3. Add an entry to [CHANGELOG.md](CHANGELOG.md).
+4. Build and upload: `python -m build && twine upload dist/*`.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-- 📧 Email: [privet@pingera.ru](mailto:privet@pingera.ru)  
-- 📖 Documentation: [docs.pingera.ru](https://docs.pingera.ru)
-- 🌐 Website: [pingera.ru](https://pingera.ru)
-- 📊 Status: [status.pingera.ru](https://status.pingera.ru)
+MIT, see [LICENSE](LICENSE).
 
 ## Links
 
-- [Pingera Platform](https://app.pingera.ru)
-- [API Documentation](https://docs.pingera.ru/api/overview)
-- [Status Page](https://status.pingera.ru)
-- [Website](https://pingera.ru)
+- [SDK documentation](https://docs.pingera.ru/devs/sdk)
+- [API documentation](https://docs.pingera.ru/api/overview)
+- [Pingera app](https://app.pingera.ru)
+- [Status page](https://status.pingera.ru)
+- Support: [privet@pingera.ru](mailto:privet@pingera.ru)

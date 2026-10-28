@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**password_name** | **str** | Name of the matched password (if available) | [optional] 
-**token_type** | **str** | Type of the token | [optional] 
-**expires_in** | **int** | Token expiration time in seconds | [optional] 
 **access_token** | **str** | JWT access token for the page | [optional] 
+**expires_in** | **int** | Token expiration time in seconds | [optional] 
+**token_type** | **str** | Type of the token | [optional] 
+**password_name** | **str** | Name of the matched password (if available) | [optional] 
 
 ## Example
 

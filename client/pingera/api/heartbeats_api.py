@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -107,6 +106,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -178,6 +178,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -249,6 +250,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -341,7 +343,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> object:
         """Get alert channels assigned to heartbeat check
 
         Get alert channels assigned to heartbeat check
@@ -379,7 +381,8 @@ class HeartbeatsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "object",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -408,7 +411,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[object]:
         """Get alert channels assigned to heartbeat check
 
         Get alert channels assigned to heartbeat check
@@ -446,7 +449,8 @@ class HeartbeatsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "object",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -513,7 +517,8 @@ class HeartbeatsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "object",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -604,7 +609,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> object:
         """Assign alert channels to heartbeat check
 
         Assign alert channels to heartbeat check
@@ -646,7 +651,8 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '201': None,
+            '201': "object",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -676,7 +682,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[object]:
         """Assign alert channels to heartbeat check
 
         Assign alert channels to heartbeat check
@@ -718,7 +724,8 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '201': None,
+            '201': "object",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -790,7 +797,8 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '201': None,
+            '201': "object",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -935,6 +943,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1002,6 +1011,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1069,6 +1079,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1197,6 +1208,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatCheckDetail",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1264,6 +1276,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatCheckDetail",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1331,6 +1344,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatCheckDetail",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1464,6 +1478,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1536,6 +1551,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1608,6 +1624,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1752,6 +1769,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1819,6 +1837,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1886,6 +1905,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2016,6 +2036,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2087,6 +2108,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2158,6 +2180,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2308,6 +2331,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingCountResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2383,6 +2407,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingCountResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2458,6 +2483,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingCountResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2630,6 +2656,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingHistory",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2713,6 +2740,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingHistory",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2796,6 +2824,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatPingHistory",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2967,6 +2996,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3039,6 +3069,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3111,6 +3142,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3259,6 +3291,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatCheckList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3330,6 +3363,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatCheckList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3401,6 +3435,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "HeartbeatCheckList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3537,6 +3572,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3605,6 +3641,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3673,6 +3710,7 @@ class HeartbeatsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "HeartbeatCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

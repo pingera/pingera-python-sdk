@@ -1,0 +1,48 @@
+# Changelog
+
+All notable changes to `pingera-sdk` are documented here. The project follows
+[Semantic Versioning](https://semver.org/).
+
+## 1.1.0
+
+Regenerated from the current Pingera API with OpenAPI Generator 7.26.0.
+
+### Added
+
+- `PrivateLocationsApi`: manage private locations and runner tokens for self-hosted runners.
+- `ReportsApi`: request and download PDF reports.
+- `AuditApi`: read the organization audit trail.
+- `AlertsApi.v1_alerts_channels_test_post` and `v1_alerts_channels_channel_id_test_post` to send test notifications.
+- `StatusPagesApi` custom sender email domain endpoints (`v1_pages_page_id_email_domain_*`).
+- `StatusPagesIncidentsApi.v1_pages_page_id_incidents_incident_id_incident_updates_incident_update_id_delete`.
+- `OAuthApi.v1_auth_oauth_provider_name_link_complete_post`.
+- New model fields, including cron scheduling on checks (`scheduling_type`, `cron_schedule`,
+  `effective_interval`, `credit_throttled`), organization `timezone` and invoice details, page email
+  domain settings, private region flags on `Region`, and components on incident update edits.
+- Typed responses for endpoints that previously returned nothing useful: organization details,
+  usage, check uptime, page templates, component/incident/maintenance statuses and bulk component uptime.
+- Request bodies for `OrganizationsApi.v1_organizations_org_id_put`/`_patch` (`OrganizationUpdate`).
+
+### Fixed
+
+- Alert channels and notifications of type `sms` and `max` raised a `ValidationError`.
+- The package no longer installs `pytest`, `pytest-cov`, `pytest-asyncio`, `setuptools` and `httpx`
+  as runtime dependencies.
+- `python -m build` works with build isolation.
+- Requests now send a `pingera-sdk/<version>/python` user agent.
+
+### Changed
+
+- Python 3.10 or newer is required (Python 3.9 is end-of-life). Dependencies are now
+  `urllib3>=2.7`, `pydantic>=2.11`.
+- `OAuthApi.v1_auth_oauth_provider_name_callback_get` was replaced by
+  `v1_auth_oauth_provider_name_callback_post`, matching the API. `OAuthProvider.authorization_url`
+  was removed from the API.
+- `OAuthApi.v1_auth_oauth_provider_name_authorize_get` accepts `code_challenge`, and
+  `v1_auth_oauth_provider_name_link_post` takes an `OAuthAuthorizeRequest` body.
+- Optional query parameters of `v1_checks_all_results_get`, `v1_checks_status_history_get` and
+  `v1_checks_check_id_response_times_get` were reordered to match the API; pass them as keyword arguments.
+
+## 1.0.15 and earlier
+
+See the [git history](https://github.com/pingera/pingera-python-sdk/commits/main).

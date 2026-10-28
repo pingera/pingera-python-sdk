@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -101,6 +100,7 @@ class AuthEnhancedApi:
             '422': None,
             '200': "LoginOptionsResponse",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -170,6 +170,7 @@ class AuthEnhancedApi:
             '422': None,
             '200': "LoginOptionsResponse",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -239,6 +240,7 @@ class AuthEnhancedApi:
             '422': None,
             '200': "LoginOptionsResponse",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -382,6 +384,7 @@ class AuthEnhancedApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -453,6 +456,7 @@ class AuthEnhancedApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -524,6 +528,7 @@ class AuthEnhancedApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -661,6 +666,7 @@ class AuthEnhancedApi:
             '200': "AuthPreferences",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -726,6 +732,7 @@ class AuthEnhancedApi:
             '200': "AuthPreferences",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -791,6 +798,7 @@ class AuthEnhancedApi:
             '200': "AuthPreferences",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -920,6 +928,7 @@ class AuthEnhancedApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -991,6 +1000,7 @@ class AuthEnhancedApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1062,6 +1072,7 @@ class AuthEnhancedApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1201,6 +1212,7 @@ class AuthEnhancedApi:
             '200': "AuthSetupStatus",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1266,6 +1278,7 @@ class AuthEnhancedApi:
             '200': "AuthSetupStatus",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1331,6 +1344,7 @@ class AuthEnhancedApi:
             '200': "AuthSetupStatus",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1454,6 +1468,7 @@ class AuthEnhancedApi:
             '200': "AuthRecommendations",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1519,6 +1534,7 @@ class AuthEnhancedApi:
             '200': "AuthRecommendations",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1584,6 +1600,7 @@ class AuthEnhancedApi:
             '200': "AuthRecommendations",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

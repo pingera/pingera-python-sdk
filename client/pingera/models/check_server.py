@@ -22,20 +22,22 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CheckServer(BaseModel):
     """
     CheckServer
     """ # noqa: E501
-    server_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata about the server configuration.")
-    ip_address: Optional[StrictStr] = Field(default=None, description="The IP address of the check server.")
-    country: Optional[StrictStr] = Field(default=None, description="The country where the server is located.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check server.")
-    region: Optional[StrictStr] = Field(default=None, description="The geographical region where the server is located.")
-    __properties: ClassVar[List[str]] = ["server_metadata", "ip_address", "country", "id", "region"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check server.", json_schema_extra={"examples": ["srv123abc456"]})
+    ip_address: Optional[StrictStr] = Field(default=None, description="The IP address of the check server.", json_schema_extra={"examples": ["192.168.1.100"]})
+    region: Optional[StrictStr] = Field(default=None, description="The geographical region where the server is located.", json_schema_extra={"examples": ["us-west-1"]})
+    country: Optional[StrictStr] = Field(default=None, description="The country where the server is located.", json_schema_extra={"examples": ["United States"]})
+    server_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata about the server configuration.", json_schema_extra={"examples": [{"datacenter": "aws-oregon", "provider": "aws"}]})
+    __properties: ClassVar[List[str]] = ["id", "ip_address", "region", "country", "server_metadata"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +49,7 @@ class CheckServer(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -87,11 +88,11 @@ class CheckServer(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "server_metadata": obj.get("server_metadata"),
-            "ip_address": obj.get("ip_address"),
-            "country": obj.get("country"),
             "id": obj.get("id"),
-            "region": obj.get("region")
+            "ip_address": obj.get("ip_address"),
+            "region": obj.get("region"),
+            "country": obj.get("country"),
+            "server_metadata": obj.get("server_metadata")
         })
         return _obj
 

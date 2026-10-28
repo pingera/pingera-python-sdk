@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**credential** | [**Credential**](Credential.md) | Information about the newly created credential. | [optional] [readonly] 
 **success** | **bool** | Indicates if the registration was successful. | [optional] [readonly] 
+**credential** | [**Credential**](Credential.md) | Information about the newly created credential. | [optional] [readonly] 
 
 ## Example
 

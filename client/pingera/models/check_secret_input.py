@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CheckSecretInput(BaseModel):
     """
     CheckSecretInput
     """ # noqa: E501
-    secret_id: StrictStr = Field(description="The unique identifier of the secret.")
-    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.")
+    secret_id: StrictStr = Field(description="The unique identifier of the secret.", json_schema_extra={"examples": ["sec123abc456"]})
+    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.", json_schema_extra={"examples": ["DATABASE_PASSWORD"]})
     __properties: ClassVar[List[str]] = ["secret_id", "env_variable"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class CheckSecretInput(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

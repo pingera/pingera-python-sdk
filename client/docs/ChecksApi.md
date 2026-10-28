@@ -556,7 +556,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_checks_check_id_uptime_get**
-> Error v1_checks_check_id_uptime_get(check_id, start_time=start_time, end_time=end_time)
+> CheckUptime v1_checks_check_id_uptime_get(check_id, start_time=start_time, end_time=end_time)
 
 Get check uptime
 
@@ -569,7 +569,7 @@ Get check uptime by ID. Shows uptime for the last 24 hours by default. Set end_t
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.check_uptime import CheckUptime
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -625,7 +625,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+[**CheckUptime**](CheckUptime.md)
 
 ### Authorization
 
@@ -640,6 +640,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | Hourly uptime data and summary |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

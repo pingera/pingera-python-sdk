@@ -22,18 +22,20 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class LoginOptionsResponse(BaseModel):
     """
     LoginOptionsResponse
     """ # noqa: E501
-    preferred: Optional[StrictStr] = Field(default=None, description="Preferred authentication method")
-    requires_2fa: Optional[StrictBool] = Field(default=None, description="Whether 2FA is required for this user")
-    methods: Optional[List[StrictStr]] = Field(default=None, description="Available authentication methods for this email")
-    __properties: ClassVar[List[str]] = ["preferred", "requires_2fa", "methods"]
+    methods: Optional[List[StrictStr]] = Field(default=None, description="Available authentication methods for this email", json_schema_extra={"examples": [["password", "passkey"]]})
+    preferred: Optional[StrictStr] = Field(default=None, description="Preferred authentication method", json_schema_extra={"examples": ["password"]})
+    requires_2fa: Optional[StrictBool] = Field(default=None, description="Whether 2FA is required for this user", json_schema_extra={"examples": [False]})
+    __properties: ClassVar[List[str]] = ["methods", "preferred", "requires_2fa"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class LoginOptionsResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -67,9 +68,9 @@ class LoginOptionsResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "methods",
             "preferred",
             "requires_2fa",
-            "methods",
         ])
 
         _dict = self.model_dump(
@@ -89,9 +90,9 @@ class LoginOptionsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "methods": obj.get("methods"),
             "preferred": obj.get("preferred"),
-            "requires_2fa": obj.get("requires_2fa"),
-            "methods": obj.get("methods")
+            "requires_2fa": obj.get("requires_2fa")
         })
         return _obj
 

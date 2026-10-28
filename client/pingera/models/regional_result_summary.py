@@ -23,18 +23,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_v
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RegionalResultSummary(BaseModel):
     """
     RegionalResultSummary
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="Status of the check in this region")
-    response_time: Optional[StrictInt] = Field(default=None, description="Response time in milliseconds (null if check failed)")
-    result_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the check result")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when this regional result was created")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed")
-    region: Optional[StrictStr] = Field(default=None, description="Region where this check was executed")
-    __properties: ClassVar[List[str]] = ["status", "response_time", "result_id", "created_at", "error_message", "region"]
+    result_id: Optional[StrictStr] = Field(default=None, description="Unique identifier of the check result", json_schema_extra={"examples": ["res123abc456"]})
+    region: Optional[StrictStr] = Field(default=None, description="Region where this check was executed", json_schema_extra={"examples": ["US, East coast"]})
+    status: Optional[StrictStr] = Field(default=None, description="Status of the check in this region", json_schema_extra={"examples": ["ok"]})
+    response_time: Optional[StrictInt] = Field(default=None, description="Response time in milliseconds (null if check failed)", json_schema_extra={"examples": [150]})
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed", json_schema_extra={"examples": ["Connection timeout"]})
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when this regional result was created", json_schema_extra={"examples": ["2024-01-15T10:00:05Z"]})
+    __properties: ClassVar[List[str]] = ["result_id", "region", "status", "response_time", "error_message", "created_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -47,7 +48,8 @@ class RegionalResultSummary(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -59,8 +61,7 @@ class RegionalResultSummary(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -107,12 +108,12 @@ class RegionalResultSummary(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "result_id": obj.get("result_id"),
+            "region": obj.get("region"),
             "status": obj.get("status"),
             "response_time": obj.get("response_time"),
-            "result_id": obj.get("result_id"),
-            "created_at": obj.get("created_at"),
             "error_message": obj.get("error_message"),
-            "region": obj.get("region")
+            "created_at": obj.get("created_at")
         })
         return _obj
 

@@ -24,20 +24,22 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class APIToken(BaseModel):
     """
     APIToken
     """ # noqa: E501
-    last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was last used in ISO format. Null if never used.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was created in ISO format.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A descriptive name for the API token. Maximum 100 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the API token.")
-    token: Optional[StrictStr] = Field(default=None, description="The actual API token string. Only returned when creating a new token.")
-    __properties: ClassVar[List[str]] = ["last_used_at", "created_at", "name", "id", "token"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the API token.", json_schema_extra={"examples": ["token_abc123def456"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A descriptive name for the API token. Maximum 100 characters.", json_schema_extra={"examples": ["Production API Access"]})
+    token: Optional[StrictStr] = Field(default=None, description="The actual API token string. Only returned when creating a new token.", json_schema_extra={"examples": ["api_1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the API token was last used in ISO format. Null if never used.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "token", "created_at", "last_used_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +51,7 @@ class APIToken(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,10 +73,10 @@ class APIToken(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "last_used_at",
-            "created_at",
             "id",
             "token",
+            "created_at",
+            "last_used_at",
         ])
 
         _dict = self.model_dump(
@@ -95,11 +96,11 @@ class APIToken(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "last_used_at": obj.get("last_used_at"),
-            "created_at": obj.get("created_at"),
-            "name": obj.get("name"),
             "id": obj.get("id"),
-            "token": obj.get("token")
+            "name": obj.get("name"),
+            "token": obj.get("token"),
+            "created_at": obj.get("created_at"),
+            "last_used_at": obj.get("last_used_at")
         })
         return _obj
 

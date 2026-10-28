@@ -24,25 +24,26 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Component(BaseModel):
     """
     Component
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="Current operational status of the component")
-    group_id: Optional[StrictStr] = Field(default=None, description="ID of the group this component belongs to (if any)")
-    showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page")
-    description: Optional[StrictStr] = Field(default=None, description="Detailed description of the component")
-    start_date: Optional[datetime] = Field(default=None, description="Date when monitoring for this component started")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was last updated")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was created")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Display name of the component")
-    only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational")
-    group: Optional[StrictBool] = Field(default=False, description="Whether this component is a group container for other components")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the component")
-    position: Optional[StrictInt] = Field(default=None, description="Display order position of the component on the status page")
-    page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to")
-    __properties: ClassVar[List[str]] = ["status", "group_id", "showcase", "description", "start_date", "updated_at", "created_at", "name", "only_show_if_degraded", "group", "id", "position", "page_id"]
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the component", json_schema_extra={"examples": ["comp123abc456"]})
+    page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to", json_schema_extra={"examples": ["page123def789"]})
+    group: Optional[StrictBool] = Field(default=False, description="Whether this component is a group container for other components", json_schema_extra={"examples": [False]})
+    group_id: Optional[StrictStr] = Field(default=None, description="ID of the group this component belongs to (if any)", json_schema_extra={"examples": ["grp123abc456"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Display name of the component", json_schema_extra={"examples": ["API Server"]})
+    description: Optional[StrictStr] = Field(default=None, description="Detailed description of the component", json_schema_extra={"examples": ["Main REST API server handling user requests"]})
+    position: Optional[StrictInt] = Field(default=None, description="Display order position of the component on the status page", json_schema_extra={"examples": [1]})
+    status: Optional[StrictStr] = Field(default=None, description="Current operational status of the component", json_schema_extra={"examples": ["operational"]})
+    showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page", json_schema_extra={"examples": [True]})
+    only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational", json_schema_extra={"examples": [False]})
+    start_date: Optional[datetime] = Field(default=None, description="Date when monitoring for this component started", json_schema_extra={"examples": ["2024-01-01T00:00:00Z"]})
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was created", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was last updated", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "page_id", "group", "group_id", "name", "description", "position", "status", "showcase", "only_show_if_degraded", "start_date", "created_at", "updated_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -55,7 +56,8 @@ class Component(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -67,8 +69,7 @@ class Component(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -90,10 +91,10 @@ class Component(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "updated_at",
-            "created_at",
             "id",
             "page_id",
+            "created_at",
+            "updated_at",
         ])
 
         _dict = self.model_dump(
@@ -128,19 +129,19 @@ class Component(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
-            "group_id": obj.get("group_id"),
-            "showcase": obj.get("showcase"),
-            "description": obj.get("description"),
-            "start_date": obj.get("start_date"),
-            "updated_at": obj.get("updated_at"),
-            "created_at": obj.get("created_at"),
-            "name": obj.get("name"),
-            "only_show_if_degraded": obj.get("only_show_if_degraded"),
-            "group": obj.get("group") if obj.get("group") is not None else False,
             "id": obj.get("id"),
+            "page_id": obj.get("page_id"),
+            "group": obj.get("group") if obj.get("group") is not None else False,
+            "group_id": obj.get("group_id"),
+            "name": obj.get("name"),
+            "description": obj.get("description"),
             "position": obj.get("position"),
-            "page_id": obj.get("page_id")
+            "status": obj.get("status"),
+            "showcase": obj.get("showcase"),
+            "only_show_if_degraded": obj.get("only_show_if_degraded"),
+            "start_date": obj.get("start_date"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at")
         })
         return _obj
 

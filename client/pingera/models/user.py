@@ -24,28 +24,29 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class User(BaseModel):
     """
     User
     """ # noqa: E501
-    email: StrictStr = Field(description="The user's email address. Must be a valid email format and unique.")
-    onboarding_completed: Optional[StrictBool] = Field(default=None, description="Whether the user has completed the onboarding process.")
-    onboarding_step: Optional[StrictStr] = Field(default=None, description="The current step in the onboarding process. Null if onboarding is completed.")
-    verification_token_expires: Optional[Any] = Field(default=None, description="The expiration time of the email verification token in ISO format. Null if already verified.")
-    last_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's last name. Maximum 50 characters.")
-    org_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Organization name for registration. Used when creating a new organization. Maximum 100 characters.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the user account was created in ISO format.")
-    organization_id: Optional[StrictStr] = Field(default=None, description="The ID of the organization the user belongs to.")
-    is_first_login: Optional[StrictBool] = Field(default=None, description="Whether this is the user's first login to the system.")
-    last_login: Optional[datetime] = Field(default=None, description="The timestamp of the user's last login in ISO format. Null if never logged in.")
-    role: Optional[StrictStr] = Field(default=None, description="The user's role within the organization.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the user account.")
-    onboarding_completed_at: Optional[datetime] = Field(default=None, description="The timestamp when onboarding was completed in ISO format. Null if not completed.")
-    first_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's first name. Maximum 50 characters.")
-    email_verified: Optional[StrictBool] = Field(default=None, description="Whether the user's email address has been verified.")
-    password: Annotated[str, Field(min_length=6, strict=True)] = Field(description="The user's password. Minimum 6 characters. Only used for input, never returned.")
-    __properties: ClassVar[List[str]] = ["email", "onboarding_completed", "onboarding_step", "verification_token_expires", "last_name", "org_name", "created_at", "organization_id", "is_first_login", "last_login", "role", "id", "onboarding_completed_at", "first_name", "email_verified", "password"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the user account.", json_schema_extra={"examples": ["user_abc123def456"]})
+    email: StrictStr = Field(description="The user's email address. Must be a valid email format and unique.", json_schema_extra={"examples": ["user@example.com"]})
+    password: Annotated[str, Field(min_length=6, strict=True)] = Field(description="The user's password. Minimum 6 characters. Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
+    first_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's first name. Maximum 50 characters.", json_schema_extra={"examples": ["John"]})
+    last_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's last name. Maximum 50 characters.", json_schema_extra={"examples": ["Doe"]})
+    org_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Organization name for registration. Used when creating a new organization. Maximum 100 characters.", json_schema_extra={"examples": ["My Company"]})
+    role: Optional[StrictStr] = Field(default=None, description="The user's role within the organization.", json_schema_extra={"examples": ["admin"]})
+    organization_id: Optional[StrictStr] = Field(default=None, description="The ID of the organization the user belongs to.", json_schema_extra={"examples": ["org_stellar_solutions"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the user account was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    is_first_login: Optional[StrictBool] = Field(default=None, description="Whether this is the user's first login to the system.", json_schema_extra={"examples": [False]})
+    onboarding_completed: Optional[StrictBool] = Field(default=None, description="Whether the user has completed the onboarding process.", json_schema_extra={"examples": [True]})
+    onboarding_completed_at: Optional[datetime] = Field(default=None, description="The timestamp when onboarding was completed in ISO format. Null if not completed.", json_schema_extra={"examples": ["2024-01-15T11:30:00Z"]})
+    onboarding_step: Optional[StrictStr] = Field(default=None, description="The current step in the onboarding process. Null if onboarding is completed.", json_schema_extra={"examples": ["setup_alerts"]})
+    email_verified: Optional[StrictBool] = Field(default=None, description="Whether the user's email address has been verified.", json_schema_extra={"examples": [True]})
+    verification_token_expires: Optional[Any] = Field(default=None, description="The expiration time of the email verification token in ISO format. Null if already verified.", json_schema_extra={"examples": ["2024-01-16T10:00:00Z"]})
+    last_login: Optional[datetime] = Field(default=None, description="The timestamp of the user's last login in ISO format. Null if never logged in.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "email", "password", "first_name", "last_name", "org_name", "role", "organization_id", "created_at", "is_first_login", "onboarding_completed", "onboarding_completed_at", "onboarding_step", "email_verified", "verification_token_expires", "last_login"]
 
     @field_validator('role')
     def role_validate_enum(cls, value):
@@ -58,7 +59,8 @@ class User(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -70,8 +72,7 @@ class User(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -99,16 +100,16 @@ class User(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "onboarding_completed",
-            "onboarding_step",
-            "verification_token_expires",
-            "created_at",
-            "organization_id",
-            "is_first_login",
-            "last_login",
             "id",
+            "organization_id",
+            "created_at",
+            "is_first_login",
+            "onboarding_completed",
             "onboarding_completed_at",
+            "onboarding_step",
             "email_verified",
+            "verification_token_expires",
+            "last_login",
         ])
 
         _dict = self.model_dump(
@@ -138,22 +139,22 @@ class User(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "email": obj.get("email"),
-            "onboarding_completed": obj.get("onboarding_completed"),
-            "onboarding_step": obj.get("onboarding_step"),
-            "verification_token_expires": obj.get("verification_token_expires"),
+            "password": obj.get("password"),
+            "first_name": obj.get("first_name"),
             "last_name": obj.get("last_name"),
             "org_name": obj.get("org_name"),
-            "created_at": obj.get("created_at"),
-            "organization_id": obj.get("organization_id"),
-            "is_first_login": obj.get("is_first_login"),
-            "last_login": obj.get("last_login"),
             "role": obj.get("role"),
-            "id": obj.get("id"),
+            "organization_id": obj.get("organization_id"),
+            "created_at": obj.get("created_at"),
+            "is_first_login": obj.get("is_first_login"),
+            "onboarding_completed": obj.get("onboarding_completed"),
             "onboarding_completed_at": obj.get("onboarding_completed_at"),
-            "first_name": obj.get("first_name"),
+            "onboarding_step": obj.get("onboarding_step"),
             "email_verified": obj.get("email_verified"),
-            "password": obj.get("password")
+            "verification_token_expires": obj.get("verification_token_expires"),
+            "last_login": obj.get("last_login")
         })
         return _obj
 

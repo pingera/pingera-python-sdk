@@ -24,23 +24,24 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class HeartbeatCheck(BaseModel):
     """
     HeartbeatCheck
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the heartbeat check.")
-    ping_url: Optional[StrictStr] = Field(default=None, description="The unique URL to which the monitored service should send GET or POST requests. Auto-generated.")
-    grace_seconds: Optional[Annotated[int, Field(strict=True, ge=60)]] = Field(default=3600, description="A grace period in seconds to wait before marking the check as 'down'. Defaults to 3600.")
-    last_ping_at: Optional[datetime] = Field(default=None, description="The timestamp of the last received ping in ISO format.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was created in ISO format.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the heartbeat check. Max 100 symbols.")
-    period_seconds: Annotated[int, Field(strict=True, ge=60)] = Field(description="The expected interval between pings, in seconds. Minimum is 60.")
-    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was last updated in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat check. 12 chars, alpha-numeric.")
-    active: Optional[StrictBool] = Field(default=True, description="Whether the heartbeat check is active or paused. Defaults to true.")
-    __properties: ClassVar[List[str]] = ["status", "ping_url", "grace_seconds", "last_ping_at", "created_at", "name", "period_seconds", "next_expected_ping", "updated_at", "id", "active"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat check. 12 chars, alpha-numeric.", json_schema_extra={"examples": ["abc123def456"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the heartbeat check. Max 100 symbols.", json_schema_extra={"examples": ["Nightly Backup Cron Job"]})
+    period_seconds: Annotated[int, Field(strict=True, ge=60)] = Field(description="The expected interval between pings, in seconds. Minimum is 60.", json_schema_extra={"examples": [86400]})
+    grace_seconds: Optional[Annotated[int, Field(strict=True, ge=60)]] = Field(default=3600, description="A grace period in seconds to wait before marking the check as 'down'. Defaults to 3600.", json_schema_extra={"examples": [600]})
+    ping_url: Optional[StrictStr] = Field(default=None, description="The unique URL to which the monitored service should send GET or POST requests. Auto-generated.", json_schema_extra={"examples": ["https://api.pingera.ru/v1/heartbeats/abc123def456/ping"]})
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the heartbeat check.", json_schema_extra={"examples": ["up"]})
+    active: Optional[StrictBool] = Field(default=True, description="Whether the heartbeat check is active or paused. Defaults to true.", json_schema_extra={"examples": [True]})
+    last_ping_at: Optional[datetime] = Field(default=None, description="The timestamp of the last received ping in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.", json_schema_extra={"examples": ["2024-01-16T14:30:00Z"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the heartbeat check was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "period_seconds", "grace_seconds", "ping_url", "status", "active", "last_ping_at", "next_expected_ping", "created_at", "updated_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -53,7 +54,8 @@ class HeartbeatCheck(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -65,8 +67,7 @@ class HeartbeatCheck(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -91,13 +92,13 @@ class HeartbeatCheck(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "status",
-            "ping_url",
-            "last_ping_at",
-            "created_at",
-            "next_expected_ping",
-            "updated_at",
             "id",
+            "ping_url",
+            "status",
+            "last_ping_at",
+            "next_expected_ping",
+            "created_at",
+            "updated_at",
         ])
 
         _dict = self.model_dump(
@@ -117,17 +118,17 @@ class HeartbeatCheck(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
-            "ping_url": obj.get("ping_url"),
-            "grace_seconds": obj.get("grace_seconds") if obj.get("grace_seconds") is not None else 3600,
-            "last_ping_at": obj.get("last_ping_at"),
-            "created_at": obj.get("created_at"),
+            "id": obj.get("id"),
             "name": obj.get("name"),
             "period_seconds": obj.get("period_seconds"),
+            "grace_seconds": obj.get("grace_seconds") if obj.get("grace_seconds") is not None else 3600,
+            "ping_url": obj.get("ping_url"),
+            "status": obj.get("status"),
+            "active": obj.get("active") if obj.get("active") is not None else True,
+            "last_ping_at": obj.get("last_ping_at"),
             "next_expected_ping": obj.get("next_expected_ping"),
-            "updated_at": obj.get("updated_at"),
-            "id": obj.get("id"),
-            "active": obj.get("active") if obj.get("active") is not None else True
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at")
         })
         return _obj
 

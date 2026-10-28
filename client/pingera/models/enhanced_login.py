@@ -22,15 +22,16 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class EnhancedLogin(BaseModel):
     """
     EnhancedLogin
     """ # noqa: E501
-    password: Optional[StrictStr] = Field(default=None, description="Password (required when method is 'password')")
-    email: StrictStr = Field(description="User's email address")
-    method: Optional[StrictStr] = Field(default='password', description="Authentication method to use")
-    __properties: ClassVar[List[str]] = ["password", "email", "method"]
+    email: StrictStr = Field(description="User's email address", json_schema_extra={"examples": ["user@example.com"]})
+    method: Optional[StrictStr] = Field(default='password', description="Authentication method to use", json_schema_extra={"examples": ["password"]})
+    password: Optional[StrictStr] = Field(default=None, description="Password (required when method is 'password')", json_schema_extra={"examples": ["securepassword123"]})
+    __properties: ClassVar[List[str]] = ["email", "method", "password"]
 
     @field_validator('method')
     def method_validate_enum(cls, value):
@@ -43,7 +44,8 @@ class EnhancedLogin(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -55,8 +57,7 @@ class EnhancedLogin(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -98,9 +99,9 @@ class EnhancedLogin(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "password": obj.get("password"),
             "email": obj.get("email"),
-            "method": obj.get("method") if obj.get("method") is not None else 'password'
+            "method": obj.get("method") if obj.get("method") is not None else 'password',
+            "password": obj.get("password")
         })
         return _obj
 

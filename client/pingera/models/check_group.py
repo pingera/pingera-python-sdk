@@ -24,33 +24,35 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CheckGroup(BaseModel):
     """
     CheckGroup
     """ # noqa: E501
-    color: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex color code for the group (e.g., #4F46E5).")
-    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description for the check group. Max 500 characters.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was created in ISO format.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the check group. Max 100 characters.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was last updated in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check group.")
-    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering groups (0 = first).")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the check group is active.")
-    __properties: ClassVar[List[str]] = ["color", "description", "created_at", "name", "updated_at", "id", "position", "active"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check group.", json_schema_extra={"examples": ["grp123abc456"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the check group. Max 100 characters.", json_schema_extra={"examples": ["Production Services"]})
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description for the check group. Max 500 characters.", json_schema_extra={"examples": ["Critical production services monitoring"]})
+    color: Optional[Annotated[str, Field(strict=True)]] = Field(default=None, description="Hex color code for the group (e.g., #4F46E5).", json_schema_extra={"examples": ["#4F46E5"]})
+    position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Position for ordering groups (0 = first).", json_schema_extra={"examples": [0]})
+    active: Optional[StrictBool] = Field(default=None, description="Whether the check group is active.", json_schema_extra={"examples": [True]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the group was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "color", "position", "active", "created_at", "updated_at"]
 
-    @field_validator('color')
+    @field_validator('color', mode="before")
     def color_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not re.match(r"^#[0-9A-Fa-f]{6}$", value):
+        if isinstance(value, str) and not re.match(r"^#[0-9A-Fa-f]{6}$", value):
             raise ValueError(r"must validate the regular expression /^#[0-9A-Fa-f]{6}$/")
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -62,8 +64,7 @@ class CheckGroup(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -84,9 +85,9 @@ class CheckGroup(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
             "created_at",
             "updated_at",
-            "id",
         ])
 
         _dict = self.model_dump(
@@ -106,14 +107,14 @@ class CheckGroup(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "color": obj.get("color"),
-            "description": obj.get("description"),
-            "created_at": obj.get("created_at"),
-            "name": obj.get("name"),
-            "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "color": obj.get("color"),
             "position": obj.get("position"),
-            "active": obj.get("active")
+            "active": obj.get("active"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at")
         })
         return _obj
 

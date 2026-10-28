@@ -23,18 +23,20 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Credential(BaseModel):
     """
     Credential
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the credential.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the credential was registered.")
-    device_name: Optional[StrictStr] = Field(default=None, description="The user-provided name for the device or passkey.")
-    __properties: ClassVar[List[str]] = ["id", "created_at", "device_name"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the credential.", json_schema_extra={"examples": ["cred_2Xy...Z1a"]})
+    device_name: Optional[StrictStr] = Field(default=None, description="The user-provided name for the device or passkey.", json_schema_extra={"examples": ["My MacBook Pro"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the credential was registered.", json_schema_extra={"examples": ["2025-08-02T11:30:45Z"]})
+    __properties: ClassVar[List[str]] = ["id", "device_name", "created_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +48,7 @@ class Credential(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -69,8 +70,8 @@ class Credential(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "id",
-            "created_at",
             "device_name",
+            "created_at",
         ])
 
         _dict = self.model_dump(
@@ -91,8 +92,8 @@ class Credential(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "created_at": obj.get("created_at"),
-            "device_name": obj.get("device_name")
+            "device_name": obj.get("device_name"),
+            "created_at": obj.get("created_at")
         })
         return _obj
 

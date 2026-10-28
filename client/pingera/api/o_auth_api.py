@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -12,16 +10,19 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing import Optional
+from pydantic import Field
 from typing_extensions import Annotated
 from pingera.models.linked_o_auth_accounts_response import LinkedOAuthAccountsResponse
+from pingera.models.o_auth_authorize_request import OAuthAuthorizeRequest
 from pingera.models.o_auth_authorize_response import OAuthAuthorizeResponse
+from pingera.models.o_auth_callback import OAuthCallback
+from pingera.models.o_auth_link_complete_response import OAuthLinkCompleteResponse
 from pingera.models.o_auth_login_response import OAuthLoginResponse
 from pingera.models.o_auth_providers_response import OAuthProvidersResponse
 from pingera.models.o_auth_unlink_response import OAuthUnlinkResponse
@@ -95,6 +96,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LinkedOAuthAccountsResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -158,6 +160,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LinkedOAuthAccountsResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -221,6 +224,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LinkedOAuthAccountsResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -294,6 +298,7 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_authorize_get(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        code_challenge: Annotated[str, Field(min_length=43, strict=True, max_length=43, description="Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256)")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -307,12 +312,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> OAuthAuthorizeResponse:
-        """Initiate OAuth authorization
+        """Start OAuth sign-in
 
-        Start OAuth authorization flow for the specified provider
+        Returns the provider authorization URL for signing in or signing up. The client must send a PKCE S256 code_challenge and keep the matching code_verifier and returned state until the callback.
 
         :param provider_name: (required)
         :type provider_name: str
+        :param code_challenge: Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256) (required)
+        :type code_challenge: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -337,6 +344,7 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_authorize_get_serialize(
             provider_name=provider_name,
+            code_challenge=code_challenge,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -344,7 +352,9 @@ class OAuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
             '200': "OAuthAuthorizeResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -361,6 +371,7 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_authorize_get_with_http_info(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        code_challenge: Annotated[str, Field(min_length=43, strict=True, max_length=43, description="Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256)")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -374,12 +385,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[OAuthAuthorizeResponse]:
-        """Initiate OAuth authorization
+        """Start OAuth sign-in
 
-        Start OAuth authorization flow for the specified provider
+        Returns the provider authorization URL for signing in or signing up. The client must send a PKCE S256 code_challenge and keep the matching code_verifier and returned state until the callback.
 
         :param provider_name: (required)
         :type provider_name: str
+        :param code_challenge: Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256) (required)
+        :type code_challenge: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -404,6 +417,7 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_authorize_get_serialize(
             provider_name=provider_name,
+            code_challenge=code_challenge,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -411,7 +425,9 @@ class OAuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
             '200': "OAuthAuthorizeResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -428,6 +444,7 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_authorize_get_without_preload_content(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        code_challenge: Annotated[str, Field(min_length=43, strict=True, max_length=43, description="Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256)")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -441,12 +458,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Initiate OAuth authorization
+        """Start OAuth sign-in
 
-        Start OAuth authorization flow for the specified provider
+        Returns the provider authorization URL for signing in or signing up. The client must send a PKCE S256 code_challenge and keep the matching code_verifier and returned state until the callback.
 
         :param provider_name: (required)
         :type provider_name: str
+        :param code_challenge: Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256) (required)
+        :type code_challenge: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -471,6 +490,7 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_authorize_get_serialize(
             provider_name=provider_name,
+            code_challenge=code_challenge,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -478,7 +498,9 @@ class OAuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
             '200': "OAuthAuthorizeResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -490,6 +512,7 @@ class OAuthApi:
     def _v1_auth_oauth_provider_name_authorize_get_serialize(
         self,
         provider_name,
+        code_challenge,
         _request_auth,
         _content_type,
         _headers,
@@ -514,6 +537,10 @@ class OAuthApi:
         if provider_name is not None:
             _path_params['provider_name'] = provider_name
         # process the query parameters
+        if code_challenge is not None:
+            
+            _query_params.append(('code_challenge', code_challenge))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -551,13 +578,10 @@ class OAuthApi:
 
 
     @validate_call
-    def v1_auth_oauth_provider_name_callback_get(
+    def v1_auth_oauth_provider_name_callback_post(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
-        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
-        state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
-        error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
-        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
+        o_auth_callback: OAuthCallback,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -571,20 +595,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> OAuthLoginResponse:
-        """Handle OAuth callback
+        """Complete OAuth sign-in
 
-        Handle OAuth provider callback and complete authentication
+        Exchanges the authorization code for Pingera access and refresh tokens. Signs in the user linked to the provider account, links an existing user with the same verified email, or registers a new user and organization.
 
         :param provider_name: (required)
         :type provider_name: str
-        :param code: OAuth authorization code from provider (required)
-        :type code: str
-        :param state: OAuth state parameter for CSRF validation (required)
-        :type state: str
-        :param error_description: Human-readable error description
-        :type error_description: str
-        :param error: OAuth error code if authorization failed
-        :type error: str
+        :param o_auth_callback: (required)
+        :type o_auth_callback: OAuthCallback
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -607,12 +625,9 @@ class OAuthApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_auth_oauth_provider_name_callback_get_serialize(
+        _param = self._v1_auth_oauth_provider_name_callback_post_serialize(
             provider_name=provider_name,
-            code=code,
-            state=state,
-            error_description=error_description,
-            error=error,
+            o_auth_callback=o_auth_callback,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -622,6 +637,7 @@ class OAuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "OAuthLoginResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -635,13 +651,10 @@ class OAuthApi:
 
 
     @validate_call
-    def v1_auth_oauth_provider_name_callback_get_with_http_info(
+    def v1_auth_oauth_provider_name_callback_post_with_http_info(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
-        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
-        state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
-        error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
-        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
+        o_auth_callback: OAuthCallback,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -655,20 +668,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[OAuthLoginResponse]:
-        """Handle OAuth callback
+        """Complete OAuth sign-in
 
-        Handle OAuth provider callback and complete authentication
+        Exchanges the authorization code for Pingera access and refresh tokens. Signs in the user linked to the provider account, links an existing user with the same verified email, or registers a new user and organization.
 
         :param provider_name: (required)
         :type provider_name: str
-        :param code: OAuth authorization code from provider (required)
-        :type code: str
-        :param state: OAuth state parameter for CSRF validation (required)
-        :type state: str
-        :param error_description: Human-readable error description
-        :type error_description: str
-        :param error: OAuth error code if authorization failed
-        :type error: str
+        :param o_auth_callback: (required)
+        :type o_auth_callback: OAuthCallback
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -691,12 +698,9 @@ class OAuthApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_auth_oauth_provider_name_callback_get_serialize(
+        _param = self._v1_auth_oauth_provider_name_callback_post_serialize(
             provider_name=provider_name,
-            code=code,
-            state=state,
-            error_description=error_description,
-            error=error,
+            o_auth_callback=o_auth_callback,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -706,6 +710,7 @@ class OAuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "OAuthLoginResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -719,13 +724,10 @@ class OAuthApi:
 
 
     @validate_call
-    def v1_auth_oauth_provider_name_callback_get_without_preload_content(
+    def v1_auth_oauth_provider_name_callback_post_without_preload_content(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
-        code: Annotated[StrictStr, Field(description="OAuth authorization code from provider")],
-        state: Annotated[StrictStr, Field(description="OAuth state parameter for CSRF validation")],
-        error_description: Annotated[Optional[StrictStr], Field(description="Human-readable error description")] = None,
-        error: Annotated[Optional[StrictStr], Field(description="OAuth error code if authorization failed")] = None,
+        o_auth_callback: OAuthCallback,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -739,20 +741,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Handle OAuth callback
+        """Complete OAuth sign-in
 
-        Handle OAuth provider callback and complete authentication
+        Exchanges the authorization code for Pingera access and refresh tokens. Signs in the user linked to the provider account, links an existing user with the same verified email, or registers a new user and organization.
 
         :param provider_name: (required)
         :type provider_name: str
-        :param code: OAuth authorization code from provider (required)
-        :type code: str
-        :param state: OAuth state parameter for CSRF validation (required)
-        :type state: str
-        :param error_description: Human-readable error description
-        :type error_description: str
-        :param error: OAuth error code if authorization failed
-        :type error: str
+        :param o_auth_callback: (required)
+        :type o_auth_callback: OAuthCallback
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -775,12 +771,9 @@ class OAuthApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._v1_auth_oauth_provider_name_callback_get_serialize(
+        _param = self._v1_auth_oauth_provider_name_callback_post_serialize(
             provider_name=provider_name,
-            code=code,
-            state=state,
-            error_description=error_description,
-            error=error,
+            o_auth_callback=o_auth_callback,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -790,6 +783,7 @@ class OAuthApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "OAuthLoginResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -798,13 +792,10 @@ class OAuthApi:
         return response_data.response
 
 
-    def _v1_auth_oauth_provider_name_callback_get_serialize(
+    def _v1_auth_oauth_provider_name_callback_post_serialize(
         self,
         provider_name,
-        code,
-        state,
-        error_description,
-        error,
+        o_auth_callback,
         _request_auth,
         _content_type,
         _headers,
@@ -829,25 +820,11 @@ class OAuthApi:
         if provider_name is not None:
             _path_params['provider_name'] = provider_name
         # process the query parameters
-        if error_description is not None:
-            
-            _query_params.append(('error_description', error_description))
-            
-        if code is not None:
-            
-            _query_params.append(('code', code))
-            
-        if error is not None:
-            
-            _query_params.append(('error', error))
-            
-        if state is not None:
-            
-            _query_params.append(('state', state))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if o_auth_callback is not None:
+            _body_params = o_auth_callback
 
 
         # set the HTTP header `Accept`
@@ -858,14 +835,322 @@ class OAuthApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
         ]
 
         return self.api_client.param_serialize(
-            method='GET',
+            method='POST',
             resource_path='/v1/auth/oauth/{provider_name}/callback',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def v1_auth_oauth_provider_name_link_complete_post(
+        self,
+        provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        o_auth_callback: OAuthCallback,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> OAuthLinkCompleteResponse:
+        """Complete linking an OAuth account
+
+        Links the provider account that authorized the request to the current user
+
+        :param provider_name: (required)
+        :type provider_name: str
+        :param o_auth_callback: (required)
+        :type o_auth_callback: OAuthCallback
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_auth_oauth_provider_name_link_complete_post_serialize(
+            provider_name=provider_name,
+            o_auth_callback=o_auth_callback,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
+            '200': "OAuthLinkCompleteResponse",
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v1_auth_oauth_provider_name_link_complete_post_with_http_info(
+        self,
+        provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        o_auth_callback: OAuthCallback,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[OAuthLinkCompleteResponse]:
+        """Complete linking an OAuth account
+
+        Links the provider account that authorized the request to the current user
+
+        :param provider_name: (required)
+        :type provider_name: str
+        :param o_auth_callback: (required)
+        :type o_auth_callback: OAuthCallback
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_auth_oauth_provider_name_link_complete_post_serialize(
+            provider_name=provider_name,
+            o_auth_callback=o_auth_callback,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
+            '200': "OAuthLinkCompleteResponse",
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v1_auth_oauth_provider_name_link_complete_post_without_preload_content(
+        self,
+        provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        o_auth_callback: OAuthCallback,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Complete linking an OAuth account
+
+        Links the provider account that authorized the request to the current user
+
+        :param provider_name: (required)
+        :type provider_name: str
+        :param o_auth_callback: (required)
+        :type o_auth_callback: OAuthCallback
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_auth_oauth_provider_name_link_complete_post_serialize(
+            provider_name=provider_name,
+            o_auth_callback=o_auth_callback,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
+            '200': "OAuthLinkCompleteResponse",
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v1_auth_oauth_provider_name_link_complete_post_serialize(
+        self,
+        provider_name,
+        o_auth_callback,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if provider_name is not None:
+            _path_params['provider_name'] = provider_name
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if o_auth_callback is not None:
+            _body_params = o_auth_callback
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/auth/oauth/{provider_name}/link/complete',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -885,6 +1170,7 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_link_post(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        o_auth_authorize_request: OAuthAuthorizeRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -898,12 +1184,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> OAuthAuthorizeResponse:
-        """Link OAuth account to existing user
+        """Start linking an OAuth account
 
-        Initiate OAuth flow to link an account to the currently authenticated user
+        Returns the provider authorization URL for linking a provider account to the current user. Finish with POST /auth/oauth/{provider_name}/link/complete.
 
         :param provider_name: (required)
         :type provider_name: str
+        :param o_auth_authorize_request: (required)
+        :type o_auth_authorize_request: OAuthAuthorizeRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -928,6 +1216,7 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_link_post_serialize(
             provider_name=provider_name,
+            o_auth_authorize_request=o_auth_authorize_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -935,7 +1224,9 @@ class OAuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
             '200': "OAuthAuthorizeResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -952,6 +1243,7 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_link_post_with_http_info(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        o_auth_authorize_request: OAuthAuthorizeRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -965,12 +1257,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[OAuthAuthorizeResponse]:
-        """Link OAuth account to existing user
+        """Start linking an OAuth account
 
-        Initiate OAuth flow to link an account to the currently authenticated user
+        Returns the provider authorization URL for linking a provider account to the current user. Finish with POST /auth/oauth/{provider_name}/link/complete.
 
         :param provider_name: (required)
         :type provider_name: str
+        :param o_auth_authorize_request: (required)
+        :type o_auth_authorize_request: OAuthAuthorizeRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -995,6 +1289,7 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_link_post_serialize(
             provider_name=provider_name,
+            o_auth_authorize_request=o_auth_authorize_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1002,7 +1297,9 @@ class OAuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
             '200': "OAuthAuthorizeResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1019,6 +1316,7 @@ class OAuthApi:
     def v1_auth_oauth_provider_name_link_post_without_preload_content(
         self,
         provider_name: Annotated[str, Field(min_length=1, strict=True)],
+        o_auth_authorize_request: OAuthAuthorizeRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1032,12 +1330,14 @@ class OAuthApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Link OAuth account to existing user
+        """Start linking an OAuth account
 
-        Initiate OAuth flow to link an account to the currently authenticated user
+        Returns the provider authorization URL for linking a provider account to the current user. Finish with POST /auth/oauth/{provider_name}/link/complete.
 
         :param provider_name: (required)
         :type provider_name: str
+        :param o_auth_authorize_request: (required)
+        :type o_auth_authorize_request: OAuthAuthorizeRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1062,6 +1362,7 @@ class OAuthApi:
 
         _param = self._v1_auth_oauth_provider_name_link_post_serialize(
             provider_name=provider_name,
+            o_auth_authorize_request=o_auth_authorize_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1069,7 +1370,9 @@ class OAuthApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
             '200': "OAuthAuthorizeResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1081,6 +1384,7 @@ class OAuthApi:
     def _v1_auth_oauth_provider_name_link_post_serialize(
         self,
         provider_name,
+        o_auth_authorize_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1108,6 +1412,8 @@ class OAuthApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if o_auth_authorize_request is not None:
+            _body_params = o_auth_authorize_request
 
 
         # set the HTTP header `Accept`
@@ -1118,6 +1424,19 @@ class OAuthApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -1197,6 +1516,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthUnlinkResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1264,6 +1584,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthUnlinkResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1331,6 +1652,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthUnlinkResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1454,6 +1776,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthProvidersResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1517,6 +1840,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthProvidersResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1580,6 +1904,7 @@ class OAuthApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthProvidersResponse",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

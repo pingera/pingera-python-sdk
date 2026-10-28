@@ -23,22 +23,23 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CheckJob(BaseModel):
     """
     CheckJob
     """ # noqa: E501
-    result: Optional[Any] = Field(default=None, description="Check execution result. For multi-region checks, includes 'regional_results' array with detailed data from each region. For single-region checks, includes direct check metadata.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.")
-    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.")
-    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.")
-    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.")
-    started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.")
-    __properties: ClassVar[List[str]] = ["result", "status", "check_parameters", "id", "check_id", "created_at", "completed_at", "job_type", "error_message", "started_at"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check job.", json_schema_extra={"examples": ["job456ghi789"]})
+    job_type: Optional[Any] = Field(default=None, description="The type of check job being executed.", json_schema_extra={"examples": ["web_check"]})
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check this job belongs to.", json_schema_extra={"examples": ["chk123def456"]})
+    check_parameters: Optional[Dict[str, Any]] = Field(default=None, description="The parameters used for executing this check job.", json_schema_extra={"examples": [{"url": "https://api.example.com", "timeout": 10}]})
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the check job execution.", json_schema_extra={"examples": ["completed"]})
+    result: Optional[Any] = Field(default=None, description="Check execution result. For multi-region checks, includes 'regional_results' array with detailed data from each region. For single-region checks, includes direct check metadata.", json_schema_extra={"examples": [{"execution_group_id": "9mnt6ecba3g4", "status": "completed", "avg_response_time": 46, "regional_summary": {"EU, West": {"status": "ok", "response_time": 46}}, "regional_results": [{"result_id": "1bgajfewc63e", "execution_id": "d2af136a-5d83-41bb-af02-7c1bfd93110a", "region": "EU, West", "status": "ok", "response_time": 46, "check_metadata": {"latency_avg_ms": 46.783}, "check_server": {"region": "EU, West", "id": "k8u7h8eppuod"}}]}]})
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the job execution failed.", json_schema_extra={"examples": ["Unable to connect to target server"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:25:00Z"]})
+    started_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job started execution in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:26:00Z"]})
+    completed_at: Optional[datetime] = Field(default=None, description="The timestamp when the check job completed execution in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "job_type", "check_id", "check_parameters", "status", "result", "error_message", "created_at", "started_at", "completed_at"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -51,7 +52,8 @@ class CheckJob(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -63,8 +65,7 @@ class CheckJob(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -92,16 +93,16 @@ class CheckJob(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "result",
-            "status",
-            "check_parameters",
             "id",
-            "check_id",
-            "created_at",
-            "completed_at",
             "job_type",
+            "check_id",
+            "check_parameters",
+            "status",
+            "result",
             "error_message",
+            "created_at",
             "started_at",
+            "completed_at",
         ])
 
         _dict = self.model_dump(
@@ -109,15 +110,15 @@ class CheckJob(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if result (nullable) is None
-        # and model_fields_set contains the field
-        if self.result is None and "result" in self.model_fields_set:
-            _dict['result'] = None
-
         # set to None if job_type (nullable) is None
         # and model_fields_set contains the field
         if self.job_type is None and "job_type" in self.model_fields_set:
             _dict['job_type'] = None
+
+        # set to None if result (nullable) is None
+        # and model_fields_set contains the field
+        if self.result is None and "result" in self.model_fields_set:
+            _dict['result'] = None
 
         return _dict
 
@@ -131,16 +132,16 @@ class CheckJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "result": obj.get("result"),
-            "status": obj.get("status"),
-            "check_parameters": obj.get("check_parameters"),
             "id": obj.get("id"),
-            "check_id": obj.get("check_id"),
-            "created_at": obj.get("created_at"),
-            "completed_at": obj.get("completed_at"),
             "job_type": obj.get("job_type"),
+            "check_id": obj.get("check_id"),
+            "check_parameters": obj.get("check_parameters"),
+            "status": obj.get("status"),
+            "result": obj.get("result"),
             "error_message": obj.get("error_message"),
-            "started_at": obj.get("started_at")
+            "created_at": obj.get("created_at"),
+            "started_at": obj.get("started_at"),
+            "completed_at": obj.get("completed_at")
         })
         return _obj
 

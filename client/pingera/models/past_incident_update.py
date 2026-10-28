@@ -23,16 +23,17 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PastIncidentUpdate(BaseModel):
     """
     PastIncidentUpdate
     """ # noqa: E501
-    body: StrictStr = Field(description="The content of the incident update.")
-    status: StrictStr = Field(description="The incident status at the time of this update.")
-    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="Component statuses at time of update")
-    created_at: datetime = Field(description="When this update was posted (ISO format).")
-    __properties: ClassVar[List[str]] = ["body", "status", "components", "created_at"]
+    status: StrictStr = Field(description="The incident status at the time of this update.", json_schema_extra={"examples": ["investigating"]})
+    body: StrictStr = Field(description="The content of the incident update.", json_schema_extra={"examples": ["We are investigating database connectivity issues"]})
+    created_at: datetime = Field(description="When this update was posted (ISO format).", json_schema_extra={"examples": ["2024-01-15T10:30:00Z"]})
+    components: Optional[Dict[str, StrictStr]] = Field(default=None, description="Component statuses at time of update", json_schema_extra={"examples": [{"comp_123": "major_outage", "comp_456": "operational"}]})
+    __properties: ClassVar[List[str]] = ["status", "body", "created_at", "components"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -42,7 +43,8 @@ class PastIncidentUpdate(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,8 +56,7 @@ class PastIncidentUpdate(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -92,10 +93,10 @@ class PastIncidentUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "body": obj.get("body"),
             "status": obj.get("status"),
-            "components": obj.get("components"),
-            "created_at": obj.get("created_at")
+            "body": obj.get("body"),
+            "created_at": obj.get("created_at"),
+            "components": obj.get("components")
         })
         return _obj
 

@@ -274,7 +274,7 @@ void (empty response body)
 
 Get a specific secret
 
-Get a specific secret by ID. Secret value is included in single secret responses.
+Get a specific secret by ID. The secret value is included only for editor and admin roles.
 
 ### Example
 
