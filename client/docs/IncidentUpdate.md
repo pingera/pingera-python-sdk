@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The unique identifier for the incident update. | [optional] [readonly] 
 **incident_id** | **str** | The ID of the incident this update belongs to. | [optional] [readonly] 
-**status** | **str** | The status of the incident update. | [optional] 
+**status** | **str** | The status of the incident or maintenance at the time of this update. | [optional] 
 **body** | **str** | The content of the incident update. | [optional] 
 **created_at** | **datetime** | The timestamp when the incident update was created. | [optional] [readonly] 
 **updated_at** | **datetime** | The timestamp when the incident update was last updated. | [optional] [readonly] 

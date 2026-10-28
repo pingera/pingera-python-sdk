@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **onboarding_completed** | **bool** | Mark onboarding as completed | [optional] 
-**onboarding_step** | **str** | Current onboarding step | [optional] 
+**onboarding_step** | **str** | Current onboarding step; null clears it | [optional] 
 
 ## Example
 

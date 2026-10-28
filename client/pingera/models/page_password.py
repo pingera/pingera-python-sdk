@@ -32,7 +32,7 @@ class PagePassword(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the page password", json_schema_extra={"examples": ["pwd_abc123def456"]})
     name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password", json_schema_extra={"examples": ["VIP Access"]})
-    password: Annotated[str, Field(min_length=8, strict=True)] = Field(description="The password (minimum 8 characters). Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
+    password: Optional[Annotated[str, Field(min_length=8, strict=True)]] = Field(default=None, description="The password (minimum 8 characters). Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
     password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password", json_schema_extra={"examples": ["Use the company founding year"]})
     active: Optional[StrictBool] = Field(default=None, description="Whether the password is active", json_schema_extra={"examples": [True]})
     expires_at: Optional[datetime] = Field(default=None, description="Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings")

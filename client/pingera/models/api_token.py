@@ -84,6 +84,11 @@ class APIToken(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if last_used_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_used_at is None and "last_used_at" in self.model_fields_set:
+            _dict['last_used_at'] = None
+
         return _dict
 
     @classmethod

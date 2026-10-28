@@ -104,6 +104,26 @@ class Organization(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of current_subscription
         if self.current_subscription:
             _dict['current_subscription'] = self.current_subscription.to_dict()
+        # set to None if invoice_email (nullable) is None
+        # and model_fields_set contains the field
+        if self.invoice_email is None and "invoice_email" in self.model_fields_set:
+            _dict['invoice_email'] = None
+
+        # set to None if invoice_company_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.invoice_company_name is None and "invoice_company_name" in self.model_fields_set:
+            _dict['invoice_company_name'] = None
+
+        # set to None if invoice_tax_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.invoice_tax_id is None and "invoice_tax_id" in self.model_fields_set:
+            _dict['invoice_tax_id'] = None
+
+        # set to None if invoice_address (nullable) is None
+        # and model_fields_set contains the field
+        if self.invoice_address is None and "invoice_address" in self.model_fields_set:
+            _dict['invoice_address'] = None
+
         return _dict
 
     @classmethod

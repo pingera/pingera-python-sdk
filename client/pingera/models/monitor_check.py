@@ -53,7 +53,7 @@ class MonitorCheck(BaseModel):
     last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
-    secrets: Optional[List[CheckSecret]] = Field(default=None, description="Secrets associated with this check for environment variable injection.")
+    secrets: Optional[List[CheckSecret]] = Field(default=None, description="Secrets injected into the check as environment variables. On create/update, each item needs secret_id and env_variable.", json_schema_extra={"examples": [[{"secret_id": "sec123abc456", "env_variable": "API_TOKEN"}]]})
     uptime_data: Optional[List[Dict[str, Any]]] = Field(default=None, description="Uptime data breakdown by hour (only included when include_uptime=true)", json_schema_extra={"examples": [[{"hour": "2024-01-15T14:00:00", "status": "ok", "uptime": 100.0}]]})
     uptime_summary: Optional[Dict[str, Any]] = Field(default=None, description="Uptime summary statistics (only included when include_uptime=true)", json_schema_extra={"examples": [{"uptime": 99.5, "avg_response_time": 250, "checks": 100}]})
     __properties: ClassVar[List[str]] = ["id", "name", "type", "url", "host", "port", "interval", "scheduling_type", "cron_schedule", "timeout", "parameters", "active", "group_id", "group", "position", "status", "credit_throttled", "effective_interval", "last_checked_at", "created_at", "updated_at", "secrets", "uptime_data", "uptime_summary"]
@@ -125,7 +125,6 @@ class MonitorCheck(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -136,7 +135,6 @@ class MonitorCheck(BaseModel):
             "last_checked_at",
             "created_at",
             "updated_at",
-            "secrets",
             "uptime_data",
             "uptime_summary",
         ])
@@ -155,6 +153,21 @@ class MonitorCheck(BaseModel):
             for _item_secrets in self.secrets:
                 _items.append(_item_secrets.to_dict() if _item_secrets is not None else None)
             _dict['secrets'] = _items
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['url'] = None
+
+        # set to None if host (nullable) is None
+        # and model_fields_set contains the field
+        if self.host is None and "host" in self.model_fields_set:
+            _dict['host'] = None
+
+        # set to None if port (nullable) is None
+        # and model_fields_set contains the field
+        if self.port is None and "port" in self.model_fields_set:
+            _dict['port'] = None
+
         # set to None if cron_schedule (nullable) is None
         # and model_fields_set contains the field
         if self.cron_schedule is None and "cron_schedule" in self.model_fields_set:
@@ -165,6 +178,11 @@ class MonitorCheck(BaseModel):
         if self.group_id is None and "group_id" in self.model_fields_set:
             _dict['group_id'] = None
 
+        # set to None if group (nullable) is None
+        # and model_fields_set contains the field
+        if self.group is None and "group" in self.model_fields_set:
+            _dict['group'] = None
+
         # set to None if credit_throttled (nullable) is None
         # and model_fields_set contains the field
         if self.credit_throttled is None and "credit_throttled" in self.model_fields_set:
@@ -174,6 +192,11 @@ class MonitorCheck(BaseModel):
         # and model_fields_set contains the field
         if self.effective_interval is None and "effective_interval" in self.model_fields_set:
             _dict['effective_interval'] = None
+
+        # set to None if last_checked_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_checked_at is None and "last_checked_at" in self.model_fields_set:
+            _dict['last_checked_at'] = None
 
         return _dict
 

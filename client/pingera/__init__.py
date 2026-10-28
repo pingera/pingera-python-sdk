@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 # Define package exports
 __all__ = [
@@ -78,7 +78,6 @@ __all__ = [
     "CheckGroupList",
     "CheckJob",
     "CheckSecret",
-    "CheckSecretInput",
     "CheckServer",
     "CheckUptime",
     "CheckUptimeHour",
@@ -273,7 +272,6 @@ from pingera.models.check_group2 import CheckGroup2 as CheckGroup2
 from pingera.models.check_group_list import CheckGroupList as CheckGroupList
 from pingera.models.check_job import CheckJob as CheckJob
 from pingera.models.check_secret import CheckSecret as CheckSecret
-from pingera.models.check_secret_input import CheckSecretInput as CheckSecretInput
 from pingera.models.check_server import CheckServer as CheckServer
 from pingera.models.check_uptime import CheckUptime as CheckUptime
 from pingera.models.check_uptime_hour import CheckUptimeHour as CheckUptimeHour

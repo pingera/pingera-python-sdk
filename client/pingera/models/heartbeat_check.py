@@ -106,6 +106,11 @@ class HeartbeatCheck(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if last_ping_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_ping_at is None and "last_ping_at" in self.model_fields_set:
+            _dict['last_ping_at'] = None
+
         return _dict
 
     @classmethod

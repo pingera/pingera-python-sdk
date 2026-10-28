@@ -304,7 +304,8 @@ class ReportsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -585,7 +586,8 @@ class ReportsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -850,7 +852,8 @@ class ReportsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(

@@ -25,6 +25,12 @@
         "in": "header",
         "name": "Authorization",
         "description": "Authentication using a standard API Token. The value should be just the token (e.g., 'YOUR_API_TOKEN'), not prefixed with 'Bearer'."
+      },
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY",
+        "description": "Alternative to apiKeyAuth: the same API token sent in the X-API-KEY header."
       }
     },
     "schemas": {
@@ -32,23 +38,26 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "integer",
-            "description": "Error code"
+            "description": "Machine-readable error code (e.g. 'validation_error', 'resource_not_found'), or the HTTP status code for generic errors.",
+            "example": "validation_error"
+          },
+          "message": {
+            "description": "Human-readable message. For validation errors this is an object with per-field messages, e.g. {\"fields\": {\"name\": [\"Missing data\"]}}.",
+            "example": "Monitor check not found"
           },
           "status": {
             "type": "string",
-            "description": "Error name"
-          },
-          "message": {
-            "type": "string",
-            "description": "Error message"
+            "description": "HTTP reason phrase (generic errors only).",
+            "example": "Conflict",
+            "nullable": true
           },
           "errors": {
             "type": "object",
-            "description": "Errors",
+            "description": "Additional error details (generic errors only).",
             "additionalProperties": {}
           }
-        }
+        },
+        "additionalProperties": true
       },
       "PaginationMetadata": {
         "type": "object",
@@ -95,18 +104,20 @@
             "type": "string",
             "writeOnly": true,
             "minLength": 6,
-            "description": "The user's password. Minimum 6 characters. Only used for input, never returned.",
+            "description": "The user's password. Minimum 6 characters, required on registration. Only used for input, never returned.",
             "example": "securepassword123"
           },
           "first_name": {
             "type": "string",
             "maxLength": 50,
+            "nullable": true,
             "description": "The user's first name. Maximum 50 characters.",
             "example": "John"
           },
           "last_name": {
             "type": "string",
             "maxLength": 50,
+            "nullable": true,
             "description": "The user's last name. Maximum 50 characters.",
             "example": "Doe"
           },
@@ -156,13 +167,15 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when onboarding was completed in ISO format. Null if not completed.",
-            "example": "2024-01-15T11:30:00Z"
+            "example": "2024-01-15T11:30:00Z",
+            "nullable": true
           },
           "onboarding_step": {
             "type": "string",
             "readOnly": true,
             "description": "The current step in the onboarding process. Null if onboarding is completed.",
-            "example": "setup_alerts"
+            "example": "setup_alerts",
+            "nullable": true
           },
           "email_verified": {
             "type": "boolean",
@@ -185,8 +198,7 @@
           }
         },
         "required": [
-          "email",
-          "password"
+          "email"
         ]
       },
       "Login": {
@@ -228,18 +240,20 @@
             "type": "string",
             "writeOnly": true,
             "minLength": 6,
-            "description": "The user's password. Minimum 6 characters. Only used for input, never returned.",
+            "description": "The user's password. Minimum 6 characters, required on registration. Only used for input, never returned.",
             "example": "securepassword123"
           },
           "first_name": {
             "type": "string",
             "maxLength": 50,
+            "nullable": true,
             "description": "The user's first name. Maximum 50 characters.",
             "example": "John"
           },
           "last_name": {
             "type": "string",
             "maxLength": 50,
+            "nullable": true,
             "description": "The user's last name. Maximum 50 characters.",
             "example": "Doe"
           },
@@ -289,13 +303,15 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when onboarding was completed in ISO format. Null if not completed.",
-            "example": "2024-01-15T11:30:00Z"
+            "example": "2024-01-15T11:30:00Z",
+            "nullable": true
           },
           "onboarding_step": {
             "type": "string",
             "readOnly": true,
             "description": "The current step in the onboarding process. Null if onboarding is completed.",
-            "example": "setup_alerts"
+            "example": "setup_alerts",
+            "nullable": true
           },
           "email_verified": {
             "type": "boolean",
@@ -352,7 +368,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the API token was last used in ISO format. Null if never used.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           }
         },
         "required": [
@@ -496,21 +513,25 @@
           },
           "invoice_email": {
             "type": "string",
+            "nullable": true,
             "description": "Email address for invoice delivery.",
             "example": "billing@example.com"
           },
           "invoice_company_name": {
             "type": "string",
+            "nullable": true,
             "description": "Legal company name for invoices.",
             "example": "Stellar Solutions LLC"
           },
           "invoice_tax_id": {
             "type": "string",
+            "nullable": true,
             "description": "Tax ID / INN for invoice.",
             "example": "1234567890"
           },
           "invoice_address": {
             "type": "string",
+            "nullable": true,
             "description": "Full legal address for invoices.",
             "example": "123 Main St, Suite 100, San Francisco, CA 94102"
           },
@@ -627,6 +648,7 @@
             "type": "string",
             "maxLength": 100,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$",
+            "nullable": true,
             "description": "Subdomain for accessing the status page (e.g., 'mycompany' for mycompany.pingera.ru)",
             "example": "mycompany"
           },
@@ -712,7 +734,8 @@
             "type": "string",
             "readOnly": true,
             "description": "Domain of the custom sender email, registered with the mail provider",
-            "example": "mycompany.com"
+            "example": "mycompany.com",
+            "nullable": true
           },
           "email_domain_verified": {
             "type": "boolean",
@@ -1667,6 +1690,7 @@
             "type": "string",
             "maxLength": 100,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$",
+            "nullable": true,
             "description": "Subdomain for accessing the status page (e.g., 'mycompany' for mycompany.pingera.ru)",
             "example": "mycompany"
           },
@@ -1752,7 +1776,8 @@
             "type": "string",
             "readOnly": true,
             "description": "Domain of the custom sender email, registered with the mail provider",
-            "example": "mycompany.com"
+            "example": "mycompany.com",
+            "nullable": true
           },
           "email_domain_verified": {
             "type": "boolean",
@@ -2656,13 +2681,11 @@
           },
           "dns_records": {
             "description": "DNS records to publish; null until the domain is registered",
-            "anyOf": [
+            "type": "object",
+            "nullable": true,
+            "allOf": [
               {
                 "$ref": "#/components/schemas/EmailDomainDnsRecords"
-              },
-              {
-                "type": "object",
-                "nullable": true
               }
             ]
           }
@@ -2686,6 +2709,7 @@
           "group": {
             "type": "boolean",
             "default": false,
+            "nullable": true,
             "description": "Whether this component is a group container for other components",
             "example": false
           },
@@ -2727,19 +2751,22 @@
           },
           "showcase": {
             "type": "boolean",
+            "nullable": true,
             "description": "Whether to prominently display this component on the status page",
             "example": true
           },
           "only_show_if_degraded": {
             "type": "boolean",
+            "nullable": true,
             "description": "Whether to show this component only when it's not operational",
             "example": false
           },
           "start_date": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
+            "nullable": true,
             "description": "Date when monitoring for this component started",
-            "example": "2024-01-01T00:00:00Z"
+            "example": "2024-01-01"
           },
           "created_at": {
             "type": "string",
@@ -2777,7 +2804,7 @@
           },
           "group": {
             "type": "boolean",
-            "default": false,
+            "nullable": true,
             "description": "Whether this component is a group container for other components",
             "example": false
           },
@@ -2819,19 +2846,22 @@
           },
           "showcase": {
             "type": "boolean",
+            "nullable": true,
             "description": "Whether to prominently display this component on the status page",
             "example": true
           },
           "only_show_if_degraded": {
             "type": "boolean",
+            "nullable": true,
             "description": "Whether to show this component only when it's not operational",
             "example": false
           },
           "start_date": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
+            "nullable": true,
             "description": "Date when monitoring for this component started",
-            "example": "2024-01-01T00:00:00Z"
+            "example": "2024-01-01"
           },
           "created_at": {
             "type": "string",
@@ -3038,6 +3068,7 @@
           "monitoring_at": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "The timestamp when the incident status was changed to monitoring.",
             "example": "2024-01-15T12:00:00Z"
           },
@@ -3049,18 +3080,21 @@
           "scheduled_for": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "For scheduled maintenance, the timestamp when maintenance is scheduled to start (UTC).",
             "example": "2024-01-20T02:00:00Z"
           },
           "scheduled_until": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "For scheduled maintenance, the timestamp when maintenance is scheduled to end (UTC).",
             "example": "2024-01-20T04:00:00Z"
           },
           "scheduled_reminded_at": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "The timestamp when reminder notifications were sent for scheduled maintenance (UTC).",
             "example": "2024-01-19T18:00:00Z"
           },
@@ -3108,11 +3142,13 @@
           },
           "reminder_intervals": {
             "type": "string",
+            "nullable": true,
             "description": "The intervals at which to send reminder notifications for scheduled maintenance.",
             "example": "24h,1h"
           },
           "metadata": {
             "type": "object",
+            "nullable": true,
             "description": "Additional metadata associated with the incident.",
             "example": {
               "severity": "high",
@@ -3518,13 +3554,17 @@
             "example": "inc_123456789"
           },
           "status": {
-            "description": "The status of the incident update.",
+            "description": "The status of the incident or maintenance at the time of this update.",
             "example": "investigating",
             "enum": [
               "investigating",
               "identified",
               "monitoring",
-              "resolved"
+              "resolved",
+              "scheduled",
+              "in_progress",
+              "verifying",
+              "completed"
             ]
           },
           "body": {
@@ -3544,7 +3584,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the incident update was last updated.",
-            "example": "2024-01-15T10:30:00Z"
+            "example": "2024-01-15T10:30:00Z",
+            "nullable": true
           },
           "deliver_notifications": {
             "type": "boolean",
@@ -3645,17 +3686,20 @@
           },
           "preview_key": {
             "type": "string",
+            "nullable": true,
             "description": "A unique key that allows public access to preview the postmortem before it's published.",
             "example": "preview_abc123"
           },
           "body": {
             "type": "string",
+            "nullable": true,
             "description": "The published content of the postmortem in Markdown format.",
             "example": "## Summary\nOn January 15th, we experienced a 2-hour outage affecting our API services..."
           },
           "body_updated_at": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "The timestamp when the published postmortem body was last updated.",
             "example": "2024-01-16T10:00:00Z"
           },
@@ -3667,12 +3711,14 @@
           "body_draft_updated_at": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "The timestamp when the draft postmortem body was last updated.",
             "example": "2024-01-16T09:30:00Z"
           },
           "published_at": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "The timestamp when the postmortem was published and made publicly available.",
             "example": "2024-01-16T12:00:00Z"
           },
@@ -3812,6 +3858,7 @@
           "description": {
             "type": "string",
             "maxLength": 500,
+            "nullable": true,
             "description": "Optional description for the check group. Max 500 characters.",
             "example": "Critical production services monitoring"
           },
@@ -3849,27 +3896,6 @@
         },
         "required": [
           "name"
-        ]
-      },
-      "CheckSecretInput": {
-        "type": "object",
-        "properties": {
-          "secret_id": {
-            "type": "string",
-            "description": "The unique identifier of the secret.",
-            "example": "sec123abc456"
-          },
-          "env_variable": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100,
-            "description": "The environment variable name for this secret. Max 100 characters.",
-            "example": "DATABASE_PASSWORD"
-          }
-        },
-        "required": [
-          "env_variable",
-          "secret_id"
         ]
       },
       "Secret": {
@@ -3996,12 +4022,14 @@
           "url": {
             "type": "string",
             "maxLength": 2048,
+            "nullable": true,
             "description": "The URL to monitor (required for web/api checks). Supports international domain names.",
             "example": "https://api.example.com/health"
           },
           "host": {
             "type": "string",
             "maxLength": 255,
+            "nullable": true,
             "description": "The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.",
             "example": "example.com"
           },
@@ -4009,6 +4037,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 65535,
+            "nullable": true,
             "description": "The port number to monitor (required for TCP checks). Range: 1-65535.",
             "example": 443
           },
@@ -4072,6 +4101,8 @@
           "group": {
             "readOnly": true,
             "description": "The group this check belongs to (if any).",
+            "type": "object",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/CheckGroup"
@@ -4112,7 +4143,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the check was last executed in ISO format.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           },
           "created_at": {
             "type": "string",
@@ -4130,8 +4162,14 @@
           },
           "secrets": {
             "type": "array",
-            "readOnly": true,
-            "description": "Secrets associated with this check for environment variable injection.",
+            "default": [],
+            "description": "Secrets injected into the check as environment variables. On create/update, each item needs secret_id and env_variable.",
+            "example": [
+              {
+                "secret_id": "sec123abc456",
+                "env_variable": "API_TOKEN"
+              }
+            ],
             "items": {
               "$ref": "#/components/schemas/CheckSecret"
             }
@@ -4226,12 +4264,14 @@
           "url": {
             "type": "string",
             "maxLength": 2048,
+            "nullable": true,
             "description": "The URL to monitor (required for web/api checks). Supports international domain names.",
             "example": "https://api.example.com/health"
           },
           "host": {
             "type": "string",
             "maxLength": 255,
+            "nullable": true,
             "description": "The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.",
             "example": "example.com"
           },
@@ -4239,6 +4279,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 65535,
+            "nullable": true,
             "description": "The port number to monitor (required for TCP checks). Range: 1-65535.",
             "example": 443
           },
@@ -4251,7 +4292,6 @@
           },
           "scheduling_type": {
             "type": "string",
-            "default": "interval",
             "enum": [
               "interval",
               "cron"
@@ -4302,6 +4342,8 @@
           "group": {
             "readOnly": true,
             "description": "The group this check belongs to (if any).",
+            "type": "object",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/CheckGroup"
@@ -4342,7 +4384,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the check was last executed in ISO format.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           },
           "created_at": {
             "type": "string",
@@ -4360,8 +4403,13 @@
           },
           "secrets": {
             "type": "array",
-            "readOnly": true,
-            "description": "Secrets associated with this check for environment variable injection.",
+            "description": "Secrets injected into the check as environment variables. On create/update, each item needs secret_id and env_variable.",
+            "example": [
+              {
+                "secret_id": "sec123abc456",
+                "env_variable": "API_TOKEN"
+              }
+            ],
             "items": {
               "$ref": "#/components/schemas/CheckSecret"
             }
@@ -4502,12 +4550,15 @@
           },
           "check_server_id": {
             "type": "string",
+            "nullable": true,
             "description": "The identifier of the server that executed this check.",
             "example": "srv123abc456"
           },
           "check_server": {
             "readOnly": true,
             "description": "Details about the server that executed this check.",
+            "type": "object",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/CheckServer"
@@ -4527,11 +4578,13 @@
           },
           "response_time": {
             "type": "integer",
+            "nullable": true,
             "description": "The response time of the check in milliseconds.",
             "example": 250
           },
           "error_message": {
             "type": "string",
+            "nullable": true,
             "description": "Error message if the check failed.",
             "example": "Connection timeout after 10 seconds"
           },
@@ -4858,7 +4911,8 @@
             "type": "string",
             "readOnly": true,
             "description": "The identifier of the monitor check this job belongs to.",
-            "example": "chk123def456"
+            "example": "chk123def456",
+            "nullable": true
           },
           "check_parameters": {
             "type": "object",
@@ -4868,7 +4922,8 @@
               "url": "https://api.example.com",
               "timeout": 10
             },
-            "additionalProperties": {}
+            "additionalProperties": {},
+            "nullable": true
           },
           "status": {
             "readOnly": true,
@@ -4916,7 +4971,8 @@
             "type": "string",
             "readOnly": true,
             "description": "Error message if the job execution failed.",
-            "example": "Unable to connect to target server"
+            "example": "Unable to connect to target server",
+            "nullable": true
           },
           "created_at": {
             "type": "string",
@@ -4930,14 +4986,16 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the check job started execution in ISO format.",
-            "example": "2024-01-15T14:26:00Z"
+            "example": "2024-01-15T14:26:00Z",
+            "nullable": true
           },
           "completed_at": {
             "type": "string",
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the check job completed execution in ISO format.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           }
         }
       },
@@ -5070,7 +5128,6 @@
           },
           "enabled": {
             "type": "boolean",
-            "default": true,
             "description": "Whether the alert channel is enabled. Defaults to true.",
             "example": true
           },
@@ -5247,7 +5304,7 @@
             "example": true
           },
           "severity": {
-            "default": null,
+            "default": "medium",
             "description": "The severity level of alerts generated by this rule.",
             "example": "high",
             "enum": [
@@ -5313,8 +5370,7 @@
           },
           "channel_ids": {
             "type": "array",
-            "minItems": 1,
-            "description": "List of alert channel IDs to send notifications to.",
+            "description": "List of alert channel IDs to send notifications to. At least one is required when creating or updating a rule; responses can contain an empty list if channels were deleted.",
             "example": [
               "chn_abc123",
               "chn_def456"
@@ -5381,12 +5437,10 @@
           },
           "enabled": {
             "type": "boolean",
-            "default": true,
             "description": "Whether the alert rule is enabled. Defaults to true.",
             "example": true
           },
           "severity": {
-            "default": null,
             "description": "The severity level of alerts generated by this rule.",
             "example": "high",
             "enum": [
@@ -5417,20 +5471,17 @@
           },
           "cooldown_period": {
             "type": "integer",
-            "default": 300,
             "minimum": 0,
             "description": "Time in seconds to wait before triggering another alert. Defaults to 300.",
             "example": 600
           },
           "auto_resolve": {
             "type": "boolean",
-            "default": true,
             "description": "Whether alerts should automatically resolve when the check recovers. Defaults to true.",
             "example": true
           },
           "multi_region_mode": {
             "type": "string",
-            "default": "any_region",
             "enum": [
               "any_region",
               "all_regions",
@@ -5442,7 +5493,6 @@
           },
           "multi_region_threshold": {
             "type": "object",
-            "default": null,
             "description": "Threshold configuration for 'specific_count' mode. Example: {'count': 2}",
             "example": {
               "count": 2
@@ -5452,8 +5502,7 @@
           },
           "channel_ids": {
             "type": "array",
-            "minItems": 1,
-            "description": "List of alert channel IDs to send notifications to.",
+            "description": "List of alert channel IDs to send notifications to. At least one is required when creating or updating a rule; responses can contain an empty list if channels were deleted.",
             "example": [
               "chn_abc123",
               "chn_def456"
@@ -5544,7 +5593,8 @@
             "type": "string",
             "readOnly": true,
             "description": "A detailed description of the alert condition.",
-            "example": "The production API health check has failed 3 consecutive times, indicating a potential service outage."
+            "example": "The production API health check has failed 3 consecutive times, indicating a potential service outage.",
+            "nullable": true
           },
           "alert_metadata": {
             "type": "object",
@@ -5694,7 +5744,8 @@
             "type": "string",
             "readOnly": true,
             "description": "The identifier of the alert channel used for this notification.",
-            "example": "chn_ghi789jkl012"
+            "example": "chn_ghi789jkl012",
+            "nullable": true
           },
           "status": {
             "type": "string",
@@ -5705,18 +5756,18 @@
               "pending",
               "sent",
               "failed",
-              "retrying"
+              "cancelled"
             ]
           },
           "notification_type": {
             "type": "string",
             "readOnly": true,
-            "description": "The type of notification sent.",
-            "example": "alert_fired",
+            "description": "The type of notification sent: 'alert' when the alert fired, 'resolution' when it resolved, 'test' for test notifications.",
+            "example": "alert",
             "enum": [
-              "alert_fired",
-              "alert_resolved",
-              "alert_acknowledged"
+              "alert",
+              "resolution",
+              "test"
             ]
           },
           "error_message": {
@@ -5761,7 +5812,8 @@
               "webhook",
               "statuspage",
               "telegram",
-              "sms"
+              "sms",
+              "max"
             ]
           }
         }
@@ -5864,7 +5916,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp of the last received ping in ISO format.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           },
           "next_expected_ping": {
             "type": "string",
@@ -5949,7 +6002,8 @@
             "type": "string",
             "readOnly": true,
             "description": "The User-Agent header from the ping request.",
-            "example": "curl/7.68.0"
+            "example": "curl/7.68.0",
+            "nullable": true
           },
           "ping_data": {
             "type": "object",
@@ -6020,7 +6074,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp of the last received ping in ISO format.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           },
           "next_expected_ping": {
             "type": "string",
@@ -6081,7 +6136,6 @@
           },
           "grace_seconds": {
             "type": "integer",
-            "default": 3600,
             "minimum": 60,
             "description": "A grace period in seconds to wait before marking the check as 'down'. Defaults to 3600.",
             "example": 600
@@ -6105,7 +6159,6 @@
           },
           "active": {
             "type": "boolean",
-            "default": true,
             "description": "Whether the heartbeat check is active or paused. Defaults to true.",
             "example": true
           },
@@ -6114,7 +6167,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp of the last received ping in ISO format.",
-            "example": "2024-01-15T14:30:00Z"
+            "example": "2024-01-15T14:30:00Z",
+            "nullable": true
           },
           "next_expected_ping": {
             "type": "string",
@@ -6304,7 +6358,8 @@
           "region": {
             "type": "string",
             "readOnly": true,
-            "description": "The region where the check was executed from."
+            "description": "The region where the check was executed from.",
+            "nullable": true
           },
           "status": {
             "type": "string",
@@ -6382,10 +6437,13 @@
             "nullable": true
           },
           "check_server_id": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "check_server": {
             "readOnly": true,
+            "type": "object",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/CheckServer"
@@ -6715,7 +6773,8 @@
             "format": "date-time",
             "readOnly": true,
             "description": "The timestamp when the credential was registered.",
-            "example": "2025-08-02T11:30:45+00:00"
+            "example": "2025-08-02T11:30:45+00:00",
+            "nullable": true
           }
         }
       },
@@ -6874,6 +6933,7 @@
           "description": {
             "type": "string",
             "maxLength": 500,
+            "nullable": true,
             "description": "Optional description for the check group. Max 500 characters.",
             "example": "Critical production services monitoring"
           },
@@ -6960,6 +7020,7 @@
           "description": {
             "type": "string",
             "maxLength": 500,
+            "nullable": true,
             "description": "Optional description for the check group. Max 500 characters.",
             "example": "Critical production services monitoring"
           },
@@ -7118,7 +7179,7 @@
           },
           "secret_value": {
             "type": "string",
-            "description": "The secret value. This will be encrypted in storage but returned in API responses.",
+            "description": "The secret value. Required when creating a secret. Encrypted in storage; returned in API responses only to editors and admins.",
             "example": "my-secret-password-123"
           },
           "created_at": {
@@ -7149,8 +7210,7 @@
           }
         },
         "required": [
-          "secret_name",
-          "secret_value"
+          "secret_name"
         ]
       },
       "Secret2": {
@@ -7171,7 +7231,7 @@
           },
           "secret_value": {
             "type": "string",
-            "description": "The secret value. This will be encrypted in storage but returned in API responses.",
+            "description": "The secret value. Required when creating a secret. Encrypted in storage; returned in API responses only to editors and admins.",
             "example": "my-secret-password-123"
           },
           "created_at": {
@@ -7844,10 +7904,7 @@
             "description": "Whether the password is expired",
             "example": false
           }
-        },
-        "required": [
-          "password"
-        ]
+        }
       },
       "PagePasswordCreate": {
         "type": "object",
@@ -8704,6 +8761,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -8759,6 +8819,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -8840,6 +8903,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -8910,6 +8976,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -8956,6 +9025,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9008,6 +9080,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -9047,6 +9122,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9092,6 +9170,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -9251,6 +9332,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9588,6 +9672,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9636,8 +9723,9 @@
                   },
                   "onboarding_step": {
                     "type": "string",
-                    "description": "Current onboarding step",
-                    "maxLength": 50
+                    "nullable": true,
+                    "maxLength": 50,
+                    "description": "Current onboarding step; null clears it"
                   }
                 }
               }
@@ -9651,6 +9739,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9715,6 +9806,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -9814,6 +9908,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9876,6 +9973,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -9908,6 +10008,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -9959,6 +10062,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -9999,6 +10105,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -10034,6 +10143,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10179,6 +10291,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10246,6 +10361,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -10285,11 +10403,15 @@
         ],
         "description": "Retrieve a specific status page by its unique identifier. Returns complete page configuration including branding, domain settings, CSS customization, and notification preferences.\n\n    **Security Details:**\n    * **Public Pages:** If a page is configured for public access (viewers_must_be_team_members=false), it can be accessed **without any authentication token**. In this case, providing a bearer token or API key is **optional** and is primarily used to identify the requesting user for analytics or to apply user-specific preferences (if applicable).\n    * **Private Pages:** For pages that are not public, authentication is **mandatory**. You must provide either a `bearerAuth` token (JWT) or an `Authorization: <API_TOKEN>` header. Access will be granted only if the authenticated user belongs to the same organization as the requested page.\n    ",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10345,6 +10467,28 @@
               "schema": {
                 "$ref": "#/components/schemas/Page1"
               }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "favicon_logo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Favicon image"
+                  },
+                  "company_logo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Company logo image"
+                  },
+                  "hero_cover": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Hero cover image"
+                  }
+                }
+              }
             }
           }
         },
@@ -10359,6 +10503,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10403,6 +10550,28 @@
               "schema": {
                 "$ref": "#/components/schemas/Page1"
               }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "favicon_logo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Favicon image"
+                  },
+                  "company_logo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Company logo image"
+                  },
+                  "hero_cover": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Hero cover image"
+                  }
+                }
+              }
             }
           }
         },
@@ -10417,6 +10586,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10452,6 +10624,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -10484,6 +10659,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10527,6 +10705,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10570,6 +10751,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10653,11 +10837,37 @@
         "summary": "Get page components",
         "description": "Get all components for a specific status page with optional filtering",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "show_deleted",
+            "in": "query",
+            "required": false,
+            "description": "Include soft-deleted components (default: false).",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "show_groups",
+            "in": "query",
+            "required": false,
+            "description": "Include component groups in the list (default: true).",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
           }
         ]
       },
@@ -10727,6 +10937,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -10787,6 +11000,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10845,6 +11061,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10900,6 +11119,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -10937,11 +11159,15 @@
         "summary": "Get component",
         "description": "Get a specific component by ID with detailed information",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -10984,11 +11210,27 @@
         "summary": "Get component groups",
         "description": "Get all component groups for a specific status page with optional filtering",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "show_deleted",
+            "in": "query",
+            "required": false,
+            "description": "Include soft-deleted components (default: false).",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ]
       },
@@ -11058,6 +11300,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -11097,11 +11342,15 @@
         "summary": "Get component group",
         "description": "Get a specific component group by ID with detailed information",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11180,6 +11429,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11238,6 +11490,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11273,6 +11528,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -11331,11 +11589,37 @@
         "summary": "Get bulk component uptime",
         "description": "Get uptime data for multiple components in bulk with optional date range filtering",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "description": "Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "description": "End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+            }
           }
         ]
       },
@@ -11386,11 +11670,37 @@
         "summary": "Get component uptime",
         "description": "Get uptime data for a specific component with optional date range filtering",
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "description": "Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "description": "End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
+            }
           }
         ]
       },
@@ -11542,11 +11852,15 @@
           }
         ],
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11599,11 +11913,15 @@
           }
         ],
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11665,11 +11983,15 @@
           }
         ],
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11735,6 +12057,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -11782,11 +12107,15 @@
           }
         ],
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11870,6 +12199,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11933,6 +12265,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -11976,6 +12311,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -12032,6 +12370,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12093,11 +12434,15 @@
           }
         ],
         "security": [
+          {},
           {
             "bearerAuth": []
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12181,6 +12526,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -12255,6 +12603,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12327,6 +12678,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12408,6 +12762,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -12460,6 +12817,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12543,6 +12903,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -12595,6 +12958,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12647,6 +13013,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -12735,11 +13104,14 @@
               "type": "string",
               "enum": [
                 "web",
+                "tcp",
                 "api",
                 "ssl",
-                "tcp",
                 "synthetic",
-                "multistep"
+                "multistep",
+                "icmp",
+                "dns",
+                "portscan"
               ]
             }
           },
@@ -12780,6 +13152,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12823,6 +13198,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -12896,6 +13274,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12961,6 +13342,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -12995,6 +13379,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -13058,6 +13445,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13165,6 +13555,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13228,6 +13621,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13314,6 +13710,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13361,11 +13760,14 @@
               "type": "string",
               "enum": [
                 "web",
+                "tcp",
                 "api",
                 "ssl",
-                "tcp",
                 "synthetic",
-                "multistep"
+                "multistep",
+                "icmp",
+                "dns",
+                "portscan"
               ]
             }
           }
@@ -13376,6 +13778,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -13423,6 +13828,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13492,6 +13900,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -13533,6 +13944,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13585,6 +13999,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ],
         "parameters": [
@@ -13666,6 +14083,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13718,6 +14138,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -13759,6 +14182,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13825,6 +14251,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -13860,6 +14289,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -13917,6 +14349,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -13964,6 +14399,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14016,6 +14454,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14071,6 +14512,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -14112,6 +14556,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14178,6 +14625,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14210,6 +14660,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -14314,6 +14767,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -14355,6 +14811,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14410,6 +14869,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14465,6 +14927,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14520,6 +14985,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14569,6 +15037,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -14624,6 +15095,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14667,6 +15141,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -14710,6 +15187,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14775,6 +15255,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14829,6 +15312,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -14863,6 +15349,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -15038,6 +15527,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -15112,6 +15604,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -15159,6 +15654,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -15217,6 +15715,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -15262,6 +15763,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -15487,6 +15991,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -15604,6 +16111,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -15773,6 +16283,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -15897,6 +16410,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -15935,6 +16451,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -15973,6 +16492,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16025,6 +16547,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16063,6 +16588,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16117,6 +16645,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16145,7 +16676,7 @@
           }
         },
         "requestBody": {
-          "required": true,
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -16241,6 +16772,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16282,6 +16816,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ],
         "parameters": [
@@ -16357,6 +16894,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ],
         "parameters": [
@@ -16426,6 +16966,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16469,6 +17012,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16512,6 +17058,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16577,6 +17126,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16611,6 +17163,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16677,6 +17232,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16744,6 +17302,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16812,6 +17373,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16855,6 +17419,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -16898,6 +17465,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16963,6 +17533,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -16997,6 +17570,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -17043,6 +17619,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17108,6 +17687,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17168,6 +17750,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -17213,6 +17798,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17276,6 +17864,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17330,6 +17921,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17423,6 +18017,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17875,6 +18472,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -17941,6 +18541,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -17998,6 +18601,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18050,6 +18656,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -18095,6 +18704,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18147,6 +18759,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -18190,6 +18805,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18303,6 +18921,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -18334,6 +18955,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18374,6 +18998,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -18405,6 +19032,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18455,6 +19085,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18478,6 +19111,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       }
@@ -18519,6 +19155,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },
@@ -18554,6 +19193,9 @@
           },
           {
             "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
           }
         ]
       },

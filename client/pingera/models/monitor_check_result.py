@@ -110,6 +110,26 @@ class MonitorCheckResult(BaseModel):
         if self.execution_id is None and "execution_id" in self.model_fields_set:
             _dict['execution_id'] = None
 
+        # set to None if check_server_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_server_id is None and "check_server_id" in self.model_fields_set:
+            _dict['check_server_id'] = None
+
+        # set to None if check_server (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_server is None and "check_server" in self.model_fields_set:
+            _dict['check_server'] = None
+
+        # set to None if response_time (nullable) is None
+        # and model_fields_set contains the field
+        if self.response_time is None and "response_time" in self.model_fields_set:
+            _dict['response_time'] = None
+
+        # set to None if error_message (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_message is None and "error_message" in self.model_fields_set:
+            _dict['error_message'] = None
+
         # set to None if triggered_alerts (nullable) is None
         # and model_fields_set contains the field
         if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:

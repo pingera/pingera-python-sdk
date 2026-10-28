@@ -139,10 +139,30 @@ class Incident(BaseModel):
         if self.components is None and "components" in self.model_fields_set:
             _dict['components'] = None
 
+        # set to None if monitoring_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.monitoring_at is None and "monitoring_at" in self.model_fields_set:
+            _dict['monitoring_at'] = None
+
         # set to None if resolved_at (nullable) is None
         # and model_fields_set contains the field
         if self.resolved_at is None and "resolved_at" in self.model_fields_set:
             _dict['resolved_at'] = None
+
+        # set to None if scheduled_for (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_for is None and "scheduled_for" in self.model_fields_set:
+            _dict['scheduled_for'] = None
+
+        # set to None if scheduled_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_until is None and "scheduled_until" in self.model_fields_set:
+            _dict['scheduled_until'] = None
+
+        # set to None if scheduled_reminded_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduled_reminded_at is None and "scheduled_reminded_at" in self.model_fields_set:
+            _dict['scheduled_reminded_at'] = None
 
         # set to None if scheduled_auto_completed (nullable) is None
         # and model_fields_set contains the field
@@ -178,6 +198,16 @@ class Incident(BaseModel):
         # and model_fields_set contains the field
         if self.scheduled_remind_prior is None and "scheduled_remind_prior" in self.model_fields_set:
             _dict['scheduled_remind_prior'] = None
+
+        # set to None if reminder_intervals (nullable) is None
+        # and model_fields_set contains the field
+        if self.reminder_intervals is None and "reminder_intervals" in self.model_fields_set:
+            _dict['reminder_intervals'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
 
         # set to None if postmortem_body (nullable) is None
         # and model_fields_set contains the field

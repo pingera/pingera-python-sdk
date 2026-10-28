@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,11 +28,12 @@ class Error(BaseModel):
     """
     Error
     """ # noqa: E501
-    code: Optional[StrictInt] = Field(default=None, description="Error code")
-    status: Optional[StrictStr] = Field(default=None, description="Error name")
-    message: Optional[StrictStr] = Field(default=None, description="Error message")
-    errors: Optional[Dict[str, Any]] = Field(default=None, description="Errors")
-    __properties: ClassVar[List[str]] = ["code", "status", "message", "errors"]
+    code: Optional[Any] = Field(default=None, description="Machine-readable error code (e.g. 'validation_error', 'resource_not_found'), or the HTTP status code for generic errors.", json_schema_extra={"examples": ["validation_error"]})
+    message: Optional[Any] = Field(default=None, description="Human-readable message. For validation errors this is an object with per-field messages, e.g. {\"fields\": {\"name\": [\"Missing data\"]}}.", json_schema_extra={"examples": ["Monitor check not found"]})
+    status: Optional[StrictStr] = Field(default=None, description="HTTP reason phrase (generic errors only).", json_schema_extra={"examples": ["Conflict"]})
+    errors: Optional[Dict[str, Any]] = Field(default=None, description="Additional error details (generic errors only).")
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["code", "message", "status", "errors"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -64,8 +65,10 @@ class Error(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -73,6 +76,26 @@ class Error(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
+        # set to None if code (nullable) is None
+        # and model_fields_set contains the field
+        if self.code is None and "code" in self.model_fields_set:
+            _dict['code'] = None
+
+        # set to None if message (nullable) is None
+        # and model_fields_set contains the field
+        if self.message is None and "message" in self.model_fields_set:
+            _dict['message'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
+
         return _dict
 
     @classmethod
@@ -86,10 +109,15 @@ class Error(BaseModel):
 
         _obj = cls.model_validate({
             "code": obj.get("code"),
-            "status": obj.get("status"),
             "message": obj.get("message"),
+            "status": obj.get("status"),
             "errors": obj.get("errors")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

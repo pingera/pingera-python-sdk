@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **status** | **str** | Current operational status of the component | [optional] 
 **showcase** | **bool** | Whether to prominently display this component on the status page | [optional] 
 **only_show_if_degraded** | **bool** | Whether to show this component only when it&#39;s not operational | [optional] 
-**start_date** | **datetime** | Date when monitoring for this component started | [optional] 
+**start_date** | **date** | Date when monitoring for this component started | [optional] 
 **created_at** | **datetime** | Timestamp when the component was created | [optional] [readonly] 
 **updated_at** | **datetime** | Timestamp when the component was last updated | [optional] [readonly] 
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** | The unique identifier for the alert channel. | [optional] [readonly] 
 **name** | **str** | A user-friendly name for the alert channel. Max 100 characters. | [optional] 
 **type** | **str** | The type of alert channel. | [optional] 
-**enabled** | **bool** | Whether the alert channel is enabled. Defaults to true. | [optional] [default to True]
+**enabled** | **bool** | Whether the alert channel is enabled. Defaults to true. | [optional] 
 **configuration** | **Dict[str, object]** | Channel-specific configuration. Structure varies by channel type. | [optional] 
 **created_at** | **datetime** | The timestamp when the alert channel was created in ISO format. | [optional] [readonly] 
 **updated_at** | **datetime** | The timestamp when the alert channel was last updated in ISO format. | [optional] [readonly] 

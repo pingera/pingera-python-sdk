@@ -1,6 +1,5 @@
 # EmailDomainDnsRecords
 
-DNS records to publish; null until the domain is registered
 
 ## Properties
 

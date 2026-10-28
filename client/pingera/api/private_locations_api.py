@@ -270,7 +270,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -535,7 +536,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -797,7 +799,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1087,7 +1090,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1377,7 +1381,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1654,7 +1659,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1932,7 +1938,8 @@ class PrivateLocationsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(

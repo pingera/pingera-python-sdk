@@ -16,8 +16,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing import List
+from pydantic import Field, StrictBool, StrictStr, field_validator
+from typing import List, Optional
 from typing_extensions import Annotated
 from pingera.models.component import Component
 from pingera.models.component1 import Component1
@@ -564,7 +564,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -856,7 +857,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1182,7 +1184,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1508,7 +1511,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1533,6 +1537,7 @@ class StatusPagesComponentsApi:
     def v1_pages_page_id_component_groups_get(
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
+        show_deleted: Annotated[Optional[StrictBool], Field(description="Include soft-deleted components (default: false).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1552,6 +1557,8 @@ class StatusPagesComponentsApi:
 
         :param page_id: (required)
         :type page_id: str
+        :param show_deleted: Include soft-deleted components (default: false).
+        :type show_deleted: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1576,6 +1583,7 @@ class StatusPagesComponentsApi:
 
         _param = self._v1_pages_page_id_component_groups_get_serialize(
             page_id=page_id,
+            show_deleted=show_deleted,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1605,6 +1613,7 @@ class StatusPagesComponentsApi:
     def v1_pages_page_id_component_groups_get_with_http_info(
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
+        show_deleted: Annotated[Optional[StrictBool], Field(description="Include soft-deleted components (default: false).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1624,6 +1633,8 @@ class StatusPagesComponentsApi:
 
         :param page_id: (required)
         :type page_id: str
+        :param show_deleted: Include soft-deleted components (default: false).
+        :type show_deleted: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1648,6 +1659,7 @@ class StatusPagesComponentsApi:
 
         _param = self._v1_pages_page_id_component_groups_get_serialize(
             page_id=page_id,
+            show_deleted=show_deleted,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1677,6 +1689,7 @@ class StatusPagesComponentsApi:
     def v1_pages_page_id_component_groups_get_without_preload_content(
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
+        show_deleted: Annotated[Optional[StrictBool], Field(description="Include soft-deleted components (default: false).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1696,6 +1709,8 @@ class StatusPagesComponentsApi:
 
         :param page_id: (required)
         :type page_id: str
+        :param show_deleted: Include soft-deleted components (default: false).
+        :type show_deleted: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1720,6 +1735,7 @@ class StatusPagesComponentsApi:
 
         _param = self._v1_pages_page_id_component_groups_get_serialize(
             page_id=page_id,
+            show_deleted=show_deleted,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1744,6 +1760,7 @@ class StatusPagesComponentsApi:
     def _v1_pages_page_id_component_groups_get_serialize(
         self,
         page_id,
+        show_deleted,
         _request_auth,
         _content_type,
         _headers,
@@ -1768,6 +1785,10 @@ class StatusPagesComponentsApi:
         if page_id is not None:
             _path_params['page_id'] = page_id
         # process the query parameters
+        if show_deleted is not None:
+            
+            _query_params.append(('show_deleted', show_deleted))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -1785,7 +1806,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2096,7 +2118,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2388,7 +2411,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2680,7 +2704,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3006,7 +3031,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3332,7 +3358,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3358,6 +3385,8 @@ class StatusPagesComponentsApi:
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
         component_id: Annotated[str, Field(min_length=1, strict=True)],
+        start: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.")] = None,
+        end: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3379,6 +3408,10 @@ class StatusPagesComponentsApi:
         :type page_id: str
         :param component_id: (required)
         :type component_id: str
+        :param start: Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.
+        :type start: str
+        :param end: End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.
+        :type end: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3404,6 +3437,8 @@ class StatusPagesComponentsApi:
         _param = self._v1_pages_page_id_components_component_id_uptime_get_serialize(
             page_id=page_id,
             component_id=component_id,
+            start=start,
+            end=end,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3434,6 +3469,8 @@ class StatusPagesComponentsApi:
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
         component_id: Annotated[str, Field(min_length=1, strict=True)],
+        start: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.")] = None,
+        end: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3455,6 +3492,10 @@ class StatusPagesComponentsApi:
         :type page_id: str
         :param component_id: (required)
         :type component_id: str
+        :param start: Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.
+        :type start: str
+        :param end: End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.
+        :type end: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3480,6 +3521,8 @@ class StatusPagesComponentsApi:
         _param = self._v1_pages_page_id_components_component_id_uptime_get_serialize(
             page_id=page_id,
             component_id=component_id,
+            start=start,
+            end=end,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3510,6 +3553,8 @@ class StatusPagesComponentsApi:
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
         component_id: Annotated[str, Field(min_length=1, strict=True)],
+        start: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.")] = None,
+        end: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3531,6 +3576,10 @@ class StatusPagesComponentsApi:
         :type page_id: str
         :param component_id: (required)
         :type component_id: str
+        :param start: Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.
+        :type start: str
+        :param end: End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.
+        :type end: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3556,6 +3605,8 @@ class StatusPagesComponentsApi:
         _param = self._v1_pages_page_id_components_component_id_uptime_get_serialize(
             page_id=page_id,
             component_id=component_id,
+            start=start,
+            end=end,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3581,6 +3632,8 @@ class StatusPagesComponentsApi:
         self,
         page_id,
         component_id,
+        start,
+        end,
         _request_auth,
         _content_type,
         _headers,
@@ -3607,6 +3660,14 @@ class StatusPagesComponentsApi:
         if component_id is not None:
             _path_params['component_id'] = component_id
         # process the query parameters
+        if start is not None:
+            
+            _query_params.append(('start', start))
+            
+        if end is not None:
+            
+            _query_params.append(('end', end))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -3624,7 +3685,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3649,6 +3711,8 @@ class StatusPagesComponentsApi:
     def v1_pages_page_id_components_get(
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
+        show_deleted: Annotated[Optional[StrictBool], Field(description="Include soft-deleted components (default: false).")] = None,
+        show_groups: Annotated[Optional[StrictBool], Field(description="Include component groups in the list (default: true).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3668,6 +3732,10 @@ class StatusPagesComponentsApi:
 
         :param page_id: (required)
         :type page_id: str
+        :param show_deleted: Include soft-deleted components (default: false).
+        :type show_deleted: bool
+        :param show_groups: Include component groups in the list (default: true).
+        :type show_groups: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3692,6 +3760,8 @@ class StatusPagesComponentsApi:
 
         _param = self._v1_pages_page_id_components_get_serialize(
             page_id=page_id,
+            show_deleted=show_deleted,
+            show_groups=show_groups,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3721,6 +3791,8 @@ class StatusPagesComponentsApi:
     def v1_pages_page_id_components_get_with_http_info(
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
+        show_deleted: Annotated[Optional[StrictBool], Field(description="Include soft-deleted components (default: false).")] = None,
+        show_groups: Annotated[Optional[StrictBool], Field(description="Include component groups in the list (default: true).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3740,6 +3812,10 @@ class StatusPagesComponentsApi:
 
         :param page_id: (required)
         :type page_id: str
+        :param show_deleted: Include soft-deleted components (default: false).
+        :type show_deleted: bool
+        :param show_groups: Include component groups in the list (default: true).
+        :type show_groups: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3764,6 +3840,8 @@ class StatusPagesComponentsApi:
 
         _param = self._v1_pages_page_id_components_get_serialize(
             page_id=page_id,
+            show_deleted=show_deleted,
+            show_groups=show_groups,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3793,6 +3871,8 @@ class StatusPagesComponentsApi:
     def v1_pages_page_id_components_get_without_preload_content(
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
+        show_deleted: Annotated[Optional[StrictBool], Field(description="Include soft-deleted components (default: false).")] = None,
+        show_groups: Annotated[Optional[StrictBool], Field(description="Include component groups in the list (default: true).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3812,6 +3892,10 @@ class StatusPagesComponentsApi:
 
         :param page_id: (required)
         :type page_id: str
+        :param show_deleted: Include soft-deleted components (default: false).
+        :type show_deleted: bool
+        :param show_groups: Include component groups in the list (default: true).
+        :type show_groups: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3836,6 +3920,8 @@ class StatusPagesComponentsApi:
 
         _param = self._v1_pages_page_id_components_get_serialize(
             page_id=page_id,
+            show_deleted=show_deleted,
+            show_groups=show_groups,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3860,6 +3946,8 @@ class StatusPagesComponentsApi:
     def _v1_pages_page_id_components_get_serialize(
         self,
         page_id,
+        show_deleted,
+        show_groups,
         _request_auth,
         _content_type,
         _headers,
@@ -3884,6 +3972,14 @@ class StatusPagesComponentsApi:
         if page_id is not None:
             _path_params['page_id'] = page_id
         # process the query parameters
+        if show_deleted is not None:
+            
+            _query_params.append(('show_deleted', show_deleted))
+            
+        if show_groups is not None:
+            
+            _query_params.append(('show_groups', show_groups))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -3901,7 +3997,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4212,7 +4309,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4238,6 +4336,8 @@ class StatusPagesComponentsApi:
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
         component_uptime_bulk_request: ComponentUptimeBulkRequest,
+        start: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.")] = None,
+        end: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4259,6 +4359,10 @@ class StatusPagesComponentsApi:
         :type page_id: str
         :param component_uptime_bulk_request: (required)
         :type component_uptime_bulk_request: ComponentUptimeBulkRequest
+        :param start: Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.
+        :type start: str
+        :param end: End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.
+        :type end: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4284,6 +4388,8 @@ class StatusPagesComponentsApi:
         _param = self._v1_pages_page_id_components_uptime_post_serialize(
             page_id=page_id,
             component_uptime_bulk_request=component_uptime_bulk_request,
+            start=start,
+            end=end,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4316,6 +4422,8 @@ class StatusPagesComponentsApi:
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
         component_uptime_bulk_request: ComponentUptimeBulkRequest,
+        start: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.")] = None,
+        end: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4337,6 +4445,10 @@ class StatusPagesComponentsApi:
         :type page_id: str
         :param component_uptime_bulk_request: (required)
         :type component_uptime_bulk_request: ComponentUptimeBulkRequest
+        :param start: Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.
+        :type start: str
+        :param end: End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.
+        :type end: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4362,6 +4474,8 @@ class StatusPagesComponentsApi:
         _param = self._v1_pages_page_id_components_uptime_post_serialize(
             page_id=page_id,
             component_uptime_bulk_request=component_uptime_bulk_request,
+            start=start,
+            end=end,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4394,6 +4508,8 @@ class StatusPagesComponentsApi:
         self,
         page_id: Annotated[str, Field(min_length=1, strict=True)],
         component_uptime_bulk_request: ComponentUptimeBulkRequest,
+        start: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.")] = None,
+        end: Annotated[Optional[Annotated[str, Field(strict=True)]], Field(description="End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4415,6 +4531,10 @@ class StatusPagesComponentsApi:
         :type page_id: str
         :param component_uptime_bulk_request: (required)
         :type component_uptime_bulk_request: ComponentUptimeBulkRequest
+        :param start: Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months.
+        :type start: str
+        :param end: End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today.
+        :type end: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4440,6 +4560,8 @@ class StatusPagesComponentsApi:
         _param = self._v1_pages_page_id_components_uptime_post_serialize(
             page_id=page_id,
             component_uptime_bulk_request=component_uptime_bulk_request,
+            start=start,
+            end=end,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4467,6 +4589,8 @@ class StatusPagesComponentsApi:
         self,
         page_id,
         component_uptime_bulk_request,
+        start,
+        end,
         _request_auth,
         _content_type,
         _headers,
@@ -4491,6 +4615,14 @@ class StatusPagesComponentsApi:
         if page_id is not None:
             _path_params['page_id'] = page_id
         # process the query parameters
+        if start is not None:
+            
+            _query_params.append(('start', start))
+            
+        if end is not None:
+            
+            _query_params.append(('end', end))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -4523,7 +4655,8 @@ class StatusPagesComponentsApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(

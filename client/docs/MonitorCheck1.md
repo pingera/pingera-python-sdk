@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **host** | **str** | The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters. | [optional] 
 **port** | **int** | The port number to monitor (required for TCP checks). Range: 1-65535. | [optional] 
 **interval** | **int** | The interval between checks in seconds. Range: 30 seconds to 24 hours. Required when scheduling_type is &#39;interval&#39;. | [optional] 
-**scheduling_type** | **str** | The scheduling type for this check. &#39;interval&#39; uses fixed intervals, &#39;cron&#39; uses cron expressions. | [optional] [default to 'interval']
+**scheduling_type** | **str** | The scheduling type for this check. &#39;interval&#39; uses fixed intervals, &#39;cron&#39; uses cron expressions. | [optional] 
 **cron_schedule** | **str** | Cron expression for scheduling (required when scheduling_type is &#39;cron&#39;). Uses standard cron format. | [optional] 
 **timeout** | **int** | The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 120 seconds for synthetic checks (the whole run, including browser start) and up to 180 seconds for portscan and multistep checks. | [optional] 
 **parameters** | **Dict[str, object]** | Additional parameters specific to the check type. May include &#39;regions&#39; (list of region IDs) and &#39;multi_region_execution&#39; (configuration object). | [optional] 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **last_checked_at** | **datetime** | The timestamp when the check was last executed in ISO format. | [optional] [readonly] 
 **created_at** | **datetime** | The timestamp when the monitor check was created in ISO format. | [optional] [readonly] 
 **updated_at** | **datetime** | The timestamp when the monitor check was last updated in ISO format. | [optional] [readonly] 
-**secrets** | [**List[CheckSecret]**](CheckSecret.md) | Secrets associated with this check for environment variable injection. | [optional] [readonly] 
+**secrets** | [**List[CheckSecret]**](CheckSecret.md) | Secrets injected into the check as environment variables. On create/update, each item needs secret_id and env_variable. | [optional] 
 **uptime_data** | **List[Dict[str, object]]** | Uptime data breakdown by hour (only included when include_uptime&#x3D;true) | [optional] [readonly] 
 **uptime_summary** | **Dict[str, object]** | Uptime summary statistics (only included when include_uptime&#x3D;true) | [optional] [readonly] 
 

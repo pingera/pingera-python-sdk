@@ -39,7 +39,7 @@ class MonitorCheck1(BaseModel):
     host: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="The hostname or IP address to monitor (required for TCP/SSL checks). Max 255 characters.", json_schema_extra={"examples": ["example.com"]})
     port: Optional[Annotated[int, Field(le=65535, strict=True, ge=1)]] = Field(default=None, description="The port number to monitor (required for TCP checks). Range: 1-65535.", json_schema_extra={"examples": [443]})
     interval: Optional[Annotated[int, Field(le=86400, strict=True, ge=30)]] = Field(default=None, description="The interval between checks in seconds. Range: 30 seconds to 24 hours. Required when scheduling_type is 'interval'.", json_schema_extra={"examples": [300]})
-    scheduling_type: Optional[StrictStr] = Field(default='interval', description="The scheduling type for this check. 'interval' uses fixed intervals, 'cron' uses cron expressions.", json_schema_extra={"examples": ["interval"]})
+    scheduling_type: Optional[StrictStr] = Field(default=None, description="The scheduling type for this check. 'interval' uses fixed intervals, 'cron' uses cron expressions.", json_schema_extra={"examples": ["interval"]})
     cron_schedule: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Cron expression for scheduling (required when scheduling_type is 'cron'). Uses standard cron format.", json_schema_extra={"examples": ["0 9 * * 1"]})
     timeout: Optional[Annotated[int, Field(le=180, strict=True, ge=1)]] = Field(default=None, description="The timeout for each check in seconds. Range: 1-30 seconds for most checks, up to 120 seconds for synthetic checks (the whole run, including browser start) and up to 180 seconds for portscan and multistep checks.", json_schema_extra={"examples": [10]})
     parameters: Optional[Dict[str, Any]] = Field(default=None, description="Additional parameters specific to the check type. May include 'regions' (list of region IDs) and 'multi_region_execution' (configuration object).", json_schema_extra={"examples": [{"regions": ["US, East coast", "EU, West"], "multi_region_execution": {"enabled": True, "execution_mode": "all"}}]})
@@ -53,7 +53,7 @@ class MonitorCheck1(BaseModel):
     last_checked_at: Optional[datetime] = Field(default=None, description="The timestamp when the check was last executed in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the monitor check was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
-    secrets: Optional[List[CheckSecret]] = Field(default=None, description="Secrets associated with this check for environment variable injection.")
+    secrets: Optional[List[CheckSecret]] = Field(default=None, description="Secrets injected into the check as environment variables. On create/update, each item needs secret_id and env_variable.", json_schema_extra={"examples": [[{"secret_id": "sec123abc456", "env_variable": "API_TOKEN"}]]})
     uptime_data: Optional[List[Dict[str, Any]]] = Field(default=None, description="Uptime data breakdown by hour (only included when include_uptime=true)", json_schema_extra={"examples": [[{"hour": "2024-01-15T14:00:00", "status": "ok", "uptime": 100.0}]]})
     uptime_summary: Optional[Dict[str, Any]] = Field(default=None, description="Uptime summary statistics (only included when include_uptime=true)", json_schema_extra={"examples": [{"uptime": 99.5, "avg_response_time": 250, "checks": 100}]})
     __properties: ClassVar[List[str]] = ["id", "name", "type", "url", "host", "port", "interval", "scheduling_type", "cron_schedule", "timeout", "parameters", "active", "group_id", "group", "position", "status", "credit_throttled", "effective_interval", "last_checked_at", "created_at", "updated_at", "secrets", "uptime_data", "uptime_summary"]
@@ -128,7 +128,6 @@ class MonitorCheck1(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -139,7 +138,6 @@ class MonitorCheck1(BaseModel):
             "last_checked_at",
             "created_at",
             "updated_at",
-            "secrets",
             "uptime_data",
             "uptime_summary",
         ])
@@ -158,6 +156,21 @@ class MonitorCheck1(BaseModel):
             for _item_secrets in self.secrets:
                 _items.append(_item_secrets.to_dict() if _item_secrets is not None else None)
             _dict['secrets'] = _items
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['url'] = None
+
+        # set to None if host (nullable) is None
+        # and model_fields_set contains the field
+        if self.host is None and "host" in self.model_fields_set:
+            _dict['host'] = None
+
+        # set to None if port (nullable) is None
+        # and model_fields_set contains the field
+        if self.port is None and "port" in self.model_fields_set:
+            _dict['port'] = None
+
         # set to None if cron_schedule (nullable) is None
         # and model_fields_set contains the field
         if self.cron_schedule is None and "cron_schedule" in self.model_fields_set:
@@ -168,6 +181,11 @@ class MonitorCheck1(BaseModel):
         if self.group_id is None and "group_id" in self.model_fields_set:
             _dict['group_id'] = None
 
+        # set to None if group (nullable) is None
+        # and model_fields_set contains the field
+        if self.group is None and "group" in self.model_fields_set:
+            _dict['group'] = None
+
         # set to None if credit_throttled (nullable) is None
         # and model_fields_set contains the field
         if self.credit_throttled is None and "credit_throttled" in self.model_fields_set:
@@ -177,6 +195,11 @@ class MonitorCheck1(BaseModel):
         # and model_fields_set contains the field
         if self.effective_interval is None and "effective_interval" in self.model_fields_set:
             _dict['effective_interval'] = None
+
+        # set to None if last_checked_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_checked_at is None and "last_checked_at" in self.model_fields_set:
+            _dict['last_checked_at'] = None
 
         return _dict
 
@@ -197,7 +220,7 @@ class MonitorCheck1(BaseModel):
             "host": obj.get("host"),
             "port": obj.get("port"),
             "interval": obj.get("interval"),
-            "scheduling_type": obj.get("scheduling_type") if obj.get("scheduling_type") is not None else 'interval',
+            "scheduling_type": obj.get("scheduling_type"),
             "cron_schedule": obj.get("cron_schedule"),
             "timeout": obj.get("timeout"),
             "parameters": obj.get("parameters"),
