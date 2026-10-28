@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**end_date** | **datetime** | The end date of the subscription in ISO format. | [optional] 
-**created_at** | **datetime** | The timestamp when the subscription was created in ISO format. | [optional] 
+**id** | **str** | The unique identifier for the plan subscription. | [optional] [readonly] 
 **plan** | [**Plan**](Plan.md) | The subscribed plan details including pricing and limits. | [optional] [readonly] 
 **start_date** | **datetime** | The start date of the subscription in ISO format. | [optional] 
-**id** | **str** | The unique identifier for the plan subscription. | [optional] [readonly] 
+**end_date** | **datetime** | The end date of the subscription in ISO format. | [optional] 
+**created_at** | **datetime** | The timestamp when the subscription was created in ISO format. | [optional] 
 
 ## Example
 

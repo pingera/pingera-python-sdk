@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**execution_group_id** | **str** | ID of the execution group | [optional] 
 **regional_results** | [**List[RegionalResultSummary]**](RegionalResultSummary.md) | List of results from each region | [optional] 
 **statistics** | [**ExecutionGroupStatistics**](ExecutionGroupStatistics.md) | Aggregated statistics | [optional] 
-**execution_group_id** | **str** | ID of the execution group | [optional] 
 
 ## Example
 

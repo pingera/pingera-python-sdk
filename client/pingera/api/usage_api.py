@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -12,12 +10,13 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pingera.models.error import Error
+from pingera.models.usage import Usage
 
 from pingera.api_client import ApiClient, RequestSerialized
 from pingera.api_response import ApiResponse
@@ -52,7 +51,7 @@ class UsageApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Error:
+    ) -> Usage:
         """Get usage statistics
 
         Get user organization usage statistics
@@ -87,6 +86,8 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Usage",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -114,7 +115,7 @@ class UsageApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Error]:
+    ) -> ApiResponse[Usage]:
         """Get usage statistics
 
         Get user organization usage statistics
@@ -149,6 +150,8 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Usage",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -211,6 +214,8 @@ class UsageApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Usage",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

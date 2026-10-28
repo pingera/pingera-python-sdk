@@ -22,17 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class OAuthAuthorizeResponse(BaseModel):
     """
     OAuthAuthorizeResponse
     """ # noqa: E501
-    state: Optional[StrictStr] = Field(default=None, description="OAuth state parameter for CSRF protection")
-    authorization_url: Optional[StrictStr] = Field(default=None, description="URL to redirect user to for OAuth authorization")
-    __properties: ClassVar[List[str]] = ["state", "authorization_url"]
+    authorization_url: Optional[StrictStr] = Field(default=None, description="URL to redirect user to for OAuth authorization", json_schema_extra={"examples": ["https://oauth.yandex.ru/authorize?client_id=...&state=..."]})
+    state: Optional[StrictStr] = Field(default=None, description="OAuth state parameter for CSRF protection", json_schema_extra={"examples": ["abc123def456"]})
+    __properties: ClassVar[List[str]] = ["authorization_url", "state"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -44,8 +46,7 @@ class OAuthAuthorizeResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -65,8 +66,8 @@ class OAuthAuthorizeResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "state",
             "authorization_url",
+            "state",
         ])
 
         _dict = self.model_dump(
@@ -86,8 +87,8 @@ class OAuthAuthorizeResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "state": obj.get("state"),
-            "authorization_url": obj.get("authorization_url")
+            "authorization_url": obj.get("authorization_url"),
+            "state": obj.get("state")
         })
         return _obj
 

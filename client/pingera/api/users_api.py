@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -108,6 +107,7 @@ class UsersApi:
             '200': "List[APIToken]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -173,6 +173,7 @@ class UsersApi:
             '200': "List[APIToken]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -238,6 +239,7 @@ class UsersApi:
             '200': "List[APIToken]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -366,6 +368,7 @@ class UsersApi:
             '201': "APIToken",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -436,6 +439,7 @@ class UsersApi:
             '201': "APIToken",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -506,6 +510,7 @@ class UsersApi:
             '201': "APIToken",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -650,6 +655,7 @@ class UsersApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -720,6 +726,7 @@ class UsersApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -790,6 +797,7 @@ class UsersApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -921,6 +929,7 @@ class UsersApi:
             '200': "V1LoginPost200Response",
             '401': None,
             '403': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -991,6 +1000,7 @@ class UsersApi:
             '200': "V1LoginPost200Response",
             '401': None,
             '403': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1061,6 +1071,7 @@ class UsersApi:
             '200': "V1LoginPost200Response",
             '401': None,
             '403': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1202,6 +1213,7 @@ class UsersApi:
             '200': "V1RefreshPost200Response",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1271,6 +1283,7 @@ class UsersApi:
             '200': "V1RefreshPost200Response",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1340,6 +1353,7 @@ class UsersApi:
             '200': "V1RefreshPost200Response",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1470,6 +1484,7 @@ class UsersApi:
             '400': None,
             '409': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1541,6 +1556,7 @@ class UsersApi:
             '400': None,
             '409': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1612,6 +1628,7 @@ class UsersApi:
             '400': None,
             '409': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1755,6 +1772,7 @@ class UsersApi:
             '401': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1826,6 +1844,7 @@ class UsersApi:
             '401': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1897,6 +1916,7 @@ class UsersApi:
             '401': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2036,6 +2056,7 @@ class UsersApi:
             '200': "List[User]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2101,6 +2122,7 @@ class UsersApi:
             '200': "List[User]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2166,6 +2188,7 @@ class UsersApi:
             '200': "List[User]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2297,6 +2320,7 @@ class UsersApi:
             '409': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2370,6 +2394,7 @@ class UsersApi:
             '409': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2443,6 +2468,7 @@ class UsersApi:
             '409': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2587,6 +2613,7 @@ class UsersApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2657,6 +2684,7 @@ class UsersApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2727,6 +2755,7 @@ class UsersApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2871,6 +2900,7 @@ class UsersApi:
             '200': "User",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2941,6 +2971,7 @@ class UsersApi:
             '200': "User",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3011,6 +3042,7 @@ class UsersApi:
             '200': "User",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3155,6 +3187,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3225,6 +3258,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3295,6 +3329,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3437,6 +3472,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3507,6 +3543,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3577,6 +3614,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3719,6 +3757,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3789,6 +3828,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3859,6 +3899,7 @@ class UsersApi:
             '400': None,
             '422': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3995,6 +4036,7 @@ class UsersApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[str]",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4059,6 +4101,7 @@ class UsersApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[str]",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4123,6 +4166,7 @@ class UsersApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[str]",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4250,6 +4294,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4321,6 +4366,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4392,6 +4438,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4524,6 +4571,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4595,6 +4643,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4666,6 +4715,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4804,6 +4854,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4881,6 +4932,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4958,6 +5010,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5112,6 +5165,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5189,6 +5243,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5266,6 +5321,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5415,6 +5471,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5487,6 +5544,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5559,6 +5617,7 @@ class UsersApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5690,6 +5749,7 @@ class UsersApi:
             '400': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5760,6 +5820,7 @@ class UsersApi:
             '400': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5830,6 +5891,7 @@ class UsersApi:
             '400': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

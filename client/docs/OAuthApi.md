@@ -5,9 +5,10 @@ All URIs are relative to *https://api.pingera.ru*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v1_auth_oauth_accounts_get**](OAuthApi.md#v1_auth_oauth_accounts_get) | **GET** /v1/auth/oauth/accounts | Get linked OAuth accounts
-[**v1_auth_oauth_provider_name_authorize_get**](OAuthApi.md#v1_auth_oauth_provider_name_authorize_get) | **GET** /v1/auth/oauth/{provider_name}/authorize | Initiate OAuth authorization
-[**v1_auth_oauth_provider_name_callback_get**](OAuthApi.md#v1_auth_oauth_provider_name_callback_get) | **GET** /v1/auth/oauth/{provider_name}/callback | Handle OAuth callback
-[**v1_auth_oauth_provider_name_link_post**](OAuthApi.md#v1_auth_oauth_provider_name_link_post) | **POST** /v1/auth/oauth/{provider_name}/link | Link OAuth account to existing user
+[**v1_auth_oauth_provider_name_authorize_get**](OAuthApi.md#v1_auth_oauth_provider_name_authorize_get) | **GET** /v1/auth/oauth/{provider_name}/authorize | Start OAuth sign-in
+[**v1_auth_oauth_provider_name_callback_post**](OAuthApi.md#v1_auth_oauth_provider_name_callback_post) | **POST** /v1/auth/oauth/{provider_name}/callback | Complete OAuth sign-in
+[**v1_auth_oauth_provider_name_link_complete_post**](OAuthApi.md#v1_auth_oauth_provider_name_link_complete_post) | **POST** /v1/auth/oauth/{provider_name}/link/complete | Complete linking an OAuth account
+[**v1_auth_oauth_provider_name_link_post**](OAuthApi.md#v1_auth_oauth_provider_name_link_post) | **POST** /v1/auth/oauth/{provider_name}/link | Start linking an OAuth account
 [**v1_auth_oauth_provider_name_unlink_delete**](OAuthApi.md#v1_auth_oauth_provider_name_unlink_delete) | **DELETE** /v1/auth/oauth/{provider_name}/unlink | Unlink OAuth account
 [**v1_auth_oauth_providers_get**](OAuthApi.md#v1_auth_oauth_providers_get) | **GET** /v1/auth/oauth/providers | Get available OAuth providers
 
@@ -88,11 +89,11 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_auth_oauth_provider_name_authorize_get**
-> OAuthAuthorizeResponse v1_auth_oauth_provider_name_authorize_get(provider_name)
+> OAuthAuthorizeResponse v1_auth_oauth_provider_name_authorize_get(provider_name, code_challenge)
 
-Initiate OAuth authorization
+Start OAuth sign-in
 
-Start OAuth authorization flow for the specified provider
+Returns the provider authorization URL for signing in or signing up. The client must send a PKCE S256 code_challenge and keep the matching code_verifier and returned state until the callback.
 
 ### Example
 
@@ -115,10 +116,11 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.OAuthApi(api_client)
     provider_name = 'provider_name_example' # str | 
+    code_challenge = 'E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM' # str | Base64url-encoded SHA-256 hash of the client's PKCE code_verifier (S256)
 
     try:
-        # Initiate OAuth authorization
-        api_response = api_instance.v1_auth_oauth_provider_name_authorize_get(provider_name)
+        # Start OAuth sign-in
+        api_response = api_instance.v1_auth_oauth_provider_name_authorize_get(provider_name, code_challenge)
         print("The response of OAuthApi->v1_auth_oauth_provider_name_authorize_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -133,6 +135,7 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider_name** | **str**|  | 
+ **code_challenge** | **str**| Base64url-encoded SHA-256 hash of the client&#39;s PKCE code_verifier (S256) | 
 
 ### Return type
 
@@ -151,23 +154,25 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**422** | Unprocessable Content |  -  |
 **200** | OK |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_auth_oauth_provider_name_callback_get**
-> OAuthLoginResponse v1_auth_oauth_provider_name_callback_get(provider_name, code, state, error_description=error_description, error=error)
+# **v1_auth_oauth_provider_name_callback_post**
+> OAuthLoginResponse v1_auth_oauth_provider_name_callback_post(provider_name, o_auth_callback)
 
-Handle OAuth callback
+Complete OAuth sign-in
 
-Handle OAuth provider callback and complete authentication
+Exchanges the authorization code for Pingera access and refresh tokens. Signs in the user linked to the provider account, links an existing user with the same verified email, or registers a new user and organization.
 
 ### Example
 
 
 ```python
 import pingera
+from pingera.models.o_auth_callback import OAuthCallback
 from pingera.models.o_auth_login_response import OAuthLoginResponse
 from pingera.rest import ApiException
 from pprint import pprint
@@ -184,18 +189,15 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.OAuthApi(api_client)
     provider_name = 'provider_name_example' # str | 
-    code = 'def456ghi789' # str | OAuth authorization code from provider
-    state = 'abc123def456' # str | OAuth state parameter for CSRF validation
-    error_description = 'User denied access' # str | Human-readable error description (optional)
-    error = 'access_denied' # str | OAuth error code if authorization failed (optional)
+    o_auth_callback = pingera.OAuthCallback() # OAuthCallback | 
 
     try:
-        # Handle OAuth callback
-        api_response = api_instance.v1_auth_oauth_provider_name_callback_get(provider_name, code, state, error_description=error_description, error=error)
-        print("The response of OAuthApi->v1_auth_oauth_provider_name_callback_get:\n")
+        # Complete OAuth sign-in
+        api_response = api_instance.v1_auth_oauth_provider_name_callback_post(provider_name, o_auth_callback)
+        print("The response of OAuthApi->v1_auth_oauth_provider_name_callback_post:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling OAuthApi->v1_auth_oauth_provider_name_callback_get: %s\n" % e)
+        print("Exception when calling OAuthApi->v1_auth_oauth_provider_name_callback_post: %s\n" % e)
 ```
 
 
@@ -206,10 +208,7 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider_name** | **str**|  | 
- **code** | **str**| OAuth authorization code from provider | 
- **state** | **str**| OAuth state parameter for CSRF validation | 
- **error_description** | **str**| Human-readable error description | [optional] 
- **error** | **str**| OAuth error code if authorization failed | [optional] 
+ **o_auth_callback** | [**OAuthCallback**](OAuthCallback.md)|  | 
 
 ### Return type
 
@@ -221,25 +220,25 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | OK |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **v1_auth_oauth_provider_name_link_post**
-> OAuthAuthorizeResponse v1_auth_oauth_provider_name_link_post(provider_name)
+# **v1_auth_oauth_provider_name_link_complete_post**
+> OAuthLinkCompleteResponse v1_auth_oauth_provider_name_link_complete_post(provider_name, o_auth_callback)
 
-Link OAuth account to existing user
+Complete linking an OAuth account
 
-Initiate OAuth flow to link an account to the currently authenticated user
+Links the provider account that authorized the request to the current user
 
 ### Example
 
@@ -247,6 +246,90 @@ Initiate OAuth flow to link an account to the currently authenticated user
 
 ```python
 import pingera
+from pingera.models.o_auth_callback import OAuthCallback
+from pingera.models.o_auth_link_complete_response import OAuthLinkCompleteResponse
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.OAuthApi(api_client)
+    provider_name = 'provider_name_example' # str | 
+    o_auth_callback = pingera.OAuthCallback() # OAuthCallback | 
+
+    try:
+        # Complete linking an OAuth account
+        api_response = api_instance.v1_auth_oauth_provider_name_link_complete_post(provider_name, o_auth_callback)
+        print("The response of OAuthApi->v1_auth_oauth_provider_name_link_complete_post:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling OAuthApi->v1_auth_oauth_provider_name_link_complete_post: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **provider_name** | **str**|  | 
+ **o_auth_callback** | [**OAuthCallback**](OAuthCallback.md)|  | 
+
+### Return type
+
+[**OAuthLinkCompleteResponse**](OAuthLinkCompleteResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**422** | Unprocessable Content |  -  |
+**200** | OK |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_auth_oauth_provider_name_link_post**
+> OAuthAuthorizeResponse v1_auth_oauth_provider_name_link_post(provider_name, o_auth_authorize_request)
+
+Start linking an OAuth account
+
+Returns the provider authorization URL for linking a provider account to the current user. Finish with POST /auth/oauth/{provider_name}/link/complete.
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.o_auth_authorize_request import OAuthAuthorizeRequest
 from pingera.models.o_auth_authorize_response import OAuthAuthorizeResponse
 from pingera.rest import ApiException
 from pprint import pprint
@@ -272,10 +355,11 @@ with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.OAuthApi(api_client)
     provider_name = 'provider_name_example' # str | 
+    o_auth_authorize_request = pingera.OAuthAuthorizeRequest() # OAuthAuthorizeRequest | 
 
     try:
-        # Link OAuth account to existing user
-        api_response = api_instance.v1_auth_oauth_provider_name_link_post(provider_name)
+        # Start linking an OAuth account
+        api_response = api_instance.v1_auth_oauth_provider_name_link_post(provider_name, o_auth_authorize_request)
         print("The response of OAuthApi->v1_auth_oauth_provider_name_link_post:\n")
         pprint(api_response)
     except Exception as e:
@@ -290,6 +374,7 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider_name** | **str**|  | 
+ **o_auth_authorize_request** | [**OAuthAuthorizeRequest**](OAuthAuthorizeRequest.md)|  | 
 
 ### Return type
 
@@ -301,13 +386,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**422** | Unprocessable Content |  -  |
 **200** | OK |  -  |
 **0** | Default error response |  -  |
 

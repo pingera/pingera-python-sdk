@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -12,6 +10,7 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -20,8 +19,8 @@ from typing_extensions import Annotated
 from pydantic import Field
 from typing import List
 from typing_extensions import Annotated
-from pingera.models.error import Error
 from pingera.models.organization import Organization
+from pingera.models.organization_update import OrganizationUpdate
 from pingera.models.plan import Plan
 from pingera.models.plan_subscription import PlanSubscription
 
@@ -94,6 +93,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Organization]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -157,6 +157,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Organization]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -220,6 +221,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Organization]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -306,9 +308,10 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Error:
-        """v1_organizations_org_id_get
+    ) -> Organization:
+        """Get organization
 
+        Get the current user organization. Requires an admin or billing role.
 
         :param org_id: (required)
         :type org_id: str
@@ -343,6 +346,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -371,9 +376,10 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Error]:
-        """v1_organizations_org_id_get
+    ) -> ApiResponse[Organization]:
+        """Get organization
 
+        Get the current user organization. Requires an admin or billing role.
 
         :param org_id: (required)
         :type org_id: str
@@ -408,6 +414,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -437,8 +445,9 @@ class OrganizationsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """v1_organizations_org_id_get
+        """Get organization
 
+        Get the current user organization. Requires an admin or billing role.
 
         :param org_id: (required)
         :type org_id: str
@@ -473,6 +482,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -524,6 +535,8 @@ class OrganizationsApi:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKeyAuth', 
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -548,6 +561,7 @@ class OrganizationsApi:
     def v1_organizations_org_id_patch(
         self,
         org_id: Annotated[str, Field(min_length=1, strict=True)],
+        organization_update: OrganizationUpdate,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -560,12 +574,15 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Error:
-        """v1_organizations_org_id_patch
+    ) -> Organization:
+        """Update organization
 
+        Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
         :param org_id: (required)
         :type org_id: str
+        :param organization_update: (required)
+        :type organization_update: OrganizationUpdate
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -590,6 +607,7 @@ class OrganizationsApi:
 
         _param = self._v1_organizations_org_id_patch_serialize(
             org_id=org_id,
+            organization_update=organization_update,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -597,6 +615,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -613,6 +633,7 @@ class OrganizationsApi:
     def v1_organizations_org_id_patch_with_http_info(
         self,
         org_id: Annotated[str, Field(min_length=1, strict=True)],
+        organization_update: OrganizationUpdate,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -625,12 +646,15 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Error]:
-        """v1_organizations_org_id_patch
+    ) -> ApiResponse[Organization]:
+        """Update organization
 
+        Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
         :param org_id: (required)
         :type org_id: str
+        :param organization_update: (required)
+        :type organization_update: OrganizationUpdate
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -655,6 +679,7 @@ class OrganizationsApi:
 
         _param = self._v1_organizations_org_id_patch_serialize(
             org_id=org_id,
+            organization_update=organization_update,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -662,6 +687,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -678,6 +705,7 @@ class OrganizationsApi:
     def v1_organizations_org_id_patch_without_preload_content(
         self,
         org_id: Annotated[str, Field(min_length=1, strict=True)],
+        organization_update: OrganizationUpdate,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -691,11 +719,14 @@ class OrganizationsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """v1_organizations_org_id_patch
+        """Update organization
 
+        Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
         :param org_id: (required)
         :type org_id: str
+        :param organization_update: (required)
+        :type organization_update: OrganizationUpdate
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -720,6 +751,7 @@ class OrganizationsApi:
 
         _param = self._v1_organizations_org_id_patch_serialize(
             org_id=org_id,
+            organization_update=organization_update,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -727,6 +759,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -738,6 +772,7 @@ class OrganizationsApi:
     def _v1_organizations_org_id_patch_serialize(
         self,
         org_id,
+        organization_update,
         _request_auth,
         _content_type,
         _headers,
@@ -765,6 +800,8 @@ class OrganizationsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if organization_update is not None:
+            _body_params = organization_update
 
 
         # set the HTTP header `Accept`
@@ -775,9 +812,24 @@ class OrganizationsApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKeyAuth', 
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -802,6 +854,7 @@ class OrganizationsApi:
     def v1_organizations_org_id_put(
         self,
         org_id: Annotated[str, Field(min_length=1, strict=True)],
+        organization_update: OrganizationUpdate,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -814,12 +867,15 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Error:
-        """v1_organizations_org_id_put
+    ) -> Organization:
+        """Update organization
 
+        Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
         :param org_id: (required)
         :type org_id: str
+        :param organization_update: (required)
+        :type organization_update: OrganizationUpdate
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -844,6 +900,7 @@ class OrganizationsApi:
 
         _param = self._v1_organizations_org_id_put_serialize(
             org_id=org_id,
+            organization_update=organization_update,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -851,6 +908,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -867,6 +926,7 @@ class OrganizationsApi:
     def v1_organizations_org_id_put_with_http_info(
         self,
         org_id: Annotated[str, Field(min_length=1, strict=True)],
+        organization_update: OrganizationUpdate,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -879,12 +939,15 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Error]:
-        """v1_organizations_org_id_put
+    ) -> ApiResponse[Organization]:
+        """Update organization
 
+        Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
         :param org_id: (required)
         :type org_id: str
+        :param organization_update: (required)
+        :type organization_update: OrganizationUpdate
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -909,6 +972,7 @@ class OrganizationsApi:
 
         _param = self._v1_organizations_org_id_put_serialize(
             org_id=org_id,
+            organization_update=organization_update,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -916,6 +980,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -932,6 +998,7 @@ class OrganizationsApi:
     def v1_organizations_org_id_put_without_preload_content(
         self,
         org_id: Annotated[str, Field(min_length=1, strict=True)],
+        organization_update: OrganizationUpdate,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -945,11 +1012,14 @@ class OrganizationsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """v1_organizations_org_id_put
+        """Update organization
 
+        Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
         :param org_id: (required)
         :type org_id: str
+        :param organization_update: (required)
+        :type organization_update: OrganizationUpdate
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -974,6 +1044,7 @@ class OrganizationsApi:
 
         _param = self._v1_organizations_org_id_put_serialize(
             org_id=org_id,
+            organization_update=organization_update,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -981,6 +1052,8 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Organization",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -992,6 +1065,7 @@ class OrganizationsApi:
     def _v1_organizations_org_id_put_serialize(
         self,
         org_id,
+        organization_update,
         _request_auth,
         _content_type,
         _headers,
@@ -1019,6 +1093,8 @@ class OrganizationsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if organization_update is not None:
+            _body_params = organization_update
 
 
         # set the HTTP header `Accept`
@@ -1029,9 +1105,24 @@ class OrganizationsApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
+            'apiKeyAuth', 
+            'bearerAuth'
         ]
 
         return self.api_client.param_serialize(
@@ -1107,6 +1198,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[PlanSubscription]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1174,6 +1266,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[PlanSubscription]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1241,6 +1334,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[PlanSubscription]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1365,6 +1459,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Plan]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1428,6 +1523,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Plan]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1491,6 +1587,7 @@ class OrganizationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Plan]",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

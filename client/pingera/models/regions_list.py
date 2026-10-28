@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.region import Region
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RegionsList(BaseModel):
     """
     RegionsList
     """ # noqa: E501
     regions: Optional[List[Region]] = Field(default=None, description="List of available regions for serverless check execution.")
-    total_regions: Optional[StrictInt] = Field(default=None, description="Total number of available regions.")
+    total_regions: Optional[StrictInt] = Field(default=None, description="Total number of available regions.", json_schema_extra={"examples": [2]})
     __properties: ClassVar[List[str]] = ["regions", "total_regions"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class RegionsList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,8 +76,7 @@ class RegionsList(BaseModel):
         _items = []
         if self.regions:
             for _item_regions in self.regions:
-                if _item_regions:
-                    _items.append(_item_regions.to_dict())
+                _items.append(_item_regions.to_dict() if _item_regions is not None else None)
             _dict['regions'] = _items
         return _dict
 

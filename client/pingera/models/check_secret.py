@@ -25,20 +25,22 @@ from typing_extensions import Annotated
 from pingera.models.secret import Secret
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CheckSecret(BaseModel):
     """
     CheckSecret
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the association was created in ISO format.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check-secret association.", json_schema_extra={"examples": ["cs123abc456"]})
+    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.", json_schema_extra={"examples": ["DATABASE_PASSWORD"]})
+    secret_id: StrictStr = Field(description="The unique identifier of the secret.", json_schema_extra={"examples": ["sec123abc456"]})
     secret: Optional[Secret] = Field(default=None, description="The secret details (excluding the actual secret value).")
-    env_variable: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The environment variable name for this secret. Max 100 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the check-secret association.")
-    secret_id: StrictStr = Field(description="The unique identifier of the secret.")
-    __properties: ClassVar[List[str]] = ["created_at", "secret", "env_variable", "id", "secret_id"]
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the association was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "env_variable", "secret_id", "secret", "created_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -50,8 +52,7 @@ class CheckSecret(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,9 +73,9 @@ class CheckSecret(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
-            "secret",
             "id",
+            "secret",
+            "created_at",
         ])
 
         _dict = self.model_dump(
@@ -97,11 +98,11 @@ class CheckSecret(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
-            "secret": Secret.from_dict(obj["secret"]) if obj.get("secret") is not None else None,
-            "env_variable": obj.get("env_variable"),
             "id": obj.get("id"),
-            "secret_id": obj.get("secret_id")
+            "env_variable": obj.get("env_variable"),
+            "secret_id": obj.get("secret_id"),
+            "secret": Secret.from_dict(obj["secret"]) if obj.get("secret") is not None else None,
+            "created_at": obj.get("created_at")
         })
         return _obj
 

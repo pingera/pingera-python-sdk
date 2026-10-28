@@ -22,16 +22,18 @@ from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AuthRecommendations(BaseModel):
     """
     AuthRecommendations
     """ # noqa: E501
-    recommendations: Optional[List[Dict[str, Any]]] = Field(default=None, description="List of authentication setup recommendations")
+    recommendations: Optional[List[Dict[str, Any]]] = Field(default=None, description="List of authentication setup recommendations", json_schema_extra={"examples": [[{"type": "enable_2fa", "message": "Enable two-factor authentication for better security"}]]})
     __properties: ClassVar[List[str]] = ["recommendations"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -43,8 +45,7 @@ class AuthRecommendations(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

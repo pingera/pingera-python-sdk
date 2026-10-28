@@ -23,32 +23,33 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_v
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Alert(BaseModel):
     """
     Alert
     """ # noqa: E501
-    regional_summary: Optional[Any] = Field(default=None, description="Summary of regional results if this alert was triggered by a multi-region check")
-    title: Optional[StrictStr] = Field(default=None, description="A short, descriptive title for the alert.")
-    check_name: Optional[Any] = Field(default=None, description="The name of the monitor check that triggered this alert.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert.")
-    trigger_results: Optional[Any] = Field(default=None, description="The check results that triggered this alert. Includes result IDs and which one is primary.")
-    status: Optional[StrictStr] = Field(default=None, description="The current status of the alert.")
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the alert condition.")
-    acknowledged_by_id: Optional[StrictStr] = Field(default=None, description="The identifier of the user who acknowledged the alert. Null if not acknowledged.")
-    severity: Optional[StrictStr] = Field(default=None, description="The severity level of the alert.")
-    duration: Optional[Any] = Field(default=None, description="The duration of the alert in seconds. For active alerts, this is time since firing.")
-    is_active: Optional[Any] = Field(default=None, description="Whether the alert is currently active (firing or acknowledged).")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check that triggered this alert.")
-    rule_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert rule that triggered this alert.")
-    rule_name: Optional[Any] = Field(default=None, description="The name of the alert rule that triggered this alert.")
-    notification_count: Optional[StrictInt] = Field(default=None, description="The number of notifications sent for this alert.")
-    last_notification_at: Optional[datetime] = Field(default=None, description="The timestamp when the last notification was sent in ISO format. Null if no notifications sent.")
-    acknowledged_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was acknowledged in ISO format. Null if not acknowledged.")
-    fired_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was first triggered in ISO format.")
-    alert_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional context and metadata about what triggered the alert.")
-    resolved_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was resolved in ISO format. Null if not resolved.")
-    __properties: ClassVar[List[str]] = ["regional_summary", "title", "check_name", "id", "trigger_results", "status", "description", "acknowledged_by_id", "severity", "duration", "is_active", "check_id", "rule_id", "rule_name", "notification_count", "last_notification_at", "acknowledged_at", "fired_at", "alert_metadata", "resolved_at"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert.", json_schema_extra={"examples": ["alert_abc123def456"]})
+    rule_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert rule that triggered this alert.", json_schema_extra={"examples": ["rule_def456ghi789"]})
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check that triggered this alert.", json_schema_extra={"examples": ["check_ghi789jkl012"]})
+    status: Optional[StrictStr] = Field(default=None, description="The current status of the alert.", json_schema_extra={"examples": ["firing"]})
+    severity: Optional[StrictStr] = Field(default=None, description="The severity level of the alert.", json_schema_extra={"examples": ["high"]})
+    title: Optional[StrictStr] = Field(default=None, description="A short, descriptive title for the alert.", json_schema_extra={"examples": ["Production API Health Check Failed"]})
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the alert condition.", json_schema_extra={"examples": ["The production API health check has failed 3 consecutive times, indicating a potential service outage."]})
+    alert_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional context and metadata about what triggered the alert.", json_schema_extra={"examples": [{"consecutive_failures": 3, "last_check_result": "timeout", "response_time": 5000}]})
+    fired_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was first triggered in ISO format.", json_schema_extra={"examples": ["2024-01-15T15:30:00Z"]})
+    resolved_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was resolved in ISO format. Null if not resolved.", json_schema_extra={"examples": ["2024-01-15T16:30:00Z"]})
+    acknowledged_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert was acknowledged in ISO format. Null if not acknowledged.", json_schema_extra={"examples": ["2024-01-15T15:35:00Z"]})
+    acknowledged_by_id: Optional[StrictStr] = Field(default=None, description="The identifier of the user who acknowledged the alert. Null if not acknowledged.", json_schema_extra={"examples": ["user_jkl012mno345"]})
+    notification_count: Optional[StrictInt] = Field(default=None, description="The number of notifications sent for this alert.", json_schema_extra={"examples": [3]})
+    last_notification_at: Optional[datetime] = Field(default=None, description="The timestamp when the last notification was sent in ISO format. Null if no notifications sent.", json_schema_extra={"examples": ["2024-01-15T15:45:00Z"]})
+    duration: Optional[Any] = Field(default=None, description="The duration of the alert in seconds. For active alerts, this is time since firing.", json_schema_extra={"examples": [3600]})
+    is_active: Optional[Any] = Field(default=None, description="Whether the alert is currently active (firing or acknowledged).", json_schema_extra={"examples": [True]})
+    rule_name: Optional[Any] = Field(default=None, description="The name of the alert rule that triggered this alert.", json_schema_extra={"examples": ["Production API Down Alert"]})
+    check_name: Optional[Any] = Field(default=None, description="The name of the monitor check that triggered this alert.", json_schema_extra={"examples": ["Production API Health Check"]})
+    trigger_results: Optional[Any] = Field(default=None, description="The check results that triggered this alert. Includes result IDs and which one is primary.", json_schema_extra={"examples": [[{"result_id": "res123abc456", "is_primary": True, "status": "failed", "error_message": "Connection timeout", "created_at": "2024-01-15T10:30:00Z", "region": "us-east-1"}]]})
+    regional_summary: Optional[Any] = Field(default=None, description="Summary of regional results if this alert was triggered by a multi-region check", json_schema_extra={"examples": [{"total_regions": 3, "failed_regions": 2, "regions": ["us-east-1", "eu-west-1"]}]})
+    __properties: ClassVar[List[str]] = ["id", "rule_id", "check_id", "status", "severity", "title", "description", "alert_metadata", "fired_at", "resolved_at", "acknowledged_at", "acknowledged_by_id", "notification_count", "last_notification_at", "duration", "is_active", "rule_name", "check_name", "trigger_results", "regional_summary"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -71,7 +72,8 @@ class Alert(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -83,8 +85,7 @@ class Alert(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -122,26 +123,26 @@ class Alert(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "regional_summary",
-            "title",
-            "check_name",
             "id",
-            "trigger_results",
-            "status",
-            "description",
-            "acknowledged_by_id",
-            "severity",
-            "duration",
-            "is_active",
-            "check_id",
             "rule_id",
-            "rule_name",
+            "check_id",
+            "status",
+            "severity",
+            "title",
+            "description",
+            "alert_metadata",
+            "fired_at",
+            "resolved_at",
+            "acknowledged_at",
+            "acknowledged_by_id",
             "notification_count",
             "last_notification_at",
-            "acknowledged_at",
-            "fired_at",
-            "alert_metadata",
-            "resolved_at",
+            "duration",
+            "is_active",
+            "rule_name",
+            "check_name",
+            "trigger_results",
+            "regional_summary",
         ])
 
         _dict = self.model_dump(
@@ -149,25 +150,25 @@ class Alert(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if regional_summary (nullable) is None
+        # set to None if resolved_at (nullable) is None
         # and model_fields_set contains the field
-        if self.regional_summary is None and "regional_summary" in self.model_fields_set:
-            _dict['regional_summary'] = None
+        if self.resolved_at is None and "resolved_at" in self.model_fields_set:
+            _dict['resolved_at'] = None
 
-        # set to None if check_name (nullable) is None
+        # set to None if acknowledged_at (nullable) is None
         # and model_fields_set contains the field
-        if self.check_name is None and "check_name" in self.model_fields_set:
-            _dict['check_name'] = None
-
-        # set to None if trigger_results (nullable) is None
-        # and model_fields_set contains the field
-        if self.trigger_results is None and "trigger_results" in self.model_fields_set:
-            _dict['trigger_results'] = None
+        if self.acknowledged_at is None and "acknowledged_at" in self.model_fields_set:
+            _dict['acknowledged_at'] = None
 
         # set to None if acknowledged_by_id (nullable) is None
         # and model_fields_set contains the field
         if self.acknowledged_by_id is None and "acknowledged_by_id" in self.model_fields_set:
             _dict['acknowledged_by_id'] = None
+
+        # set to None if last_notification_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_notification_at is None and "last_notification_at" in self.model_fields_set:
+            _dict['last_notification_at'] = None
 
         # set to None if duration (nullable) is None
         # and model_fields_set contains the field
@@ -184,20 +185,20 @@ class Alert(BaseModel):
         if self.rule_name is None and "rule_name" in self.model_fields_set:
             _dict['rule_name'] = None
 
-        # set to None if last_notification_at (nullable) is None
+        # set to None if check_name (nullable) is None
         # and model_fields_set contains the field
-        if self.last_notification_at is None and "last_notification_at" in self.model_fields_set:
-            _dict['last_notification_at'] = None
+        if self.check_name is None and "check_name" in self.model_fields_set:
+            _dict['check_name'] = None
 
-        # set to None if acknowledged_at (nullable) is None
+        # set to None if trigger_results (nullable) is None
         # and model_fields_set contains the field
-        if self.acknowledged_at is None and "acknowledged_at" in self.model_fields_set:
-            _dict['acknowledged_at'] = None
+        if self.trigger_results is None and "trigger_results" in self.model_fields_set:
+            _dict['trigger_results'] = None
 
-        # set to None if resolved_at (nullable) is None
+        # set to None if regional_summary (nullable) is None
         # and model_fields_set contains the field
-        if self.resolved_at is None and "resolved_at" in self.model_fields_set:
-            _dict['resolved_at'] = None
+        if self.regional_summary is None and "regional_summary" in self.model_fields_set:
+            _dict['regional_summary'] = None
 
         return _dict
 
@@ -211,26 +212,26 @@ class Alert(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "regional_summary": obj.get("regional_summary"),
-            "title": obj.get("title"),
-            "check_name": obj.get("check_name"),
             "id": obj.get("id"),
-            "trigger_results": obj.get("trigger_results"),
-            "status": obj.get("status"),
-            "description": obj.get("description"),
-            "acknowledged_by_id": obj.get("acknowledged_by_id"),
-            "severity": obj.get("severity"),
-            "duration": obj.get("duration"),
-            "is_active": obj.get("is_active"),
-            "check_id": obj.get("check_id"),
             "rule_id": obj.get("rule_id"),
-            "rule_name": obj.get("rule_name"),
+            "check_id": obj.get("check_id"),
+            "status": obj.get("status"),
+            "severity": obj.get("severity"),
+            "title": obj.get("title"),
+            "description": obj.get("description"),
+            "alert_metadata": obj.get("alert_metadata"),
+            "fired_at": obj.get("fired_at"),
+            "resolved_at": obj.get("resolved_at"),
+            "acknowledged_at": obj.get("acknowledged_at"),
+            "acknowledged_by_id": obj.get("acknowledged_by_id"),
             "notification_count": obj.get("notification_count"),
             "last_notification_at": obj.get("last_notification_at"),
-            "acknowledged_at": obj.get("acknowledged_at"),
-            "fired_at": obj.get("fired_at"),
-            "alert_metadata": obj.get("alert_metadata"),
-            "resolved_at": obj.get("resolved_at")
+            "duration": obj.get("duration"),
+            "is_active": obj.get("is_active"),
+            "rule_name": obj.get("rule_name"),
+            "check_name": obj.get("check_name"),
+            "trigger_results": obj.get("trigger_results"),
+            "regional_summary": obj.get("regional_summary")
         })
         return _obj
 

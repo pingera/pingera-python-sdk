@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -101,6 +100,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SecretList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -172,6 +172,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SecretList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -243,6 +244,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SecretList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -379,6 +381,7 @@ class SecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -447,6 +450,7 @@ class SecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -515,6 +519,7 @@ class SecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -656,6 +661,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -723,6 +729,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -790,6 +797,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -882,7 +890,7 @@ class SecretsApi:
     ) -> Secret1:
         """Get a specific secret
 
-        Get a specific secret by ID. Secret value is included in single secret responses.
+        Get a specific secret by ID. The secret value is included only for editor and admin roles.
 
         :param secret_id: The unique identifier of the secret. (required)
         :type secret_id: str
@@ -918,6 +926,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -949,7 +958,7 @@ class SecretsApi:
     ) -> ApiResponse[Secret1]:
         """Get a specific secret
 
-        Get a specific secret by ID. Secret value is included in single secret responses.
+        Get a specific secret by ID. The secret value is included only for editor and admin roles.
 
         :param secret_id: The unique identifier of the secret. (required)
         :type secret_id: str
@@ -985,6 +994,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1016,7 +1026,7 @@ class SecretsApi:
     ) -> RESTResponseType:
         """Get a specific secret
 
-        Get a specific secret by ID. Secret value is included in single secret responses.
+        Get a specific secret by ID. The secret value is included only for editor and admin roles.
 
         :param secret_id: The unique identifier of the secret. (required)
         :type secret_id: str
@@ -1052,6 +1062,7 @@ class SecretsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1185,6 +1196,7 @@ class SecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1257,6 +1269,7 @@ class SecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1329,6 +1342,7 @@ class SecretsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "Secret1",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

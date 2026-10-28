@@ -22,17 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PasswordHint(BaseModel):
     """
     PasswordHint
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="Name of the password (if available)")
-    hint: Optional[StrictStr] = Field(default=None, description="The password hint")
-    __properties: ClassVar[List[str]] = ["name", "hint"]
+    hint: Optional[StrictStr] = Field(default=None, description="The password hint", json_schema_extra={"examples": ["Use the company founding year"]})
+    name: Optional[StrictStr] = Field(default=None, description="Name of the password (if available)", json_schema_extra={"examples": ["VIP Access"]})
+    __properties: ClassVar[List[str]] = ["hint", "name"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -44,8 +46,7 @@ class PasswordHint(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -87,8 +88,8 @@ class PasswordHint(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "hint": obj.get("hint")
+            "hint": obj.get("hint"),
+            "name": obj.get("name")
         })
         return _obj
 

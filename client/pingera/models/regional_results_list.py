@@ -24,18 +24,20 @@ from pingera.models.execution_group_statistics import ExecutionGroupStatistics
 from pingera.models.regional_result_summary import RegionalResultSummary
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RegionalResultsList(BaseModel):
     """
     RegionalResultsList
     """ # noqa: E501
+    execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group", json_schema_extra={"examples": ["grp123abc456"]})
     regional_results: Optional[List[RegionalResultSummary]] = Field(default=None, description="List of results from each region")
     statistics: Optional[ExecutionGroupStatistics] = Field(default=None, description="Aggregated statistics")
-    execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group")
-    __properties: ClassVar[List[str]] = ["regional_results", "statistics", "execution_group_id"]
+    __properties: ClassVar[List[str]] = ["execution_group_id", "regional_results", "statistics"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +49,7 @@ class RegionalResultsList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -77,8 +78,7 @@ class RegionalResultsList(BaseModel):
         _items = []
         if self.regional_results:
             for _item_regional_results in self.regional_results:
-                if _item_regional_results:
-                    _items.append(_item_regional_results.to_dict())
+                _items.append(_item_regional_results.to_dict() if _item_regional_results is not None else None)
             _dict['regional_results'] = _items
         # override the default output from pydantic by calling `to_dict()` of statistics
         if self.statistics:
@@ -95,9 +95,9 @@ class RegionalResultsList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "execution_group_id": obj.get("execution_group_id"),
             "regional_results": [RegionalResultSummary.from_dict(_item) for _item in obj["regional_results"]] if obj.get("regional_results") is not None else None,
-            "statistics": ExecutionGroupStatistics.from_dict(obj["statistics"]) if obj.get("statistics") is not None else None,
-            "execution_group_id": obj.get("execution_group_id")
+            "statistics": ExecutionGroupStatistics.from_dict(obj["statistics"]) if obj.get("statistics") is not None else None
         })
         return _obj
 

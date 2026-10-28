@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.heartbeat_check import HeartbeatCheck
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class HeartbeatCheckList(BaseModel):
     """
     HeartbeatCheckList
     """ # noqa: E501
     checks: Optional[List[HeartbeatCheck]] = None
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the list of checks.")
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata for the list of checks.", json_schema_extra={"examples": [{"page": 1, "pages": 3, "per_page": 20, "total": 45}]})
     __properties: ClassVar[List[str]] = ["checks", "pagination"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class HeartbeatCheckList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -79,8 +80,7 @@ class HeartbeatCheckList(BaseModel):
         _items = []
         if self.checks:
             for _item_checks in self.checks:
-                if _item_checks:
-                    _items.append(_item_checks.to_dict())
+                _items.append(_item_checks.to_dict() if _item_checks is not None else None)
             _dict['checks'] = _items
         return _dict
 

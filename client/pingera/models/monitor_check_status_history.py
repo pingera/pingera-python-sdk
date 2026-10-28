@@ -23,14 +23,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class MonitorCheckStatusHistory(BaseModel):
     """
     MonitorCheckStatusHistory
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The status during this period.")
-    started_at: Optional[datetime] = Field(default=None, description="When this status period started in ISO format.")
-    ended_at: Optional[datetime] = Field(default=None, description="When this status period ended in ISO format. Null if still active.")
+    status: Optional[StrictStr] = Field(default=None, description="The status during this period.", json_schema_extra={"examples": ["ok"]})
+    started_at: Optional[datetime] = Field(default=None, description="When this status period started in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    ended_at: Optional[datetime] = Field(default=None, description="When this status period ended in ISO format. Null if still active.", json_schema_extra={"examples": ["2024-01-15T15:30:00Z"]})
     __properties: ClassVar[List[str]] = ["status", "started_at", "ended_at"]
 
     @field_validator('status')
@@ -44,7 +45,8 @@ class MonitorCheckStatusHistory(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -56,8 +58,7 @@ class MonitorCheckStatusHistory(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

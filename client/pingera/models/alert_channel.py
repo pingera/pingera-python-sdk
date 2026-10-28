@@ -24,30 +24,32 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AlertChannel(BaseModel):
     """
     AlertChannel
     """ # noqa: E501
-    type: StrictStr = Field(description="The type of alert channel.")
-    last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.")
-    configuration: Dict[str, Any] = Field(description="Channel-specific configuration. Structure varies by channel type.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the alert channel. Max 100 characters.")
-    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.")
-    __properties: ClassVar[List[str]] = ["type", "last_used_at", "created_at", "configuration", "name", "enabled", "updated_at", "id"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.", json_schema_extra={"examples": ["chn_abc123def456"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="A user-friendly name for the alert channel. Max 100 characters.", json_schema_extra={"examples": ["Production Email Alerts"]})
+    type: StrictStr = Field(description="The type of alert channel.", json_schema_extra={"examples": ["email"]})
+    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.", json_schema_extra={"examples": [True]})
+    configuration: Dict[str, Any] = Field(description="Channel-specific configuration. Structure varies by channel type.", json_schema_extra={"examples": [{"recipients": ["admin@example.com", "ops@example.com"]}]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    last_used_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last used to send an alert in ISO format. Null if never used.", json_schema_extra={"examples": ["2024-01-15T15:30:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "type", "enabled", "configuration", "created_at", "updated_at", "last_used_at"]
 
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['email', 'webhook', 'statuspage', 'telegram']):
-            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram')")
+        if value not in set(['email', 'webhook', 'statuspage', 'telegram', 'sms', 'max']):
+            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram', 'sms', 'max')")
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -59,8 +61,7 @@ class AlertChannel(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -82,10 +83,10 @@ class AlertChannel(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "last_used_at",
+            "id",
             "created_at",
             "updated_at",
-            "id",
+            "last_used_at",
         ])
 
         _dict = self.model_dump(
@@ -110,14 +111,14 @@ class AlertChannel(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type"),
-            "last_used_at": obj.get("last_used_at"),
-            "created_at": obj.get("created_at"),
-            "configuration": obj.get("configuration"),
+            "id": obj.get("id"),
             "name": obj.get("name"),
+            "type": obj.get("type"),
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
+            "configuration": obj.get("configuration"),
+            "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
-            "id": obj.get("id")
+            "last_used_at": obj.get("last_used_at")
         })
         return _obj
 

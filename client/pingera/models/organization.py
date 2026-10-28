@@ -19,26 +19,44 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from pingera.models.plan_subscription import PlanSubscription
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Organization(BaseModel):
     """
     Organization
     """ # noqa: E501
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the organization was created in ISO format.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The name of the organization. Maximum 100 characters.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the organization.")
-    auto_renew: Optional[StrictBool] = Field(default=None, description="Whether the subscription will automatically renew at the end of the billing period.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the organization.", json_schema_extra={"examples": ["org_stellar_solutions"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The name of the organization. Maximum 100 characters.", json_schema_extra={"examples": ["Stellar Solutions"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the organization was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
     current_subscription: Optional[PlanSubscription] = Field(default=None, description="The current active subscription for the organization.")
-    __properties: ClassVar[List[str]] = ["created_at", "name", "id", "auto_renew", "current_subscription"]
+    auto_renew: Optional[StrictBool] = Field(default=None, description="Whether the subscription will automatically renew at the end of the billing period.", json_schema_extra={"examples": [True]})
+    payment_method_preference: Optional[StrictStr] = Field(default=None, description="Preferred payment method for the organization.", json_schema_extra={"examples": ["card"]})
+    invoice_email: Optional[StrictStr] = Field(default=None, description="Email address for invoice delivery.", json_schema_extra={"examples": ["billing@example.com"]})
+    invoice_company_name: Optional[StrictStr] = Field(default=None, description="Legal company name for invoices.", json_schema_extra={"examples": ["Stellar Solutions LLC"]})
+    invoice_tax_id: Optional[StrictStr] = Field(default=None, description="Tax ID / INN for invoice.", json_schema_extra={"examples": ["1234567890"]})
+    invoice_address: Optional[StrictStr] = Field(default=None, description="Full legal address for invoices.", json_schema_extra={"examples": ["123 Main St, Suite 100, San Francisco, CA 94102"]})
+    timezone: Optional[StrictStr] = Field(default=None, description="Timezone for displaying dates and times on the status page", json_schema_extra={"examples": ["America/New_York"]})
+    __properties: ClassVar[List[str]] = ["id", "name", "created_at", "current_subscription", "auto_renew", "payment_method_preference", "invoice_email", "invoice_company_name", "invoice_tax_id", "invoice_address", "timezone"]
+
+    @field_validator('payment_method_preference')
+    def payment_method_preference_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['card', 'invoice']):
+            raise ValueError("must be one of enum values ('card', 'invoice')")
+        return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -50,8 +68,7 @@ class Organization(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -70,11 +87,13 @@ class Organization(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
             "id",
+            "created_at",
             "current_subscription",
+            "payment_method_preference",
         ])
 
         _dict = self.model_dump(
@@ -97,11 +116,17 @@ class Organization(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "created_at": obj.get("created_at"),
-            "name": obj.get("name"),
             "id": obj.get("id"),
+            "name": obj.get("name"),
+            "created_at": obj.get("created_at"),
+            "current_subscription": PlanSubscription.from_dict(obj["current_subscription"]) if obj.get("current_subscription") is not None else None,
             "auto_renew": obj.get("auto_renew"),
-            "current_subscription": PlanSubscription.from_dict(obj["current_subscription"]) if obj.get("current_subscription") is not None else None
+            "payment_method_preference": obj.get("payment_method_preference"),
+            "invoice_email": obj.get("invoice_email"),
+            "invoice_company_name": obj.get("invoice_company_name"),
+            "invoice_tax_id": obj.get("invoice_tax_id"),
+            "invoice_address": obj.get("invoice_address"),
+            "timezone": obj.get("timezone")
         })
         return _obj
 

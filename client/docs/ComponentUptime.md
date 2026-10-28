@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **str** | Component ID | [optional] [readonly] 
+**name** | **str** | Component name | [optional] [readonly] 
+**range_start** | **str** | Start date of the uptime calculation period (YYYY-MM-DD) | [optional] [readonly] 
+**range_end** | **str** | End date of the uptime calculation period (YYYY-MM-DD) | [optional] [readonly] 
 **uptime_percentage** | **float** | Uptime percentage for the specified period | [optional] [readonly] 
 **major_outage** | **int** | Total seconds of major outages during the period | [optional] [readonly] 
-**range_end** | **str** | End date of the uptime calculation period (YYYY-MM-DD) | [optional] [readonly] 
-**range_start** | **str** | Start date of the uptime calculation period (YYYY-MM-DD) | [optional] [readonly] 
-**name** | **str** | Component name | [optional] [readonly] 
+**partial_outage** | **int** | Total seconds of partial outages during the period | [optional] [readonly] 
 **warnings** | **List[str]** | List of warnings about the calculation | [optional] [readonly] 
 **related_events** | [**ComponentUptimeEvents**](ComponentUptimeEvents.md) | Events that affected this component during the period | [optional] [readonly] 
-**id** | **str** | Component ID | [optional] [readonly] 
-**partial_outage** | **int** | Total seconds of partial outages during the period | [optional] [readonly] 
 
 ## Example
 

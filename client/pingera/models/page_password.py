@@ -24,25 +24,27 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PagePassword(BaseModel):
     """
     PagePassword
     """ # noqa: E501
-    is_expired: Optional[StrictBool] = Field(default=None, description="Whether the password is expired")
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the password was created")
-    created_by: Optional[StrictStr] = Field(default=None, description="ID of the user who created this password")
+    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the page password", json_schema_extra={"examples": ["pwd_abc123def456"]})
+    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password", json_schema_extra={"examples": ["VIP Access"]})
+    password: Annotated[str, Field(min_length=8, strict=True)] = Field(description="The password (minimum 8 characters). Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
+    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password", json_schema_extra={"examples": ["Use the company founding year"]})
+    active: Optional[StrictBool] = Field(default=None, description="Whether the password is active", json_schema_extra={"examples": [True]})
     expires_at: Optional[datetime] = Field(default=None, description="Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings")
-    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password")
-    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the password was last updated")
-    id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the page password")
-    active: Optional[StrictBool] = Field(default=None, description="Whether the password is active")
-    password: Annotated[str, Field(min_length=8, strict=True)] = Field(description="The password (minimum 8 characters). Only used for input, never returned.")
-    __properties: ClassVar[List[str]] = ["is_expired", "created_at", "created_by", "expires_at", "name", "password_hint", "updated_at", "id", "active", "password"]
+    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the password was created", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the password was last updated", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    created_by: Optional[StrictStr] = Field(default=None, description="ID of the user who created this password", json_schema_extra={"examples": ["user_abc123def456"]})
+    is_expired: Optional[StrictBool] = Field(default=None, description="Whether the password is expired", json_schema_extra={"examples": [False]})
+    __properties: ClassVar[List[str]] = ["id", "name", "password", "password_hint", "active", "expires_at", "created_at", "updated_at", "created_by", "is_expired"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,8 +56,7 @@ class PagePassword(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -78,11 +79,11 @@ class PagePassword(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "is_expired",
-            "created_at",
-            "created_by",
-            "updated_at",
             "id",
+            "created_at",
+            "updated_at",
+            "created_by",
+            "is_expired",
         ])
 
         _dict = self.model_dump(
@@ -90,11 +91,6 @@ class PagePassword(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if expires_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.expires_at is None and "expires_at" in self.model_fields_set:
-            _dict['expires_at'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -104,6 +100,11 @@ class PagePassword(BaseModel):
         # and model_fields_set contains the field
         if self.password_hint is None and "password_hint" in self.model_fields_set:
             _dict['password_hint'] = None
+
+        # set to None if expires_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.expires_at is None and "expires_at" in self.model_fields_set:
+            _dict['expires_at'] = None
 
         return _dict
 
@@ -117,16 +118,16 @@ class PagePassword(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "is_expired": obj.get("is_expired"),
-            "created_at": obj.get("created_at"),
-            "created_by": obj.get("created_by"),
-            "expires_at": obj.get("expires_at"),
-            "name": obj.get("name"),
-            "password_hint": obj.get("password_hint"),
-            "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
+            "name": obj.get("name"),
+            "password": obj.get("password"),
+            "password_hint": obj.get("password_hint"),
             "active": obj.get("active"),
-            "password": obj.get("password")
+            "expires_at": obj.get("expires_at"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at"),
+            "created_by": obj.get("created_by"),
+            "is_expired": obj.get("is_expired")
         })
         return _obj
 

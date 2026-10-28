@@ -5,23 +5,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**check_server_id** | **str** |  | [optional] 
-**status** | **str** | The result status of the check execution. | [optional] 
+**id** | **str** | The unique identifier for the result or job. | [optional] [readonly] 
+**execution_id** | **str** | Unique identifier for this specific check execution. Null for legacy results. | [optional] [readonly] 
 **execution_group_id** | **str** | ID of the execution group if this result is part of a multi-region execution. Null for single-region checks. | [optional] [readonly] 
-**response_time** | **int** | The response time in milliseconds. | [optional] 
 **check_id** | **str** | The identifier of the monitor check, if applicable. | [optional] 
+**check_name** | **str** | The name of the check. | [optional] [readonly] 
+**result_type** | **str** | Type of the result. | [optional] [readonly] 
+**check_type** | **str** | The type of check performed (e.g., web, api, ssl, icmp, dns). | [optional] [readonly] 
+**region** | **str** | The region where the check was executed from. | [optional] [readonly] 
+**status** | **str** | The result status of the check execution. | [optional] 
+**response_time** | **int** | The response time in milliseconds. | [optional] 
+**error_message** | **str** | Error message if the check failed. | [optional] 
 **check_metadata** | **Dict[str, object]** | Additional metadata from the check. | [optional] 
 **created_at** | **datetime** |  | [optional] [readonly] 
-**error_message** | **str** | Error message if the check failed. | [optional] 
-**execution_id** | **str** | Unique identifier for this specific check execution. Null for legacy results. | [optional] [readonly] 
-**check_type** | **str** | The type of check performed (e.g., web, api, ssl, icmp, dns). | [optional] [readonly] 
 **execution_group** | **Dict[str, object]** | Execution group details if this result is part of a multi-region execution. | [optional] [readonly] 
-**check_server** | [**CheckServer**](CheckServer.md) |  | [optional] [readonly] 
-**check_name** | **str** | The name of the check. | [optional] [readonly] 
-**id** | **str** | The unique identifier for the result or job. | [optional] [readonly] 
-**result_type** | **str** | Type of the result. | [optional] [readonly] 
 **triggered_alerts** | **List[Dict[str, object]]** | Alerts that were triggered by this check result. | [optional] [readonly] 
-**region** | **str** | The region where the check was executed from. | [optional] [readonly] 
+**check_server_id** | **str** |  | [optional] 
+**check_server** | [**CheckServer**](CheckServer.md) |  | [optional] [readonly] 
 
 ## Example
 

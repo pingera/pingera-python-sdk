@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -12,6 +10,7 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -21,7 +20,7 @@ from datetime import datetime
 from pydantic import Field, StrictBool, StrictStr, field_validator
 from typing import Optional
 from typing_extensions import Annotated
-from pingera.models.error import Error
+from pingera.models.check_uptime import CheckUptime
 from pingera.models.monitor_check import MonitorCheck
 from pingera.models.monitor_check1 import MonitorCheck1
 from pingera.models.monitor_check_list import MonitorCheckList
@@ -103,6 +102,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -170,6 +170,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -237,6 +238,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -377,6 +379,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -456,6 +459,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -535,6 +539,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -701,6 +706,7 @@ class ChecksApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -773,6 +779,7 @@ class ChecksApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -845,6 +852,7 @@ class ChecksApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '200': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -993,6 +1001,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckResult",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1064,6 +1073,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckResult",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1135,6 +1145,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckResult",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1286,6 +1297,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckResultList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1373,6 +1385,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckResultList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1460,6 +1473,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckResultList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1639,6 +1653,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckStatusHistoryList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1714,6 +1729,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckStatusHistoryList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1789,6 +1805,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckStatusHistoryList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1890,7 +1907,7 @@ class ChecksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Error:
+    ) -> CheckUptime:
         """Get check uptime
 
         Get check uptime by ID. Shows uptime for the last 24 hours by default. Set end_time and start_time to define the period.
@@ -1934,6 +1951,8 @@ class ChecksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CheckUptime",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1964,7 +1983,7 @@ class ChecksApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Error]:
+    ) -> ApiResponse[CheckUptime]:
         """Get check uptime
 
         Get check uptime by ID. Shows uptime for the last 24 hours by default. Set end_time and start_time to define the period.
@@ -2008,6 +2027,8 @@ class ChecksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CheckUptime",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2082,6 +2103,8 @@ class ChecksApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CheckUptime",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2270,6 +2293,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2369,6 +2393,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2468,6 +2493,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MonitorCheckList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2656,6 +2682,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RegionsList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2723,6 +2750,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RegionsList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2790,6 +2818,7 @@ class ChecksApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RegionsList",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2921,6 +2950,7 @@ class ChecksApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2989,6 +3019,7 @@ class ChecksApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3057,6 +3088,7 @@ class ChecksApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
             '201': "MonitorCheck",
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

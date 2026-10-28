@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.monitor_check_status_history import MonitorCheckStatusHistory
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class MonitorCheckStatusHistoryList(BaseModel):
     """
     MonitorCheckStatusHistoryList
     """ # noqa: E501
     status_history: Optional[List[MonitorCheckStatusHistory]] = Field(default=None, description="List of status history records for the check.")
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the status history.")
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information for the status history.", json_schema_extra={"examples": [{"page": 1, "page_size": 20, "total_pages": 5, "total_items": 100}]})
     __properties: ClassVar[List[str]] = ["status_history", "pagination"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class MonitorCheckStatusHistoryList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,8 +76,7 @@ class MonitorCheckStatusHistoryList(BaseModel):
         _items = []
         if self.status_history:
             for _item_status_history in self.status_history:
-                if _item_status_history:
-                    _items.append(_item_status_history.to_dict())
+                _items.append(_item_status_history.to_dict() if _item_status_history is not None else None)
             _dict['status_history'] = _items
         return _dict
 

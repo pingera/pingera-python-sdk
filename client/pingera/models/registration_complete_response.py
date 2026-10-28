@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.credential import Credential
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RegistrationCompleteResponse(BaseModel):
     """
     RegistrationCompleteResponse
     """ # noqa: E501
-    credential: Optional[Credential] = Field(default=None, description="Information about the newly created credential.")
     success: Optional[StrictBool] = Field(default=None, description="Indicates if the registration was successful.")
-    __properties: ClassVar[List[str]] = ["credential", "success"]
+    credential: Optional[Credential] = Field(default=None, description="Information about the newly created credential.")
+    __properties: ClassVar[List[str]] = ["success", "credential"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class RegistrationCompleteResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -66,8 +67,8 @@ class RegistrationCompleteResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "credential",
             "success",
+            "credential",
         ])
 
         _dict = self.model_dump(
@@ -90,8 +91,8 @@ class RegistrationCompleteResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "credential": Credential.from_dict(obj["credential"]) if obj.get("credential") is not None else None,
-            "success": obj.get("success")
+            "success": obj.get("success"),
+            "credential": Credential.from_dict(obj["credential"]) if obj.get("credential") is not None else None
         })
         return _obj
 

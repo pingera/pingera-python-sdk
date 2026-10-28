@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.unified_result import UnifiedResult
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class UnifiedResultList(BaseModel):
     """
     UnifiedResultList
     """ # noqa: E501
     results: Optional[List[UnifiedResult]] = Field(default=None, description="List of check results (both regular and on-demand).")
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata.")
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination metadata.", json_schema_extra={"examples": [{"page": 1, "page_size": 20, "total_pages": 5, "total_items": 100}]})
     __properties: ClassVar[List[str]] = ["results", "pagination"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class UnifiedResultList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,8 +76,7 @@ class UnifiedResultList(BaseModel):
         _items = []
         if self.results:
             for _item_results in self.results:
-                if _item_results:
-                    _items.append(_item_results.to_dict())
+                _items.append(_item_results.to_dict() if _item_results is not None else None)
             _dict['results'] = _items
         return _dict
 

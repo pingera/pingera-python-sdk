@@ -24,22 +24,24 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Secret2(BaseModel):
     """
     Secret2
     """ # noqa: E501
-    secret_value: Optional[StrictStr] = Field(default=None, description="The secret value. This will be encrypted in storage but returned in API responses.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.")
-    created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.")
-    updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.")
-    secret_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A unique name for the secret within the organization. Max 100 characters.")
-    __properties: ClassVar[List[str]] = ["secret_value", "created_at", "created_by", "updated_by", "updated_at", "id", "secret_name"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.", json_schema_extra={"examples": ["sec123abc456"]})
+    secret_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A unique name for the secret within the organization. Max 100 characters.", json_schema_extra={"examples": ["DATABASE_PASSWORD"]})
+    secret_value: Optional[StrictStr] = Field(default=None, description="The secret value. This will be encrypted in storage but returned in API responses.", json_schema_extra={"examples": ["my-secret-password-123"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
+    created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.", json_schema_extra={"examples": ["usr123def456"]})
+    updated_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who last updated the secret.", json_schema_extra={"examples": ["usr789ghi012"]})
+    __properties: ClassVar[List[str]] = ["id", "secret_name", "secret_value", "created_at", "updated_at", "created_by", "updated_by"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -51,8 +53,7 @@ class Secret2(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,11 +76,11 @@ class Secret2(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
             "created_at",
+            "updated_at",
             "created_by",
             "updated_by",
-            "updated_at",
-            "id",
         ])
 
         _dict = self.model_dump(
@@ -99,13 +100,13 @@ class Secret2(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "secret_name": obj.get("secret_name"),
             "secret_value": obj.get("secret_value"),
             "created_at": obj.get("created_at"),
-            "created_by": obj.get("created_by"),
-            "updated_by": obj.get("updated_by"),
             "updated_at": obj.get("updated_at"),
-            "id": obj.get("id"),
-            "secret_name": obj.get("secret_name")
+            "created_by": obj.get("created_by"),
+            "updated_by": obj.get("updated_by")
         })
         return _obj
 

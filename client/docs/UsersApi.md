@@ -494,7 +494,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **201** | User registered successfully. Email verification sent. |  -  |
 **400** | Validation error - Invalid request data |  -  |
 **409** | Conflict - Email already registered |  -  |
@@ -1496,7 +1496,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | User updated successfully. |  -  |
 **400** | Validation error - Invalid role or data |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -1591,7 +1591,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | User updated successfully. |  -  |
 **400** | Validation error - Invalid role or data |  -  |
 **401** | Unauthorized - Authentication required |  -  |

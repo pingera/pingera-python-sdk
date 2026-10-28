@@ -22,20 +22,22 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AlertStats(BaseModel):
     """
     AlertStats
     """ # noqa: E501
-    active_alerts: Optional[StrictInt] = Field(default=None, description="Number of currently active alerts (firing or acknowledged).")
-    total_channels: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert channels.")
-    recent_alerts: Optional[StrictInt] = Field(default=None, description="Number of alerts fired in the last 30 days.")
-    total_rules: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert rules.")
-    severity_breakdown: Optional[Dict[str, Any]] = Field(default=None, description="Count of alerts by severity level in the last 30 days.")
-    __properties: ClassVar[List[str]] = ["active_alerts", "total_channels", "recent_alerts", "total_rules", "severity_breakdown"]
+    active_alerts: Optional[StrictInt] = Field(default=None, description="Number of currently active alerts (firing or acknowledged).", json_schema_extra={"examples": [5]})
+    recent_alerts: Optional[StrictInt] = Field(default=None, description="Number of alerts fired in the last 30 days.", json_schema_extra={"examples": [23]})
+    severity_breakdown: Optional[Dict[str, Any]] = Field(default=None, description="Count of alerts by severity level in the last 30 days.", json_schema_extra={"examples": [{"low": 2, "medium": 8, "high": 10, "critical": 3}]})
+    total_rules: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert rules.", json_schema_extra={"examples": [12]})
+    total_channels: Optional[StrictInt] = Field(default=None, description="Total number of enabled alert channels.", json_schema_extra={"examples": [4]})
+    __properties: ClassVar[List[str]] = ["active_alerts", "recent_alerts", "severity_breakdown", "total_rules", "total_channels"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +49,7 @@ class AlertStats(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,10 +73,10 @@ class AlertStats(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "active_alerts",
-            "total_channels",
             "recent_alerts",
-            "total_rules",
             "severity_breakdown",
+            "total_rules",
+            "total_channels",
         ])
 
         _dict = self.model_dump(
@@ -96,10 +97,10 @@ class AlertStats(BaseModel):
 
         _obj = cls.model_validate({
             "active_alerts": obj.get("active_alerts"),
-            "total_channels": obj.get("total_channels"),
             "recent_alerts": obj.get("recent_alerts"),
+            "severity_breakdown": obj.get("severity_breakdown"),
             "total_rules": obj.get("total_rules"),
-            "severity_breakdown": obj.get("severity_breakdown")
+            "total_channels": obj.get("total_channels")
         })
         return _obj
 

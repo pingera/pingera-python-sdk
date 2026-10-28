@@ -23,23 +23,24 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_v
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AlertNotification(BaseModel):
     """
     AlertNotification
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The delivery status of the notification.")
-    alert_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert this notification belongs to.")
-    sent_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was successfully sent in ISO format. Null if not sent.")
-    retry_count: Optional[StrictInt] = Field(default=None, description="The number of retry attempts for this notification.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was created in ISO format.")
-    notification_type: Optional[StrictStr] = Field(default=None, description="The type of notification sent.")
-    channel_name: Optional[Any] = Field(default=None, description="The name of the alert channel used for this notification.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert notification.")
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the notification failed to send. Null if successful.")
-    channel_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert channel used for this notification.")
-    channel_type: Optional[StrictStr] = Field(default=None, description="The type of the alert channel used for this notification.")
-    __properties: ClassVar[List[str]] = ["status", "alert_id", "sent_at", "retry_count", "created_at", "notification_type", "channel_name", "id", "error_message", "channel_id", "channel_type"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert notification.", json_schema_extra={"examples": ["notif_abc123def456"]})
+    alert_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert this notification belongs to.", json_schema_extra={"examples": ["alert_def456ghi789"]})
+    channel_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert channel used for this notification.", json_schema_extra={"examples": ["chn_ghi789jkl012"]})
+    status: Optional[StrictStr] = Field(default=None, description="The delivery status of the notification.", json_schema_extra={"examples": ["sent"]})
+    notification_type: Optional[StrictStr] = Field(default=None, description="The type of notification sent.", json_schema_extra={"examples": ["alert_fired"]})
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the notification failed to send. Null if successful.", json_schema_extra={"examples": ["SMTP connection timeout"]})
+    retry_count: Optional[StrictInt] = Field(default=None, description="The number of retry attempts for this notification.", json_schema_extra={"examples": [2]})
+    sent_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was successfully sent in ISO format. Null if not sent.", json_schema_extra={"examples": ["2024-01-15T15:32:00Z"]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T15:30:00Z"]})
+    channel_name: Optional[Any] = Field(default=None, description="The name of the alert channel used for this notification.", json_schema_extra={"examples": ["Production Email Alerts"]})
+    channel_type: Optional[StrictStr] = Field(default=None, description="The type of the alert channel used for this notification.", json_schema_extra={"examples": ["email"]})
+    __properties: ClassVar[List[str]] = ["id", "alert_id", "channel_id", "status", "notification_type", "error_message", "retry_count", "sent_at", "created_at", "channel_name", "channel_type"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -67,12 +68,13 @@ class AlertNotification(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['email', 'webhook', 'statuspage', 'telegram']):
-            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram')")
+        if value not in set(['email', 'webhook', 'statuspage', 'telegram', 'sms']):
+            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram', 'sms')")
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -84,8 +86,7 @@ class AlertNotification(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -114,16 +115,16 @@ class AlertNotification(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "status",
-            "alert_id",
-            "sent_at",
-            "retry_count",
-            "created_at",
-            "notification_type",
-            "channel_name",
             "id",
-            "error_message",
+            "alert_id",
             "channel_id",
+            "status",
+            "notification_type",
+            "error_message",
+            "retry_count",
+            "sent_at",
+            "created_at",
+            "channel_name",
             "channel_type",
         ])
 
@@ -132,6 +133,11 @@ class AlertNotification(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if error_message (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_message is None and "error_message" in self.model_fields_set:
+            _dict['error_message'] = None
+
         # set to None if sent_at (nullable) is None
         # and model_fields_set contains the field
         if self.sent_at is None and "sent_at" in self.model_fields_set:
@@ -141,11 +147,6 @@ class AlertNotification(BaseModel):
         # and model_fields_set contains the field
         if self.channel_name is None and "channel_name" in self.model_fields_set:
             _dict['channel_name'] = None
-
-        # set to None if error_message (nullable) is None
-        # and model_fields_set contains the field
-        if self.error_message is None and "error_message" in self.model_fields_set:
-            _dict['error_message'] = None
 
         return _dict
 
@@ -159,16 +160,16 @@ class AlertNotification(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
-            "alert_id": obj.get("alert_id"),
-            "sent_at": obj.get("sent_at"),
-            "retry_count": obj.get("retry_count"),
-            "created_at": obj.get("created_at"),
-            "notification_type": obj.get("notification_type"),
-            "channel_name": obj.get("channel_name"),
             "id": obj.get("id"),
-            "error_message": obj.get("error_message"),
+            "alert_id": obj.get("alert_id"),
             "channel_id": obj.get("channel_id"),
+            "status": obj.get("status"),
+            "notification_type": obj.get("notification_type"),
+            "error_message": obj.get("error_message"),
+            "retry_count": obj.get("retry_count"),
+            "sent_at": obj.get("sent_at"),
+            "created_at": obj.get("created_at"),
+            "channel_name": obj.get("channel_name"),
             "channel_type": obj.get("channel_type")
         })
         return _obj

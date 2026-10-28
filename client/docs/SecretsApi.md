@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **201** | Created |  -  |
 **0** | Default error response |  -  |
 
@@ -274,7 +274,7 @@ void (empty response body)
 
 Get a specific secret
 
-Get a specific secret by ID. Secret value is included in single secret responses.
+Get a specific secret by ID. The secret value is included only for editor and admin roles.
 
 ### Example
 
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | OK |  -  |
 **0** | Default error response |  -  |
 

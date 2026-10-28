@@ -8,6 +8,9 @@ Method | HTTP request | Description
 [**v1_pages_get**](StatusPagesApi.md#v1_pages_get) | **GET** /v1/pages | Get all status pages
 [**v1_pages_get_templates_get**](StatusPagesApi.md#v1_pages_get_templates_get) | **GET** /v1/pages/get-templates | Get available templates
 [**v1_pages_page_id_delete**](StatusPagesApi.md#v1_pages_page_id_delete) | **DELETE** /v1/pages/{page_id} | Delete status page
+[**v1_pages_page_id_email_domain_get**](StatusPagesApi.md#v1_pages_page_id_email_domain_get) | **GET** /v1/pages/{page_id}/email-domain | Get custom sender email domain status
+[**v1_pages_page_id_email_domain_records_post**](StatusPagesApi.md#v1_pages_page_id_email_domain_records_post) | **POST** /v1/pages/{page_id}/email-domain/records | Register custom sender email domain
+[**v1_pages_page_id_email_domain_verify_post**](StatusPagesApi.md#v1_pages_page_id_email_domain_verify_post) | **POST** /v1/pages/{page_id}/email-domain/verify | Verify custom sender email domain
 [**v1_pages_page_id_get**](StatusPagesApi.md#v1_pages_page_id_get) | **GET** /v1/pages/{page_id} | Get status page by ID
 [**v1_pages_page_id_patch**](StatusPagesApi.md#v1_pages_page_id_patch) | **PATCH** /v1/pages/{page_id} | Update status page
 [**v1_pages_page_id_put**](StatusPagesApi.md#v1_pages_page_id_put) | **PUT** /v1/pages/{page_id} | Update status page
@@ -166,7 +169,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | List of status pages retrieved successfully with pagination. |  -  |
 **400** | Bad Request - Invalid pagination parameters |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -176,7 +179,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_get_templates_get**
-> Error v1_pages_get_templates_get()
+> Dict[str, V1PagesGetTemplatesGet200ResponseValue] v1_pages_get_templates_get()
 
 Get available templates
 
@@ -187,7 +190,7 @@ Get available templates with their preview URLs
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.v1_pages_get_templates_get200_response_value import V1PagesGetTemplatesGet200ResponseValue
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -220,7 +223,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Error**](Error.md)
+[**Dict[str, V1PagesGetTemplatesGet200ResponseValue]**](V1PagesGetTemplatesGet200ResponseValue.md)
 
 ### Authorization
 
@@ -235,6 +238,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | Available templates keyed by template name |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -322,6 +326,264 @@ void (empty response body)
 **403** | Forbidden - Access denied to this page |  -  |
 **404** | Status page not found |  -  |
 **500** | Internal Server Error - Database error occurred |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_pages_page_id_email_domain_get**
+> EmailDomain v1_pages_page_id_email_domain_get(page_id)
+
+Get custom sender email domain status
+
+Return the custom sender email domain configuration, verification status and, if registered, the DNS records to publish.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.email_domain import EmailDomain
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.StatusPagesApi(api_client)
+    page_id = 'page_id_example' # str | 
+
+    try:
+        # Get custom sender email domain status
+        api_response = api_instance.v1_pages_page_id_email_domain_get(page_id)
+        print("The response of StatusPagesApi->v1_pages_page_id_email_domain_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling StatusPagesApi->v1_pages_page_id_email_domain_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_id** | **str**|  | 
+
+### Return type
+
+[**EmailDomain**](EmailDomain.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Custom sender email domain state |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_pages_page_id_email_domain_records_post**
+> EmailDomain v1_pages_page_id_email_domain_records_post(page_id)
+
+Register custom sender email domain
+
+Register the domain of the configured sender email with the mail provider and return the DNS records (ownership TXT, DKIM, SPF) the user must add to their DNS zone.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.email_domain import EmailDomain
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.StatusPagesApi(api_client)
+    page_id = 'page_id_example' # str | 
+
+    try:
+        # Register custom sender email domain
+        api_response = api_instance.v1_pages_page_id_email_domain_records_post(page_id)
+        print("The response of StatusPagesApi->v1_pages_page_id_email_domain_records_post:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling StatusPagesApi->v1_pages_page_id_email_domain_records_post: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_id** | **str**|  | 
+
+### Return type
+
+[**EmailDomain**](EmailDomain.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Custom sender email domain state with DNS records |  -  |
+**0** | Default error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_pages_page_id_email_domain_verify_post**
+> EmailDomain v1_pages_page_id_email_domain_verify_post(page_id)
+
+Verify custom sender email domain
+
+Trigger verification of the ownership TXT record and DKIM record with the mail provider, then refresh and return the current status.
+
+### Example
+
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import pingera
+from pingera.models.email_domain import EmailDomain
+from pingera.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.pingera.ru
+# See configuration.py for a list of all supported configuration parameters.
+configuration = pingera.Configuration(
+    host = "https://api.pingera.ru"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with pingera.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = pingera.StatusPagesApi(api_client)
+    page_id = 'page_id_example' # str | 
+
+    try:
+        # Verify custom sender email domain
+        api_response = api_instance.v1_pages_page_id_email_domain_verify_post(page_id)
+        print("The response of StatusPagesApi->v1_pages_page_id_email_domain_verify_post:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling StatusPagesApi->v1_pages_page_id_email_domain_verify_post: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page_id** | **str**|  | 
+
+### Return type
+
+[**EmailDomain**](EmailDomain.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Custom sender email domain state |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -505,7 +767,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Status page updated successfully. |  -  |
 **400** | Bad Request - Validation error, invalid domain, subdomain, timezone, or file format |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -600,7 +862,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Status page updated successfully. |  -  |
 **400** | Bad Request - Validation error, invalid domain, subdomain, timezone, or file format |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -692,7 +954,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Status page created successfully. |  -  |
 **400** | Bad Request - Validation error, invalid subdomain, or invalid domain |  -  |
 **401** | Unauthorized - Authentication required |  -  |

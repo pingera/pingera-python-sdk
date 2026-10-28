@@ -22,21 +22,23 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Pagination(BaseModel):
     """
     Pagination
     """ # noqa: E501
-    total_pages: Optional[StrictInt] = Field(default=None, description="Total number of pages")
-    has_prev: Optional[StrictBool] = Field(default=None, description="Whether there is a previous page")
-    page_size: Optional[StrictInt] = Field(default=None, description="Number of items per page")
-    total_items: Optional[StrictInt] = Field(default=None, description="Total number of items")
-    has_next: Optional[StrictBool] = Field(default=None, description="Whether there is a next page")
-    page: Optional[StrictInt] = Field(default=None, description="Current page number")
-    __properties: ClassVar[List[str]] = ["total_pages", "has_prev", "page_size", "total_items", "has_next", "page"]
+    page: Optional[StrictInt] = Field(default=None, description="Current page number", json_schema_extra={"examples": [1]})
+    page_size: Optional[StrictInt] = Field(default=None, description="Number of items per page", json_schema_extra={"examples": [20]})
+    total_pages: Optional[StrictInt] = Field(default=None, description="Total number of pages", json_schema_extra={"examples": [5]})
+    total_items: Optional[StrictInt] = Field(default=None, description="Total number of items", json_schema_extra={"examples": [100]})
+    has_next: Optional[StrictBool] = Field(default=None, description="Whether there is a next page", json_schema_extra={"examples": [True]})
+    has_prev: Optional[StrictBool] = Field(default=None, description="Whether there is a previous page", json_schema_extra={"examples": [False]})
+    __properties: ClassVar[List[str]] = ["page", "page_size", "total_pages", "total_items", "has_next", "has_prev"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,8 +50,7 @@ class Pagination(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -86,12 +87,12 @@ class Pagination(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "total_pages": obj.get("total_pages"),
-            "has_prev": obj.get("has_prev"),
+            "page": obj.get("page"),
             "page_size": obj.get("page_size"),
+            "total_pages": obj.get("total_pages"),
             "total_items": obj.get("total_items"),
             "has_next": obj.get("has_next"),
-            "page": obj.get("page")
+            "has_prev": obj.get("has_prev")
         })
         return _obj
 

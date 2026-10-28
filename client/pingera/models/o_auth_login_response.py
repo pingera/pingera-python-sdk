@@ -23,21 +23,24 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.user import User
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class OAuthLoginResponse(BaseModel):
     """
     OAuthLoginResponse
     """ # noqa: E501
-    auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used")
-    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for authenticated requests")
-    linked_account: Optional[StrictBool] = Field(default=None, description="Whether OAuth account was linked to existing user")
-    refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token for obtaining new access tokens")
-    is_new_user: Optional[StrictBool] = Field(default=None, description="Whether this was a new user registration")
+    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for authenticated requests", json_schema_extra={"examples": ["eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."]})
+    refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token for obtaining new access tokens", json_schema_extra={"examples": ["eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."]})
     user: Optional[User] = Field(default=None, description="User information")
-    __properties: ClassVar[List[str]] = ["auth_method", "access_token", "linked_account", "refresh_token", "is_new_user", "user"]
+    auth_method: Optional[StrictStr] = Field(default=None, description="Authentication method used", json_schema_extra={"examples": ["oauth_yandex"]})
+    is_new_user: Optional[StrictBool] = Field(default=None, description="Whether this was a new user registration", json_schema_extra={"examples": [False]})
+    is_first_login: Optional[StrictBool] = Field(default=None, description="Whether this is the user's first sign-in", json_schema_extra={"examples": [False]})
+    linked_account: Optional[StrictBool] = Field(default=None, description="Whether OAuth account was linked to existing user", json_schema_extra={"examples": [True]})
+    __properties: ClassVar[List[str]] = ["access_token", "refresh_token", "user", "auth_method", "is_new_user", "is_first_login", "linked_account"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +52,7 @@ class OAuthLoginResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,14 +74,16 @@ class OAuthLoginResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "auth_method",
             "access_token",
-            "linked_account",
             "refresh_token",
-            "is_new_user",
             "user",
+            "auth_method",
+            "is_new_user",
+            "is_first_login",
+            "linked_account",
         ])
 
         _dict = self.model_dump(
@@ -102,12 +106,13 @@ class OAuthLoginResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "auth_method": obj.get("auth_method"),
             "access_token": obj.get("access_token"),
-            "linked_account": obj.get("linked_account"),
             "refresh_token": obj.get("refresh_token"),
+            "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None,
+            "auth_method": obj.get("auth_method"),
             "is_new_user": obj.get("is_new_user"),
-            "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None
+            "is_first_login": obj.get("is_first_login"),
+            "linked_account": obj.get("linked_account")
         })
         return _obj
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -12,12 +10,13 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field
+from pydantic import Field, StrictStr
 from typing import List
 from typing_extensions import Annotated
 from pingera.models.component import Component
@@ -58,7 +57,7 @@ class StatusPagesComponentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> List[str]:
         """Get available components' statuses
 
         Get statuses that components can have
@@ -93,8 +92,9 @@ class StatusPagesComponentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[str]",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -122,7 +122,7 @@ class StatusPagesComponentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[List[str]]:
         """Get available components' statuses
 
         Get statuses that components can have
@@ -157,8 +157,9 @@ class StatusPagesComponentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[str]",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -221,8 +222,9 @@ class StatusPagesComponentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
+            '200': "List[str]",
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -354,6 +356,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '401': None,
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -429,6 +432,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '401': None,
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -504,6 +508,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '401': None,
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -643,6 +648,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -718,6 +724,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -793,6 +800,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -938,6 +946,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1019,6 +1028,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1100,6 +1110,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1261,6 +1272,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1342,6 +1354,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1423,6 +1436,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1574,6 +1588,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1645,6 +1660,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1716,6 +1732,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1854,6 +1871,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1931,6 +1949,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2008,6 +2027,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2160,6 +2180,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '401': None,
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2235,6 +2256,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '401': None,
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2310,6 +2332,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '401': None,
             '204': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2449,6 +2472,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2524,6 +2548,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2599,6 +2624,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2744,6 +2770,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2825,6 +2852,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2906,6 +2934,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3067,6 +3096,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3148,6 +3178,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3229,6 +3260,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3384,6 +3416,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3459,6 +3492,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3534,6 +3568,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3669,6 +3704,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3740,6 +3776,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3811,6 +3848,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3949,6 +3987,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4026,6 +4065,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4103,6 +4143,7 @@ class StatusPagesComponentsApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4209,7 +4250,7 @@ class StatusPagesComponentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> List[ComponentUptime]:
         """Get bulk component uptime
 
         Get uptime data for multiple components in bulk with optional date range filtering
@@ -4251,12 +4292,13 @@ class StatusPagesComponentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '200': None,
+            '200': "List[ComponentUptime]",
             '400': None,
             '401': None,
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4286,7 +4328,7 @@ class StatusPagesComponentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[List[ComponentUptime]]:
         """Get bulk component uptime
 
         Get uptime data for multiple components in bulk with optional date range filtering
@@ -4328,12 +4370,13 @@ class StatusPagesComponentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '200': None,
+            '200': "List[ComponentUptime]",
             '400': None,
             '401': None,
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4405,12 +4448,13 @@ class StatusPagesComponentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '200': None,
+            '200': "List[ComponentUptime]",
             '400': None,
             '401': None,
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

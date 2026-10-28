@@ -22,21 +22,23 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ExecutionGroupStatistics(BaseModel):
     """
     ExecutionGroupStatistics
     """ # noqa: E501
-    completed_executions: Optional[StrictInt] = Field(default=None, description="Number of completed executions")
-    max_response_time: Optional[StrictInt] = Field(default=None, description="Slowest response time across regions in milliseconds")
-    failed_executions: Optional[StrictInt] = Field(default=None, description="Number of failed executions")
-    total_executions: Optional[StrictInt] = Field(default=None, description="Total number of regional executions expected")
-    avg_response_time: Optional[StrictInt] = Field(default=None, description="Average response time across all regions in milliseconds")
-    min_response_time: Optional[StrictInt] = Field(default=None, description="Fastest response time across regions in milliseconds")
-    __properties: ClassVar[List[str]] = ["completed_executions", "max_response_time", "failed_executions", "total_executions", "avg_response_time", "min_response_time"]
+    total_executions: Optional[StrictInt] = Field(default=None, description="Total number of regional executions expected", json_schema_extra={"examples": [3]})
+    completed_executions: Optional[StrictInt] = Field(default=None, description="Number of completed executions", json_schema_extra={"examples": [3]})
+    failed_executions: Optional[StrictInt] = Field(default=None, description="Number of failed executions", json_schema_extra={"examples": [1]})
+    avg_response_time: Optional[StrictInt] = Field(default=None, description="Average response time across all regions in milliseconds", json_schema_extra={"examples": [175]})
+    min_response_time: Optional[StrictInt] = Field(default=None, description="Fastest response time across regions in milliseconds", json_schema_extra={"examples": [120]})
+    max_response_time: Optional[StrictInt] = Field(default=None, description="Slowest response time across regions in milliseconds", json_schema_extra={"examples": [230]})
+    __properties: ClassVar[List[str]] = ["total_executions", "completed_executions", "failed_executions", "avg_response_time", "min_response_time", "max_response_time"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,8 +50,7 @@ class ExecutionGroupStatistics(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -74,11 +75,6 @@ class ExecutionGroupStatistics(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if max_response_time (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_response_time is None and "max_response_time" in self.model_fields_set:
-            _dict['max_response_time'] = None
-
         # set to None if avg_response_time (nullable) is None
         # and model_fields_set contains the field
         if self.avg_response_time is None and "avg_response_time" in self.model_fields_set:
@@ -88,6 +84,11 @@ class ExecutionGroupStatistics(BaseModel):
         # and model_fields_set contains the field
         if self.min_response_time is None and "min_response_time" in self.model_fields_set:
             _dict['min_response_time'] = None
+
+        # set to None if max_response_time (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_response_time is None and "max_response_time" in self.model_fields_set:
+            _dict['max_response_time'] = None
 
         return _dict
 
@@ -101,12 +102,12 @@ class ExecutionGroupStatistics(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "completed_executions": obj.get("completed_executions"),
-            "max_response_time": obj.get("max_response_time"),
-            "failed_executions": obj.get("failed_executions"),
             "total_executions": obj.get("total_executions"),
+            "completed_executions": obj.get("completed_executions"),
+            "failed_executions": obj.get("failed_executions"),
             "avg_response_time": obj.get("avg_response_time"),
-            "min_response_time": obj.get("min_response_time")
+            "min_response_time": obj.get("min_response_time"),
+            "max_response_time": obj.get("max_response_time")
         })
         return _obj
 

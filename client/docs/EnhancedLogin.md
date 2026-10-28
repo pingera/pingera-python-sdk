@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**password** | **str** | Password (required when method is &#39;password&#39;) | [optional] 
 **email** | **str** | User&#39;s email address | 
 **method** | **str** | Authentication method to use | [optional] [default to 'password']
+**password** | **str** | Password (required when method is &#39;password&#39;) | [optional] 
 
 ## Example
 

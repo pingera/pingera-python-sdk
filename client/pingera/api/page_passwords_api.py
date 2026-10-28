@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -101,6 +100,7 @@ class PagePasswordsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PasswordHintsResponse",
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -169,6 +169,7 @@ class PagePasswordsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PasswordHintsResponse",
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -237,6 +238,7 @@ class PagePasswordsApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PasswordHintsResponse",
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -366,6 +368,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -436,6 +439,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -506,6 +510,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -641,6 +646,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -715,6 +721,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -789,6 +796,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -933,6 +941,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1013,6 +1022,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1093,6 +1103,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1249,6 +1260,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1325,6 +1337,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1401,6 +1414,7 @@ class PagePasswordsApi:
             '401': None,
             '403': None,
             '404': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1554,6 +1568,7 @@ class PagePasswordsApi:
             '401': None,
             '404': None,
             '429': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1630,6 +1645,7 @@ class PagePasswordsApi:
             '401': None,
             '404': None,
             '429': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1706,6 +1722,7 @@ class PagePasswordsApi:
             '401': None,
             '404': None,
             '429': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

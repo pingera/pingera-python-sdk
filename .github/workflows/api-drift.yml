@@ -1,0 +1,21 @@
+name: API drift
+
+# Fails when the live Pingera API spec no longer matches the SDK, so new
+# endpoints, fields and enum values are noticed before users hit them.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: python generate_client.py --check

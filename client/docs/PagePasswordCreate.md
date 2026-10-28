@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Optional name/label for the password | [optional] 
+**password** | **str** | The password (minimum 8 characters). Only used for input, never returned. | 
 **password_hint** | **str** | Optional hint for the password | [optional] 
 **expires_at** | **datetime** | Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings | [optional] 
-**password** | **str** | The password (minimum 8 characters). Only used for input, never returned. | 
 
 ## Example
 

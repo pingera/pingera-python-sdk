@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** | The timestamp when the association was created in ISO format. | [optional] [readonly] 
-**secret** | [**Secret**](Secret.md) | The secret details (excluding the actual secret value). | [optional] [readonly] 
-**env_variable** | **str** | The environment variable name for this secret. Max 100 characters. | 
 **id** | **str** | The unique identifier for the check-secret association. | [optional] [readonly] 
+**env_variable** | **str** | The environment variable name for this secret. Max 100 characters. | 
 **secret_id** | **str** | The unique identifier of the secret. | 
+**secret** | [**Secret**](Secret.md) | The secret details (excluding the actual secret value). | [optional] [readonly] 
+**created_at** | **datetime** | The timestamp when the association was created in ISO format. | [optional] [readonly] 
 
 ## Example
 

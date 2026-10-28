@@ -23,24 +23,26 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from pingera.models.component_uptime_events import ComponentUptimeEvents
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ComponentUptime(BaseModel):
     """
     ComponentUptime
     """ # noqa: E501
-    uptime_percentage: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Uptime percentage for the specified period")
-    major_outage: Optional[StrictInt] = Field(default=None, description="Total seconds of major outages during the period")
-    range_end: Optional[StrictStr] = Field(default=None, description="End date of the uptime calculation period (YYYY-MM-DD)")
-    range_start: Optional[StrictStr] = Field(default=None, description="Start date of the uptime calculation period (YYYY-MM-DD)")
-    name: Optional[StrictStr] = Field(default=None, description="Component name")
-    warnings: Optional[List[StrictStr]] = Field(default=None, description="List of warnings about the calculation")
+    id: Optional[StrictStr] = Field(default=None, description="Component ID", json_schema_extra={"examples": ["comp123abc456"]})
+    name: Optional[StrictStr] = Field(default=None, description="Component name", json_schema_extra={"examples": ["API Server"]})
+    range_start: Optional[StrictStr] = Field(default=None, description="Start date of the uptime calculation period (YYYY-MM-DD)", json_schema_extra={"examples": ["2024-01-01"]})
+    range_end: Optional[StrictStr] = Field(default=None, description="End date of the uptime calculation period (YYYY-MM-DD)", json_schema_extra={"examples": ["2024-01-31"]})
+    uptime_percentage: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Uptime percentage for the specified period", json_schema_extra={"examples": [99.5]})
+    major_outage: Optional[StrictInt] = Field(default=None, description="Total seconds of major outages during the period", json_schema_extra={"examples": [3600]})
+    partial_outage: Optional[StrictInt] = Field(default=None, description="Total seconds of partial outages during the period", json_schema_extra={"examples": [1800]})
+    warnings: Optional[List[StrictStr]] = Field(default=None, description="List of warnings about the calculation", json_schema_extra={"examples": [["End date was adjusted to today"]]})
     related_events: Optional[ComponentUptimeEvents] = Field(default=None, description="Events that affected this component during the period")
-    id: Optional[StrictStr] = Field(default=None, description="Component ID")
-    partial_outage: Optional[StrictInt] = Field(default=None, description="Total seconds of partial outages during the period")
-    __properties: ClassVar[List[str]] = ["uptime_percentage", "major_outage", "range_end", "range_start", "name", "warnings", "related_events", "id", "partial_outage"]
+    __properties: ClassVar[List[str]] = ["id", "name", "range_start", "range_end", "uptime_percentage", "major_outage", "partial_outage", "warnings", "related_events"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -52,8 +54,7 @@ class ComponentUptime(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -80,15 +81,15 @@ class ComponentUptime(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
+            "id",
+            "name",
+            "range_start",
+            "range_end",
             "uptime_percentage",
             "major_outage",
-            "range_end",
-            "range_start",
-            "name",
+            "partial_outage",
             "warnings",
             "related_events",
-            "id",
-            "partial_outage",
         ])
 
         _dict = self.model_dump(
@@ -111,15 +112,15 @@ class ComponentUptime(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "name": obj.get("name"),
+            "range_start": obj.get("range_start"),
+            "range_end": obj.get("range_end"),
             "uptime_percentage": obj.get("uptime_percentage"),
             "major_outage": obj.get("major_outage"),
-            "range_end": obj.get("range_end"),
-            "range_start": obj.get("range_start"),
-            "name": obj.get("name"),
+            "partial_outage": obj.get("partial_outage"),
             "warnings": obj.get("warnings"),
-            "related_events": ComponentUptimeEvents.from_dict(obj["related_events"]) if obj.get("related_events") is not None else None,
-            "id": obj.get("id"),
-            "partial_outage": obj.get("partial_outage")
+            "related_events": ComponentUptimeEvents.from_dict(obj["related_events"]) if obj.get("related_events") is not None else None
         })
         return _obj
 

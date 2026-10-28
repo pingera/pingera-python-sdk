@@ -24,19 +24,21 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PagePasswordCreate(BaseModel):
     """
     PagePasswordCreate
     """ # noqa: E501
-    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password")
-    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password")
+    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Optional name/label for the password", json_schema_extra={"examples": ["VIP Access"]})
+    password: Annotated[str, Field(min_length=8, strict=True)] = Field(description="The password (minimum 8 characters). Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
+    password_hint: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(default=None, description="Optional hint for the password", json_schema_extra={"examples": ["Use the company founding year"]})
     expires_at: Optional[datetime] = Field(default=None, description="Optional expiration date for the password. Accepts ISO format, partial dates (YYYY-MM-DD), or flexible date strings")
-    password: Annotated[str, Field(min_length=8, strict=True)] = Field(description="The password (minimum 8 characters). Only used for input, never returned.")
-    __properties: ClassVar[List[str]] = ["name", "password_hint", "expires_at", "password"]
+    __properties: ClassVar[List[str]] = ["name", "password", "password_hint", "expires_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,8 +50,7 @@ class PagePasswordCreate(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -102,9 +103,9 @@ class PagePasswordCreate(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
+            "password": obj.get("password"),
             "password_hint": obj.get("password_hint"),
-            "expires_at": obj.get("expires_at"),
-            "password": obj.get("password")
+            "expires_at": obj.get("expires_at")
         })
         return _obj
 

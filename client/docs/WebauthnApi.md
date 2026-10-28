@@ -78,7 +78,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Authentication options generated successfully. |  -  |
 **500** | Internal Server Error |  -  |
 **0** | Default error response |  -  |
@@ -150,7 +150,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | User authenticated successfully. |  -  |
 **400** | Bad Request - Validation error |  -  |
 **401** | Unauthorized - Authentication failed |  -  |
@@ -332,7 +332,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Credential updated successfully. |  -  |
 **400** | Bad Request - Credential not found or validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -591,7 +591,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Passkey registered successfully. |  -  |
 **400** | Bad Request - Registration failed or validation error |  -  |
 **401** | Unauthorized - Authentication required |  -  |

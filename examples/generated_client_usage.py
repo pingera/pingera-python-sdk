@@ -108,11 +108,11 @@ def demonstrate_heartbeats_api(client: PingeraClient):
     
     try:
         # List heartbeat checks
-        heartbeats_response = client.heartbeats.v1_heartbeats_get(page=1, page_size=5)
-        if hasattr(heartbeats_response, 'heartbeat_checks') and heartbeats_response.heartbeat_checks:
-            print(f"✓ Found {len(heartbeats_response.heartbeat_checks)} heartbeat checks")
+        heartbeats_response = client.heartbeats.v1_heartbeats_get(page=1, per_page=5)
+        if heartbeats_response.checks:
+            print(f"✓ Found {len(heartbeats_response.checks)} heartbeat checks")
             
-            for heartbeat in heartbeats_response.heartbeat_checks[:3]:
+            for heartbeat in heartbeats_response.checks[:3]:
                 name = getattr(heartbeat, 'name', 'unnamed')
                 status = getattr(heartbeat, 'status', 'unknown')
                 print(f"  - {name}: {status}")
@@ -129,7 +129,7 @@ def demonstrate_alerts_api(client: PingeraClient):
     
     try:
         # List alerts
-        alerts_response = client.alerts.v1_alerts_get(page=1, page_size=5)
+        alerts_response = client.alerts.v1_alerts_get(page=1, per_page=5)
         if hasattr(alerts_response, 'alerts') and alerts_response.alerts:
             print(f"✓ Found {len(alerts_response.alerts)} alerts")
             
@@ -151,13 +151,13 @@ def demonstrate_on_demand_checks(client: PingeraClient):
     try:
         # Example of executing a custom check
         custom_check = ExecuteCustomCheckRequest(
+            name="SDK example check",
             url="https://httpbin.org/status/200",
-            type="http",
-            regions=["us-east-1"]
+            type="web",
         )
         
         print("✓ Executing custom check...")
-        result = client.on_demand_checks.v1_on_demand_checks_custom_post(custom_check)
+        result = client.on_demand_checks.v1_checks_execute_post(custom_check)
         print(f"✓ Check executed with job ID: {getattr(result, 'job_id', 'unknown')}")
         
     except ApiException as e:

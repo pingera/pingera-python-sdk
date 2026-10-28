@@ -23,19 +23,21 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class HeartbeatPingResponse(BaseModel):
     """
     HeartbeatPingResponse
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="The status of the ping request.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check that received the ping.")
-    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.")
-    message: Optional[StrictStr] = Field(default=None, description="A message describing the ping result.")
-    __properties: ClassVar[List[str]] = ["status", "check_id", "next_expected_ping", "message"]
+    status: Optional[StrictStr] = Field(default=None, description="The status of the ping request.", json_schema_extra={"examples": ["ok"]})
+    message: Optional[StrictStr] = Field(default=None, description="A message describing the ping result.", json_schema_extra={"examples": ["Ping received successfully"]})
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check that received the ping.", json_schema_extra={"examples": ["abc123def456"]})
+    next_expected_ping: Optional[datetime] = Field(default=None, description="The timestamp when the next ping is expected in ISO format.", json_schema_extra={"examples": ["2024-01-16T14:30:00Z"]})
+    __properties: ClassVar[List[str]] = ["status", "message", "check_id", "next_expected_ping"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +49,7 @@ class HeartbeatPingResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -71,9 +72,9 @@ class HeartbeatPingResponse(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "status",
+            "message",
             "check_id",
             "next_expected_ping",
-            "message",
         ])
 
         _dict = self.model_dump(
@@ -94,9 +95,9 @@ class HeartbeatPingResponse(BaseModel):
 
         _obj = cls.model_validate({
             "status": obj.get("status"),
+            "message": obj.get("message"),
             "check_id": obj.get("check_id"),
-            "next_expected_ping": obj.get("next_expected_ping"),
-            "message": obj.get("message")
+            "next_expected_ping": obj.get("next_expected_ping")
         })
         return _obj
 

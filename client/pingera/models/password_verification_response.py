@@ -22,19 +22,21 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class PasswordVerificationResponse(BaseModel):
     """
     PasswordVerificationResponse
     """ # noqa: E501
-    password_name: Optional[StrictStr] = Field(default=None, description="Name of the matched password (if available)")
-    token_type: Optional[StrictStr] = Field(default=None, description="Type of the token")
-    expires_in: Optional[StrictInt] = Field(default=None, description="Token expiration time in seconds")
-    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for the page")
-    __properties: ClassVar[List[str]] = ["password_name", "token_type", "expires_in", "access_token"]
+    access_token: Optional[StrictStr] = Field(default=None, description="JWT access token for the page", json_schema_extra={"examples": ["eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."]})
+    expires_in: Optional[StrictInt] = Field(default=None, description="Token expiration time in seconds", json_schema_extra={"examples": [3600]})
+    token_type: Optional[StrictStr] = Field(default=None, description="Type of the token", json_schema_extra={"examples": ["Bearer"]})
+    password_name: Optional[StrictStr] = Field(default=None, description="Name of the matched password (if available)", json_schema_extra={"examples": ["VIP Access"]})
+    __properties: ClassVar[List[str]] = ["access_token", "expires_in", "token_type", "password_name"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +48,7 @@ class PasswordVerificationResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -89,10 +90,10 @@ class PasswordVerificationResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "password_name": obj.get("password_name"),
-            "token_type": obj.get("token_type"),
+            "access_token": obj.get("access_token"),
             "expires_in": obj.get("expires_in"),
-            "access_token": obj.get("access_token")
+            "token_type": obj.get("token_type"),
+            "password_name": obj.get("password_name")
         })
         return _obj
 

@@ -24,29 +24,30 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.check_server import CheckServer
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class UnifiedResult(BaseModel):
     """
     UnifiedResult
     """ # noqa: E501
-    check_server_id: Optional[StrictStr] = None
-    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
-    execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group if this result is part of a multi-region execution. Null for single-region checks.")
-    response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
+    execution_id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this specific check execution. Null for legacy results.", json_schema_extra={"examples": ["3f7a9b2e-4d5c-4e9f-8a1b-2c3d4e5f6a7b"]})
+    execution_group_id: Optional[StrictStr] = Field(default=None, description="ID of the execution group if this result is part of a multi-region execution. Null for single-region checks.", json_schema_extra={"examples": ["grp123abc456"]})
     check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the monitor check, if applicable.")
+    check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
+    result_type: Optional[StrictStr] = Field(default=None, description="Type of the result.")
+    check_type: Optional[StrictStr] = Field(default=None, description="The type of check performed (e.g., web, api, ssl, icmp, dns).")
+    region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
+    status: Optional[StrictStr] = Field(default=None, description="The result status of the check execution.")
+    response_time: Optional[StrictInt] = Field(default=None, description="The response time in milliseconds.")
+    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
     check_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata from the check.")
     created_at: Optional[datetime] = None
-    error_message: Optional[StrictStr] = Field(default=None, description="Error message if the check failed.")
-    execution_id: Optional[StrictStr] = Field(default=None, description="Unique identifier for this specific check execution. Null for legacy results.")
-    check_type: Optional[StrictStr] = Field(default=None, description="The type of check performed (e.g., web, api, ssl, icmp, dns).")
-    execution_group: Optional[Dict[str, Any]] = Field(default=None, description="Execution group details if this result is part of a multi-region execution.")
+    execution_group: Optional[Dict[str, Any]] = Field(default=None, description="Execution group details if this result is part of a multi-region execution.", json_schema_extra={"examples": [{"id": "grp123abc456", "execution_type": "scheduled", "execution_mode": "all", "status": "completed", "total_executions": 3, "completed_executions": 3, "avg_response_time": 175, "min_response_time": 120, "max_response_time": 230, "regional_summary": {"US, East coast": {"status": "ok", "response_time": 150}, "EU, West": {"status": "ok", "response_time": 200}}, "requested_regions": ["US, East coast", "EU, West", "RU, Moscow"]}]})
+    triggered_alerts: Optional[List[Dict[str, Any]]] = Field(default=None, description="Alerts that were triggered by this check result.", json_schema_extra={"examples": [[{"alert_id": "alert123abc456", "title": "Check 'API Health' has failed", "severity": "high", "status": "firing", "is_primary_trigger": True}]]})
+    check_server_id: Optional[StrictStr] = None
     check_server: Optional[CheckServer] = None
-    check_name: Optional[StrictStr] = Field(default=None, description="The name of the check.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the result or job.")
-    result_type: Optional[StrictStr] = Field(default=None, description="Type of the result.")
-    triggered_alerts: Optional[List[Dict[str, Any]]] = Field(default=None, description="Alerts that were triggered by this check result.")
-    region: Optional[StrictStr] = Field(default=None, description="The region where the check was executed from.")
-    __properties: ClassVar[List[str]] = ["check_server_id", "status", "execution_group_id", "response_time", "check_id", "check_metadata", "created_at", "error_message", "execution_id", "check_type", "execution_group", "check_server", "check_name", "id", "result_type", "triggered_alerts", "region"]
+    __properties: ClassVar[List[str]] = ["id", "execution_id", "execution_group_id", "check_id", "check_name", "result_type", "check_type", "region", "status", "response_time", "error_message", "check_metadata", "created_at", "execution_group", "triggered_alerts", "check_server_id", "check_server"]
 
     @field_validator('result_type')
     def result_type_validate_enum(cls, value):
@@ -59,7 +60,8 @@ class UnifiedResult(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -71,8 +73,7 @@ class UnifiedResult(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -101,17 +102,17 @@ class UnifiedResult(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "execution_group_id",
-            "created_at",
-            "execution_id",
-            "check_type",
-            "execution_group",
-            "check_server",
-            "check_name",
             "id",
+            "execution_id",
+            "execution_group_id",
+            "check_name",
             "result_type",
-            "triggered_alerts",
+            "check_type",
             "region",
+            "created_at",
+            "execution_group",
+            "triggered_alerts",
+            "check_server",
         ])
 
         _dict = self.model_dump(
@@ -122,6 +123,11 @@ class UnifiedResult(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of check_server
         if self.check_server:
             _dict['check_server'] = self.check_server.to_dict()
+        # set to None if execution_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.execution_id is None and "execution_id" in self.model_fields_set:
+            _dict['execution_id'] = None
+
         # set to None if execution_group_id (nullable) is None
         # and model_fields_set contains the field
         if self.execution_group_id is None and "execution_group_id" in self.model_fields_set:
@@ -131,11 +137,6 @@ class UnifiedResult(BaseModel):
         # and model_fields_set contains the field
         if self.error_message is None and "error_message" in self.model_fields_set:
             _dict['error_message'] = None
-
-        # set to None if execution_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.execution_id is None and "execution_id" in self.model_fields_set:
-            _dict['execution_id'] = None
 
         # set to None if execution_group (nullable) is None
         # and model_fields_set contains the field
@@ -159,23 +160,23 @@ class UnifiedResult(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "check_server_id": obj.get("check_server_id"),
-            "status": obj.get("status"),
+            "id": obj.get("id"),
+            "execution_id": obj.get("execution_id"),
             "execution_group_id": obj.get("execution_group_id"),
-            "response_time": obj.get("response_time"),
             "check_id": obj.get("check_id"),
+            "check_name": obj.get("check_name"),
+            "result_type": obj.get("result_type"),
+            "check_type": obj.get("check_type"),
+            "region": obj.get("region"),
+            "status": obj.get("status"),
+            "response_time": obj.get("response_time"),
+            "error_message": obj.get("error_message"),
             "check_metadata": obj.get("check_metadata"),
             "created_at": obj.get("created_at"),
-            "error_message": obj.get("error_message"),
-            "execution_id": obj.get("execution_id"),
-            "check_type": obj.get("check_type"),
             "execution_group": obj.get("execution_group"),
-            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None,
-            "check_name": obj.get("check_name"),
-            "id": obj.get("id"),
-            "result_type": obj.get("result_type"),
             "triggered_alerts": obj.get("triggered_alerts"),
-            "region": obj.get("region")
+            "check_server_id": obj.get("check_server_id"),
+            "check_server": CheckServer.from_dict(obj["check_server"]) if obj.get("check_server") is not None else None
         })
         return _obj
 

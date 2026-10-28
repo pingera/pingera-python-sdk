@@ -22,15 +22,16 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IncidentUpdateCreate(BaseModel):
     """
     IncidentUpdateCreate
     """ # noqa: E501
-    body: Optional[StrictStr] = Field(default=None, description="The content/message of the incident update.")
-    status: StrictStr = Field(description="The incident status for this update.")
-    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.")
-    __properties: ClassVar[List[str]] = ["body", "status", "deliver_notifications"]
+    status: StrictStr = Field(description="The incident status for this update.", json_schema_extra={"examples": ["identified"]})
+    body: Optional[StrictStr] = Field(default=None, description="The content/message of the incident update.", json_schema_extra={"examples": ["We have identified the root cause and are implementing a fix."]})
+    deliver_notifications: Optional[StrictBool] = Field(default=True, description="Whether to send notifications for this update.", json_schema_extra={"examples": [True]})
+    __properties: ClassVar[List[str]] = ["status", "body", "deliver_notifications"]
 
     @field_validator('status')
     def status_validate_enum(cls, value):
@@ -40,7 +41,8 @@ class IncidentUpdateCreate(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -52,8 +54,7 @@ class IncidentUpdateCreate(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -90,8 +91,8 @@ class IncidentUpdateCreate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "body": obj.get("body"),
             "status": obj.get("status"),
+            "body": obj.get("body"),
             "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else True
         })
         return _obj

@@ -23,21 +23,23 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class HeartbeatPing(BaseModel):
     """
     HeartbeatPing
     """ # noqa: E501
-    received_at: Optional[datetime] = Field(default=None, description="The timestamp when the ping was received in ISO format.")
-    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check this ping belongs to.")
-    source_ip: Optional[StrictStr] = Field(default=None, description="The IP address from which the ping was sent.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat ping.")
-    user_agent: Optional[StrictStr] = Field(default=None, description="The User-Agent header from the ping request.")
-    ping_data: Optional[Dict[str, Any]] = Field(default=None, description="Additional JSON data sent with the ping request.")
-    __properties: ClassVar[List[str]] = ["received_at", "check_id", "source_ip", "id", "user_agent", "ping_data"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the heartbeat ping.", json_schema_extra={"examples": ["ping789xyz012"]})
+    check_id: Optional[StrictStr] = Field(default=None, description="The identifier of the heartbeat check this ping belongs to.", json_schema_extra={"examples": ["abc123def456"]})
+    received_at: Optional[datetime] = Field(default=None, description="The timestamp when the ping was received in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]})
+    source_ip: Optional[StrictStr] = Field(default=None, description="The IP address from which the ping was sent.", json_schema_extra={"examples": ["192.168.1.100"]})
+    user_agent: Optional[StrictStr] = Field(default=None, description="The User-Agent header from the ping request.", json_schema_extra={"examples": ["curl/7.68.0"]})
+    ping_data: Optional[Dict[str, Any]] = Field(default=None, description="Additional JSON data sent with the ping request.", json_schema_extra={"examples": [{"status": "ok", "message": "Backup completed successfully"}]})
+    __properties: ClassVar[List[str]] = ["id", "check_id", "received_at", "source_ip", "user_agent", "ping_data"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +51,7 @@ class HeartbeatPing(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -74,10 +75,10 @@ class HeartbeatPing(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "received_at",
-            "check_id",
-            "source_ip",
             "id",
+            "check_id",
+            "received_at",
+            "source_ip",
             "user_agent",
             "ping_data",
         ])
@@ -99,10 +100,10 @@ class HeartbeatPing(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "received_at": obj.get("received_at"),
-            "check_id": obj.get("check_id"),
-            "source_ip": obj.get("source_ip"),
             "id": obj.get("id"),
+            "check_id": obj.get("check_id"),
+            "received_at": obj.get("received_at"),
+            "source_ip": obj.get("source_ip"),
             "user_agent": obj.get("user_agent"),
             "ping_data": obj.get("ping_data")
         })

@@ -23,17 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.execution_group import ExecutionGroup
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ExecutionGroupList(BaseModel):
     """
     ExecutionGroupList
     """ # noqa: E501
     execution_groups: Optional[List[ExecutionGroup]] = Field(default=None, description="List of execution groups")
-    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information")
+    pagination: Optional[Dict[str, Any]] = Field(default=None, description="Pagination information", json_schema_extra={"examples": [{"page": 1, "page_size": 20, "total_pages": 3, "total_items": 45}]})
     __properties: ClassVar[List[str]] = ["execution_groups", "pagination"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class ExecutionGroupList(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,8 +76,7 @@ class ExecutionGroupList(BaseModel):
         _items = []
         if self.execution_groups:
             for _item_execution_groups in self.execution_groups:
-                if _item_execution_groups:
-                    _items.append(_item_execution_groups.to_dict())
+                _items.append(_item_execution_groups.to_dict() if _item_execution_groups is not None else None)
             _dict['execution_groups'] = _items
         return _dict
 

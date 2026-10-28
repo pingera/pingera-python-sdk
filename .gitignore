@@ -163,7 +163,6 @@ cython_debug/
 .vscode/
 
 # Attached assets and temporary files
-attached_assets/
 
 # Replit specific files (keep main .replit config)
 # .replit

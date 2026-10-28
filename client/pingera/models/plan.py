@@ -23,21 +23,23 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Plan(BaseModel):
     """
     Plan
     """ # noqa: E501
-    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the plan features and benefits.")
-    price: Optional[Dict[str, Any]] = Field(default=None, description="Pricing information for the plan in different currencies.")
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The name of the subscription plan. Maximum 100 characters.")
-    duration: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The duration of the plan subscription in days. Minimum is 1 day.")
-    limits: Optional[Dict[str, Any]] = Field(default=None, description="Usage limits and quotas for the plan features.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the subscription plan.")
-    __properties: ClassVar[List[str]] = ["description", "price", "name", "duration", "limits", "id"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the subscription plan.", json_schema_extra={"examples": ["plan_free_123"]})
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="The name of the subscription plan. Maximum 100 characters.", json_schema_extra={"examples": ["Free Plan"]})
+    description: Optional[StrictStr] = Field(default=None, description="A detailed description of the plan features and benefits.", json_schema_extra={"examples": ["Perfect for getting started with basic monitoring needs"]})
+    price: Optional[Dict[str, Any]] = Field(default=None, description="Pricing information for the plan in different currencies.", json_schema_extra={"examples": [{"USD": 0, "EUR": 0}]})
+    limits: Optional[Dict[str, Any]] = Field(default=None, description="Usage limits and quotas for the plan features.", json_schema_extra={"examples": [{"checks": 10, "heartbeats": 5, "alert_channels": 3}]})
+    duration: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="The duration of the plan subscription in days. Minimum is 1 day.", json_schema_extra={"examples": [30]})
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "price", "limits", "duration"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +51,7 @@ class Plan(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -89,12 +90,12 @@ class Plan(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
+            "name": obj.get("name"),
             "description": obj.get("description"),
             "price": obj.get("price"),
-            "name": obj.get("name"),
-            "duration": obj.get("duration"),
             "limits": obj.get("limits"),
-            "id": obj.get("id")
+            "duration": obj.get("duration")
         })
         return _obj
 

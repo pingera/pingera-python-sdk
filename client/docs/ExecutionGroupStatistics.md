@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**completed_executions** | **int** | Number of completed executions | [optional] 
-**max_response_time** | **int** | Slowest response time across regions in milliseconds | [optional] 
-**failed_executions** | **int** | Number of failed executions | [optional] 
 **total_executions** | **int** | Total number of regional executions expected | [optional] 
+**completed_executions** | **int** | Number of completed executions | [optional] 
+**failed_executions** | **int** | Number of failed executions | [optional] 
 **avg_response_time** | **int** | Average response time across all regions in milliseconds | [optional] 
 **min_response_time** | **int** | Fastest response time across regions in milliseconds | [optional] 
+**max_response_time** | **int** | Slowest response time across regions in milliseconds | [optional] 
 
 ## Example
 

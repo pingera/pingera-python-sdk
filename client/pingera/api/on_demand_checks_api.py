@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -103,6 +102,7 @@ class OnDemandChecksApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -175,6 +175,7 @@ class OnDemandChecksApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,6 +248,7 @@ class OnDemandChecksApi:
             '403': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -380,6 +382,7 @@ class OnDemandChecksApi:
             '401': None,
             '403': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -452,6 +455,7 @@ class OnDemandChecksApi:
             '401': None,
             '403': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -524,6 +528,7 @@ class OnDemandChecksApi:
             '401': None,
             '403': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -676,6 +681,7 @@ class OnDemandChecksApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -754,6 +760,7 @@ class OnDemandChecksApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -832,6 +839,7 @@ class OnDemandChecksApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -975,6 +983,7 @@ class OnDemandChecksApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1045,6 +1054,7 @@ class OnDemandChecksApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1115,6 +1125,7 @@ class OnDemandChecksApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -23,20 +23,22 @@ from typing import Any, ClassVar, Dict, List, Optional
 from pingera.models.user import User
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AuthenticationCompleteResponse(BaseModel):
     """
     AuthenticationCompleteResponse
     """ # noqa: E501
-    auth_method: Optional[StrictStr] = Field(default=None, description="The authentication method used.")
     access_token: Optional[StrictStr] = Field(default=None, description="A JWT access token for authenticating subsequent requests.")
-    is_first_login: Optional[StrictBool] = Field(default=None, description="Indicates if this is the user's first successful authentication.")
     refresh_token: Optional[StrictStr] = Field(default=None, description="A JWT refresh token for generating new access tokens.")
     user: Optional[User] = Field(default=None, description="Information about the authenticated user.")
-    __properties: ClassVar[List[str]] = ["auth_method", "access_token", "is_first_login", "refresh_token", "user"]
+    auth_method: Optional[StrictStr] = Field(default=None, description="The authentication method used.", json_schema_extra={"examples": ["passkey"]})
+    is_first_login: Optional[StrictBool] = Field(default=None, description="Indicates if this is the user's first successful authentication.")
+    __properties: ClassVar[List[str]] = ["access_token", "refresh_token", "user", "auth_method", "is_first_login"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,8 +50,7 @@ class AuthenticationCompleteResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,11 +73,11 @@ class AuthenticationCompleteResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "auth_method",
             "access_token",
-            "is_first_login",
             "refresh_token",
             "user",
+            "auth_method",
+            "is_first_login",
         ])
 
         _dict = self.model_dump(
@@ -99,11 +100,11 @@ class AuthenticationCompleteResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "auth_method": obj.get("auth_method"),
             "access_token": obj.get("access_token"),
-            "is_first_login": obj.get("is_first_login"),
             "refresh_token": obj.get("refresh_token"),
-            "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None
+            "user": User.from_dict(obj["user"]) if obj.get("user") is not None else None,
+            "auth_method": obj.get("auth_method"),
+            "is_first_login": obj.get("is_first_login")
         })
         return _obj
 

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -11,6 +9,7 @@
 
     Do not edit the class manually.
 """  # noqa: E501
+
 
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
@@ -44,19 +43,19 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_all_results_get(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.")] = None,
-        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID. Shows all regional results from a multi-region execution.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
-        result_id: Annotated[Optional[StrictStr], Field(description="Filter by specific result ID to get a single result.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
-        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
-        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (starting from 1).")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID. Shows all regional results from a multi-region execution.")] = None,
+        result_id: Annotated[Optional[StrictStr], Field(description="Filter by specific result ID to get a single result.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
+        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -74,32 +73,32 @@ class ChecksUnifiedResultsApi:
 
         Get all check results (regular and on-demand) for the organization, sorted by creation date. Supports filtering by check ID, result ID, job ID, status, type, region, execution group, date range, and alert presence. Date range is limited to 6 months in the past.
 
-        :param status: Filter by check result status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.
-        :type is_multi_region: bool
-        :param page_size: Number of results per page (maximum 100).
-        :type page_size: int
-        :param execution_group_id: Filter by specific execution group ID. Shows all regional results from a multi-region execution.
-        :type execution_group_id: str
-        :param end_date: End date for filtering results (ISO format).
-        :type end_date: datetime
-        :param result_id: Filter by specific result ID to get a single result.
-        :type result_id: str
-        :param check_id: Filter by specific check ID.
-        :type check_id: str
-        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
-        :type has_alerts: bool
-        :param check_type: Filter by check type.
-        :type check_type: str
-        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param result_type: Filter by result type.
-        :type result_type: str
         :param page: Page number for pagination (starting from 1).
         :type page: int
+        :param page_size: Number of results per page (maximum 100).
+        :type page_size: int
+        :param check_id: Filter by specific check ID.
+        :type check_id: str
+        :param status: Filter by check result status.
+        :type status: str
+        :param check_type: Filter by check type.
+        :type check_type: str
+        :param result_type: Filter by result type.
+        :type result_type: str
         :param region: Filter by region where check was executed.
         :type region: str
+        :param execution_group_id: Filter by specific execution group ID. Shows all regional results from a multi-region execution.
+        :type execution_group_id: str
+        :param result_id: Filter by specific result ID to get a single result.
+        :type result_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.
+        :type is_multi_region: bool
+        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for filtering results (ISO format).
+        :type end_date: datetime
+        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
+        :type has_alerts: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -123,19 +122,19 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_all_results_get_serialize(
-            status=status,
-            is_multi_region=is_multi_region,
-            page_size=page_size,
-            execution_group_id=execution_group_id,
-            end_date=end_date,
-            result_id=result_id,
-            check_id=check_id,
-            has_alerts=has_alerts,
-            check_type=check_type,
-            start_date=start_date,
-            result_type=result_type,
             page=page,
+            page_size=page_size,
+            check_id=check_id,
+            status=status,
+            check_type=check_type,
+            result_type=result_type,
             region=region,
+            execution_group_id=execution_group_id,
+            result_id=result_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
+            has_alerts=has_alerts,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -148,6 +147,7 @@ class ChecksUnifiedResultsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -163,19 +163,19 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_all_results_get_with_http_info(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.")] = None,
-        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID. Shows all regional results from a multi-region execution.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
-        result_id: Annotated[Optional[StrictStr], Field(description="Filter by specific result ID to get a single result.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
-        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
-        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (starting from 1).")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID. Shows all regional results from a multi-region execution.")] = None,
+        result_id: Annotated[Optional[StrictStr], Field(description="Filter by specific result ID to get a single result.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
+        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -193,32 +193,32 @@ class ChecksUnifiedResultsApi:
 
         Get all check results (regular and on-demand) for the organization, sorted by creation date. Supports filtering by check ID, result ID, job ID, status, type, region, execution group, date range, and alert presence. Date range is limited to 6 months in the past.
 
-        :param status: Filter by check result status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.
-        :type is_multi_region: bool
-        :param page_size: Number of results per page (maximum 100).
-        :type page_size: int
-        :param execution_group_id: Filter by specific execution group ID. Shows all regional results from a multi-region execution.
-        :type execution_group_id: str
-        :param end_date: End date for filtering results (ISO format).
-        :type end_date: datetime
-        :param result_id: Filter by specific result ID to get a single result.
-        :type result_id: str
-        :param check_id: Filter by specific check ID.
-        :type check_id: str
-        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
-        :type has_alerts: bool
-        :param check_type: Filter by check type.
-        :type check_type: str
-        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param result_type: Filter by result type.
-        :type result_type: str
         :param page: Page number for pagination (starting from 1).
         :type page: int
+        :param page_size: Number of results per page (maximum 100).
+        :type page_size: int
+        :param check_id: Filter by specific check ID.
+        :type check_id: str
+        :param status: Filter by check result status.
+        :type status: str
+        :param check_type: Filter by check type.
+        :type check_type: str
+        :param result_type: Filter by result type.
+        :type result_type: str
         :param region: Filter by region where check was executed.
         :type region: str
+        :param execution_group_id: Filter by specific execution group ID. Shows all regional results from a multi-region execution.
+        :type execution_group_id: str
+        :param result_id: Filter by specific result ID to get a single result.
+        :type result_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.
+        :type is_multi_region: bool
+        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for filtering results (ISO format).
+        :type end_date: datetime
+        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
+        :type has_alerts: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -242,19 +242,19 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_all_results_get_serialize(
-            status=status,
-            is_multi_region=is_multi_region,
-            page_size=page_size,
-            execution_group_id=execution_group_id,
-            end_date=end_date,
-            result_id=result_id,
-            check_id=check_id,
-            has_alerts=has_alerts,
-            check_type=check_type,
-            start_date=start_date,
-            result_type=result_type,
             page=page,
+            page_size=page_size,
+            check_id=check_id,
+            status=status,
+            check_type=check_type,
+            result_type=result_type,
             region=region,
+            execution_group_id=execution_group_id,
+            result_id=result_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
+            has_alerts=has_alerts,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -267,6 +267,7 @@ class ChecksUnifiedResultsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -282,19 +283,19 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_all_results_get_without_preload_content(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.")] = None,
-        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID. Shows all regional results from a multi-region execution.")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
-        result_id: Annotated[Optional[StrictStr], Field(description="Filter by specific result ID to get a single result.")] = None,
-        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
-        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
-        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="Page number for pagination (starting from 1).")] = None,
+        page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results per page (maximum 100).")] = None,
+        check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check result status.")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by region where check was executed.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID. Shows all regional results from a multi-region execution.")] = None,
+        result_id: Annotated[Optional[StrictStr], Field(description="Filter by specific result ID to get a single result.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for filtering results (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for filtering results (ISO format).")] = None,
+        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -312,32 +313,32 @@ class ChecksUnifiedResultsApi:
 
         Get all check results (regular and on-demand) for the organization, sorted by creation date. Supports filtering by check ID, result ID, job ID, status, type, region, execution group, date range, and alert presence. Date range is limited to 6 months in the past.
 
-        :param status: Filter by check result status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.
-        :type is_multi_region: bool
-        :param page_size: Number of results per page (maximum 100).
-        :type page_size: int
-        :param execution_group_id: Filter by specific execution group ID. Shows all regional results from a multi-region execution.
-        :type execution_group_id: str
-        :param end_date: End date for filtering results (ISO format).
-        :type end_date: datetime
-        :param result_id: Filter by specific result ID to get a single result.
-        :type result_id: str
-        :param check_id: Filter by specific check ID.
-        :type check_id: str
-        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
-        :type has_alerts: bool
-        :param check_type: Filter by check type.
-        :type check_type: str
-        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param result_type: Filter by result type.
-        :type result_type: str
         :param page: Page number for pagination (starting from 1).
         :type page: int
+        :param page_size: Number of results per page (maximum 100).
+        :type page_size: int
+        :param check_id: Filter by specific check ID.
+        :type check_id: str
+        :param status: Filter by check result status.
+        :type status: str
+        :param check_type: Filter by check type.
+        :type check_type: str
+        :param result_type: Filter by result type.
+        :type result_type: str
         :param region: Filter by region where check was executed.
         :type region: str
+        :param execution_group_id: Filter by specific execution group ID. Shows all regional results from a multi-region execution.
+        :type execution_group_id: str
+        :param result_id: Filter by specific result ID to get a single result.
+        :type result_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false). Omit to show all results.
+        :type is_multi_region: bool
+        :param start_date: Start date for filtering results (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for filtering results (ISO format).
+        :type end_date: datetime
+        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
+        :type has_alerts: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -361,19 +362,19 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_all_results_get_serialize(
-            status=status,
-            is_multi_region=is_multi_region,
-            page_size=page_size,
-            execution_group_id=execution_group_id,
-            end_date=end_date,
-            result_id=result_id,
-            check_id=check_id,
-            has_alerts=has_alerts,
-            check_type=check_type,
-            start_date=start_date,
-            result_type=result_type,
             page=page,
+            page_size=page_size,
+            check_id=check_id,
+            status=status,
+            check_type=check_type,
+            result_type=result_type,
             region=region,
+            execution_group_id=execution_group_id,
+            result_id=result_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
+            has_alerts=has_alerts,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -386,6 +387,7 @@ class ChecksUnifiedResultsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -396,19 +398,19 @@ class ChecksUnifiedResultsApi:
 
     def _v1_checks_all_results_get_serialize(
         self,
-        status,
-        is_multi_region,
-        page_size,
-        execution_group_id,
-        end_date,
-        result_id,
-        check_id,
-        has_alerts,
-        check_type,
-        start_date,
-        result_type,
         page,
+        page_size,
+        check_id,
+        status,
+        check_type,
+        result_type,
         region,
+        execution_group_id,
+        result_id,
+        is_multi_region,
+        start_date,
+        end_date,
+        has_alerts,
         _request_auth,
         _content_type,
         _headers,
@@ -431,50 +433,45 @@ class ChecksUnifiedResultsApi:
 
         # process the path parameters
         # process the query parameters
-        if status is not None:
+        if page is not None:
             
-            _query_params.append(('status', status))
-            
-        if is_multi_region is not None:
-            
-            _query_params.append(('is_multi_region', is_multi_region))
+            _query_params.append(('page', page))
             
         if page_size is not None:
             
             _query_params.append(('page_size', page_size))
             
+        if check_id is not None:
+            
+            _query_params.append(('check_id', check_id))
+            
+        if status is not None:
+            
+            _query_params.append(('status', status))
+            
+        if check_type is not None:
+            
+            _query_params.append(('check_type', check_type))
+            
+        if result_type is not None:
+            
+            _query_params.append(('result_type', result_type))
+            
+        if region is not None:
+            
+            _query_params.append(('region', region))
+            
         if execution_group_id is not None:
             
             _query_params.append(('execution_group_id', execution_group_id))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'end_date',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('end_date', end_date))
             
         if result_id is not None:
             
             _query_params.append(('result_id', result_id))
             
-        if check_id is not None:
+        if is_multi_region is not None:
             
-            _query_params.append(('check_id', check_id))
-            
-        if has_alerts is not None:
-            
-            _query_params.append(('has_alerts', has_alerts))
-            
-        if check_type is not None:
-            
-            _query_params.append(('check_type', check_type))
+            _query_params.append(('is_multi_region', is_multi_region))
             
         if start_date is not None:
             if isinstance(start_date, datetime):
@@ -489,17 +486,22 @@ class ChecksUnifiedResultsApi:
             else:
                 _query_params.append(('start_date', start_date))
             
-        if result_type is not None:
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
             
-            _query_params.append(('result_type', result_type))
+        if has_alerts is not None:
             
-        if page is not None:
-            
-            _query_params.append(('page', page))
-            
-        if region is not None:
-            
-            _query_params.append(('region', region))
+            _query_params.append(('has_alerts', has_alerts))
             
         # process the header parameters
         # process the form parameters
@@ -543,12 +545,12 @@ class ChecksUnifiedResultsApi:
     def v1_checks_check_id_response_times_get(
         self,
         check_id: Annotated[str, Field(min_length=1, strict=True)],
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -568,18 +570,18 @@ class ChecksUnifiedResultsApi:
 
         :param check_id: (required)
         :type check_id: str
-        :param status: Filter by check status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
-        :type is_multi_region: bool
-        :param end_date: End date for metrics (ISO format).
-        :type end_date: datetime
-        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
-        :type execution_group_id: str
-        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
         :param region: Filter by specific region.
         :type region: str
+        :param status: Filter by check status.
+        :type status: str
+        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
+        :type execution_group_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
+        :type is_multi_region: bool
+        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for metrics (ISO format).
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -604,12 +606,12 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_check_id_response_times_get_serialize(
             check_id=check_id,
-            status=status,
-            is_multi_region=is_multi_region,
-            end_date=end_date,
-            execution_group_id=execution_group_id,
-            start_date=start_date,
             region=region,
+            status=status,
+            execution_group_id=execution_group_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -623,6 +625,7 @@ class ChecksUnifiedResultsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -639,12 +642,12 @@ class ChecksUnifiedResultsApi:
     def v1_checks_check_id_response_times_get_with_http_info(
         self,
         check_id: Annotated[str, Field(min_length=1, strict=True)],
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -664,18 +667,18 @@ class ChecksUnifiedResultsApi:
 
         :param check_id: (required)
         :type check_id: str
-        :param status: Filter by check status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
-        :type is_multi_region: bool
-        :param end_date: End date for metrics (ISO format).
-        :type end_date: datetime
-        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
-        :type execution_group_id: str
-        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
         :param region: Filter by specific region.
         :type region: str
+        :param status: Filter by check status.
+        :type status: str
+        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
+        :type execution_group_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
+        :type is_multi_region: bool
+        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for metrics (ISO format).
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -700,12 +703,12 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_check_id_response_times_get_serialize(
             check_id=check_id,
-            status=status,
-            is_multi_region=is_multi_region,
-            end_date=end_date,
-            execution_group_id=execution_group_id,
-            start_date=start_date,
             region=region,
+            status=status,
+            execution_group_id=execution_group_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -719,6 +722,7 @@ class ChecksUnifiedResultsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -735,12 +739,12 @@ class ChecksUnifiedResultsApi:
     def v1_checks_check_id_response_times_get_without_preload_content(
         self,
         check_id: Annotated[str, Field(min_length=1, strict=True)],
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for metrics (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for metrics (ISO format).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -760,18 +764,18 @@ class ChecksUnifiedResultsApi:
 
         :param check_id: (required)
         :type check_id: str
-        :param status: Filter by check status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
-        :type is_multi_region: bool
-        :param end_date: End date for metrics (ISO format).
-        :type end_date: datetime
-        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
-        :type execution_group_id: str
-        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
         :param region: Filter by specific region.
         :type region: str
+        :param status: Filter by check status.
+        :type status: str
+        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
+        :type execution_group_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
+        :type is_multi_region: bool
+        :param start_date: Start date for metrics (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for metrics (ISO format).
+        :type end_date: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -796,12 +800,12 @@ class ChecksUnifiedResultsApi:
 
         _param = self._v1_checks_check_id_response_times_get_serialize(
             check_id=check_id,
-            status=status,
-            is_multi_region=is_multi_region,
-            end_date=end_date,
-            execution_group_id=execution_group_id,
-            start_date=start_date,
             region=region,
+            status=status,
+            execution_group_id=execution_group_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -815,6 +819,7 @@ class ChecksUnifiedResultsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -826,12 +831,12 @@ class ChecksUnifiedResultsApi:
     def _v1_checks_check_id_response_times_get_serialize(
         self,
         check_id,
-        status,
-        is_multi_region,
-        end_date,
-        execution_group_id,
-        start_date,
         region,
+        status,
+        execution_group_id,
+        is_multi_region,
+        start_date,
+        end_date,
         _request_auth,
         _content_type,
         _headers,
@@ -856,30 +861,21 @@ class ChecksUnifiedResultsApi:
         if check_id is not None:
             _path_params['check_id'] = check_id
         # process the query parameters
+        if region is not None:
+            
+            _query_params.append(('region', region))
+            
         if status is not None:
             
             _query_params.append(('status', status))
             
-        if is_multi_region is not None:
-            
-            _query_params.append(('is_multi_region', is_multi_region))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'end_date',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('end_date', end_date))
-            
         if execution_group_id is not None:
             
             _query_params.append(('execution_group_id', execution_group_id))
+            
+        if is_multi_region is not None:
+            
+            _query_params.append(('is_multi_region', is_multi_region))
             
         if start_date is not None:
             if isinstance(start_date, datetime):
@@ -894,9 +890,18 @@ class ChecksUnifiedResultsApi:
             else:
                 _query_params.append(('start_date', start_date))
             
-        if region is not None:
-            
-            _query_params.append(('region', region))
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
             
         # process the header parameters
         # process the form parameters
@@ -939,15 +944,16 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_status_history_get(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
         check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
-        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
+        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type (e.g., web, synthetic, multistep, api, ssl, icmp, dns, tcp, port_scan).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -965,24 +971,26 @@ class ChecksUnifiedResultsApi:
 
         Get a time-bucketed history of check counts by status for a check or all checks. Returns counts for each status (ok, failed, degraded, timeout) grouped by region and time bucket. If no check_id is provided, returns metrics for all checks in the organization. Can be filtered by result type (regular or on_demand), execution group, and by alert presence.
 
-        :param status: Filter by check status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
-        :type is_multi_region: bool
-        :param end_date: End date for status history (ISO format).
-        :type end_date: datetime
-        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
-        :type execution_group_id: str
         :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
         :type check_id: str
-        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
-        :type has_alerts: bool
-        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param result_type: Filter by result type.
-        :type result_type: str
         :param region: Filter by specific region.
         :type region: str
+        :param status: Filter by check status.
+        :type status: str
+        :param result_type: Filter by result type.
+        :type result_type: str
+        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
+        :type execution_group_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
+        :type is_multi_region: bool
+        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for status history (ISO format).
+        :type end_date: datetime
+        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
+        :type has_alerts: bool
+        :param check_type: Filter by check type (e.g., web, synthetic, multistep, api, ssl, icmp, dns, tcp, port_scan).
+        :type check_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1006,15 +1014,16 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_status_history_get_serialize(
-            status=status,
-            is_multi_region=is_multi_region,
-            end_date=end_date,
-            execution_group_id=execution_group_id,
             check_id=check_id,
-            has_alerts=has_alerts,
-            start_date=start_date,
-            result_type=result_type,
             region=region,
+            status=status,
+            result_type=result_type,
+            execution_group_id=execution_group_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
+            has_alerts=has_alerts,
+            check_type=check_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1027,6 +1036,7 @@ class ChecksUnifiedResultsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1042,15 +1052,16 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_status_history_get_with_http_info(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
         check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
-        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
+        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type (e.g., web, synthetic, multistep, api, ssl, icmp, dns, tcp, port_scan).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1068,24 +1079,26 @@ class ChecksUnifiedResultsApi:
 
         Get a time-bucketed history of check counts by status for a check or all checks. Returns counts for each status (ok, failed, degraded, timeout) grouped by region and time bucket. If no check_id is provided, returns metrics for all checks in the organization. Can be filtered by result type (regular or on_demand), execution group, and by alert presence.
 
-        :param status: Filter by check status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
-        :type is_multi_region: bool
-        :param end_date: End date for status history (ISO format).
-        :type end_date: datetime
-        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
-        :type execution_group_id: str
         :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
         :type check_id: str
-        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
-        :type has_alerts: bool
-        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param result_type: Filter by result type.
-        :type result_type: str
         :param region: Filter by specific region.
         :type region: str
+        :param status: Filter by check status.
+        :type status: str
+        :param result_type: Filter by result type.
+        :type result_type: str
+        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
+        :type execution_group_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
+        :type is_multi_region: bool
+        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for status history (ISO format).
+        :type end_date: datetime
+        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
+        :type has_alerts: bool
+        :param check_type: Filter by check type (e.g., web, synthetic, multistep, api, ssl, icmp, dns, tcp, port_scan).
+        :type check_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1109,15 +1122,16 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_status_history_get_serialize(
-            status=status,
-            is_multi_region=is_multi_region,
-            end_date=end_date,
-            execution_group_id=execution_group_id,
             check_id=check_id,
-            has_alerts=has_alerts,
-            start_date=start_date,
-            result_type=result_type,
             region=region,
+            status=status,
+            result_type=result_type,
+            execution_group_id=execution_group_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
+            has_alerts=has_alerts,
+            check_type=check_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1130,6 +1144,7 @@ class ChecksUnifiedResultsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1145,15 +1160,16 @@ class ChecksUnifiedResultsApi:
     @validate_call
     def v1_checks_status_history_get_without_preload_content(
         self,
-        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
-        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
-        end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
-        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
         check_id: Annotated[Optional[StrictStr], Field(description="Filter by specific check ID. If not provided, returns metrics for all checks.")] = None,
-        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
-        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
-        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
         region: Annotated[Optional[StrictStr], Field(description="Filter by specific region.")] = None,
+        status: Annotated[Optional[StrictStr], Field(description="Filter by check status.")] = None,
+        result_type: Annotated[Optional[StrictStr], Field(description="Filter by result type.")] = None,
+        execution_group_id: Annotated[Optional[StrictStr], Field(description="Filter by specific execution group ID for multi-region analysis.")] = None,
+        is_multi_region: Annotated[Optional[StrictBool], Field(description="Filter to show only multi-region executions (true) or only single-region executions (false).")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="Start date for status history (ISO format). Limited to 6 months in the past.")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="End date for status history (ISO format).")] = None,
+        has_alerts: Annotated[Optional[StrictBool], Field(description="Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.")] = None,
+        check_type: Annotated[Optional[StrictStr], Field(description="Filter by check type (e.g., web, synthetic, multistep, api, ssl, icmp, dns, tcp, port_scan).")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1171,24 +1187,26 @@ class ChecksUnifiedResultsApi:
 
         Get a time-bucketed history of check counts by status for a check or all checks. Returns counts for each status (ok, failed, degraded, timeout) grouped by region and time bucket. If no check_id is provided, returns metrics for all checks in the organization. Can be filtered by result type (regular or on_demand), execution group, and by alert presence.
 
-        :param status: Filter by check status.
-        :type status: str
-        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
-        :type is_multi_region: bool
-        :param end_date: End date for status history (ISO format).
-        :type end_date: datetime
-        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
-        :type execution_group_id: str
         :param check_id: Filter by specific check ID. If not provided, returns metrics for all checks.
         :type check_id: str
-        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
-        :type has_alerts: bool
-        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
-        :type start_date: datetime
-        :param result_type: Filter by result type.
-        :type result_type: str
         :param region: Filter by specific region.
         :type region: str
+        :param status: Filter by check status.
+        :type status: str
+        :param result_type: Filter by result type.
+        :type result_type: str
+        :param execution_group_id: Filter by specific execution group ID for multi-region analysis.
+        :type execution_group_id: str
+        :param is_multi_region: Filter to show only multi-region executions (true) or only single-region executions (false).
+        :type is_multi_region: bool
+        :param start_date: Start date for status history (ISO format). Limited to 6 months in the past.
+        :type start_date: datetime
+        :param end_date: End date for status history (ISO format).
+        :type end_date: datetime
+        :param has_alerts: Filter to show only results that have triggered alerts (true) or only results without alerts (false). Omit to show all results.
+        :type has_alerts: bool
+        :param check_type: Filter by check type (e.g., web, synthetic, multistep, api, ssl, icmp, dns, tcp, port_scan).
+        :type check_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1212,15 +1230,16 @@ class ChecksUnifiedResultsApi:
         """ # noqa: E501
 
         _param = self._v1_checks_status_history_get_serialize(
-            status=status,
-            is_multi_region=is_multi_region,
-            end_date=end_date,
-            execution_group_id=execution_group_id,
             check_id=check_id,
-            has_alerts=has_alerts,
-            start_date=start_date,
-            result_type=result_type,
             region=region,
+            status=status,
+            result_type=result_type,
+            execution_group_id=execution_group_id,
+            is_multi_region=is_multi_region,
+            start_date=start_date,
+            end_date=end_date,
+            has_alerts=has_alerts,
+            check_type=check_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1233,6 +1252,7 @@ class ChecksUnifiedResultsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1243,15 +1263,16 @@ class ChecksUnifiedResultsApi:
 
     def _v1_checks_status_history_get_serialize(
         self,
-        status,
-        is_multi_region,
-        end_date,
-        execution_group_id,
         check_id,
-        has_alerts,
-        start_date,
-        result_type,
         region,
+        status,
+        result_type,
+        execution_group_id,
+        is_multi_region,
+        start_date,
+        end_date,
+        has_alerts,
+        check_type,
         _request_auth,
         _content_type,
         _headers,
@@ -1274,38 +1295,29 @@ class ChecksUnifiedResultsApi:
 
         # process the path parameters
         # process the query parameters
+        if check_id is not None:
+            
+            _query_params.append(('check_id', check_id))
+            
+        if region is not None:
+            
+            _query_params.append(('region', region))
+            
         if status is not None:
             
             _query_params.append(('status', status))
             
-        if is_multi_region is not None:
+        if result_type is not None:
             
-            _query_params.append(('is_multi_region', is_multi_region))
-            
-        if end_date is not None:
-            if isinstance(end_date, datetime):
-                _query_params.append(
-                    (
-                        'end_date',
-                        end_date.strftime(
-                            self.api_client.configuration.datetime_format
-                        )
-                    )
-                )
-            else:
-                _query_params.append(('end_date', end_date))
+            _query_params.append(('result_type', result_type))
             
         if execution_group_id is not None:
             
             _query_params.append(('execution_group_id', execution_group_id))
             
-        if check_id is not None:
+        if is_multi_region is not None:
             
-            _query_params.append(('check_id', check_id))
-            
-        if has_alerts is not None:
-            
-            _query_params.append(('has_alerts', has_alerts))
+            _query_params.append(('is_multi_region', is_multi_region))
             
         if start_date is not None:
             if isinstance(start_date, datetime):
@@ -1320,13 +1332,26 @@ class ChecksUnifiedResultsApi:
             else:
                 _query_params.append(('start_date', start_date))
             
-        if result_type is not None:
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'end_date',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('end_date', end_date))
             
-            _query_params.append(('result_type', result_type))
+        if has_alerts is not None:
             
-        if region is not None:
+            _query_params.append(('has_alerts', has_alerts))
             
-            _query_params.append(('region', region))
+        if check_type is not None:
+            
+            _query_params.append(('check_type', check_type))
             
         # process the header parameters
         # process the form parameters

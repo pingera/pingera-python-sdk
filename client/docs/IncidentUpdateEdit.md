@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **body** | **str** | The content of the incident update. | [optional] 
 **created_at** | **datetime** | The timestamp when the update was created in ISO format. | [optional] 
+**components** | **Dict[str, str]** | A dictionary mapping component IDs to their status for this incident update. Providing this field replaces the existing set of affected components for the update. | [optional] 
 
 ## Example
 

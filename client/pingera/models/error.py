@@ -22,19 +22,21 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Error(BaseModel):
     """
     Error
     """ # noqa: E501
-    status: Optional[StrictStr] = Field(default=None, description="Error name")
     code: Optional[StrictInt] = Field(default=None, description="Error code")
-    errors: Optional[Dict[str, Any]] = Field(default=None, description="Errors")
+    status: Optional[StrictStr] = Field(default=None, description="Error name")
     message: Optional[StrictStr] = Field(default=None, description="Error message")
-    __properties: ClassVar[List[str]] = ["status", "code", "errors", "message"]
+    errors: Optional[Dict[str, Any]] = Field(default=None, description="Errors")
+    __properties: ClassVar[List[str]] = ["code", "status", "message", "errors"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +48,7 @@ class Error(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -84,10 +85,10 @@ class Error(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "status": obj.get("status"),
             "code": obj.get("code"),
-            "errors": obj.get("errors"),
-            "message": obj.get("message")
+            "status": obj.get("status"),
+            "message": obj.get("message"),
+            "errors": obj.get("errors")
         })
         return _obj
 

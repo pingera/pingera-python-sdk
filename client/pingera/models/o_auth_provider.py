@@ -22,20 +22,21 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class OAuthProvider(BaseModel):
     """
     OAuthProvider
     """ # noqa: E501
-    is_active: Optional[StrictBool] = Field(default=None, description="Whether this provider is currently available")
-    authorization_url: Optional[StrictStr] = Field(default=None, description="OAuth authorization endpoint")
-    icon_url: Optional[StrictStr] = Field(default=None, description="URL to provider icon/logo for UI")
-    name: Optional[StrictStr] = Field(default=None, description="Provider identifier")
-    display_name: Optional[StrictStr] = Field(default=None, description="Human-readable provider name")
-    __properties: ClassVar[List[str]] = ["is_active", "authorization_url", "icon_url", "name", "display_name"]
+    name: Optional[StrictStr] = Field(default=None, description="Provider identifier", json_schema_extra={"examples": ["yandex"]})
+    display_name: Optional[StrictStr] = Field(default=None, description="Human-readable provider name", json_schema_extra={"examples": ["Yandex.ID"]})
+    icon_url: Optional[StrictStr] = Field(default=None, description="URL to provider icon/logo for UI", json_schema_extra={"examples": ["https://yastatic.net/s3/passport-static/autofill/v2/svg/ya-logo.svg"]})
+    is_active: Optional[StrictBool] = Field(default=None, description="Whether this provider is currently available", json_schema_extra={"examples": [True]})
+    __properties: ClassVar[List[str]] = ["name", "display_name", "icon_url", "is_active"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +48,7 @@ class OAuthProvider(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -68,14 +68,12 @@ class OAuthProvider(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "is_active",
-            "authorization_url",
-            "icon_url",
             "name",
             "display_name",
+            "icon_url",
+            "is_active",
         ])
 
         _dict = self.model_dump(
@@ -100,11 +98,10 @@ class OAuthProvider(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "is_active": obj.get("is_active"),
-            "authorization_url": obj.get("authorization_url"),
-            "icon_url": obj.get("icon_url"),
             "name": obj.get("name"),
-            "display_name": obj.get("display_name")
+            "display_name": obj.get("display_name"),
+            "icon_url": obj.get("icon_url"),
+            "is_active": obj.get("is_active")
         })
         return _obj
 

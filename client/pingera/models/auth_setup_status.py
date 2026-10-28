@@ -22,20 +22,22 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, Strict
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AuthSetupStatus(BaseModel):
     """
     AuthSetupStatus
     """ # noqa: E501
-    has_password: Optional[StrictBool] = Field(default=None, description="Whether user has a password set")
-    oauth_providers: Optional[List[StrictStr]] = Field(default=None, description="Connected OAuth providers")
-    setup_complete: Optional[StrictBool] = Field(default=None, description="Whether authentication setup is complete")
-    passkey_count: Optional[StrictInt] = Field(default=None, description="Number of registered passkeys")
-    two_factor_enabled: Optional[StrictBool] = Field(default=None, description="Whether 2FA is enabled")
-    __properties: ClassVar[List[str]] = ["has_password", "oauth_providers", "setup_complete", "passkey_count", "two_factor_enabled"]
+    has_password: Optional[StrictBool] = Field(default=None, description="Whether user has a password set", json_schema_extra={"examples": [True]})
+    passkey_count: Optional[StrictInt] = Field(default=None, description="Number of registered passkeys", json_schema_extra={"examples": [2]})
+    oauth_providers: Optional[List[StrictStr]] = Field(default=None, description="Connected OAuth providers", json_schema_extra={"examples": [["google", "github"]]})
+    two_factor_enabled: Optional[StrictBool] = Field(default=None, description="Whether 2FA is enabled", json_schema_extra={"examples": [False]})
+    setup_complete: Optional[StrictBool] = Field(default=None, description="Whether authentication setup is complete", json_schema_extra={"examples": [True]})
+    __properties: ClassVar[List[str]] = ["has_password", "passkey_count", "oauth_providers", "two_factor_enabled", "setup_complete"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +49,7 @@ class AuthSetupStatus(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,10 +73,10 @@ class AuthSetupStatus(BaseModel):
         """
         excluded_fields: Set[str] = set([
             "has_password",
-            "oauth_providers",
-            "setup_complete",
             "passkey_count",
+            "oauth_providers",
             "two_factor_enabled",
+            "setup_complete",
         ])
 
         _dict = self.model_dump(
@@ -96,10 +97,10 @@ class AuthSetupStatus(BaseModel):
 
         _obj = cls.model_validate({
             "has_password": obj.get("has_password"),
-            "oauth_providers": obj.get("oauth_providers"),
-            "setup_complete": obj.get("setup_complete"),
             "passkey_count": obj.get("passkey_count"),
-            "two_factor_enabled": obj.get("two_factor_enabled")
+            "oauth_providers": obj.get("oauth_providers"),
+            "two_factor_enabled": obj.get("two_factor_enabled"),
+            "setup_complete": obj.get("setup_complete")
         })
         return _obj
 

@@ -345,7 +345,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Password updated successfully |  -  |
 **400** | Bad Request - Invalid data |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **201** | Password created successfully |  -  |
 **400** | Bad Request - Invalid data |  -  |
 **401** | Unauthorized - Authentication required |  -  |
@@ -516,7 +516,7 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**422** | Unprocessable Entity |  -  |
+**422** | Unprocessable Content |  -  |
 **200** | Password verified successfully, access token returned |  -  |
 **400** | Bad Request - Missing or invalid password |  -  |
 **401** | Unauthorized - Incorrect password |  -  |

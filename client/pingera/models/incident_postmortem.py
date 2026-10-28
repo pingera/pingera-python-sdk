@@ -23,26 +23,28 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class IncidentPostmortem(BaseModel):
     """
     IncidentPostmortem
     """ # noqa: E501
-    notify_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to notify subscribers when the postmortem is published.")
-    body_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the published postmortem body was last updated.")
-    body: Optional[StrictStr] = Field(default=None, description="The published content of the postmortem in Markdown format.")
-    published_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was published and made publicly available.")
-    preview_key: Optional[StrictStr] = Field(default=None, description="A unique key that allows public access to preview the postmortem before it's published.")
-    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was created.")
-    body_draft_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the draft postmortem body was last updated.")
-    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was last updated.")
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident postmortem.")
-    incident_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the incident this postmortem belongs to.")
-    body_draft: Optional[StrictStr] = Field(default=None, description="The draft content of the postmortem that hasn't been published yet.")
-    __properties: ClassVar[List[str]] = ["notify_subscribers", "body_updated_at", "body", "published_at", "preview_key", "created_at", "body_draft_updated_at", "updated_at", "id", "incident_id", "body_draft"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident postmortem.", json_schema_extra={"examples": ["pm_abc123def456"]})
+    incident_id: Optional[StrictStr] = Field(default=None, description="The unique identifier of the incident this postmortem belongs to.", json_schema_extra={"examples": ["inc_xyz789"]})
+    preview_key: Optional[StrictStr] = Field(default=None, description="A unique key that allows public access to preview the postmortem before it's published.", json_schema_extra={"examples": ["preview_abc123"]})
+    body: Optional[StrictStr] = Field(default=None, description="The published content of the postmortem in Markdown format.", json_schema_extra={"examples": ["## Summary\nOn January 15th, we experienced a 2-hour outage affecting our API services..."]})
+    body_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the published postmortem body was last updated.", json_schema_extra={"examples": ["2024-01-16T10:00:00Z"]})
+    body_draft: Optional[StrictStr] = Field(default=None, description="The draft content of the postmortem that hasn't been published yet.", json_schema_extra={"examples": ["## Summary (DRAFT)\nWe experienced an outage... [work in progress]"]})
+    body_draft_updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the draft postmortem body was last updated.", json_schema_extra={"examples": ["2024-01-16T09:30:00Z"]})
+    published_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was published and made publicly available.", json_schema_extra={"examples": ["2024-01-16T12:00:00Z"]})
+    notify_subscribers: Optional[StrictBool] = Field(default=None, description="Whether to notify subscribers when the postmortem is published.", json_schema_extra={"examples": [True]})
+    created_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was created.", json_schema_extra={"examples": ["2024-01-15T16:00:00Z"]})
+    updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the postmortem was last updated.", json_schema_extra={"examples": ["2024-01-16T12:00:00Z"]})
+    __properties: ClassVar[List[str]] = ["id", "incident_id", "preview_key", "body", "body_updated_at", "body_draft", "body_draft_updated_at", "published_at", "notify_subscribers", "created_at", "updated_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,8 +56,7 @@ class IncidentPostmortem(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -77,10 +78,10 @@ class IncidentPostmortem(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "created_at",
-            "updated_at",
             "id",
             "incident_id",
+            "created_at",
+            "updated_at",
         ])
 
         _dict = self.model_dump(
@@ -100,17 +101,17 @@ class IncidentPostmortem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "notify_subscribers": obj.get("notify_subscribers"),
-            "body_updated_at": obj.get("body_updated_at"),
-            "body": obj.get("body"),
-            "published_at": obj.get("published_at"),
-            "preview_key": obj.get("preview_key"),
-            "created_at": obj.get("created_at"),
-            "body_draft_updated_at": obj.get("body_draft_updated_at"),
-            "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
             "incident_id": obj.get("incident_id"),
-            "body_draft": obj.get("body_draft")
+            "preview_key": obj.get("preview_key"),
+            "body": obj.get("body"),
+            "body_updated_at": obj.get("body_updated_at"),
+            "body_draft": obj.get("body_draft"),
+            "body_draft_updated_at": obj.get("body_draft_updated_at"),
+            "published_at": obj.get("published_at"),
+            "notify_subscribers": obj.get("notify_subscribers"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at")
         })
         return _obj
 

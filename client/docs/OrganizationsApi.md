@@ -5,9 +5,9 @@ All URIs are relative to *https://api.pingera.ru*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v1_organizations_get**](OrganizationsApi.md#v1_organizations_get) | **GET** /v1/organizations | Get user organization
-[**v1_organizations_org_id_get**](OrganizationsApi.md#v1_organizations_org_id_get) | **GET** /v1/organizations/{org_id} | 
-[**v1_organizations_org_id_patch**](OrganizationsApi.md#v1_organizations_org_id_patch) | **PATCH** /v1/organizations/{org_id} | 
-[**v1_organizations_org_id_put**](OrganizationsApi.md#v1_organizations_org_id_put) | **PUT** /v1/organizations/{org_id} | 
+[**v1_organizations_org_id_get**](OrganizationsApi.md#v1_organizations_org_id_get) | **GET** /v1/organizations/{org_id} | Get organization
+[**v1_organizations_org_id_patch**](OrganizationsApi.md#v1_organizations_org_id_patch) | **PATCH** /v1/organizations/{org_id} | Update organization
+[**v1_organizations_org_id_put**](OrganizationsApi.md#v1_organizations_org_id_put) | **PUT** /v1/organizations/{org_id} | Update organization
 [**v1_organizations_org_id_subscriptions_get**](OrganizationsApi.md#v1_organizations_org_id_subscriptions_get) | **GET** /v1/organizations/{org_id}/subscriptions | Get subscription history
 [**v1_plans_get**](OrganizationsApi.md#v1_plans_get) | **GET** /v1/plans | Get available plans
 
@@ -95,14 +95,20 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_organizations_org_id_get**
-> Error v1_organizations_org_id_get(org_id)
+> Organization v1_organizations_org_id_get(org_id)
+
+Get organization
+
+Get the current user organization. Requires an admin or billing role.
 
 ### Example
 
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.organization import Organization
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -112,6 +118,21 @@ configuration = pingera.Configuration(
     host = "https://api.pingera.ru"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -120,6 +141,7 @@ with pingera.ApiClient(configuration) as api_client:
     org_id = 'org_id_example' # str | 
 
     try:
+        # Get organization
         api_response = api_instance.v1_organizations_org_id_get(org_id)
         print("The response of OrganizationsApi->v1_organizations_org_id_get:\n")
         pprint(api_response)
@@ -138,11 +160,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Error**](Error.md)
+[**Organization**](Organization.md)
 
 ### Authorization
 
-No authorization required
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -153,19 +175,27 @@ No authorization required
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | The organization |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_organizations_org_id_patch**
-> Error v1_organizations_org_id_patch(org_id)
+> Organization v1_organizations_org_id_patch(org_id, organization_update)
+
+Update organization
+
+Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
 ### Example
 
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.organization import Organization
+from pingera.models.organization_update import OrganizationUpdate
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -175,15 +205,32 @@ configuration = pingera.Configuration(
     host = "https://api.pingera.ru"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.OrganizationsApi(api_client)
     org_id = 'org_id_example' # str | 
+    organization_update = pingera.OrganizationUpdate() # OrganizationUpdate | 
 
     try:
-        api_response = api_instance.v1_organizations_org_id_patch(org_id)
+        # Update organization
+        api_response = api_instance.v1_organizations_org_id_patch(org_id, organization_update)
         print("The response of OrganizationsApi->v1_organizations_org_id_patch:\n")
         pprint(api_response)
     except Exception as e:
@@ -198,37 +245,46 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **org_id** | **str**|  | 
+ **organization_update** | [**OrganizationUpdate**](OrganizationUpdate.md)|  | 
 
 ### Return type
 
-[**Error**](Error.md)
+[**Organization**](Organization.md)
 
 ### Authorization
 
-No authorization required
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | The updated organization |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_organizations_org_id_put**
-> Error v1_organizations_org_id_put(org_id)
+> Organization v1_organizations_org_id_put(org_id, organization_update)
+
+Update organization
+
+Update the current user organization. Billing users may only change auto_renew and invoice fields; other fields require the admin role.
 
 ### Example
 
+* Api Key Authentication (apiKeyAuth):
+* Bearer (JWT) Authentication (bearerAuth):
 
 ```python
 import pingera
-from pingera.models.error import Error
+from pingera.models.organization import Organization
+from pingera.models.organization_update import OrganizationUpdate
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -238,15 +294,32 @@ configuration = pingera.Configuration(
     host = "https://api.pingera.ru"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: apiKeyAuth
+configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = pingera.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.OrganizationsApi(api_client)
     org_id = 'org_id_example' # str | 
+    organization_update = pingera.OrganizationUpdate() # OrganizationUpdate | 
 
     try:
-        api_response = api_instance.v1_organizations_org_id_put(org_id)
+        # Update organization
+        api_response = api_instance.v1_organizations_org_id_put(org_id, organization_update)
         print("The response of OrganizationsApi->v1_organizations_org_id_put:\n")
         pprint(api_response)
     except Exception as e:
@@ -261,24 +334,26 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **org_id** | **str**|  | 
+ **organization_update** | [**OrganizationUpdate**](OrganizationUpdate.md)|  | 
 
 ### Return type
 
-[**Error**](Error.md)
+[**Organization**](Organization.md)
 
 ### Authorization
 
-No authorization required
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+**200** | The updated organization |  -  |
 **0** | Default error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Pingera API
 
@@ -12,6 +10,7 @@
     Do not edit the class manually.
 """  # noqa: E501
 
+
 import warnings
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -23,6 +22,8 @@ from typing_extensions import Annotated
 from pingera.models.alert import Alert
 from pingera.models.alert_channel import AlertChannel
 from pingera.models.alert_channel1 import AlertChannel1
+from pingera.models.alert_channel_test_request import AlertChannelTestRequest
+from pingera.models.alert_channel_test_result import AlertChannelTestResult
 from pingera.models.alert_list import AlertList
 from pingera.models.alert_notification import AlertNotification
 from pingera.models.alert_rule import AlertRule
@@ -106,6 +107,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -177,6 +179,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -248,6 +251,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -379,6 +383,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -449,6 +454,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -519,6 +525,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -650,6 +657,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -720,6 +728,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -790,6 +799,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -922,6 +932,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -993,6 +1004,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1064,6 +1076,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1196,6 +1209,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1267,6 +1281,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1338,6 +1353,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1469,6 +1485,7 @@ class AlertsApi:
             '422': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1539,6 +1556,7 @@ class AlertsApi:
             '422': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1609,6 +1627,7 @@ class AlertsApi:
             '422': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1746,6 +1765,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1822,6 +1842,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1898,6 +1919,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1988,6 +2010,286 @@ class AlertsApi:
 
 
     @validate_call
+    def v1_alerts_channels_channel_id_test_post(
+        self,
+        channel_id: Annotated[str, Field(min_length=1, strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AlertChannelTestResult:
+        """Send a test notification through a saved alert channel
+
+        Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+        :param channel_id: (required)
+        :type channel_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_alerts_channels_channel_id_test_post_serialize(
+            channel_id=channel_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AlertChannelTestResult",
+            '400': None,
+            '401': None,
+            '403': None,
+            '429': None,
+            '404': None,
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v1_alerts_channels_channel_id_test_post_with_http_info(
+        self,
+        channel_id: Annotated[str, Field(min_length=1, strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AlertChannelTestResult]:
+        """Send a test notification through a saved alert channel
+
+        Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+        :param channel_id: (required)
+        :type channel_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_alerts_channels_channel_id_test_post_serialize(
+            channel_id=channel_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AlertChannelTestResult",
+            '400': None,
+            '401': None,
+            '403': None,
+            '429': None,
+            '404': None,
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v1_alerts_channels_channel_id_test_post_without_preload_content(
+        self,
+        channel_id: Annotated[str, Field(min_length=1, strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Send a test notification through a saved alert channel
+
+        Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+        :param channel_id: (required)
+        :type channel_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_alerts_channels_channel_id_test_post_serialize(
+            channel_id=channel_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AlertChannelTestResult",
+            '400': None,
+            '401': None,
+            '403': None,
+            '429': None,
+            '404': None,
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v1_alerts_channels_channel_id_test_post_serialize(
+        self,
+        channel_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if channel_id is not None:
+            _path_params['channel_id'] = channel_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'apiKeyAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/alerts/channels/{channel_id}/test',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def v1_alerts_channels_get(
         self,
         _request_timeout: Union[
@@ -2040,6 +2342,7 @@ class AlertsApi:
             '200': "List[AlertChannel]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2105,6 +2408,7 @@ class AlertsApi:
             '200': "List[AlertChannel]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2170,6 +2474,7 @@ class AlertsApi:
             '200': "List[AlertChannel]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2299,6 +2604,7 @@ class AlertsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2370,6 +2676,7 @@ class AlertsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2441,6 +2748,7 @@ class AlertsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2512,6 +2820,299 @@ class AlertsApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v1/alerts/channels',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def v1_alerts_channels_test_post(
+        self,
+        alert_channel_test_request: AlertChannelTestRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AlertChannelTestResult:
+        """Send a test notification using an unsaved channel configuration
+
+        Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+        :param alert_channel_test_request: (required)
+        :type alert_channel_test_request: AlertChannelTestRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_alerts_channels_test_post_serialize(
+            alert_channel_test_request=alert_channel_test_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
+            '200': "AlertChannelTestResult",
+            '400': None,
+            '401': None,
+            '403': None,
+            '429': None,
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v1_alerts_channels_test_post_with_http_info(
+        self,
+        alert_channel_test_request: AlertChannelTestRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AlertChannelTestResult]:
+        """Send a test notification using an unsaved channel configuration
+
+        Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+        :param alert_channel_test_request: (required)
+        :type alert_channel_test_request: AlertChannelTestRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_alerts_channels_test_post_serialize(
+            alert_channel_test_request=alert_channel_test_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
+            '200': "AlertChannelTestResult",
+            '400': None,
+            '401': None,
+            '403': None,
+            '429': None,
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v1_alerts_channels_test_post_without_preload_content(
+        self,
+        alert_channel_test_request: AlertChannelTestRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Send a test notification using an unsaved channel configuration
+
+        Sends a test notification synchronously. Supported for email, webhook, telegram and max channels.
+
+        :param alert_channel_test_request: (required)
+        :type alert_channel_test_request: AlertChannelTestRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v1_alerts_channels_test_post_serialize(
+            alert_channel_test_request=alert_channel_test_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '422': "Error",
+            '200': "AlertChannelTestResult",
+            '400': None,
+            '401': None,
+            '403': None,
+            '429': None,
+            'default': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v1_alerts_channels_test_post_serialize(
+        self,
+        alert_channel_test_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if alert_channel_test_request is not None:
+            _body_params = alert_channel_test_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'apiKeyAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v1/alerts/channels/test',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2601,6 +3202,7 @@ class AlertsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2687,6 +3289,7 @@ class AlertsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2773,6 +3376,7 @@ class AlertsApi:
             '400': None,
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2921,6 +3525,7 @@ class AlertsApi:
             '200': "List[AlertRule]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2986,6 +3591,7 @@ class AlertsApi:
             '200': "List[AlertRule]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3051,6 +3657,7 @@ class AlertsApi:
             '200': "List[AlertRule]",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3181,6 +3788,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3253,6 +3861,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3325,6 +3934,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3469,6 +4079,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3539,6 +4150,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3609,6 +4221,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3740,6 +4353,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3810,6 +4424,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3880,6 +4495,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4017,6 +4633,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4093,6 +4710,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4169,6 +4787,7 @@ class AlertsApi:
             '401': None,
             '404': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4311,6 +4930,7 @@ class AlertsApi:
             '200': "AlertStats",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4376,6 +4996,7 @@ class AlertsApi:
             '200': "AlertStats",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4441,6 +5062,7 @@ class AlertsApi:
             '200': "AlertStats",
             '401': None,
             '500': None,
+            'default': "Error",
         }
         response_data = self.api_client.call_api(
             *_param,

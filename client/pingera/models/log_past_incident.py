@@ -24,16 +24,17 @@ from typing_extensions import Annotated
 from pingera.models.past_incident_update import PastIncidentUpdate
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class LogPastIncident(BaseModel):
     """
     LogPastIncident
     """ # noqa: E501
-    deliver_notifications: Optional[StrictBool] = Field(default=False, description="Whether to send notifications")
-    name: StrictStr = Field(description="The name of the incident")
-    impact: StrictStr = Field(description="The impact level of the incident")
+    name: StrictStr = Field(description="The name of the incident", json_schema_extra={"examples": ["Database Outage"]})
+    impact: StrictStr = Field(description="The impact level of the incident", json_schema_extra={"examples": ["major"]})
+    deliver_notifications: Optional[StrictBool] = Field(default=False, description="Whether to send notifications", json_schema_extra={"examples": [False]})
     incident_updates: Annotated[List[PastIncidentUpdate], Field(min_length=1)] = Field(description="Array of incident updates in chronological order")
-    __properties: ClassVar[List[str]] = ["deliver_notifications", "name", "impact", "incident_updates"]
+    __properties: ClassVar[List[str]] = ["name", "impact", "deliver_notifications", "incident_updates"]
 
     @field_validator('impact')
     def impact_validate_enum(cls, value):
@@ -43,7 +44,8 @@ class LogPastIncident(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -55,8 +57,7 @@ class LogPastIncident(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -85,8 +86,7 @@ class LogPastIncident(BaseModel):
         _items = []
         if self.incident_updates:
             for _item_incident_updates in self.incident_updates:
-                if _item_incident_updates:
-                    _items.append(_item_incident_updates.to_dict())
+                _items.append(_item_incident_updates.to_dict() if _item_incident_updates is not None else None)
             _dict['incident_updates'] = _items
         return _dict
 
@@ -100,9 +100,9 @@ class LogPastIncident(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else False,
             "name": obj.get("name"),
             "impact": obj.get("impact"),
+            "deliver_notifications": obj.get("deliver_notifications") if obj.get("deliver_notifications") is not None else False,
             "incident_updates": [PastIncidentUpdate.from_dict(_item) for _item in obj["incident_updates"]] if obj.get("incident_updates") is not None else None
         })
         return _obj

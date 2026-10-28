@@ -18,23 +18,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class Region(BaseModel):
     """
     Region
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the region.")
-    available_check_types: Optional[List[StrictStr]] = Field(default=None, description="List of check types available in this region.")
-    aliases: Optional[List[StrictStr]] = Field(default=None, description="Cloud-provider-style aliases for the region.")
-    display_name: Optional[StrictStr] = Field(default=None, description="The human-readable display name for the region.")
-    __properties: ClassVar[List[str]] = ["id", "available_check_types", "aliases", "display_name"]
+    id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the region.", json_schema_extra={"examples": ["EU, West"]})
+    display_name: Optional[StrictStr] = Field(default=None, description="The human-readable display name for the region.", json_schema_extra={"examples": ["Europe, West, Belgium"]})
+    aliases: Optional[List[StrictStr]] = Field(default=None, description="Cloud-provider-style aliases for the region.", json_schema_extra={"examples": [["eu-west1", "eu-bel"]]})
+    available_check_types: Optional[List[StrictStr]] = Field(default=None, description="List of check types available in this region.", json_schema_extra={"examples": [["api", "web", "tcp", "ssl", "synthetic", "multistep"]]})
+    paid_only: Optional[StrictBool] = Field(default=None, description="Whether this region is restricted to paid plans.", json_schema_extra={"examples": [False]})
+    private: Optional[StrictBool] = Field(default=None, description="Whether this is a private region dedicated to specific organizations.", json_schema_extra={"examples": [False]})
+    private_location: Optional[StrictBool] = Field(default=None, description="Whether this region is one of the organization's own private locations (self-hosted runners).", json_schema_extra={"examples": [False]})
+    __properties: ClassVar[List[str]] = ["id", "display_name", "aliases", "available_check_types", "paid_only", "private", "private_location"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -46,8 +51,7 @@ class Region(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -85,9 +89,12 @@ class Region(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "available_check_types": obj.get("available_check_types"),
+            "display_name": obj.get("display_name"),
             "aliases": obj.get("aliases"),
-            "display_name": obj.get("display_name")
+            "available_check_types": obj.get("available_check_types"),
+            "paid_only": obj.get("paid_only"),
+            "private": obj.get("private"),
+            "private_location": obj.get("private_location")
         })
         return _obj
 
