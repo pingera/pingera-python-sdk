@@ -172,11 +172,24 @@ day, so new endpoints, fields and enum values are noticed quickly.
 
 ### Releasing
 
-1. Regenerate the client and run the tests.
-2. Bump `version` in [pyproject.toml](pyproject.toml) (the only place it is defined), then run
-   `python generate_client.py` again so the generated code picks up the new version.
-3. Add an entry to [CHANGELOG.md](CHANGELOG.md).
-4. Build and upload: `python -m build && twine upload dist/*`.
+Releases are published to PyPI by the [Release workflow](.github/workflows/release.yml) when a
+`vX.Y.Z` tag is pushed:
+
+1. Bump `version` in [pyproject.toml](pyproject.toml) (the only place it is defined) and run
+   `python generate_client.py --spec openapi/openapi.json` so the generated code picks up the new
+   version (use `python generate_client.py` instead to also pull the latest API spec).
+2. Add a `## X.Y.Z` section to [CHANGELOG.md](CHANGELOG.md); it becomes the GitHub release notes.
+3. Merge to `main`, then tag the merge commit and push the tag:
+
+   ```bash
+   git switch main && git pull
+   git tag v1.2.0
+   git push origin v1.2.0
+   ```
+
+The workflow checks that the tag matches the package version, runs the tests, builds the package,
+publishes it to PyPI with [Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (no API
+tokens), and creates a GitHub release with the changelog section and the built files attached.
 
 ## License
 
