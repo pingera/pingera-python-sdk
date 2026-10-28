@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **last_checked_at** | **datetime** | The timestamp when the check was last executed in ISO format. | [optional] [readonly] 
 **created_at** | **datetime** | The timestamp when the monitor check was created in ISO format. | [optional] [readonly] 
 **updated_at** | **datetime** | The timestamp when the monitor check was last updated in ISO format. | [optional] [readonly] 
-**secrets** | [**List[CheckSecret]**](CheckSecret.md) | Secrets associated with this check for environment variable injection. | [optional] [readonly] 
+**secrets** | [**List[CheckSecret]**](CheckSecret.md) | Secrets injected into the check as environment variables. On create/update, each item needs secret_id and env_variable. | [optional] [default to []]
 **uptime_data** | **List[Dict[str, object]]** | Uptime data breakdown by hour (only included when include_uptime&#x3D;true) | [optional] [readonly] 
 **uptime_summary** | **Dict[str, object]** | Uptime summary statistics (only included when include_uptime&#x3D;true) | [optional] [readonly] 
 

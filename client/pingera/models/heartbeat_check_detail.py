@@ -116,6 +116,11 @@ class HeartbeatCheckDetail(BaseModel):
             for _item_recent_pings in self.recent_pings:
                 _items.append(_item_recent_pings.to_dict() if _item_recent_pings is not None else None)
             _dict['recent_pings'] = _items
+        # set to None if last_ping_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_ping_at is None and "last_ping_at" in self.model_fields_set:
+            _dict['last_ping_at'] = None
+
         return _dict
 
     @classmethod

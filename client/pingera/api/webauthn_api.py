@@ -17,6 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
+from typing import Optional
 from typing_extensions import Annotated
 from pingera.models.auth_begin_request import AuthBeginRequest
 from pingera.models.authentication_complete import AuthenticationComplete
@@ -50,7 +51,7 @@ class WebauthnApi:
     @validate_call
     def v1_auth_passkey_authenticate_begin_post(
         self,
-        auth_begin_request: AuthBeginRequest,
+        auth_begin_request: Optional[AuthBeginRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -68,7 +69,7 @@ class WebauthnApi:
 
         Begin passkey authentication. Supports both usernameless authentication (without user_id) and user-specific authentication (with user_id). Generates WebAuthn authentication options.
 
-        :param auth_begin_request: (required)
+        :param auth_begin_request:
         :type auth_begin_request: AuthBeginRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -120,7 +121,7 @@ class WebauthnApi:
     @validate_call
     def v1_auth_passkey_authenticate_begin_post_with_http_info(
         self,
-        auth_begin_request: AuthBeginRequest,
+        auth_begin_request: Optional[AuthBeginRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -138,7 +139,7 @@ class WebauthnApi:
 
         Begin passkey authentication. Supports both usernameless authentication (without user_id) and user-specific authentication (with user_id). Generates WebAuthn authentication options.
 
-        :param auth_begin_request: (required)
+        :param auth_begin_request:
         :type auth_begin_request: AuthBeginRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -190,7 +191,7 @@ class WebauthnApi:
     @validate_call
     def v1_auth_passkey_authenticate_begin_post_without_preload_content(
         self,
-        auth_begin_request: AuthBeginRequest,
+        auth_begin_request: Optional[AuthBeginRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -208,7 +209,7 @@ class WebauthnApi:
 
         Begin passkey authentication. Supports both usernameless authentication (without user_id) and user-specific authentication (with user_id). Generates WebAuthn authentication options.
 
-        :param auth_begin_request: (required)
+        :param auth_begin_request:
         :type auth_begin_request: AuthBeginRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -870,7 +871,8 @@ class WebauthnApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1175,7 +1177,8 @@ class WebauthnApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1431,7 +1434,8 @@ class WebauthnApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1687,7 +1691,8 @@ class WebauthnApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1977,7 +1982,8 @@ class WebauthnApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(

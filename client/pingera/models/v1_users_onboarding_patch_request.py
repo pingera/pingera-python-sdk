@@ -30,7 +30,7 @@ class V1UsersOnboardingPatchRequest(BaseModel):
     V1UsersOnboardingPatchRequest
     """ # noqa: E501
     onboarding_completed: Optional[StrictBool] = Field(default=None, description="Mark onboarding as completed")
-    onboarding_step: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Current onboarding step")
+    onboarding_step: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Current onboarding step; null clears it")
     __properties: ClassVar[List[str]] = ["onboarding_completed", "onboarding_step"]
 
     model_config = ConfigDict(
@@ -72,6 +72,11 @@ class V1UsersOnboardingPatchRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if onboarding_step (nullable) is None
+        # and model_fields_set contains the field
+        if self.onboarding_step is None and "onboarding_step" in self.model_fields_set:
+            _dict['onboarding_step'] = None
+
         return _dict
 
     @classmethod

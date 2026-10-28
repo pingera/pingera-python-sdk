@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **alert_id** | **str** | The identifier of the alert this notification belongs to. | [optional] [readonly] 
 **channel_id** | **str** | The identifier of the alert channel used for this notification. | [optional] [readonly] 
 **status** | **str** | The delivery status of the notification. | [optional] [readonly] 
-**notification_type** | **str** | The type of notification sent. | [optional] [readonly] 
+**notification_type** | **str** | The type of notification sent: &#39;alert&#39; when the alert fired, &#39;resolution&#39; when it resolved, &#39;test&#39; for test notifications. | [optional] [readonly] 
 **error_message** | **str** | Error message if the notification failed to send. Null if successful. | [optional] [readonly] 
 **retry_count** | **int** | The number of retry attempts for this notification. | [optional] [readonly] 
 **sent_at** | **datetime** | The timestamp when the notification was successfully sent in ISO format. Null if not sent. | [optional] [readonly] 

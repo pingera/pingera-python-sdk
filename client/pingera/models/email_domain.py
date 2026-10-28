@@ -34,7 +34,7 @@ class EmailDomain(BaseModel):
     email_domain: Optional[StrictStr] = None
     email_domain_verified: Optional[StrictBool] = None
     email_domain_status: Optional[StrictStr] = Field(default=None, description="Verification status, e.g. pending or confirmed")
-    dns_records: Optional[EmailDomainDnsRecords] = None
+    dns_records: Optional[EmailDomainDnsRecords] = Field(default=None, description="DNS records to publish; null until the domain is registered")
     __properties: ClassVar[List[str]] = ["notifications_from_email", "notifications_from_name", "email_domain", "email_domain_verified", "email_domain_status", "dns_records"]
 
     model_config = ConfigDict(
@@ -103,6 +103,11 @@ class EmailDomain(BaseModel):
         # and model_fields_set contains the field
         if self.email_domain_status is None and "email_domain_status" in self.model_fields_set:
             _dict['email_domain_status'] = None
+
+        # set to None if dns_records (nullable) is None
+        # and model_fields_set contains the field
+        if self.dns_records is None and "dns_records" in self.model_fields_set:
+            _dict['dns_records'] = None
 
         return _dict
 

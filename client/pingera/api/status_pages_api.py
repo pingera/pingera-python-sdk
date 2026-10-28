@@ -581,7 +581,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1106,7 +1107,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1371,7 +1373,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1636,7 +1639,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1901,7 +1905,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2178,7 +2183,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2479,7 +2485,8 @@ class StatusPagesApi:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        'application/json', 
+                        'multipart/form-data'
                     ]
                 )
             )
@@ -2489,7 +2496,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2790,7 +2798,8 @@ class StatusPagesApi:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json'
+                        'application/json', 
+                        'multipart/form-data'
                     ]
                 )
             )
@@ -2800,7 +2809,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3093,7 +3103,8 @@ class StatusPagesApi:
         # authentication setting
         _auth_settings: List[str] = [
             'apiKeyAuth', 
-            'bearerAuth'
+            'bearerAuth', 
+            'apiKeyHeader'
         ]
 
         return self.api_client.param_serialize(

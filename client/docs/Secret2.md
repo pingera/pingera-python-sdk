@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The unique identifier for the secret. | [optional] [readonly] 
 **secret_name** | **str** | A unique name for the secret within the organization. Max 100 characters. | [optional] 
-**secret_value** | **str** | The secret value. This will be encrypted in storage but returned in API responses. | [optional] 
+**secret_value** | **str** | The secret value. Required when creating a secret. Encrypted in storage; returned in API responses only to editors and admins. | [optional] 
 **created_at** | **datetime** | The timestamp when the secret was created in ISO format. | [optional] [readonly] 
 **updated_at** | **datetime** | The timestamp when the secret was last updated in ISO format. | [optional] [readonly] 
 **created_by** | **str** | The ID of the user who created the secret. | [optional] [readonly] 

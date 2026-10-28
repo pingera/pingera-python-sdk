@@ -54,6 +54,12 @@ Use an API token (recommended for scripts and integrations):
 configuration.api_key["apiKeyAuth"] = "your_api_token"
 ```
 
+The same token can be sent in the `X-API-KEY` header instead, if a proxy rewrites `Authorization`:
+
+```python
+configuration.api_key["apiKeyHeader"] = "your_api_token"
+```
+
 Or a JWT access token obtained by logging in:
 
 ```python

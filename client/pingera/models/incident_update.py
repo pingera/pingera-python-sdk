@@ -31,7 +31,7 @@ class IncidentUpdate(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the incident update.", json_schema_extra={"examples": ["upd_123456789"]})
     incident_id: Optional[StrictStr] = Field(default=None, description="The ID of the incident this update belongs to.", json_schema_extra={"examples": ["inc_123456789"]})
-    status: Optional[StrictStr] = Field(default=None, description="The status of the incident update.", json_schema_extra={"examples": ["investigating"]})
+    status: Optional[StrictStr] = Field(default=None, description="The status of the incident or maintenance at the time of this update.", json_schema_extra={"examples": ["investigating"]})
     body: Optional[StrictStr] = Field(default=None, description="The content of the incident update.", json_schema_extra={"examples": ["We have identified the root cause and are implementing a fix."]})
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was created.", json_schema_extra={"examples": ["2024-01-15T10:30:00Z"]})
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the incident update was last updated.", json_schema_extra={"examples": ["2024-01-15T10:30:00Z"]})
@@ -45,8 +45,8 @@ class IncidentUpdate(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['investigating', 'identified', 'monitoring', 'resolved']):
-            raise ValueError("must be one of enum values ('investigating', 'identified', 'monitoring', 'resolved')")
+        if value not in set(['investigating', 'identified', 'monitoring', 'resolved', 'scheduled', 'in_progress', 'verifying', 'completed']):
+            raise ValueError("must be one of enum values ('investigating', 'identified', 'monitoring', 'resolved', 'scheduled', 'in_progress', 'verifying', 'completed')")
         return value
 
     model_config = ConfigDict(
@@ -98,6 +98,11 @@ class IncidentUpdate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
         # set to None if components (nullable) is None
         # and model_fields_set contains the field
         if self.components is None and "components" in self.model_fields_set:

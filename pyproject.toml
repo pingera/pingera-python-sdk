@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pingera-sdk"
 # Single source of truth for the SDK version; generate_client.py passes it to the generator.
-version = "1.1.0"
+version = "1.2.0"
 description = "Official Python SDK for the Pingera monitoring and status page platform API"
 readme = "README.md"
 license = "MIT"

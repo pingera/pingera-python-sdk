@@ -22,6 +22,7 @@ List private locations
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -51,6 +52,12 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -77,7 +84,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -104,6 +111,7 @@ Fails with 409 while checks still use the location as a region.
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -131,6 +139,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -160,7 +174,7 @@ void (empty response body)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -185,6 +199,7 @@ Get a private location with its runners and tokens
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -213,6 +228,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -244,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -269,6 +290,7 @@ Update a private location
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -298,6 +320,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -331,7 +359,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -356,6 +384,7 @@ Create a runner token (returned once)
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -385,6 +414,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -418,7 +453,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -443,6 +478,7 @@ Revoke a runner token
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -470,6 +506,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -501,7 +543,7 @@ void (empty response body)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -528,6 +570,7 @@ Creates the location and its first runner token. The token value is only returne
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -557,6 +600,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -588,7 +637,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 

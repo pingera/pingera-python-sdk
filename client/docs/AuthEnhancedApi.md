@@ -169,6 +169,7 @@ Get user authentication preferences including preferred method, 2FA requirements
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -198,6 +199,12 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -224,7 +231,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -253,6 +260,7 @@ Update user authentication preferences. Allows users to set their preferred auth
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -282,6 +290,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -313,7 +327,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -344,6 +358,7 @@ Check user's authentication setup status. Returns information about configured a
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -373,6 +388,12 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -399,7 +420,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -428,6 +449,7 @@ Get authentication setup recommendations for user. Provides personalized suggest
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -457,6 +479,12 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -483,7 +511,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 

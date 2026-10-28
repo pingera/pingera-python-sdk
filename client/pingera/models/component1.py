@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -32,7 +32,7 @@ class Component1(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="Unique identifier for the component", json_schema_extra={"examples": ["comp123abc456"]})
     page_id: Optional[StrictStr] = Field(default=None, description="ID of the status page this component belongs to", json_schema_extra={"examples": ["page123def789"]})
-    group: Optional[StrictBool] = Field(default=False, description="Whether this component is a group container for other components", json_schema_extra={"examples": [False]})
+    group: Optional[StrictBool] = Field(default=None, description="Whether this component is a group container for other components", json_schema_extra={"examples": [False]})
     group_id: Optional[StrictStr] = Field(default=None, description="ID of the group this component belongs to (if any)", json_schema_extra={"examples": ["grp123abc456"]})
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="Display name of the component", json_schema_extra={"examples": ["API Server"]})
     description: Optional[StrictStr] = Field(default=None, description="Detailed description of the component", json_schema_extra={"examples": ["Main REST API server handling user requests"]})
@@ -40,7 +40,7 @@ class Component1(BaseModel):
     status: Optional[StrictStr] = Field(default=None, description="Current operational status of the component", json_schema_extra={"examples": ["operational"]})
     showcase: Optional[StrictBool] = Field(default=None, description="Whether to prominently display this component on the status page", json_schema_extra={"examples": [True]})
     only_show_if_degraded: Optional[StrictBool] = Field(default=None, description="Whether to show this component only when it's not operational", json_schema_extra={"examples": [False]})
-    start_date: Optional[datetime] = Field(default=None, description="Date when monitoring for this component started", json_schema_extra={"examples": ["2024-01-01T00:00:00Z"]})
+    start_date: Optional[date] = Field(default=None, description="Date when monitoring for this component started", json_schema_extra={"examples": ["2024-01-01"]})
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was created", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the component was last updated", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
     __properties: ClassVar[List[str]] = ["id", "page_id", "group", "group_id", "name", "description", "position", "status", "showcase", "only_show_if_degraded", "start_date", "created_at", "updated_at"]
@@ -102,6 +102,11 @@ class Component1(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if group (nullable) is None
+        # and model_fields_set contains the field
+        if self.group is None and "group" in self.model_fields_set:
+            _dict['group'] = None
+
         # set to None if group_id (nullable) is None
         # and model_fields_set contains the field
         if self.group_id is None and "group_id" in self.model_fields_set:
@@ -117,6 +122,21 @@ class Component1(BaseModel):
         if self.position is None and "position" in self.model_fields_set:
             _dict['position'] = None
 
+        # set to None if showcase (nullable) is None
+        # and model_fields_set contains the field
+        if self.showcase is None and "showcase" in self.model_fields_set:
+            _dict['showcase'] = None
+
+        # set to None if only_show_if_degraded (nullable) is None
+        # and model_fields_set contains the field
+        if self.only_show_if_degraded is None and "only_show_if_degraded" in self.model_fields_set:
+            _dict['only_show_if_degraded'] = None
+
+        # set to None if start_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.start_date is None and "start_date" in self.model_fields_set:
+            _dict['start_date'] = None
+
         return _dict
 
     @classmethod
@@ -131,7 +151,7 @@ class Component1(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "page_id": obj.get("page_id"),
-            "group": obj.get("group") if obj.get("group") is not None else False,
+            "group": obj.get("group"),
             "group_id": obj.get("group_id"),
             "name": obj.get("name"),
             "description": obj.get("description"),

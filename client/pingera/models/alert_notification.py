@@ -33,7 +33,7 @@ class AlertNotification(BaseModel):
     alert_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert this notification belongs to.", json_schema_extra={"examples": ["alert_def456ghi789"]})
     channel_id: Optional[StrictStr] = Field(default=None, description="The identifier of the alert channel used for this notification.", json_schema_extra={"examples": ["chn_ghi789jkl012"]})
     status: Optional[StrictStr] = Field(default=None, description="The delivery status of the notification.", json_schema_extra={"examples": ["sent"]})
-    notification_type: Optional[StrictStr] = Field(default=None, description="The type of notification sent.", json_schema_extra={"examples": ["alert_fired"]})
+    notification_type: Optional[StrictStr] = Field(default=None, description="The type of notification sent: 'alert' when the alert fired, 'resolution' when it resolved, 'test' for test notifications.", json_schema_extra={"examples": ["alert"]})
     error_message: Optional[StrictStr] = Field(default=None, description="Error message if the notification failed to send. Null if successful.", json_schema_extra={"examples": ["SMTP connection timeout"]})
     retry_count: Optional[StrictInt] = Field(default=None, description="The number of retry attempts for this notification.", json_schema_extra={"examples": [2]})
     sent_at: Optional[datetime] = Field(default=None, description="The timestamp when the notification was successfully sent in ISO format. Null if not sent.", json_schema_extra={"examples": ["2024-01-15T15:32:00Z"]})
@@ -48,8 +48,8 @@ class AlertNotification(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['pending', 'sent', 'failed', 'retrying']):
-            raise ValueError("must be one of enum values ('pending', 'sent', 'failed', 'retrying')")
+        if value not in set(['pending', 'sent', 'failed', 'cancelled']):
+            raise ValueError("must be one of enum values ('pending', 'sent', 'failed', 'cancelled')")
         return value
 
     @field_validator('notification_type')
@@ -58,8 +58,8 @@ class AlertNotification(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['alert_fired', 'alert_resolved', 'alert_acknowledged']):
-            raise ValueError("must be one of enum values ('alert_fired', 'alert_resolved', 'alert_acknowledged')")
+        if value not in set(['alert', 'resolution', 'test']):
+            raise ValueError("must be one of enum values ('alert', 'resolution', 'test')")
         return value
 
     @field_validator('channel_type')
@@ -68,8 +68,8 @@ class AlertNotification(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['email', 'webhook', 'statuspage', 'telegram', 'sms']):
-            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram', 'sms')")
+        if value not in set(['email', 'webhook', 'statuspage', 'telegram', 'sms', 'max']):
+            raise ValueError("must be one of enum values ('email', 'webhook', 'statuspage', 'telegram', 'sms', 'max')")
         return value
 
     model_config = ConfigDict(
@@ -133,6 +133,11 @@ class AlertNotification(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if channel_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.channel_id is None and "channel_id" in self.model_fields_set:
+            _dict['channel_id'] = None
+
         # set to None if error_message (nullable) is None
         # and model_fields_set contains the field
         if self.error_message is None and "error_message" in self.model_fields_set:

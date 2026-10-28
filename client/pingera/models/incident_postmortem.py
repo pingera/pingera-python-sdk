@@ -89,6 +89,31 @@ class IncidentPostmortem(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if preview_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.preview_key is None and "preview_key" in self.model_fields_set:
+            _dict['preview_key'] = None
+
+        # set to None if body (nullable) is None
+        # and model_fields_set contains the field
+        if self.body is None and "body" in self.model_fields_set:
+            _dict['body'] = None
+
+        # set to None if body_updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.body_updated_at is None and "body_updated_at" in self.model_fields_set:
+            _dict['body_updated_at'] = None
+
+        # set to None if body_draft_updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.body_draft_updated_at is None and "body_draft_updated_at" in self.model_fields_set:
+            _dict['body_draft_updated_at'] = None
+
+        # set to None if published_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.published_at is None and "published_at" in self.model_fields_set:
+            _dict['published_at'] = None
+
         return _dict
 
     @classmethod

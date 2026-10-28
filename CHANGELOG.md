@@ -3,6 +3,39 @@
 All notable changes to `pingera-sdk` are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
+## 1.2.0
+
+Regenerated from the Pingera API after the backend made its OpenAPI spec match the API's real
+responses (pingera/pingera-backend#96). Backward compatible with 1.1.0 except for the removal of the
+unused `CheckSecretInput` model.
+
+### Fixed
+
+- Responses that 1.1.0 failed to parse with a `ValidationError`:
+  - alert rules (`AlertRule.channel_ids` is now returned by the API),
+  - alert notifications (`notification_type`, `status` and `channel_type` enums now match the API),
+  - page passwords and users (`password` is no longer required in responses),
+  - secrets viewed by non-editors (`Secret1.secret_value` is optional).
+- Email domain responses no longer fail with `RecursionError`: `EmailDomainDnsRecords` is now a regular
+  model with `verification`, `dkim`, `spf` and `dmarc` fields instead of a broken union wrapper.
+- The update models `AlertRule1`, `AlertChannel1`, `MonitorCheck1` and `Component1` no longer have
+  default values, so updates only send the fields you set instead of resetting others (for example a
+  rule's `enabled`, `cooldown_period` and `auto_resolve`).
+- `MonitorCheck.secrets` can be set when creating or updating a check.
+- Fields the API can return as `null` are typed as optional, and `Error` matches the API's error body
+  (`code` is a string or an int, `message` a string or an object).
+
+### Added
+
+- Query parameters: `show_deleted` and `show_groups` on `v1_pages_page_id_components_get`,
+  `show_deleted` on `v1_pages_page_id_component_groups_get`, and `start`/`end` on component uptime
+  (`v1_pages_page_id_components_component_id_uptime_get`, `v1_pages_page_id_components_uptime_post`).
+- `apiKeyHeader` authentication: send the API token in the `X-API-KEY` header.
+
+### Removed
+
+- `CheckSecretInput`, which no operation used.
+
 ## 1.1.0
 
 Regenerated from the current Pingera API with OpenAPI Generator 7.26.0.

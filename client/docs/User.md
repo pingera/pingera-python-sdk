@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The unique identifier for the user account. | [optional] [readonly] 
 **email** | **str** | The user&#39;s email address. Must be a valid email format and unique. | 
-**password** | **str** | The user&#39;s password. Minimum 6 characters. Only used for input, never returned. | 
+**password** | **str** | The user&#39;s password. Minimum 6 characters, required on registration. Only used for input, never returned. | [optional] 
 **first_name** | **str** | The user&#39;s first name. Maximum 50 characters. | [optional] 
 **last_name** | **str** | The user&#39;s last name. Maximum 50 characters. | [optional] 
 **org_name** | **str** | Organization name for registration. Used when creating a new organization. Maximum 100 characters. | [optional] 

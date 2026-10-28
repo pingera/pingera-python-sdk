@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code** | **int** | Error code | [optional] 
-**status** | **str** | Error name | [optional] 
-**message** | **str** | Error message | [optional] 
-**errors** | **Dict[str, object]** | Errors | [optional] 
+**code** | **object** | Machine-readable error code (e.g. &#39;validation_error&#39;, &#39;resource_not_found&#39;), or the HTTP status code for generic errors. | [optional] 
+**message** | **object** | Human-readable message. For validation errors this is an object with per-field messages, e.g. {\&quot;fields\&quot;: {\&quot;name\&quot;: [\&quot;Missing data\&quot;]}}. | [optional] 
+**status** | **str** | HTTP reason phrase (generic errors only). | [optional] 
+**errors** | **Dict[str, object]** | Additional error details (generic errors only). | [optional] 
 
 ## Example
 

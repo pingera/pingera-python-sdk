@@ -115,10 +115,35 @@ class CheckJob(BaseModel):
         if self.job_type is None and "job_type" in self.model_fields_set:
             _dict['job_type'] = None
 
+        # set to None if check_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_id is None and "check_id" in self.model_fields_set:
+            _dict['check_id'] = None
+
+        # set to None if check_parameters (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_parameters is None and "check_parameters" in self.model_fields_set:
+            _dict['check_parameters'] = None
+
         # set to None if result (nullable) is None
         # and model_fields_set contains the field
         if self.result is None and "result" in self.model_fields_set:
             _dict['result'] = None
+
+        # set to None if error_message (nullable) is None
+        # and model_fields_set contains the field
+        if self.error_message is None and "error_message" in self.model_fields_set:
+            _dict['error_message'] = None
+
+        # set to None if started_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.started_at is None and "started_at" in self.model_fields_set:
+            _dict['started_at'] = None
+
+        # set to None if completed_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.completed_at is None and "completed_at" in self.model_fields_set:
+            _dict['completed_at'] = None
 
         return _dict
 

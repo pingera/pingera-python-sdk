@@ -133,6 +133,11 @@ class UnifiedResult(BaseModel):
         if self.execution_group_id is None and "execution_group_id" in self.model_fields_set:
             _dict['execution_group_id'] = None
 
+        # set to None if region (nullable) is None
+        # and model_fields_set contains the field
+        if self.region is None and "region" in self.model_fields_set:
+            _dict['region'] = None
+
         # set to None if error_message (nullable) is None
         # and model_fields_set contains the field
         if self.error_message is None and "error_message" in self.model_fields_set:
@@ -147,6 +152,16 @@ class UnifiedResult(BaseModel):
         # and model_fields_set contains the field
         if self.triggered_alerts is None and "triggered_alerts" in self.model_fields_set:
             _dict['triggered_alerts'] = None
+
+        # set to None if check_server_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_server_id is None and "check_server_id" in self.model_fields_set:
+            _dict['check_server_id'] = None
+
+        # set to None if check_server (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_server is None and "check_server" in self.model_fields_set:
+            _dict['check_server'] = None
 
         return _dict
 

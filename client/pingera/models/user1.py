@@ -32,7 +32,7 @@ class User1(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the user account.", json_schema_extra={"examples": ["user_abc123def456"]})
     email: Optional[StrictStr] = Field(default=None, description="The user's email address. Must be a valid email format and unique.", json_schema_extra={"examples": ["user@example.com"]})
-    password: Optional[Annotated[str, Field(min_length=6, strict=True)]] = Field(default=None, description="The user's password. Minimum 6 characters. Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
+    password: Optional[Annotated[str, Field(min_length=6, strict=True)]] = Field(default=None, description="The user's password. Minimum 6 characters, required on registration. Only used for input, never returned.", json_schema_extra={"examples": ["securepassword123"]})
     first_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's first name. Maximum 50 characters.", json_schema_extra={"examples": ["John"]})
     last_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="The user's last name. Maximum 50 characters.", json_schema_extra={"examples": ["Doe"]})
     org_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Organization name for registration. Used when creating a new organization. Maximum 100 characters.", json_schema_extra={"examples": ["My Company"]})
@@ -117,6 +117,26 @@ class User1(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if first_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.first_name is None and "first_name" in self.model_fields_set:
+            _dict['first_name'] = None
+
+        # set to None if last_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_name is None and "last_name" in self.model_fields_set:
+            _dict['last_name'] = None
+
+        # set to None if onboarding_completed_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.onboarding_completed_at is None and "onboarding_completed_at" in self.model_fields_set:
+            _dict['onboarding_completed_at'] = None
+
+        # set to None if onboarding_step (nullable) is None
+        # and model_fields_set contains the field
+        if self.onboarding_step is None and "onboarding_step" in self.model_fields_set:
+            _dict['onboarding_step'] = None
+
         # set to None if verification_token_expires (nullable) is None
         # and model_fields_set contains the field
         if self.verification_token_expires is None and "verification_token_expires" in self.model_fields_set:

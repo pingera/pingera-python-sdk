@@ -32,7 +32,7 @@ class Secret2(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the secret.", json_schema_extra={"examples": ["sec123abc456"]})
     secret_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A unique name for the secret within the organization. Max 100 characters.", json_schema_extra={"examples": ["DATABASE_PASSWORD"]})
-    secret_value: Optional[StrictStr] = Field(default=None, description="The secret value. This will be encrypted in storage but returned in API responses.", json_schema_extra={"examples": ["my-secret-password-123"]})
+    secret_value: Optional[StrictStr] = Field(default=None, description="The secret value. Required when creating a secret. Encrypted in storage; returned in API responses only to editors and admins.", json_schema_extra={"examples": ["my-secret-password-123"]})
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the secret was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
     created_by: Optional[StrictStr] = Field(default=None, description="The ID of the user who created the secret.", json_schema_extra={"examples": ["usr123def456"]})

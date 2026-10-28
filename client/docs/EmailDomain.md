@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **email_domain** | **str** |  | [optional] 
 **email_domain_verified** | **bool** |  | [optional] 
 **email_domain_status** | **str** | Verification status, e.g. pending or confirmed | [optional] 
-**dns_records** | [**EmailDomainDnsRecords**](EmailDomainDnsRecords.md) |  | [optional] 
+**dns_records** | [**EmailDomainDnsRecords**](EmailDomainDnsRecords.md) | DNS records to publish; null until the domain is registered | [optional] 
 
 ## Example
 

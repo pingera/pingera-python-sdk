@@ -33,7 +33,7 @@ class AlertChannel1(BaseModel):
     id: Optional[StrictStr] = Field(default=None, description="The unique identifier for the alert channel.", json_schema_extra={"examples": ["chn_abc123def456"]})
     name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=100)]] = Field(default=None, description="A user-friendly name for the alert channel. Max 100 characters.", json_schema_extra={"examples": ["Production Email Alerts"]})
     type: Optional[StrictStr] = Field(default=None, description="The type of alert channel.", json_schema_extra={"examples": ["email"]})
-    enabled: Optional[StrictBool] = Field(default=True, description="Whether the alert channel is enabled. Defaults to true.", json_schema_extra={"examples": [True]})
+    enabled: Optional[StrictBool] = Field(default=None, description="Whether the alert channel is enabled. Defaults to true.", json_schema_extra={"examples": [True]})
     configuration: Optional[Dict[str, Any]] = Field(default=None, description="Channel-specific configuration. Structure varies by channel type.", json_schema_extra={"examples": [{"recipients": ["admin@example.com", "ops@example.com"]}]})
     created_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was created in ISO format.", json_schema_extra={"examples": ["2024-01-15T10:00:00Z"]})
     updated_at: Optional[datetime] = Field(default=None, description="The timestamp when the alert channel was last updated in ISO format.", json_schema_extra={"examples": ["2024-01-15T14:00:00Z"]})
@@ -117,7 +117,7 @@ class AlertChannel1(BaseModel):
             "id": obj.get("id"),
             "name": obj.get("name"),
             "type": obj.get("type"),
-            "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
+            "enabled": obj.get("enabled"),
             "configuration": obj.get("configuration"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),

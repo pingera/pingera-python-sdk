@@ -97,6 +97,7 @@ Delete a component group permanently and reset group membership for all componen
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -124,6 +125,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -155,7 +162,7 @@ void (empty response body)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -186,6 +193,7 @@ Get a specific component group by ID with detailed information
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -214,6 +222,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -247,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -278,6 +292,7 @@ Update a component group with new configuration (PATCH for partial updates, PUT 
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -306,6 +321,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -341,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -374,6 +395,7 @@ Update a component group with new configuration (PATCH for partial updates, PUT 
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -402,6 +424,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -437,7 +465,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -460,7 +488,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_page_id_component_groups_get**
-> List[Component] v1_pages_page_id_component_groups_get(page_id)
+> List[Component] v1_pages_page_id_component_groups_get(page_id, show_deleted=show_deleted)
 
 Get component groups
 
@@ -470,6 +498,7 @@ Get all component groups for a specific status page with optional filtering
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -499,15 +528,22 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.StatusPagesComponentsApi(api_client)
     page_id = 'page_id_example' # str | 
+    show_deleted = False # bool | Include soft-deleted components (default: false). (optional) (default to False)
 
     try:
         # Get component groups
-        api_response = api_instance.v1_pages_page_id_component_groups_get(page_id)
+        api_response = api_instance.v1_pages_page_id_component_groups_get(page_id, show_deleted=show_deleted)
         print("The response of StatusPagesComponentsApi->v1_pages_page_id_component_groups_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -522,6 +558,7 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page_id** | **str**|  | 
+ **show_deleted** | **bool**| Include soft-deleted components (default: false). | [optional] [default to False]
 
 ### Return type
 
@@ -529,7 +566,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -560,6 +597,7 @@ Create a new component group for organizing related components on a status page
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -588,6 +626,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -621,7 +665,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -654,6 +698,7 @@ Delete a component permanently or mark it as deleted (soft delete for regular co
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -681,6 +726,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -712,7 +763,7 @@ void (empty response body)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -743,6 +794,7 @@ Get a specific component by ID with detailed information
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -771,6 +823,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -804,7 +862,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -835,6 +893,7 @@ Update a component with new configuration (PATCH for partial updates, PUT for fu
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -864,6 +923,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -899,7 +964,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -932,6 +997,7 @@ Update a component with new configuration (PATCH for partial updates, PUT for fu
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -961,6 +1027,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -996,7 +1068,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -1019,7 +1091,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_page_id_components_component_id_uptime_get**
-> ComponentUptime v1_pages_page_id_components_component_id_uptime_get(page_id, component_id)
+> ComponentUptime v1_pages_page_id_components_component_id_uptime_get(page_id, component_id, start=start, end=end)
 
 Get component uptime
 
@@ -1029,6 +1101,7 @@ Get uptime data for a specific component with optional date range filtering
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -1058,16 +1131,24 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.StatusPagesComponentsApi(api_client)
     page_id = 'page_id_example' # str | 
     component_id = 'component_id_example' # str | 
+    start = 'start_example' # str | Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months. (optional)
+    end = 'end_example' # str | End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today. (optional)
 
     try:
         # Get component uptime
-        api_response = api_instance.v1_pages_page_id_components_component_id_uptime_get(page_id, component_id)
+        api_response = api_instance.v1_pages_page_id_components_component_id_uptime_get(page_id, component_id, start=start, end=end)
         print("The response of StatusPagesComponentsApi->v1_pages_page_id_components_component_id_uptime_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -1083,6 +1164,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page_id** | **str**|  | 
  **component_id** | **str**|  | 
+ **start** | **str**| Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months. | [optional] 
+ **end** | **str**| End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today. | [optional] 
 
 ### Return type
 
@@ -1090,7 +1173,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -1111,7 +1194,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_page_id_components_get**
-> List[Component] v1_pages_page_id_components_get(page_id)
+> List[Component] v1_pages_page_id_components_get(page_id, show_deleted=show_deleted, show_groups=show_groups)
 
 Get page components
 
@@ -1121,6 +1204,7 @@ Get all components for a specific status page with optional filtering
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -1150,15 +1234,23 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.StatusPagesComponentsApi(api_client)
     page_id = 'page_id_example' # str | 
+    show_deleted = False # bool | Include soft-deleted components (default: false). (optional) (default to False)
+    show_groups = True # bool | Include component groups in the list (default: true). (optional) (default to True)
 
     try:
         # Get page components
-        api_response = api_instance.v1_pages_page_id_components_get(page_id)
+        api_response = api_instance.v1_pages_page_id_components_get(page_id, show_deleted=show_deleted, show_groups=show_groups)
         print("The response of StatusPagesComponentsApi->v1_pages_page_id_components_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -1173,6 +1265,8 @@ with pingera.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page_id** | **str**|  | 
+ **show_deleted** | **bool**| Include soft-deleted components (default: false). | [optional] [default to False]
+ **show_groups** | **bool**| Include component groups in the list (default: true). | [optional] [default to True]
 
 ### Return type
 
@@ -1180,7 +1274,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -1211,6 +1305,7 @@ Create a new component for a specific status page
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -1239,6 +1334,12 @@ configuration.api_key['apiKeyAuth'] = os.environ["API_KEY"]
 configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
+
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
@@ -1272,7 +1373,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 
@@ -1295,7 +1396,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_pages_page_id_components_uptime_post**
-> List[ComponentUptime] v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request)
+> List[ComponentUptime] v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request, start=start, end=end)
 
 Get bulk component uptime
 
@@ -1305,6 +1406,7 @@ Get uptime data for multiple components in bulk with optional date range filteri
 
 * Api Key Authentication (apiKeyAuth):
 * Bearer (JWT) Authentication (bearerAuth):
+* Api Key Authentication (apiKeyHeader):
 
 ```python
 import pingera
@@ -1335,16 +1437,24 @@ configuration = pingera.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
+# Configure API key authorization: apiKeyHeader
+configuration.api_key['apiKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apiKeyHeader'] = 'Bearer'
+
 # Enter a context with an instance of the API client
 with pingera.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pingera.StatusPagesComponentsApi(api_client)
     page_id = 'page_id_example' # str | 
     component_uptime_bulk_request = pingera.ComponentUptimeBulkRequest() # ComponentUptimeBulkRequest | 
+    start = 'start_example' # str | Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months. (optional)
+    end = 'end_example' # str | End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today. (optional)
 
     try:
         # Get bulk component uptime
-        api_response = api_instance.v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request)
+        api_response = api_instance.v1_pages_page_id_components_uptime_post(page_id, component_uptime_bulk_request, start=start, end=end)
         print("The response of StatusPagesComponentsApi->v1_pages_page_id_components_uptime_post:\n")
         pprint(api_response)
     except Exception as e:
@@ -1360,6 +1470,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page_id** | **str**|  | 
  **component_uptime_bulk_request** | [**ComponentUptimeBulkRequest**](ComponentUptimeBulkRequest.md)|  | 
+ **start** | **str**| Start of the period: YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to 90 days before end; ranges are limited to about 6 months. | [optional] 
+ **end** | **str**| End of the period (inclusive): YYYY, YYYY-MM or YYYY-MM-DD (UTC). Defaults to today. | [optional] 
 
 ### Return type
 
@@ -1367,7 +1479,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+[apiKeyAuth](../README.md#apiKeyAuth), [bearerAuth](../README.md#bearerAuth), [apiKeyHeader](../README.md#apiKeyHeader)
 
 ### HTTP request headers
 

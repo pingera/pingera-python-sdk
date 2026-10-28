@@ -196,6 +196,11 @@ class Page1(BaseModel):
         if self.template is None and "template" in self.model_fields_set:
             _dict['template'] = None
 
+        # set to None if subdomain (nullable) is None
+        # and model_fields_set contains the field
+        if self.subdomain is None and "subdomain" in self.model_fields_set:
+            _dict['subdomain'] = None
+
         # set to None if domain (nullable) is None
         # and model_fields_set contains the field
         if self.domain is None and "domain" in self.model_fields_set:
@@ -255,6 +260,11 @@ class Page1(BaseModel):
         # and model_fields_set contains the field
         if self.notifications_from_name is None and "notifications_from_name" in self.model_fields_set:
             _dict['notifications_from_name'] = None
+
+        # set to None if email_domain (nullable) is None
+        # and model_fields_set contains the field
+        if self.email_domain is None and "email_domain" in self.model_fields_set:
+            _dict['email_domain'] = None
 
         # set to None if notifications_email_footer (nullable) is None
         # and model_fields_set contains the field
