@@ -3,7 +3,7 @@ import pytest
 
 import pingera
 from pingera.exceptions import ApiException, UnauthorizedException
-from pingera.models import OrganizationUpdate, PrivateLocationCreate
+from pingera.models import IncidentTemplate1, OrganizationUpdate, PrivateLocationCreate
 
 
 def test_api_key_and_user_agent_headers(client, transport, pyproject_version):
@@ -81,6 +81,30 @@ def test_list_query_parameters(client, transport):
     pingera.AuditApi(client).v1_audit_get(action="login", page=2, per_page=10)
 
     assert transport.last.url == "https://api.test/v1/audit?action=login&page=2&per_page=10"
+
+
+def test_incident_templates_list_filters_by_type(client, transport):
+    transport.respond(body=[{
+        "id": "tpl1", "page_id": "pg1", "type": "maintenance", "name": "DB upgrade", "title": "DB upgrade",
+        "body": "", "status": None, "components": {"c1": "under_maintenance"}, "duration_minutes": 90,
+    }])
+
+    templates = pingera.StatusPagesIncidentTemplatesApi(client).v1_pages_page_id_incident_templates_get(
+        "pg1", type="maintenance")
+
+    assert transport.last.url == "https://api.test/v1/pages/pg1/incident-templates?type=maintenance"
+    assert (templates[0].duration_minutes, templates[0].components) == (90, {"c1": "under_maintenance"})
+
+
+def test_incident_template_update_sends_only_set_fields_and_explicit_nulls(client, transport):
+    transport.respond(body={"id": "tpl1", "type": "incident", "name": "Renamed", "title": "API down"})
+
+    pingera.StatusPagesIncidentTemplatesApi(client).v1_pages_page_id_incident_templates_template_id_patch(
+        "pg1", "tpl1", IncidentTemplate1(name="Renamed", status=None))
+
+    assert (transport.last.method, transport.last.url) == (
+        "PATCH", "https://api.test/v1/pages/pg1/incident-templates/tpl1")
+    assert transport.last.body == {"name": "Renamed", "status": None}
 
 
 def test_unauthorized_raises_specific_exception(client, transport):

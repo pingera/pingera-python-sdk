@@ -85,6 +85,7 @@ path and HTTP method, e.g. `GET /v1/checks/{check_id}` is `ChecksApi.v1_checks_c
 | `StatusPagesApi` | Status pages, custom sender email domains |
 | `StatusPagesComponentsApi` | Status page components and their uptime |
 | `StatusPagesIncidentsApi` | Incidents, maintenance and postmortems |
+| `StatusPagesIncidentTemplatesApi` | Reusable incident and maintenance templates |
 | `PagePasswordsApi` | Password protection for status pages |
 | `ReportsApi` | PDF report generation |
 | `AuditApi` | Organization audit trail |

@@ -18,8 +18,9 @@ from typing_extensions import Annotated
 
 from datetime import datetime
 from pydantic import Field, StrictStr
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
+from pingera.models.alert_channel import AlertChannel
 from pingera.models.heartbeat_check import HeartbeatCheck
 from pingera.models.heartbeat_check1 import HeartbeatCheck1
 from pingera.models.heartbeat_check_channel_assignment import HeartbeatCheckChannelAssignment
@@ -344,7 +345,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> List[AlertChannel]:
         """Get alert channels assigned to heartbeat check
 
         Get alert channels assigned to heartbeat check
@@ -382,7 +383,7 @@ class HeartbeatsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "List[AlertChannel]",
             'default': "Error",
         }
         response_data = self.api_client.call_api(
@@ -412,7 +413,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[List[AlertChannel]]:
         """Get alert channels assigned to heartbeat check
 
         Get alert channels assigned to heartbeat check
@@ -450,7 +451,7 @@ class HeartbeatsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "List[AlertChannel]",
             'default': "Error",
         }
         response_data = self.api_client.call_api(
@@ -518,7 +519,7 @@ class HeartbeatsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "List[AlertChannel]",
             'default': "Error",
         }
         response_data = self.api_client.call_api(
@@ -611,7 +612,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> List[AlertChannel]:
         """Assign alert channels to heartbeat check
 
         Assign alert channels to heartbeat check
@@ -653,7 +654,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '201': "object",
+            '201': "List[AlertChannel]",
             'default': "Error",
         }
         response_data = self.api_client.call_api(
@@ -684,7 +685,7 @@ class HeartbeatsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[List[AlertChannel]]:
         """Assign alert channels to heartbeat check
 
         Assign alert channels to heartbeat check
@@ -726,7 +727,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '201': "object",
+            '201': "List[AlertChannel]",
             'default': "Error",
         }
         response_data = self.api_client.call_api(
@@ -799,7 +800,7 @@ class HeartbeatsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '422': "Error",
-            '201': "object",
+            '201': "List[AlertChannel]",
             'default': "Error",
         }
         response_data = self.api_client.call_api(

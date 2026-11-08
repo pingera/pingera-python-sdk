@@ -79,6 +79,8 @@ from pingera.models.heartbeat_ping_response import HeartbeatPingResponse
 from pingera.models.incident import Incident
 from pingera.models.incident_create import IncidentCreate
 from pingera.models.incident_postmortem import IncidentPostmortem
+from pingera.models.incident_template import IncidentTemplate
+from pingera.models.incident_template1 import IncidentTemplate1
 from pingera.models.incident_update import IncidentUpdate
 from pingera.models.incident_update_create import IncidentUpdateCreate
 from pingera.models.incident_update_edit import IncidentUpdateEdit
