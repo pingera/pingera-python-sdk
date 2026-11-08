@@ -3,6 +3,22 @@
 All notable changes to `pingera-sdk` are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
+## 1.3.0
+
+### Added
+
+- `StatusPagesIncidentTemplatesApi` for page-scoped incident and maintenance templates
+  (`/v1/pages/{page_id}/incident-templates`): list (optionally filtered by `type`), create, get,
+  update and delete. Templates store a title, message, optional incident `status`, pre-selected
+  `components` and, for maintenance, `duration_minutes`.
+- Models `IncidentTemplate` (create/response) and `IncidentTemplate1` (partial update; only the fields you
+  set are sent, and `status`, `components` and `duration_minutes` can be cleared by setting them to `None`).
+
+### Fixed
+
+- `HeartbeatsApi.v1_heartbeats_check_id_channels_get` and `..._post` now return `List[AlertChannel]`
+  instead of an untyped object.
+
 ## 1.2.0
 
 Regenerated from the Pingera API after the backend made its OpenAPI spec match the API's real

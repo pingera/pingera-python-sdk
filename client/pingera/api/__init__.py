@@ -17,6 +17,7 @@ from pingera.api.reports_api import ReportsApi
 from pingera.api.secrets_api import SecretsApi
 from pingera.api.status_pages_api import StatusPagesApi
 from pingera.api.status_pages_components_api import StatusPagesComponentsApi
+from pingera.api.status_pages_incident_templates_api import StatusPagesIncidentTemplatesApi
 from pingera.api.status_pages_incidents_api import StatusPagesIncidentsApi
 from pingera.api.users_api import UsersApi
 from pingera.api.auth_enhanced_api import AuthEnhancedApi

@@ -112,7 +112,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_heartbeats_check_id_channels_get**
-> object v1_heartbeats_check_id_channels_get(check_id)
+> List[AlertChannel] v1_heartbeats_check_id_channels_get(check_id)
 
 Get alert channels assigned to heartbeat check
 
@@ -126,6 +126,7 @@ Get alert channels assigned to heartbeat check
 
 ```python
 import pingera
+from pingera.models.alert_channel import AlertChannel
 from pingera.rest import ApiException
 from pprint import pprint
 
@@ -183,7 +184,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**List[AlertChannel]**](AlertChannel.md)
 
 ### Authorization
 
@@ -204,7 +205,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1_heartbeats_check_id_channels_post**
-> object v1_heartbeats_check_id_channels_post(check_id, heartbeat_check_channel_assignment)
+> List[AlertChannel] v1_heartbeats_check_id_channels_post(check_id, heartbeat_check_channel_assignment)
 
 Assign alert channels to heartbeat check
 
@@ -218,6 +219,7 @@ Assign alert channels to heartbeat check
 
 ```python
 import pingera
+from pingera.models.alert_channel import AlertChannel
 from pingera.models.heartbeat_check_channel_assignment import HeartbeatCheckChannelAssignment
 from pingera.rest import ApiException
 from pprint import pprint
@@ -278,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**List[AlertChannel]**](AlertChannel.md)
 
 ### Authorization
 

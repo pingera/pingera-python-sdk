@@ -3743,6 +3743,209 @@
           }
         }
       },
+      "IncidentTemplate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true,
+            "description": "Unique identifier of the template.",
+            "example": "tpl123abc456"
+          },
+          "page_id": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The status page the template belongs to.",
+            "example": "page123abc45"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "incident",
+              "maintenance"
+            ],
+            "description": "Whether the template is used for incidents or scheduled maintenance.",
+            "example": "incident"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Internal label shown in the template picker. Not visible on the status page.",
+            "example": "Database outage - investigating"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Pre-fills the incident or maintenance title.",
+            "example": "Database connectivity issues"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 20000,
+            "description": "Pre-fills the update message. Defaults to an empty string.",
+            "example": "We are investigating elevated error rates. Next update in 30 minutes."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "investigating",
+              "identified",
+              "monitoring",
+              "resolved",
+              null
+            ],
+            "description": "Incident status to apply. Only for incident templates; always null for maintenance templates.",
+            "example": "investigating",
+            "nullable": true
+          },
+          "components": {
+            "type": "object",
+            "description": "Components to pre-select, mapped to the status they should be set to. For maintenance templates the status is always under_maintenance.",
+            "example": {
+              "comp_123": "major_outage"
+            },
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "operational",
+                "under_maintenance",
+                "degraded_performance",
+                "partial_outage",
+                "major_outage"
+              ]
+            },
+            "nullable": true
+          },
+          "duration_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 43200,
+            "description": "Default maintenance window length in minutes. Only for maintenance templates.",
+            "example": 120,
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "When the template was created (UTC).",
+            "example": "2026-01-15T10:30:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "When the template was last updated (UTC).",
+            "example": "2026-01-15T10:30:00"
+          }
+        },
+        "required": [
+          "name",
+          "title",
+          "type"
+        ]
+      },
+      "IncidentTemplate1": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true,
+            "description": "Unique identifier of the template.",
+            "example": "tpl123abc456"
+          },
+          "page_id": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The status page the template belongs to.",
+            "example": "page123abc45"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "incident",
+              "maintenance"
+            ],
+            "description": "Whether the template is used for incidents or scheduled maintenance.",
+            "example": "incident"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Internal label shown in the template picker. Not visible on the status page.",
+            "example": "Database outage - investigating"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Pre-fills the incident or maintenance title.",
+            "example": "Database connectivity issues"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 20000,
+            "description": "Pre-fills the update message. Defaults to an empty string.",
+            "example": "We are investigating elevated error rates. Next update in 30 minutes."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "investigating",
+              "identified",
+              "monitoring",
+              "resolved",
+              null
+            ],
+            "description": "Incident status to apply. Only for incident templates; always null for maintenance templates.",
+            "example": "investigating",
+            "nullable": true
+          },
+          "components": {
+            "type": "object",
+            "description": "Components to pre-select, mapped to the status they should be set to. For maintenance templates the status is always under_maintenance.",
+            "example": {
+              "comp_123": "major_outage"
+            },
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "operational",
+                "under_maintenance",
+                "degraded_performance",
+                "partial_outage",
+                "major_outage"
+              ]
+            },
+            "nullable": true
+          },
+          "duration_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 43200,
+            "description": "Default maintenance window length in minutes. Only for maintenance templates.",
+            "example": 120,
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "When the template was created (UTC).",
+            "example": "2026-01-15T10:30:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "When the template was last updated (UTC).",
+            "example": "2026-01-15T10:30:00"
+          }
+        }
+      },
       "UsagePlan": {
         "type": "object",
         "properties": {
@@ -12985,6 +13188,317 @@
         }
       ]
     },
+    "/v1/pages/{page_id}/incident-templates": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "description": "Only return templates of this type.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "incident",
+                "maintenance"
+              ]
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "422": {
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IncidentTemplate"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/DEFAULT_ERROR"
+          }
+        },
+        "summary": "List incident templates",
+        "tags": [
+          "Status pages - Incident templates"
+        ],
+        "description": "List incident and maintenance templates for a status page, ordered by name.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "page_id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ],
+      "post": {
+        "responses": {
+          "422": {
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentTemplate"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/DEFAULT_ERROR"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentTemplate"
+              }
+            }
+          }
+        },
+        "summary": "Create an incident template",
+        "tags": [
+          "Status pages - Incident templates"
+        ],
+        "description": "Create an incident or maintenance template. A page can have at most 50 templates.",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the status page.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/pages/{page_id}/incident-templates/{template_id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentTemplate"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/DEFAULT_ERROR"
+          }
+        },
+        "summary": "Get an incident template",
+        "tags": [
+          "Status pages - Incident templates"
+        ],
+        "description": "Get a single incident or maintenance template.",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the status page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "template_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the template.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "page_id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        {
+          "in": "path",
+          "name": "template_id",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ],
+      "patch": {
+        "responses": {
+          "422": {
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentTemplate"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/DEFAULT_ERROR"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentTemplate1"
+              }
+            }
+          }
+        },
+        "summary": "Update an incident template",
+        "tags": [
+          "Status pages - Incident templates"
+        ],
+        "description": "Update fields of an incident or maintenance template. Omitted fields are left unchanged.",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the status page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "template_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the template.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "default": {
+            "$ref": "#/components/responses/DEFAULT_ERROR"
+          }
+        },
+        "summary": "Delete an incident template",
+        "tags": [
+          "Status pages - Incident templates"
+        ],
+        "description": "Delete an incident or maintenance template. Incidents created from it are not affected.",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the status page.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "template_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the template.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apiKeyAuth": []
+          },
+          {
+            "apiKeyHeader": []
+          }
+        ]
+      }
+    },
     "/v1/usage": {
       "get": {
         "responses": {
@@ -15626,7 +16140,17 @@
       "get": {
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlertChannel"
+                  }
+                }
+              }
+            }
           },
           "default": {
             "$ref": "#/components/responses/DEFAULT_ERROR"
@@ -15677,7 +16201,17 @@
             "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
           },
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlertChannel"
+                  }
+                }
+              }
+            }
           },
           "default": {
             "$ref": "#/components/responses/DEFAULT_ERROR"
@@ -19241,6 +19775,10 @@
     {
       "name": "Status pages - Incidents",
       "description": "Incident management operations for status pages"
+    },
+    {
+      "name": "Status pages - Incident templates",
+      "description": "Reusable templates that pre-fill incident and maintenance forms"
     },
     {
       "name": "usage",

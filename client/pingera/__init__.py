@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 # Define package exports
 __all__ = [
@@ -35,6 +35,7 @@ __all__ = [
     "SecretsApi",
     "StatusPagesApi",
     "StatusPagesComponentsApi",
+    "StatusPagesIncidentTemplatesApi",
     "StatusPagesIncidentsApi",
     "UsersApi",
     "AuthEnhancedApi",
@@ -115,6 +116,8 @@ __all__ = [
     "Incident",
     "IncidentCreate",
     "IncidentPostmortem",
+    "IncidentTemplate",
+    "IncidentTemplate1",
     "IncidentUpdate",
     "IncidentUpdateCreate",
     "IncidentUpdateEdit",
@@ -225,6 +228,7 @@ from pingera.api.reports_api import ReportsApi as ReportsApi
 from pingera.api.secrets_api import SecretsApi as SecretsApi
 from pingera.api.status_pages_api import StatusPagesApi as StatusPagesApi
 from pingera.api.status_pages_components_api import StatusPagesComponentsApi as StatusPagesComponentsApi
+from pingera.api.status_pages_incident_templates_api import StatusPagesIncidentTemplatesApi as StatusPagesIncidentTemplatesApi
 from pingera.api.status_pages_incidents_api import StatusPagesIncidentsApi as StatusPagesIncidentsApi
 from pingera.api.users_api import UsersApi as UsersApi
 from pingera.api.auth_enhanced_api import AuthEnhancedApi as AuthEnhancedApi
@@ -309,6 +313,8 @@ from pingera.models.heartbeat_ping_response import HeartbeatPingResponse as Hear
 from pingera.models.incident import Incident as Incident
 from pingera.models.incident_create import IncidentCreate as IncidentCreate
 from pingera.models.incident_postmortem import IncidentPostmortem as IncidentPostmortem
+from pingera.models.incident_template import IncidentTemplate as IncidentTemplate
+from pingera.models.incident_template1 import IncidentTemplate1 as IncidentTemplate1
 from pingera.models.incident_update import IncidentUpdate as IncidentUpdate
 from pingera.models.incident_update_create import IncidentUpdateCreate as IncidentUpdateCreate
 from pingera.models.incident_update_edit import IncidentUpdateEdit as IncidentUpdateEdit
